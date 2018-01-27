@@ -1,0 +1,38 @@
+extends ../node_modules/pug-bootstrap/_bootstrap
+
+append head
+append body
+    block nav
+        +navbar("Node demo","dropdown_menu", "inverse")
+            if nav === "index"
+                +nav_item("/", "active") Home
+            else
+                +nav_item("/") Home
+            if nav === "about"
+                +nav_item("/about", "active") About
+            else
+                +nav_item("/about") About
+            if nav === "chat"
+                +nav_item("/chat", "active") Chat
+            else
+                +nav_item("/chat") Chat
+            if nav === "sign-in" || nav === "sign-out" || nav === "register" || nav === "edit-account"
+                +nav_item_dropdown("#", "active")(label="Account")
+                    +nav_item("sign-in") Sign in
+                    +nav_item("sign-out") Sign out
+                    +nav_item("register") Register
+                    +nav_divider
+                    +nav_header Preferences
+                    +nav_item("edit-account") Edit account
+            else
+                +nav_item_dropdown("#")(label="Account")
+                    +nav_item("sign-in") Sign in
+                    +nav_item("sign-out") Sign out
+                    +nav_item("register") Register
+                    +nav_divider
+                    +nav_header Preferences
+                    +nav_item("edit-account") Edit account
+    block content
+    block footer
+    .footer.navbar-fixed-bottom.text-center
+        p @Copyright 2018 Nick Steger
