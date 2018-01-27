@@ -2,3 +2,15 @@ extends layout
 
 block content
     h3 TODO --- Chat application using socket.io and Node.js
+
+    +input("text","txtName","Name","Name")
+    .container.text-center
+        form.form-horizontal(action='#', method='post')
+            .form-group
+                input.form-control(type='text', name='message', value='')
+                input.btn.btn-primary(type='submit', value='Send')
+
+    form(action='')
+        input(autocomplete='off')
+        button Send
+
