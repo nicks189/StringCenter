@@ -6,11 +6,8 @@ block content
     +input("text","txtName","Name","Name")
     .container.text-center
         form.form-horizontal(action='#', method='post')
+            label() Message
             .form-group
                 input.form-control(type='text', name='message', value='')
+            .form-group
                 input.btn.btn-primary(type='submit', value='Send')
-
-    form(action='')
-        input(autocomplete='off')
-        button Send
-
