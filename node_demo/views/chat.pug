@@ -1,13 +1,31 @@
 extends layout
 
 block content
-    h3 TODO --- Chat application using socket.io and Node.js
-
-    +input("text","txtName","Name","Name")
     .container.text-center
-        form.form-horizontal(action='#', method='post')
-            label() Message
+        h2 Welcome to the chat
+        br
+        ul#messages
+        br
+        form(action='')
             .form-group
-                input.form-control(type='text', name='message', value='')
+                label() Message:
+                textarea#m.form-control(rows='5')
             .form-group
                 input.btn.btn-primary(type='submit', value='Send')
+    script(src='/socket.io/socket.io.js')
+    script(src='https://code.jquery.com/jquery-1.11.1.js')
+    script.
+        $(function () {
+            var socket = io();
+            $('form').submit(function () {
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+            socket.on('chat message', function (msg) {
+                $('#messages').append($('<li>').text(msg));
+            });
+        });
+
+
+
