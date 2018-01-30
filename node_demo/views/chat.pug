@@ -21,9 +21,11 @@ append scripts
             var socket = io.connect('http://localhost:3000');
             $('form').submit(function () {
                 socket.emit('message', $('#m').val());
+                // Reset #m to empty string
                 $('#m').val('');
                 return false;
             });
+            // Create new message div when socket receives a message
             socket.on('message', function (message) {
                 $('#messages').prepend(`<h4>Anonymous</h4> <p>${message}</p>`);
             });
