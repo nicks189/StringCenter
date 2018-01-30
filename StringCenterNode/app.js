@@ -9,7 +9,6 @@ var app = express();
 
 var index = require('./routes/index');
 var about = require('./routes/about');
-var chat = require('./routes/chat');
 var signIn = require('./routes/signIn');
 var signOut = require('./routes/signOut');
 var register = require('./routes/register');
@@ -28,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/about', about);
-app.use('/chat', chat);
 app.use('/sign-in', signIn);
 app.use('/sign-out', signOut);
 app.use('/register', register);
