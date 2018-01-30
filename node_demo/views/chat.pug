@@ -8,7 +8,7 @@ block content
             form(action='')
                 .form-group
                     label() Message:
-                    textarea#message.form-control(rows='5', placeholder='Say hello...')
+                    textarea#m.form-control(rows='5', placeholder='Say hello...')
                 .form-group
                     input.btn.btn-primary(type='submit', value='Send')
         #messages
@@ -20,12 +20,12 @@ append scripts
         $(function () {
             var socket = io.connect('http://localhost:3000');
             $('form').submit(function () {
-                socket.emit('chat message', $('#message').val());
-                $('#message').val('');
+                socket.emit('message', $('#m').val());
+                $('#m').val('');
                 return false;
             });
-            socket.on('chat message', function (msg) {
-                $('#messages').prepend(`<h4>Anonymous</h4> <p>${msg}</p>`);
+            socket.on('message', function (message) {
+                $('#messages').prepend(`<h4>Anonymous</h4> <p>${message}</p>`);
             });
 
         });
