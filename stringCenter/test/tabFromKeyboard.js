@@ -1,6 +1,7 @@
 var readlineSync = require('readline-sync');
 var tab = require('../middleware/tab.js');
 enterInformation();
+
 /*var MongoClient = require('mongodb').MongoClient;
 
 MongoClient.connect("mongodb://localhost:27017/tabdb", function(err, database){
