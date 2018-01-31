@@ -60,5 +60,8 @@ typings/
 # next.js build output
 .next
 
-#IntelliJ IDEA
+# IntelliJ IDEA
 .idea/
+
+# Database files
+db.js
