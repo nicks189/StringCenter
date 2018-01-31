@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
     res.render('register', { title: 'Register', nav: 'register' });
 });
 
+router.post('/', function(req, res, next) {
+
+});
+
 module.exports = router;
