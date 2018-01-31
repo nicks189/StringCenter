@@ -12,10 +12,6 @@ append body
                 +nav_item("/about", "active") About
             else
                 +nav_item("/about") About
-            if nav === "chat"
-                +nav_item("/chat", "active") Chat
-            else
-                +nav_item("/chat") Chat
             if nav === "sign-in" || nav === "sign-out" || nav === "register" || nav === "edit-account"
                 +nav_item_dropdown("#", "active")(label="Account")
                     +nav_item("sign-in") Sign in
