@@ -15,17 +15,18 @@ module.exports = function(passport) {
         });
     });
 
+    // Need to set strategy as passReqToCallback so we can access req object
     passport.use('signIn', new LocalStrategy({ passReqToCallback : true },
-        function(req, username, password, done) {
+        function(req, username, password, callback) {
             User.findOne({ 'username' :  username}, function(error, user) {
                 if (error) {
-                    return done(error);
+                    return callback(error);
                 } else {
                     if (user && User.comparePasswords(user.password, password)) {
                         // Username and password match
-                        return done(null, user);
+                        return callback(null, user);
                     } else {
-                        return done(null, false, req.flash('errorMessage', 'Invalid credentials'));
+                        return callback(null, false, req.flash('errorMessage', 'Invalid username or password'));
                     }
                 }
             });
