@@ -27,19 +27,9 @@ var UserSchema = mongoose.Schema({
     }
 });
 
-UserSchema.statics.authenticate = function(user, func) {
-    User.findOne({ username: user.username})
-        .exec(function(error, matchedUser) {
-            if (error) {
-                return func(error, null);
-            } else {
-                if (matchedUser !== null && user.password === matchedUser.password) {
-                    return func(null, matchedUser);
-                } else {
-                    return func(new Error('Invalid credentials').status(401), null);
-                }
-            }
-        });
+UserSchema.statics.comparePasswords = function(matchedPassword, password) {
+    // return bcrypt.compareSync(matchedPassword, password);
+    return matchedPassword === password;
 };
 
 var User = mongoose.model('User', UserSchema);
