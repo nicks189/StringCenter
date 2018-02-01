@@ -36,11 +36,8 @@ Tab.prototype.displayTab = function(){
   for(var i = 0; i < this.getMeasureCount(); i++){
     console.log("Measure " + i + ": " + this.measures[i].info);
     for(var j = 0; j < this.getStringCount(); j++){
-<<<<<<< HEAD
       var instStringToBePrinted = this.measures[i].strings[j].tuning;
-=======
       var instStringToBePrinted = this.measures[i].strings[j].tuning + " ";
->>>>>>> e7ff19ee845a186546317f14f1e627b390968570
       for(var k = 0; k < this.getNoteCountPerString(); k++){
         instStringToBePrinted += this.measures[i].strings[j].notes[k];
       }
