@@ -1,9 +1,12 @@
 var express = require('express');
-var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Node demo', nav: 'index' });
-});
+module.exports = function(passport) {
+    var router = express.Router();
 
-module.exports = router;
+    /* GET home page. */
+    router.get('/', function(req, res, next) {
+        res.render('index', { title: 'Node demo', nav: 'index' });
+    });
+
+    return router;
+};

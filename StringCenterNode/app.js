@@ -3,33 +3,51 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var db = require('./db');
+var cookieParser = require('cookie-parser');
+var db = require('./db/db');
 var mongoose = require('mongoose');
-
-mongoose.connect(db.url);
+var passport = require('passport');
+var expressSession = require('express-session');
+var flash = require('connect-flash');
 
 var app = express();
 
-var index = require('./routes/index');
-var about = require('./routes/about');
-var signIn = require('./routes/signIn');
-var signOut = require('./routes/signOut');
-var register = require('./routes/register');
-var editAccount = require('./routes/editAccount');
+var index = require('./routes/index')(passport);
+var about = require('./routes/about')(passport);
+var signIn = require('./routes/signIn')(passport);
+var signOut = require('./routes/signOut')(passport);
+var register = require('./routes/register')(passport);
+var editAccount = require('./routes/editAccount')(passport);
+
+// connect to database
+mongoose.connect(db.url);
+
+// passport setup for authentication and session
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressSession({
+    secret: 'top-secret',
+    resave: true,
+    saveUninitialized: true
+}));
+var userAuth = require('./passport/userAuth');
+userAuth(passport);
+
+// flash messaging setup
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// body parser setup
+// body parser setup for parsing post requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
 app.use('/', index);
 app.use('/about', about);
