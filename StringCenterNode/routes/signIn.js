@@ -6,7 +6,7 @@ module.exports = function(passport) {
 
     /* GET sign in page. */
     router.get('/', function(req, res, next) {
-        res.render('sign-in', { title: 'Sign in', nav: 'sign-in' });
+        res.render('sign-in', { title: 'Sign in', nav: 'sign-in', errorMessage: req.flash('errorMessage') });
     });
 
     /*
