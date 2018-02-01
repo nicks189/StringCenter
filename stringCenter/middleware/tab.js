@@ -19,7 +19,6 @@ function InstString(tuning, noteCount){
 
 
 Tab.prototype.initTab = function(info, stringCount, tuning, noteCount){
-  //var tuning = ["E", "A", "D", "G"];
   this.addMeasure(info, stringCount, tuning, noteCount);
 }
 
@@ -37,12 +36,13 @@ Tab.prototype.displayTab = function(){
   for(var i = 0; i < this.getMeasureCount(); i++){
     console.log("Measure " + i + ": " + this.measures[i].info);
     for(var j = 0; j < this.getStringCount(); j++){
-      var stringToBePrinted = this.measures[i].strings[j].tuning + "  ";
+      var instStringToBePrinted = this.measures[i].strings[j].tuning;
       for(var k = 0; k < this.getNoteCountPerString(); k++){
-        stringToBePrinted += this.measures[i].strings[j].notes[k];
+        instStringToBePrinted += this.measures[i].strings[j].notes[k];
       }
-      console.log(stringToBePrinted);
+      console.log(instStringToBePrinted);
     }
+    console.log("");
   }
 }
 
