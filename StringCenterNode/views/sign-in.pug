@@ -14,3 +14,5 @@ block content
                     input#password.form-control(type='password', name='password')
                 .form-group
                     input.btn.btn-success(type='submit', value='Sign up')
+            if error
+                .text-center.error-message #error
