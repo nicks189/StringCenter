@@ -34,6 +34,40 @@ db.connect('mongodb://localhost:27017/tabdb', function(err) {
 
 
 
+/*var MongoClient = require('mongodb').MongoClient;
+
+MongoClient.connect("mongodb://localhost:27017/tabdb", function(err, database){
+console.log(tab);
+
+  if(err) throw err;
+  console.log("connected to tabdb");
+  database = database.db('tabdb');
+  database.collection('test', function(err, collection){
+
+    collection.insert(tab);
+
+    database.collection('test').count(function(err, count){
+      if(err) throw err;
+      console.log('Rows: ' + count);
+    });
+  });
+});
+
+var db = require('../test/db.js');
+db.connect('mongodb://localhost:27017/tabdb', function(err) {
+  console.log("xx");
+  if (err) {
+    console.log('Unable to connect to Mongo.')
+    process.exit(1)
+  } else {
+      console.log("connected to tabdb");
+      enterInformation();
+  }
+});
+//var tabInserter = require('../test/tabCollectionMongoDB.js');
+*/
+
+
 function enterInformation(){
   console.log("Enter tab info, string count, tuning, and note count per measure (seperated by commas).");
   console.log( "Example: 'Tab info,4,EADG,16' (no spaces between arguments)");
@@ -60,7 +94,11 @@ function printNoteCount(noteCount){
 
 function enterMeasure(){
   for(var i = 0; i < tab.getStringCount(); i++){
+<<<<<<< HEAD
     process.stdout.write(tab.getTuning()[i]);
+=======
+    process.stdout.write(tab.getTuning()[(tab.getTuning().length - 1) - i]);
+>>>>>>> e7ff19ee845a186546317f14f1e627b390968570
     var input = readlineSync.question();
     if(input.length == tab.getNoteCountPerString()){
       inputCharArray = input.split('');
@@ -90,6 +128,10 @@ function enterMeasure(){
     } else if(input == "n"){
       console.log("");
       tab.displayTab();
+<<<<<<< HEAD
+=======
+	  /*
+>>>>>>> e7ff19ee845a186546317f14f1e627b390968570
       var tabdb = db.get().db('tabdb');
       console.log(tabdb);
       tabdb.collection('test', function(err, collection){
@@ -101,8 +143,14 @@ function enterMeasure(){
           console.log('Rows: ' + count);
         });
       });
+<<<<<<< HEAD
       console.log("--------Done--------");
       //process.exit()
+=======
+	  */
+      console.log("--------Done--------");
+      process.exit()
+>>>>>>> e7ff19ee845a186546317f14f1e627b390968570
     } else{
       console.log("invalid input, enter again");
     }

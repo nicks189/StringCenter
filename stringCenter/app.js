@@ -6,11 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 //mongodbStuff
+<<<<<<< HEAD
 /*
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/mongodbStuff');
 */
+=======
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/mongodbStuff');
+
+>>>>>>> e7ff19ee845a186546317f14f1e627b390968570
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -30,12 +37,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //making mongodbStuff accessible to app
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> e7ff19ee845a186546317f14f1e627b390968570
 app.use(function(req, res, next){
   req.db = db;
   next();
 });
+<<<<<<< HEAD
 */
+=======
+>>>>>>> e7ff19ee845a186546317f14f1e627b390968570
 
 app.use('/', index);
 app.use('/users', users);
