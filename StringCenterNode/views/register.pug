@@ -5,6 +5,8 @@ block content
         .jumbotron
             h2 Register
             br
+            if errorMessage && errorMessage.length > 0
+                .text-center.alert.alert-danger #{errorMessage}
             form(action='register', method='post')
                 .form-group
                     label() First name
