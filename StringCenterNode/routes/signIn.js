@@ -1,11 +1,13 @@
 var express = require('express');
-var User = require('../models/user');
 
 module.exports = function(passport) {
     var router = express.Router();
 
     /* GET sign in page. */
     router.get('/', function(req, res, next) {
+        if (req.isAuthenticated()) {
+            res.redirect('/');
+        }
         res.render('sign-in', { title: 'Sign in', nav: 'sign-in', errorMessage: req.flash('errorMessage') });
     });
 

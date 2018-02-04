@@ -5,7 +5,8 @@ module.exports = function(passport) {
 
     /* GET sign out page. */
     router.get('/', function(req, res, next) {
-        res.render('sign-out', { title: 'Sign out', nav: 'sign-out' });
+        req.logout();
+        res.redirect('/');
     });
 
     return router;
