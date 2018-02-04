@@ -6,16 +6,25 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-//get mongodbStuff (test db), not working yet as there is no client side
-router.get('/tablist', function(req, res){
-  var db = req.db;
-  var collection = db.get('tabs');
-  collection.find({}, {}, function(e, docs){
-    res.render('tablist', {
-      "tablist" : docs
-    });
-  });
+router.get('/tabCreate', function(req, res, next){
+  //tabCreate(req);
+  console.log("request for tabCreate");
 });
 
+function tabCreate(tab){
+  //TabFromKeyboard.enterInformation();
+  console.log(tab);
+  var tabDetail = {tab: tab};
+  var tabModel = new Tab(tabDetail);
+  tabModel.save(function(err){
+    if(err){
+      console.log("ERROR" + err);
+      cb(err, null);
+    } else{
+      console.log(tab);
+      cb(null, tab);
+    }
+  })
+}
 
 module.exports = router;

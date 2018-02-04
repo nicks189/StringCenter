@@ -5,22 +5,24 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//mongodbStuff
-<<<<<<< HEAD
-/*
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/mongodbStuff');
-*/
-=======
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/mongodbStuff');
+var mongoose = require('mongoose');
+var mongoDB = "mongodb://127.0.0.1:27017/test";
 
->>>>>>> e7ff19ee845a186546317f14f1e627b390968570
+/* TODO start connection to MongoDB
+use throughout app such as in routes
+//mongo connection*/
+mongoose.connect(mongoDB, function(){
+  console.log("connected to: " + mongoDB);
+});
+console.log("afterconnect");
+mongoose.Promise = global.Promise;
+this.db = mongoose.connection;
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var dbroutes = require('./routes/dbroutes');
 
 var app = express();
 
@@ -36,22 +38,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//making mongodbStuff accessible to app
-<<<<<<< HEAD
-/*
-=======
->>>>>>> e7ff19ee845a186546317f14f1e627b390968570
-app.use(function(req, res, next){
-  req.db = db;
-  next();
-});
-<<<<<<< HEAD
-*/
-=======
->>>>>>> e7ff19ee845a186546317f14f1e627b390968570
+
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/storeTest', dbroutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -70,5 +61,16 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+/*
+//added to expand routes
+var router = express.Router(app);
+
+// Error Handling
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+});
+*/
+
 
 module.exports = app;
