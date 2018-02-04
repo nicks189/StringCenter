@@ -1,13 +1,15 @@
+// ./db/db is gitignored
+var db = require('./db/db');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var db = require('./db/db');
-var mongoose = require('mongoose');
-var passport = require('passport');
 var expressSession = require('express-session');
+var MongoStore = require('connect-mongo')(expressSession);
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var mongoose = require('mongoose');
 var flash = require('connect-flash');
 
 var app = express();
@@ -22,14 +24,19 @@ var editAccount = require('./routes/editAccount')(passport);
 // connect to database
 mongoose.connect(db.url);
 
-// passport setup for authentication and session
-app.use(passport.initialize());
-app.use(passport.session());
+// passport and session setup
 app.use(expressSession({
     secret: 'top-secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+    })
 }));
+app.use(cookieParser('top-secret'));
+app.use(passport.initialize());
+app.use(passport.session());
+
 var userAuth = require('./passport/userAuth');
 userAuth(passport);
 
@@ -47,7 +54,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
 
 app.use('/', index);
 app.use('/about', about);
