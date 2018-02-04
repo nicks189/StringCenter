@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'dart:convert';
+
 import 'tab.dart';
 
+
 void main() {
-  Tabb t = new Tabb('hello');
-  t.printTabb();
-  t.addMeasure('First Measure', 4, 10);
+  Tabb s = new Tabb("first tab");
+  String encodedTab = JSON.encode(s);
+  print(encodedTab);
+  Tabb decodedTab = new Tabb.fromJson(encodedTab);
+  print(decodedTab);
+
+
 }
 
 class _StringCenterState extends State<StringCenter> {
@@ -14,6 +21,9 @@ class _StringCenterState extends State<StringCenter> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Hello World"),
+        ),
         body: new Container(
           alignment: Alignment.bottomCenter,
           child: new RaisedButton(onPressed: null),
