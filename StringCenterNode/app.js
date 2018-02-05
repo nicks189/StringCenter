@@ -14,13 +14,19 @@ var flash = require('connect-flash');
 
 var app = express();
 
-var index = require('./routes/index')(passport);
-var about = require('./routes/about')(passport);
-var signIn = require('./routes/signIn')(passport);
-var signOut = require('./routes/signOut')(passport);
-var register = require('./routes/register')(passport);
-var editAccount = require('./routes/editAccount')(passport);
-var users = require('./routes/users')(passport);
+// demo routes
+var index = require('./routes/demo/index')(passport);
+var about = require('./routes/demo/about')(passport);
+var signIn = require('./routes/demo/signIn')(passport);
+var signOut = require('./routes/demo/signOut')(passport);
+var register = require('./routes/demo/register')(passport);
+var editAccount = require('./routes/demo/editAccount')(passport);
+
+// api routes
+var getUser = require('./routes/api/getUser')(passport);
+var apiSignIn = require('./routes/api/signIn')(passport);
+var apiSignOut = require('./routes/api/signOut')(passport);
+var apiRegister= require('./routes/api/register')(passport);
 
 // connect to database
 mongoose.connect(db.url);
@@ -56,13 +62,19 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// demo routes
 app.use('/', index);
 app.use('/about', about);
 app.use('/sign-in', signIn);
 app.use('/sign-out', signOut);
 app.use('/register', register);
 app.use('/edit-account', editAccount);
-app.use('/users', users);
+
+// api routes
+app.use('/api/get-user', getUser);
+app.use('/api/sign-in', apiSignIn);
+app.use('/api/sign-out', apiSignOut);
+app.use('/api/register', apiRegister);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
