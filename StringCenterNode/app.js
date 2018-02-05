@@ -38,7 +38,7 @@ app.use(cookieParser('top-secret'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var userAuth = require('./passport/userAuth');
+var userAuth = require('./auth/userAuth');
 userAuth(passport);
 
 // flash messaging setup
