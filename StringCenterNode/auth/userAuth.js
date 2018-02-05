@@ -1,23 +1,28 @@
-var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+
+/*
+ * Using passports local strategy authentication
+ */
+var LocalStrategy = require('passport-local').Strategy;
 
 
 module.exports = function(passport) {
     // Needs serialization for storing sessions
-    passport.serializeUser(function(user, done) {
-        done(null, user._id);
+    passport.serializeUser(function(user, callback) {
+        callback(null, user._id);
     });
 
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
+    passport.deserializeUser(function(id, callback) {
+        User.findById(id, function(error, user) {
+            callback(error, user);
         });
     });
 
     /*
-     * Local authentication strategy for the user authentication. Can update this
-     * for REST api. Need to set strategy as passReqToCallback so we can access req
-     * object for flash message.
+     * Local authentication strategy for the user authentication.
+     * Need to set strategy as passReqToCallback so we can access req
+     * object for flash message and req body fields.
+     * TODO: update for REST API
      */
     passport.use('signIn', new LocalStrategy({ passReqToCallback : true },
         function(req, username, password, callback) {
@@ -38,6 +43,9 @@ module.exports = function(passport) {
         })
     );
 
+    /*
+     * TODO: update for REST API
+     */
     passport.use('register', new LocalStrategy({ passReqToCallback : true },
         function(req, username, password, callback) {
             User.findOne({ 'username' :  username}, function(error, user) {
