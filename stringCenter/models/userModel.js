@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Tab = require('../models/tabModel.js');
+
 
 var UserSchema = new Schema({
   username: {type: String, required: true, index: {unique: true}},
-  password: {type: String, required: true},
-  tabs: [Tab.schema]
+  firstName: {type: String},
+  password: {type: String, required: true}
 });
 
 

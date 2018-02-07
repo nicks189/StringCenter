@@ -10,8 +10,8 @@ function con(tabCreate, testCreate, userCreate, tab){
   mongoose.connect(dbname, function(){
     console.log("connected to: " + dbname);
     //testCreate("matt",69);
-    //tabCreate(tab);
-    userCreate("mbechtel", "6969", {tab: {info: "blah", measure:"derp"}});
+    tabCreate(tab, "mbechtel69");
+    //userCreate("mbechtel", "6969", {tab: {info: "blah", measure:"derp"}});
   });
 
   console.log("afterconnect");
@@ -36,10 +36,11 @@ function testCreate(name, id){
 }
 
 
-function tabCreate(tab){
+function tabCreate(tab, username){
   //TabFromKeyboard.enterInformation();
   console.log(tab);
-  var tabDetail = {tab: tab};
+  var tabDetail = {author_username: username, tab: tab};
+  console.log(tabDetail);
   var tabModel = new Tab(tabDetail);
   tabModel.save(function(err){
     if(err){
@@ -54,27 +55,22 @@ function tabCreate(tab){
 
 
 function userCreate(username, password, tabToStore){
-  var userDetail = {username: username + Math.trunc(Math.random() * 100), password: password};
+  var userDetail = {username: username + "69", password: password};
+  //Math.trunc(Math.random() * 100)
   var user = new User(userDetail);
   try{
-    user.tabs.push(tabToStore);
+    var tabDetail = {author_id : user._id, author_username : user.username, tab: tabToStore};
+    user.tabs.push(tabDetail);
   } catch(e){
     console.log(e);
   }
   user.save(function(err){
+    console.log(user.username);
+    console.log(user._id);
     if(err){
+      console.log("ERRRRRRRR");
       console.log(err);
     } else{
-      var tab = new Tab({
-        author: user._id,
-        tab: tabToStore
-      });
-
-
-      tab.save(function(err){
-        if(err) console.log(err);
-        console.log(tab);
-      })
       console.log(user);
       cb(null, user);
     }
