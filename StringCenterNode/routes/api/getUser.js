@@ -10,7 +10,7 @@ module.exports = function(passport) {
     router.get('/:username', function(req, res, next) {
         User.findOne({ 'username': req.params.username}, function(error, user) {
             if (error) {
-                res.send(error);
+                res.json({ error: 'Sign in failed' }).status(500);
             } else if (!user) {
                 res.json({ error: 'Username not found'}).status(400);
             } else {
