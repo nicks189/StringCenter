@@ -11,7 +11,7 @@ function con(tabCreate, testCreate, userCreate, tab){
     console.log("connected to: " + dbname);
     //testCreate("matt",69);
     //tabCreate(tab);
-    userCreate("mbechtel", "6969");
+    userCreate("mbechtel", "6969", {tab: {info: "blah", measure:"derp"}});
   });
 
   console.log("afterconnect");
@@ -53,13 +53,28 @@ function tabCreate(tab){
 }
 
 
-function userCreate(username, password){
-  var userDetail = {username: username, password: password};
+function userCreate(username, password, tabToStore){
+  var userDetail = {username: username + Math.trunc(Math.random() * 100), password: password};
   var user = new User(userDetail);
+  try{
+    user.tabs.push(tabToStore);
+  } catch(e){
+    console.log(e);
+  }
   user.save(function(err){
     if(err){
       console.log(err);
     } else{
+      var tab = new Tab({
+        author: user._id,
+        tab: tabToStore
+      });
+
+
+      tab.save(function(err){
+        if(err) console.log(err);
+        console.log(tab);
+      })
       console.log(user);
       cb(null, user);
     }
