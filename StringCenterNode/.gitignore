@@ -1,5 +1,5 @@
 ##################################################################
-# Found online at:                                               #
+# Found outline online at:                                       #
 # https://github.com/github/gitignore/blob/master/Node.gitignore #
 ##################################################################
 
@@ -68,5 +68,6 @@ typings/
 # IntelliJ IDEA
 .idea/
 
-# Database files
+# Config files
 db/db.js
+config/config.js
