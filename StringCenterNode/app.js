@@ -1,5 +1,6 @@
-// ./db/db is gitignored
-var db = require('./db/db');
+// this file is gitignored so make it has to be added
+var config = require('./config/config');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -27,13 +28,14 @@ var getUser = require('./routes/api/getUser')(passport);
 var apiSignIn = require('./routes/api/signIn')(passport);
 var apiSignOut = require('./routes/api/signOut')(passport);
 var apiRegister= require('./routes/api/register')(passport);
+var updateUser = require('./routes/api/updateUser')(passport);
 
 // connect to database
-mongoose.connect(db.url);
+mongoose.connect(config.db.url);
 
 // passport and session setup
 app.use(expressSession({
-    secret: 'top-secret',
+    secret: config.session.key,
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
@@ -54,7 +56,7 @@ app.use(flash());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// body parser setup for parsing post requests
+// body parser setup for parsing requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -75,6 +77,7 @@ app.use('/api/get-user', getUser);
 app.use('/api/sign-in', apiSignIn);
 app.use('/api/sign-out', apiSignOut);
 app.use('/api/register', apiRegister);
+app.use('/api/update-user', updateUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
