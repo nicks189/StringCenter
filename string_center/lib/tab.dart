@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 
 class Tabb{
   String _info;
@@ -44,7 +42,7 @@ class Tabb{
     for(Measure measure in _measures){
       print(measure.info);
       for(InstString string in measure.strings){
-        temp += string.tuning + ' ';
+        temp += " " + string.tuning;
         for(String note in string.notes){
           temp += note;
         }
