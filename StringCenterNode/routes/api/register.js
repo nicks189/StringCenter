@@ -12,6 +12,8 @@ module.exports = function(passport) {
             if (req.body.password !== req.body.confirmPassword) {
                 return res.json({ error: 'Passwords don\'t match' }).status(400);
             }
+            console.log(req.params);
+            console.log(req.body);
             var newUser = new User();
             newUser.username = req.body.username;
             newUser.password = req.body.password;
