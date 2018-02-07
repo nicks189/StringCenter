@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'log_in.dart';
-import 'home.dart';
-import 'settings.dart';
+
 void main() {
   runApp(new StringCenter());
 }
@@ -15,13 +13,16 @@ class _StringCenterState extends State<StringCenter> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Navigation',
+      title: 'StringCenter Home',
       routes: <String, WidgetBuilder> {
-        '/home':(BuildContext context) => new Home(),
-        '/settings':(BuildContext context) => new Settings(),
-        '/login':(BuildContext context) => new Login(),
+        //'home':(BuildContext context) => new Home(),
+
       },
-      home: new Login(),
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('StringCenter Home'),
+        ),
+      ),
     );
   }
 }
