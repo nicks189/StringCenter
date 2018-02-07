@@ -9,7 +9,7 @@ class _TabOptionsState extends State<TabOptions> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('New Tab'),
+        title: new Text('Tab Options'),
       ),
     );
   }

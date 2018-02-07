@@ -9,7 +9,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('HomeScreen'),
+        title: new Text('Home'),
       ),
     );
   }
