@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'home_screen.dart';
+import 'tab.dart';
+
 void main() {
   runApp(new StringCenter());
 }
@@ -13,16 +16,11 @@ class _StringCenterState extends State<StringCenter> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'StringCenter Home',
+      title: 'StringCenter',
       routes: <String, WidgetBuilder> {
-        //'home':(BuildContext context) => new Home(),
-
+        'home':(BuildContext context) => new HomeScreen(),
       },
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('StringCenter Home'),
-        ),
-      ),
+      home: new HomeScreen(),
     );
   }
 }
