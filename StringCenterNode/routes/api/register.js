@@ -8,12 +8,12 @@ module.exports = function(passport) {
      * TODO: configure passport to handle this; authentication
      */
     router.post('/', function(req, res, next) {
+        console.log(req.params);
+        console.log(req.body);
         if (req.body.username && req.body.password) {
             if (req.body.password !== req.body.confirmPassword) {
                 return res.json({ error: 'Passwords don\'t match' }).status(400);
             }
-            console.log(req.params);
-            console.log(req.body);
             var newUser = new User();
             newUser.username = req.body.username;
             newUser.password = req.body.password;
