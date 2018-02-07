@@ -22,7 +22,8 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var dbroutes = require('./routes/dbroutes');
+var testRoutes = require('./routes/testRoutes');
+var tabRoutes = require('./routes/tabRoutes');
 
 var app = express();
 
@@ -42,7 +43,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/storeTest', dbroutes);
+//dbroutes
+app.use('/listTest', testRoutes);
+app.use('/listTab', tabRoutes);;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
