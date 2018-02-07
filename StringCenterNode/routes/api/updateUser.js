@@ -8,13 +8,37 @@ module.exports = function(passport) {
      * TODO
      */
     router.post('/:username', function(req, res, next) {
-        if (req.body.password) {
-            User.findOne({'username': req.params.username}, function (error, user) {
+        console.log(req.body);
+        User.findOne({ 'username': req.params.username }, function (error, user) {
+            if (error) {
+                res.json({ error: 'Something went wrong' }).status(500);
+            } else if (!user) {
+                res.json({ error: 'Username not found'}).status(400);
+            }
+            console.log(user);
+            if (typeof req.body.newUsername != 'undefined') {
+                user.username = req.body.newUsername;
+            }
+            if (typeof req.body.newFirstName != 'undefined') {
+                console.log('Entered');
+                user.firstName = req.body.newFirstName;
+            }
+            if (typeof req.body.newLastName != 'undefined') {
+                user.lastName = req.body.newLastName;
+            }
+            if (typeof req.body.newPassword != 'undefined') {
+                user.password = req.body.newPassword;
+            }
+            User.findOneAndUpdate({ 'username': req.params.username}, {$set: { name: user.username,
+                                     firstName: user.firstName, lastName: user.lastName,
+                                     password: user.password }}, function(error, user) {
+                if (error) {
+                    return res.json({ error: 'Username is already taken' }).status(400);
+                }
                 console.log(user);
+                res.json({ message: 'Update successful' }).status(200);
             });
-        } else {
-            return res.json({ error: 'Invalid request' }).status(400);
-        }
+        });
     });
 
     return router;
