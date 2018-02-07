@@ -15,21 +15,6 @@ var flash = require('connect-flash');
 
 var app = express();
 
-// demo routes
-var index = require('./routes/demo/index')(passport);
-var about = require('./routes/demo/about')(passport);
-var signIn = require('./routes/demo/signIn')(passport);
-var signOut = require('./routes/demo/signOut')(passport);
-var register = require('./routes/demo/register')(passport);
-var editAccount = require('./routes/demo/editAccount')(passport);
-
-// api routes
-var getUser = require('./routes/api/getUser')(passport);
-var apiSignIn = require('./routes/api/signIn')(passport);
-var apiSignOut = require('./routes/api/signOut')(passport);
-var apiRegister= require('./routes/api/register')(passport);
-var updateUser = require('./routes/api/updateUser')(passport);
-
 // connect to database
 mongoose.connect(config.db.url);
 
@@ -63,6 +48,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// demo routes
+var index = require('./routes/demo/index')(passport);
+var about = require('./routes/demo/about')(passport);
+var signIn = require('./routes/demo/signIn')(passport);
+var signOut = require('./routes/demo/signOut')(passport);
+var register = require('./routes/demo/register')(passport);
+var editAccount = require('./routes/demo/editAccount')(passport);
+
+// api routes
+var getUser = require('./routes/api/getUser')(passport);
+var apiSignIn = require('./routes/api/signIn')(passport);
+var apiSignOut = require('./routes/api/signOut')(passport);
+var apiRegister= require('./routes/api/register')(passport);
+var updateUser = require('./routes/api/updateUser')(passport);
 
 // demo routes
 app.use('/', index);
