@@ -1,16 +1,17 @@
-var Async = require('async');
-var Test = require('../test/testModel.js');
-var Tab = require('../test/tabModel.js');
+var Test = require('../models/testModel.js');
+var Tab = require('../models/tabModel.js');
+var User = require('../models/userModel.js');
 var mongoose = require('mongoose');
 var mongoDB = "mongodb://127.0.0.1:27017/test";
 var tabFromKeyboard = require('../test/tabFromKeyboard.js');
 
-function con(tabCreate, testCreate, tab){
+function con(tabCreate, testCreate, userCreate, tab){
   var dbname = mongoDB;
   mongoose.connect(dbname, function(){
     console.log("connected to: " + dbname);
-    testCreate("matt",69);
-    tabCreate(tab);
+    //testCreate("matt",69);
+    //tabCreate(tab);
+    userCreate("mbechtel", "6969");
   });
 
   console.log("afterconnect");
@@ -51,6 +52,20 @@ function tabCreate(tab){
   })
 }
 
+
+function userCreate(username, password){
+  var userDetail = {username: username, password: password};
+  var user = new User(userDetail);
+  user.save(function(err){
+    if(err){
+      console.log(err);
+    } else{
+      console.log(user);
+      cb(null, user);
+    }
+  })
+}
+
 function cb(err, res){
   if(err){
     console.log("ERROR ON CALLBACK" + err);
@@ -59,23 +74,7 @@ function cb(err, res){
   }
 }
 
-/*
-Async.series([
-  con(),
-  tabFromKeyboard.enterInformation(),
-  tabCreate(tabFromKeyboard.tab)
-], function(err, res){
-  if (err) {
-       console.log('FINAL ERR: '+err);
-   }
-   else {
-       console.log('BOOKInstances: '+bookinstances);
-   }
-   // All done, disconnect from database
-   mongoose.connection.close();
-});
-*/
-tabFromKeyboard.enterInformation();
-con(tabCreate, testCreate, tabFromKeyboard.tab);
-//testCreate("matt", 69);
-//tabCreate();
+
+//tabFromKeyboard.enterInformation();
+//console.log(tabFromKeyboard.tab);
+con(tabCreate, testCreate, userCreate, {});

@@ -75,7 +75,7 @@ TabFromKeyboard.prototype.enterMeasure = function(){
   }
 }
 
-var tfk = new TabFromKeyboard();
-tfk.enterInformation();
+//var tfk = new TabFromKeyboard();
+//tfk.enterInformation();
 
 module.exports = new TabFromKeyboard();
