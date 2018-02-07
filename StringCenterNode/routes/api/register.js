@@ -5,17 +5,16 @@ module.exports = function(passport) {
     var router = express.Router();
 
     /*
-     * TODO: configure passport to handle this
+     * TODO: configure passport to handle this; authentication; clean this up
      */
     router.post('/', function(req, res, next) {
-        if (req.body.username && req.body.password
-            && req.body.firstName && req.body.lastName) {
+        if (req.body.username && req.body.password) {
             User.findOne({'username': req.body.username}, function (error, user) {
                 if (error) {
                     return res.json({error: 'Registration failed'}).status(500);
                 } else if (user) {
                     return res.json({error: 'Username already taken'}).status(400);
-                } else if (!(User.passwordConfirm(req.body.password, req.body.confirmPassword))) {
+                } else if (req.body.password !== req.body.confirmPassword) {
                     return res.json({error: 'Passwords don\'t match'}).status(400);
                 }
                 var newUser = new User();
