@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
+import 'home.dart';
+import 'tab_options.dart';
 import 'tab.dart';
 
 void main() {
@@ -18,9 +19,10 @@ class _StringCenterState extends State<StringCenter> {
     return new MaterialApp(
       title: 'StringCenter',
       routes: <String, WidgetBuilder> {
-        'home':(BuildContext context) => new HomeScreen(),
+        'home':(BuildContext context) => new Home(),
+        'tabOptions':(BuildContext context) => new TabOptions(),
       },
-      home: new HomeScreen(),
+      home: new Home(),
     );
   }
 }
