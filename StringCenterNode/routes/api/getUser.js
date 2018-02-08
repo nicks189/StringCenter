@@ -10,12 +10,11 @@ module.exports = function(passport) {
     router.get('/', function(req, res, next) {
         User.find({}, function(error, users) {
             if (error) {
-                res.json({ error: 'Something went wrong' }).status(500);
+                return res.json({ error: 'Something went wrong' }).status(500);
             } else if (users.length === 0) {
-                res.json({ error: 'No users found'}).status(400);
-            } else {
-                res.json({ users: users });
+                return res.json({error: 'No users found'}).status(400);
             }
+            res.json({ users: users });
         });
     });
 
@@ -25,12 +24,11 @@ module.exports = function(passport) {
     router.get('/:username', function(req, res, next) {
         User.findOne({ 'username': req.params.username}, function(error, user) {
             if (error) {
-                res.json({ error: 'Something went wrong' }).status(500);
+                return res.json({ error: 'Something went wrong' }).status(500);
             } else if (!user) {
-                res.json({ error: 'Username not found'}).status(400);
-            } else {
-                res.json(user);
+                return res.json({error: 'Username not found'}).status(400);
             }
+            res.json(user);
         });
     });
 
