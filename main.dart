@@ -21,6 +21,8 @@ class _StringCenterState extends State<StringCenter> {
       routes: <String, WidgetBuilder> {
         'home':(BuildContext context) => new Home(),
         'tabOptions':(BuildContext context) => new TabOptions(),
+        'login':(BuildContext context) => new Login(),
+        'register':(BuildContext context) => new Register(),
       },
       home: new Home(),
     );
