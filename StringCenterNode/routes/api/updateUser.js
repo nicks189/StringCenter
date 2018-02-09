@@ -20,7 +20,6 @@ module.exports = function(passport) {
                 user.username = req.body.newUsername;
             }
             if (typeof req.body.newFirstName != 'undefined') {
-                console.log('Entered');
                 user.firstName = req.body.newFirstName;
             }
             if (typeof req.body.newLastName != 'undefined') {
