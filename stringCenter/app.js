@@ -46,7 +46,7 @@ app.use('/', index);
 app.use('/users', users);
 //dbroutes
 app.use('/listTest', testRoutes);
-app.use('/listTab', tabRoutes);
+app.use('/tab', tabRoutes);
 app.use('/listUser', userRoutes);
 
 // catch 404 and forward to error handler
