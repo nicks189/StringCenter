@@ -12,7 +12,7 @@ module.exports = function(passport) {
             if (error) {
                 return res.json({ error: 'Something went wrong' }).status(500);
             } else if (!user) {
-                return res.json({ error: 'Username not found' }.status(400));
+                return res.json({ error: 'Username not found' }).status(400);
             }
             res.json({ message: 'Successfully deleted user' });
         });
