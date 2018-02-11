@@ -45,6 +45,7 @@ UserSchema.statics.passwordConfirm = function(password, confirmPassword) {
 
 /*
  * Default authentication check. If no session exists, redirect to sign in page.
+ * This is used in the demo routes, not the API
  */
 UserSchema.statics.isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
