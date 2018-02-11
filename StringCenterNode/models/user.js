@@ -20,7 +20,7 @@ var UserSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true
-    },
+    }
 });
 
 UserSchema.statics.comparePasswords = function(password, matchedPassword) {

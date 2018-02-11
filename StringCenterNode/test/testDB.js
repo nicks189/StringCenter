@@ -1,9 +1,8 @@
-var Test = require('../models/testModel.js');
 var Tab = require('../models/tabModel.js');
-var User = require('../models/userModel.js');
+var User = require('../models/user.js');
 var mongoose = require('mongoose');
 var mongoDB = "mongodb://127.0.0.1:27017/test";
-var tabFromKeyboard = require('../test/tabFromKeyboard.js');
+var tabFromKeyboard = require('./tabFromKeyboard.js');
 
 function con(tabCreate, testCreate, userCreate, tab){
   var dbname = mongoDB;

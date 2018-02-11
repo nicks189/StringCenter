@@ -65,6 +65,10 @@ var apiSignOut = require('./routes/api/signOut')(passport);
 var apiRegister= require('./routes/api/register')(passport);
 var updateUser = require('./routes/api/updateUser')(passport);
 
+// from mbechtel
+var tabRoutes = require('../StringCenterNode/routes/tabRoutes');
+var userRoutes = require('../StringCenterNode/routes/userRoutes');
+
 // demo routes
 app.use('/', index);
 app.use('/about', about);
@@ -80,6 +84,10 @@ app.use('/api/sign-in', apiSignIn);
 app.use('/api/sign-out', apiSignOut);
 app.use('/api/register', apiRegister);
 app.use('/api/update-user', updateUser);
+
+// from mbechtel
+app.use('/tab', tabRoutes);
+app.use('/listUser', userRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
