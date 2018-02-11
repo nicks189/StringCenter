@@ -40,20 +40,15 @@ function tabCreate(tab, username){
   var tabDetail = {author_username: username, tab: tab};
   console.log(tabDetail);
   var tabModel = new Tab(tabDetail);
-  tabModel.save(function(err){
+  tabModel.save(function(err, tab){
     if(err){
       console.log("ERROR" + err);
       cb.cb(err, null);
       return "Tab Creation Failed"
     } else{
       console.log(tab);
-      cb.cb(null, tab);
-      var createdTab = "";
-      Tab.find().
-          where('author_username').equals(username).exec(function(err, Tab){
-              createdTab += Tab;
-          });;
-      return "Tab Creation Successful" + createdTab;
+      cb.cb(null, tab);    
+      return "Tab Creation Successful" + tab;
     }
   });
 }
