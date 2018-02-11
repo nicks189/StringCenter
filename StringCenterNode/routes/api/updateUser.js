@@ -26,7 +26,15 @@ module.exports = function(passport) {
                 user.lastName = req.body.newLastName;
             }
             if (typeof req.body.newPassword != 'undefined') {
-                user.password = req.body.newPassword;
+                if (req.body.newPassword !== req.body.confirmNewPassword) {
+                    return res.json({ error: 'Passwords don\'t match' }).status(400);
+                }
+                User.hashPassword(user.password, function(error, hashedPassword) {
+                    if (error) {
+                        return res.json({ error: 'Something went wrong' }).status(500);
+                    }
+                    user.password = hashedPassword;
+                });
             }
             User.findOneAndUpdate({ 'username': req.params.username}, {$set: { name: user.username,
                                      firstName: user.firstName, lastName: user.lastName,
