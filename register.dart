@@ -22,8 +22,8 @@ class Register extends StatelessWidget {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register";
     var httpClient = new HttpClient();
     String result;
-    user rd = new user("john", "smith", "jsmitty420", "hunter2", "hunter2");
-    var json = JSON.encode(rd.toJson());
+    //user rd = new user("john", "smith", "jsmitty420", "hunter2", "hunter2");
+    //var json = JSON.encode(rd.toJson());
     print (json);
     try {
       var request = await httpClient.postUrl(Uri.parse(url));
@@ -62,7 +62,6 @@ class Register extends StatelessWidget {
                   // if(auth) then vvv
                   Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                 },
-              ),
               ),
             ],
           ),

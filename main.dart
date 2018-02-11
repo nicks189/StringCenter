@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'home.dart';
+import 'log_in.dart';
+import 'register.dart';
 import 'tab_options.dart';
 import 'tab.dart';
 
