@@ -19,9 +19,11 @@ module.exports = function(passport) {
             newUser.password = req.body.password;
             newUser.firstName = req.body.firstName;
             newUser.lastName = req.body.lastName;
+            console.log(newUser);
             newUser.save(function (error) {
                 if (error) {
-                    return res.json({ error: 'Username is already taken' }).status(400);
+                    console.log(error.errors);
+                    return res.json({ error: 'Something went wrong' }).status(400);
                 }
                 res.json({ message: 'Registration successful' }).status(200);
             });
