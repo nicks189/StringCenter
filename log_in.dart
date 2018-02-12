@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import "dart:convert";
 import "dart:io";
+import 'logindata.dart';
 
 class Login extends StatelessWidget {
 
@@ -11,27 +12,30 @@ class Login extends StatelessWidget {
   String get username => _username.text;
   String get password => _password.text;
 
-  _sendLogin() async { //TODO
+  _sendLogin(bool auth) async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register";
     var httpClient = new HttpClient();
     String result;
-    //user rd = new user("john", "smith", "jsmitty420", "hunter2", "hunter2");
-    //var json = JSON.encode(rd.toJson());
+    logindata ld = new logindata(username, password);
+    var json = JSON.encode(ld.toJson());
     print (json);
     try {
       var request = await httpClient.postUrl(Uri.parse(url));
       print(Uri.parse(url));
       request.write(json);
+      request.headers.contentType = new ContentType("json", "application", charset: "utf-8");
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
       print('BODY: $responseBody');
       print(JSON.decode(responseBody));
       var data = JSON.decode(responseBody);
-      result = data['message'];
+      //TODO (if success result = success)
+      result = 'success';
     } catch (exception) {
-      result = 'no';
+      result = 'fail';
       print(exception);
     }
+    auth = ld.auth(result);
   }
 
   @override
@@ -48,9 +52,9 @@ class Login extends StatelessWidget {
               new RaisedButton(
                 child: new Text('Login'),
                 onPressed:(){
-                //  _sendLogin(); // TODO
-                  // if(auth) then vvv
-                  Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                  bool a = false;
+                  _sendLogin(a); // TODO
+                   if(a) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                   },
               ),
               new Text("Don't have an account?"),

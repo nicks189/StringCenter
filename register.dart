@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'registerdata.dart';
 
 class Register extends StatelessWidget {
 
@@ -18,27 +19,31 @@ class Register extends StatelessWidget {
   String get confirmpassword => _confirmpassword.text;
 
 
-  _sendRegister() async { //TODO
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register";
+  _sendRegister(bool auth) async {
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register"; // URL for registration
     var httpClient = new HttpClient();
     String result;
-    //user rd = new user("john", "smith", "jsmitty420", "hunter2", "hunter2");
-    //var json = JSON.encode(rd.toJson());
+    registerdata rd = new registerdata(firstName, lastName, username, password, confirmpassword);
+    var json = JSON.encode(rd.toJson());
     print (json);
     try {
-      var request = await httpClient.postUrl(Uri.parse(url));
+      var request = await httpClient.postUrl(Uri.parse(url)); // initial request to URL
       print(Uri.parse(url));
-      request.write(json);
-      var response = await request.close();
-      var responseBody = await response.transform(UTF8.decoder).join();
-      print('BODY: $responseBody');
+      request.headers.contentType = new ContentType("application", "json", charset: "utf-8"); //specifiying contentType to be json (application)
+      request.write(json); // actually sending regiserdata to url
+      var response = await request.close(); // completing request
+      var responseBody = await response.transform(UTF8.decoder).join(); // parsing response from server
+      print('BODY: $responseBody'); // printing respond from server
       print(JSON.decode(responseBody));
       var data = JSON.decode(responseBody);
-      result = data['message'];
+      //TODO (if success result = success)
+      result = 'success';
+
     } catch (exception) {
-      result = 'no';
+      result = 'fail';
       print(exception);
     }
+    auth = rd.auth(result);
   }
 
   @override
@@ -58,9 +63,9 @@ class Register extends StatelessWidget {
               new RaisedButton(
                 child: new Text('Register'),
                 onPressed:(){
-                  //  _sendRegister(); // TODO
-                  // if(auth) then vvv
-                  Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                  bool a = false;
+                  _sendRegister(a); // TODO
+                  if(a) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                 },
               ),
             ],
