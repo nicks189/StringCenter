@@ -28,6 +28,10 @@ UserSchema.statics.comparePasswords = function(password, matchedPassword) {
     return bcrypt.compareSync(password, matchedPassword);
 };
 
+UserSchema.statics.hashPasswordSync = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
+
 UserSchema.statics.hashPassword = function(password, callback) {
     bcrypt.genSalt(10, function(error, salt) {
         if (error) {
