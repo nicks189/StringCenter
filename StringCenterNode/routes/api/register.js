@@ -20,10 +20,10 @@ module.exports = function(passport) {
             newUser.firstName = req.body.firstName;
             newUser.lastName = req.body.lastName;
             console.log(newUser);
-            newUser.save(function (error) {
-                if (error) {
-                    console.log(error.errors);
-                    return res.json({ error: 'Something went wrong' }).status(400);
+            newUser.validateAndSave(function (errors, user) {
+                if (errors) {
+                    console.log(errors);
+                    return res.json(errors).status(400);
                 }
                 res.json({ message: 'Registration successful' }).status(200);
             });
