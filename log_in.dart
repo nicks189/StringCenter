@@ -22,8 +22,8 @@ class Login extends StatelessWidget {
     try {
       var request = await httpClient.postUrl(Uri.parse(url));
       print(Uri.parse(url));
-      request.write(json);
       request.headers.contentType = new ContentType("json", "application", charset: "utf-8");
+      request.write(json);
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
       print('BODY: $responseBody');
