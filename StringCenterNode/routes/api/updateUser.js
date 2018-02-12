@@ -29,12 +29,7 @@ module.exports = function(passport) {
                 if (req.body.newPassword !== req.body.confirmNewPassword) {
                     return res.json({ error: 'Passwords don\'t match' }).status(400);
                 }
-                User.hashPassword(req.body.newPassword, function(error, hashedPassword) {
-                    if (error) {
-                        return res.json({ error: 'Something went wrong' }).status(500);
-                    }
-                    user.password = hashedPassword;
-                });
+                user.password = User.hashPasswordSync(req.body.newPassword);
             }
             User.findOneAndUpdate({ 'username': req.params.username}, {$set: { name: user.username,
                                      firstName: user.firstName, lastName: user.lastName,
