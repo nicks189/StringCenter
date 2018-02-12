@@ -13,7 +13,7 @@ class Login extends StatelessWidget {
   String get password => _password.text;
 
   _sendLogin(bool auth) async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register";
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/sign-in";
     var httpClient = new HttpClient();
     String result;
     logindata ld = new logindata(username, password);
