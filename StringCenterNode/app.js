@@ -60,16 +60,14 @@ var register = require('./routes/demo/register')(passport);
 var editAccount = require('./routes/demo/editAccount')(passport);
 
 // api routes
-var getUser = require('./routes/api/getUser')(passport);
-var deleteUser = require('./routes/api/deleteUser')(passport);
-var apiSignIn = require('./routes/api/signIn')(passport);
-var apiSignOut = require('./routes/api/signOut')(passport);
-var apiRegister= require('./routes/api/register')(passport);
-var updateUser = require('./routes/api/updateUser')(passport);
-
-// from mbechtel
-var tabRoutes = require('../StringCenterNode/routes/tabs/tabRoutes');
-var userRoutes = require('../StringCenterNode/routes/tabs/userRoutes');
+var getUser = require('./routes/api/user/getUser')(passport);
+var deleteUser = require('./routes/api/user/deleteUser')(passport);
+var apiSignIn = require('./routes/api/user/signIn')(passport);
+var apiSignOut = require('./routes/api/user/signOut')(passport);
+var apiRegister= require('./routes/api/user/register')(passport);
+var updateUser = require('./routes/api/user/updateUser')(passport);
+var tabRoutes = require('./routes/api/tab/tabRoutes');
+var userRoutes = require('./routes/api/tab/userRoutes');
 
 // API documentation page
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
@@ -89,10 +87,8 @@ app.use('/api/sign-in', apiSignIn);
 app.use('/api/sign-out', apiSignOut);
 app.use('/api/register', apiRegister);
 app.use('/api/update-user', updateUser);
-
-// from mbechtel
-app.use('/tab', tabRoutes);
-app.use('/listUser', userRoutes);
+app.use('/api/tab', tabRoutes);
+app.use('/api/listUser', userRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

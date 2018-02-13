@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Tab = require('../../models/tabModel.js');
+var Tab = require('../../../models/tabModel.js');
 var mongoose = require('mongoose');
-var cb = require('../../middleware/mongoCallback.js');
-var validateTab = require('../../auth/tabAuth.js');
+var cb = require('../../../middleware/mongoCallback.js');
+var validateTab = require('../../../auth/tabAuth.js');
 
 
 //get all tabs
