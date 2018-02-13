@@ -25,7 +25,7 @@ module.exports = function(passport) {
                     console.log(errors);
                     return res.json(errors).status(400);
                 }
-                res.json({ message: 'Registration successful' }).status(200);
+                res.json(user).status(201);
             });
         } else {
             res.json({ message: 'Invalid request' }).status(400);
