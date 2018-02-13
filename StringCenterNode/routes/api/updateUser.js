@@ -7,13 +7,13 @@ module.exports = function(passport) {
     /*
      * TODO
      */
-    router.post('/:username', function(req, res, next) {
+    router.put('/:username', function(req, res, next) {
         console.log(req.body);
         User.findOne({ 'username': req.params.username }, function (error, user) {
             if (error) {
-                res.json({ error: 'Something went wrong' }).status(500);
+                return res.json({ error: 'Something went wrong' }).status(500);
             } else if (!user) {
-                res.json({ error: 'Username not found'}).status(400);
+                return res.json({ error: 'Username not found'}).status(400);
             }
             console.log(user);
             if (typeof req.body.newUsername != 'undefined') {
@@ -26,16 +26,19 @@ module.exports = function(passport) {
                 user.lastName = req.body.newLastName;
             }
             if (typeof req.body.newPassword != 'undefined') {
-                user.password = req.body.newPassword;
+                if (req.body.newPassword !== req.body.confirmNewPassword) {
+                    return res.json({ error: 'Passwords don\'t match' }).status(400);
+                }
+                user.password = User.hashPasswordSync(req.body.newPassword);
             }
             User.findOneAndUpdate({ 'username': req.params.username}, {$set: { name: user.username,
                                      firstName: user.firstName, lastName: user.lastName,
-                                     password: user.password }}, function(error, user) {
+                                     password: user.password }}, function(error, updatedUser) {
                 if (error) {
                     return res.json({ error: 'Username is already taken' }).status(400);
                 }
-                console.log(user);
-                res.json({ message: 'Update successful' }).status(200);
+                console.log(updatedUser);
+                res.json(updatedUser).status(200);
             });
         });
     });

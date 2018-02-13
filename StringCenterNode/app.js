@@ -12,6 +12,8 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
+var swaggerUI = require('swagger-ui-express');
+var apiSpec = require('./docs/api-spec');
 
 var app = express();
 
@@ -68,6 +70,9 @@ var updateUser = require('./routes/api/updateUser')(passport);
 // from mbechtel
 var tabRoutes = require('../StringCenterNode/routes/tabRoutes');
 var userRoutes = require('../StringCenterNode/routes/userRoutes');
+
+// API documentation page
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
 
 // demo routes
 app.use('/', index);

@@ -19,11 +19,13 @@ module.exports = function(passport) {
             newUser.password = req.body.password;
             newUser.firstName = req.body.firstName;
             newUser.lastName = req.body.lastName;
-            newUser.save(function (error) {
-                if (error) {
-                    return res.json({ error: 'Username is already taken' }).status(400);
+            console.log(newUser);
+            newUser.validateAndSave(function (errors, user) {
+                if (errors) {
+                    console.log(errors);
+                    return res.json(errors).status(400);
                 }
-                res.json({ message: 'Registration successful' }).status(200);
+                res.json(user).status(201);
             });
         } else {
             res.json({ message: 'Invalid request' }).status(400);
