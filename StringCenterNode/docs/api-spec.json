@@ -112,6 +112,20 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
+          },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -138,6 +152,14 @@
           "type": "string"
         },
         "lastName": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "field": {
           "type": "string"
         }
       }

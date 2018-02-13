@@ -12,7 +12,7 @@ module.exports = function(passport) {
         console.log(req.body);
         if (req.body.username && req.body.password) {
             if (req.body.password !== req.body.confirmPassword) {
-                return res.json({ error: 'Passwords don\'t match' }).status(400);
+                return res.json({ errors: [{ message: 'Passwords don\'t match' }] }).status(400);
             }
             var newUser = new User();
             newUser.username = req.body.username;
@@ -28,7 +28,7 @@ module.exports = function(passport) {
                 res.json(user).status(201);
             });
         } else {
-            res.json({ message: 'Invalid request' }).status(400);
+            res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
         }
     });
 
