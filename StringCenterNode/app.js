@@ -71,6 +71,7 @@ var updateUser = require('./routes/api/updateUser')(passport);
 var tabRoutes = require('../StringCenterNode/routes/tabRoutes');
 var userRoutes = require('../StringCenterNode/routes/userRoutes');
 
+// API documentation page
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
 
 // demo routes
