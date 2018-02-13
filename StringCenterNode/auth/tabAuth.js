@@ -1,5 +1,6 @@
 var tabObj = {"info":"This is a new tab","measureCount":"1","measures":[{"info":"first measure","tuning":"EADG","stringCount":"4","strings":[{"notes":["-","-","-","-"],"tuning":"E"},{"notes":["-","-","-","-"],"tuning":"A"},{"notes":["-","-","-","-"],"tuning":"D"},{"notes":["-","-","-","-"],"tuning":"G"}]}]};
 
+//validate tab
 function validateTab(tab){
     if(checkInfo(tab) && checkMeasureCount(tab)){
     var tabTuning = tab.measures[0].tuning;
@@ -16,7 +17,7 @@ function validateTab(tab){
   }
 }
 
-
+//check if field exists and is smaller than 1000 characters
 function checkInfo(tabOrMeasure){
   if(tabOrMeasure.info.length < 1000){
     return true;
@@ -26,7 +27,7 @@ function checkInfo(tabOrMeasure){
   }
 }
 
-
+//checks that measure count matches actual measure count of tab
 function checkMeasureCount(tab){
   if(tab.measureCount == tab.measures.length){
     return true;
@@ -36,7 +37,7 @@ function checkMeasureCount(tab){
   }
 }
 
-
+//validate measure
 function validateMeasure(measure, tabTuning){
   if(checkInfo(measure) && checkStringCount(measure) && checkTuning(measure, tabTuning) && checkNoteCount(measure) && checkStringsTuning(measure, tabTuning)){
     return true;
@@ -46,6 +47,7 @@ function validateMeasure(measure, tabTuning){
   }
 }
 
+//checks that stringCount matches the actual number of strings
 function checkStringCount(measure){
   if(measure.tuning.length == measure.stringCount && measure.stringCount == measure.strings.length){
     return true;
@@ -55,7 +57,7 @@ function checkStringCount(measure){
   }
 }
 
-
+//checks that all measures have same tuning
 function checkTuning(measure, tabTuning){
   if(measure.tuning == tabTuning){
     return true;
@@ -66,7 +68,7 @@ function checkTuning(measure, tabTuning){
   }
 }
 
-
+//chekcs that all strings have same amount of notes
 function checkNoteCount(measure){
   for(var i = 0; i < measure.stringCount; i++){
     if(measure.strings[0].notes.length != measure.strings[i].notes.length){
@@ -77,7 +79,7 @@ function checkNoteCount(measure){
   return true;
 }
 
-
+//checks that strings in measure have same tuning as the tab
 function checkStringsTuning(measure, tabTuning){
   var tuningCharArray = tabTuning.split("");
   if(tuningCharArray.length == measure.stringCount){
@@ -94,3 +96,5 @@ function checkStringsTuning(measure, tabTuning){
 
 
 console.log("result of validation on tab: " + validateTab(tabObj));
+
+module.exports = {valid : validateTab};

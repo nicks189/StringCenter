@@ -3,6 +3,7 @@ var router = express.Router();
 var Tab = require('../models/tabModel.js');
 var mongoose = require('mongoose');
 var cb = require('../middleware/mongoCallback.js');
+var validateTab = require('../auth/tabAuth.js');
 
 
 //get all tabs
@@ -31,7 +32,11 @@ router.post('/findTab', function(req, res, next){
 
 //create new tab with json data from post
 router.post('/createTab', function(req, res, next){
-  res.send(tabCreate(JSON.parse(req.body.tab), req.body.author_username));
+  if(validateTab.valid(tab)){
+    res.send(tabCreate(JSON.parse(req.body.tab), req.body.author_username));
+  } else{
+    res.send("invalid tab");
+  }
 });
 
 
@@ -47,7 +52,7 @@ function tabCreate(tab, username){
       return "Tab Creation Failed"
     } else{
       console.log(tab);
-      cb.cb(null, tab);    
+      cb.cb(null, tab);
       return "Tab Creation Successful" + tab;
     }
   });
