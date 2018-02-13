@@ -67,24 +67,34 @@ UserSchema.statics.isAuthenticated = function(req, res, next) {
 UserSchema.methods.validateAndSave = function(callback) {
     var user = this;
     user.save(function (error, saved) {
+        /*
+         * If an error occured, build array of errorMessages
+         * and add them to an error object so we get the form
+         * {
+         *   errors: [
+         *     ...
+         *   ]
+         * }
+         */
         if (error) {
             var errorMessages = [];
             var key;
             for (key in error.errors) {
-                var tmp = {};
-                tmp[key] = error.errors[key].message;
-                errorMessages.push(tmp);
+                var err = {};
+                err[key] = error.errors[key].message;
+                errorMessages.push(err);
             }
             var errors = {};
             errors.errors = errorMessages;
             return callback(errors);
         }
+        // No error, return the saved user
         return callback(null, saved);
     });
 };
 
 UserSchema.pre('save', function(next) {
-    let user = this;
+    var user = this;
     UserSchema.statics.hashPassword(user.password, function(error, hashedPassword) {
         if (error) {
             next(error);
