@@ -33,10 +33,10 @@
             }
           },
           "400": {
-            "description": "No users found"
+            "description": "{ error: No users found }"
           },
           "500": {
-            "description": "Something went wrong"
+            "description": "{ error: Something went wrong }"
           }
         }
       }
@@ -64,10 +64,10 @@
             }
           },
           "400": {
-            "description": "Username not found"
+            "description": "{ error: Username not found }"
           },
           "500": {
-            "description": "Something went wrong"
+            "description": "{ error: Something went wrong }"
           }
         }
       }
