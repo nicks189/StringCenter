@@ -114,7 +114,7 @@
             }
           },
           "400": {
-            "description": "Invalid request",
+            "description": "Invalid request. The response key \"field\" will be the type of error, for example \"username\" if the error occured in the username. The defualt key is \"message\".",
             "schema": {
               "type": "object",
               "properties": {
