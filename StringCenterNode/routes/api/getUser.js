@@ -14,7 +14,7 @@ module.exports = function(passport) {
             } else if (users.length === 0) {
                 return res.json({error: 'No users found'}).status(400);
             }
-            res.json({ users: users });
+            res.json({ users: users }.status(200));
         });
     });
 
@@ -28,7 +28,7 @@ module.exports = function(passport) {
             } else if (!user) {
                 return res.json({error: 'Username not found'}).status(400);
             }
-            res.json(user);
+            res.json(user).status(200);
         });
     });
 
