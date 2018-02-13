@@ -14,7 +14,7 @@ module.exports = function(passport) {
             } else if (users.length === 0) {
                 return res.json({error: 'No users found'}).status(400);
             }
-            res.json({ users: users }.status(200));
+            res.json({ users: users }).status(200);
         });
     });
 
