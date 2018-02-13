@@ -7,7 +7,7 @@ module.exports = function(passport) {
     /*
      * TODO
      */
-    router.post('/:username', function(req, res, next) {
+    router.put('/:username', function(req, res, next) {
         console.log(req.body);
         User.findOne({ 'username': req.params.username }, function (error, user) {
             if (error) {
@@ -38,7 +38,7 @@ module.exports = function(passport) {
                     return res.json({ error: 'Username is already taken' }).status(400);
                 }
                 console.log(user);
-                res.json({ message: 'Update successful' }).status(200);
+                res.json(user).status(200);
             });
         });
     });
