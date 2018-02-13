@@ -68,8 +68,8 @@ var apiRegister= require('./routes/api/register')(passport);
 var updateUser = require('./routes/api/updateUser')(passport);
 
 // from mbechtel
-var tabRoutes = require('../StringCenterNode/routes/tabRoutes');
-var userRoutes = require('../StringCenterNode/routes/userRoutes');
+var tabRoutes = require('../StringCenterNode/routes/tabs/tabRoutes');
+var userRoutes = require('../StringCenterNode/routes/tabs/userRoutes');
 
 // API documentation page
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
