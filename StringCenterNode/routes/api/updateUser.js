@@ -11,9 +11,9 @@ module.exports = function(passport) {
         console.log(req.body);
         User.findOne({ 'username': req.params.username }, function (error, user) {
             if (error) {
-                res.json({ error: 'Something went wrong' }).status(500);
+                return res.json({ error: 'Something went wrong' }).status(500);
             } else if (!user) {
-                res.json({ error: 'Username not found'}).status(400);
+                return res.json({ error: 'Username not found'}).status(400);
             }
             console.log(user);
             if (typeof req.body.newUsername != 'undefined') {
@@ -33,12 +33,12 @@ module.exports = function(passport) {
             }
             User.findOneAndUpdate({ 'username': req.params.username}, {$set: { name: user.username,
                                      firstName: user.firstName, lastName: user.lastName,
-                                     password: user.password }}, function(error, user) {
+                                     password: user.password }}, function(error, updatedUser) {
                 if (error) {
                     return res.json({ error: 'Username is already taken' }).status(400);
                 }
-                console.log(user);
-                res.json(user).status(200);
+                console.log(updatedUser);
+                res.json(updatedUser).status(200);
             });
         });
     });
