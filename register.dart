@@ -33,8 +33,8 @@ class Register extends StatelessWidget {
       request.write(json); // actually sending regiserdata to url
       var response = await request.close(); // completing request
       var responseBody = await response.transform(UTF8.decoder).join(); // parsing response from server
-      print('BODY: $responseBody'); // printing respond from server
-      print(JSON.decode(responseBody));
+      print('BODY: $responseBody'); // fields are in quotes except the last is "__v":0 // printing response from server
+      print(JSON.decode(responseBody)); // fields are the same, just no quotes
       var data = JSON.decode(responseBody);
       //TODO (if success result = success)
       result = 'success';

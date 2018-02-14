@@ -26,8 +26,8 @@ class Login extends StatelessWidget {
       request.write(json);
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
-      print('BODY: $responseBody');
-      print(JSON.decode(responseBody));
+      print('BODY: $responseBody'); // fields are in quotes except the last is "__v":0
+      print(JSON.decode(responseBody)); // fields are the same, just no quotes
       var data = JSON.decode(responseBody);
       //TODO (if success result = success)
       result = 'success';

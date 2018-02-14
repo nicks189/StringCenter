@@ -6,6 +6,7 @@ import 'log_in.dart';
 import 'register.dart';
 import 'tab_options.dart';
 import 'tab.dart';
+import 'viewtab.dart';
 
 void main() {
   runApp(new StringCenter());
@@ -26,6 +27,7 @@ class _StringCenterState extends State<StringCenter> {
         'tabOptions':(BuildContext context) => new TabOptions(),
         'login':(BuildContext context) => new Login(),
         'register':(BuildContext context) => new Register(),
+        'viewTab':(BuildContext context) => new viewTab(),
       },
       home: new Home(),
     );
