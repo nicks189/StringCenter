@@ -108,13 +108,55 @@
         ],
         "responses": {
           "200": {
-            "description": "Succes",
+            "description": "Success",
             "schema": {
               "$ref": "#/definitions/User"
             }
           },
           "400": {
             "description": "Invalid request. The response key \"field\" will be the type of error, for example \"username\" if the error occured in the username. The defualt key is \"message\".",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tab/createTab": {
+      "post": {
+        "summary": "Create a new user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Tab object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Tab"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Tab"
+            }
+          },
+          "400": {
+            "description": "Invalid tab. The response key \"field\" will be the type of error, the default key is \"message\".",
             "schema": {
               "type": "object",
               "properties": {
@@ -161,6 +203,75 @@
       "properties": {
         "field": {
           "type": "string"
+        }
+      }
+    },
+    "Note": {
+      "type": "string"
+    },
+    "InstString": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Note"
+          }
+        },
+        "tuning": {
+          "type": "string"
+        }
+      }
+    },
+    "Measure": {
+      "type": "object",
+      "required": [
+        "info",
+        "tuning",
+        "stringCount",
+        "strings"
+      ],
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "tuning": {
+          "type": "string"
+        },
+        "stringCount": {
+          "type": "integer"
+        },
+        "strings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InstString"
+          }
+        }
+      }
+    },
+    "Tab": {
+      "type": "object",
+      "required": [
+        "author_username",
+        "info",
+        "measureCount",
+        "measures"
+      ],
+      "properties": {
+        "author_username": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        },
+        "measureCount": {
+          "type": "integer"
+        },
+        "measures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measure"
+          }
         }
       }
     }
