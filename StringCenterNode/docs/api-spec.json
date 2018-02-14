@@ -33,10 +33,32 @@
             }
           },
           "400": {
-            "description": "{ error: No users found }"
+            "description": "No users found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "{ error: Something went wrong }"
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -64,10 +86,32 @@
             }
           },
           "400": {
-            "description": "{ error: Username not found }"
+            "description": "Username not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
           },
           "500": {
-            "description": "{ error: Something went wrong }"
+            "description": "Something went wrong",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -115,6 +159,58 @@
           },
           "400": {
             "description": "Invalid request. The response key \"field\" will be the type of error, for example \"username\" if the error occured in the username. The defualt key is \"message\".",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tab" : {
+      "get": {
+        "summary": "Get all tabs",
+        "description": "Returns a list containing all tabs.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of tabs",
+            "schema": {
+              "properties": {
+                "tabs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Tab"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No tabs found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Error"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong",
             "schema": {
               "type": "object",
               "properties": {
