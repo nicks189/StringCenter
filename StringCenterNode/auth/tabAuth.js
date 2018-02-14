@@ -2,7 +2,6 @@
 
 //validate tab
 function validateTab(tab){
-    var tab = JSON.parse(tab);
     if(checkInfo(tab) && checkMeasureCount(tab)){
     var tabTuning = tab.measures[0].tuning;
     for(var i = 0; i < tab.measureCount; i++){

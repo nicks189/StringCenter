@@ -12,19 +12,19 @@ router.get('/', function(req, res, next) {
     if (err) {
       return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
     }
-    res.json(Tab).status(200);
+    res.json({ tabs: Tab }).status(200);
   });
 });
 
 //get tabs with user name sent in post body as author_username
-router.post('/findTabsByAuthorName', function(req, res, next){
+router.get('/findTabsByAuthorName/:author_username', function(req, res, next){
   console.log(req.body);
   Tab.find().
-      where('author_username').equals(req.body.author_username).exec(function(err, Tab){
+      where('author_username').equals(req.params.author_username).exec(function(err, Tab){
           if (err) {
             return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
           }
-          res.json(Tab).status(200);
+          res.json({ tabs: Tab }).status(200);
       });
 });
 
@@ -32,7 +32,7 @@ router.post('/findTabsByAuthorName', function(req, res, next){
 router.post('/createTab', function(req, res, next){
   if(validateTab.valid(req.body.tab)){
     // add tab to database since it is valid
-    var tab = JSON.parse(req.body.tab);
+    var tab = req.body.tab;
     var tabDetail = {author_username: req.body.author_username, tab_name: req.body.tab_name, tab: tab};
     var tabModel = new Tab(tabDetail);
     tabModel.save(function(err, tab){
