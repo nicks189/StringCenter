@@ -3,14 +3,16 @@ import 'dart:io';
 
 
 class Tabb{
+  String _title;
   String _info;
   String _tuning;
   num _stringCount;
   List<Measure> _measures;
 
-  Tabb(String info, String tuning){
+  Tabb(String title, String info, String tuning){
+    _title = title;
     _info = info;
-    _measures = [new Measure("first measure", tuning.length, 4, tuning)];
+    _measures = [new Measure("", tuning.length, 4, tuning)];
     _tuning = tuning;
     _stringCount = tuning.length;
   }
@@ -40,6 +42,8 @@ class Tabb{
   }
 
   void printTabb(){
+    print(_title);
+    print(_info);
     String temp = "";
     for(Measure measure in _measures){
       print(measure.info);
