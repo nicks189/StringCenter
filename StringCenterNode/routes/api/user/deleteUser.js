@@ -10,9 +10,9 @@ module.exports = function(passport) {
     router.delete('/:username', function(req, res, next) {
         User.findOneAndRemove({ 'username': req.params.username}, function(error, user) {
             if (error) {
-                return res.json({ error: 'Something went wrong' }).status(500);
+                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
-                return res.json({ error: 'Username not found' }).status(400);
+                return res.json({ errors: [{ message: 'Username not found' }] }).status(500);
             }
             res.json({ message: 'Successfully deleted user' }).status(200);
         });

@@ -9,7 +9,10 @@ var validateTab = require('../../../auth/tabAuth.js');
 //get all tabs
 router.get('/', function(req, res, next) {
   Tab.find(function(err, Tab){
-    res.json(Tab);
+    if (err) {
+      return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+    }
+    res.json(Tab).status(200);
   });
 });
 
@@ -17,7 +20,10 @@ router.get('/', function(req, res, next) {
 router.get('/tabs', function(req, res, next){
   Tab.find().
       where('author_username').equals('mbechtel69').exec(function(err, Tab){
-          res.json(Tab);
+          if (err) {
+            return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+          }
+          res.json(Tab).status(200);
       });
 });
 
@@ -26,16 +32,21 @@ router.post('/findTab', function(req, res, next){
   console.log(req.body);
   Tab.find().
       where('author_username').equals(req.body.author_username).exec(function(err, Tab){
-          res.json(Tab);
+          if (err) {
+            return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+          }
+          res.json(Tab).status(200);
       });
 });
 
 //create new tab with json data from post
 router.post('/createTab', function(req, res, next){
+  // TODO -- this doesn't work but I'm not sure how to fix it
+  // Also, I think we should include author_name in the tab object
   if(validateTab.valid(tab)){
-    res.send(tabCreate(JSON.parse(req.body.tab), req.body.author_username));
+    res.json(tabCreate(JSON.parse(req.body.tab), req.body.author_username)).status(200);
   } else{
-    res.send("invalid tab");
+    res.json({ errors: [{ message: 'Invalid tab' }] }).status(400);
   }
 });
 
