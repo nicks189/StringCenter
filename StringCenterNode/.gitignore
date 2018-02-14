@@ -70,4 +70,5 @@ typings/
 
 # Config files
 db/db.js
+config
 config/config.js

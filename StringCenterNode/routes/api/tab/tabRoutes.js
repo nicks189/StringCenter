@@ -13,16 +13,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//get tabs from dummy user
-router.get('/tabs', function(req, res, next){
-  Tab.find().
-      where('author_username').equals('mbechtel69').exec(function(err, Tab){
-          res.json(Tab);
-      });
-});
-
 //get tabs with user name sent in post body as author_username
-router.post('/findTab', function(req, res, next){
+router.post('/findTabsByAuthorName', function(req, res, next){
   console.log(req.body);
   Tab.find().
       where('author_username').equals(req.body.author_username).exec(function(err, Tab){
@@ -32,30 +24,29 @@ router.post('/findTab', function(req, res, next){
 
 //create new tab with json data from post
 router.post('/createTab', function(req, res, next){
-  if(validateTab.valid(tab)){
-    res.send(tabCreate(JSON.parse(req.body.tab), req.body.author_username));
+  if(validateTab.valid(req.body.tab)){
+    res.send(tabCreate(req.body.author_username, req.body.tab_name, req.body.tab));
   } else{
     res.send("invalid tab");
   }
 });
 
-
-function tabCreate(tab, username){
-  console.log(tab);
-  var tabDetail = {author_username: username, tab: tab};
-  console.log(tabDetail);
+//add a tab to the database
+function tabCreate(username, tabName, tabString){
+  var tab = JSON.parse(tabString);
+  var tabDetail = {author_username: username, tab_name : tabName, tab: tab};
   var tabModel = new Tab(tabDetail);
-  tabModel.save(function(err, tab){
+  console.log(tabModel.save(function(err, tab){
     if(err){
       console.log("ERROR" + err);
       cb.cb(err, null);
-      return "Tab Creation Failed"
+      return tab;
     } else{
       console.log(tab);
       cb.cb(null, tab);
-      return "Tab Creation Successful" + tab;
+      return tab;
     }
-  });
+  }));
 }
 
 

@@ -1,7 +1,8 @@
-var tabObj = {"info":"This is a new tab","measureCount":"1","measures":[{"info":"first measure","tuning":"EADG","stringCount":"4","strings":[{"notes":["-","-","-","-"],"tuning":"E"},{"notes":["-","-","-","-"],"tuning":"A"},{"notes":["-","-","-","-"],"tuning":"D"},{"notes":["-","-","-","-"],"tuning":"G"}]}]};
+//var tabObj = {"info":"This is a new tab","measureCount":"1","measures":[{"info":"first measure","tuning":"EADG","stringCount":"4","strings":[{"notes":["-","-","-","-"],"tuning":"E"},{"notes":["-","-","-","-"],"tuning":"A"},{"notes":["-","-","-","-"],"tuning":"D"},{"notes":["-","-","-","-"],"tuning":"G"}]}]};
 
 //validate tab
 function validateTab(tab){
+    var tab = JSON.parse(tab);
     if(checkInfo(tab) && checkMeasureCount(tab)){
     var tabTuning = tab.measures[0].tuning;
     for(var i = 0; i < tab.measureCount; i++){
@@ -95,6 +96,6 @@ function checkStringsTuning(measure, tabTuning){
 }
 
 
-console.log("result of validation on tab: " + validateTab(tabObj));
+//console.log("result of validation on tab: " + validateTab(tabObj));
 
 module.exports = {valid : validateTab};
