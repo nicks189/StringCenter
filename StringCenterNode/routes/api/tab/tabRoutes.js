@@ -42,29 +42,25 @@ router.post('/findTabsByAuthorName', function(req, res, next){
 //create new tab with json data from post
 router.post('/createTab', function(req, res, next){
   if(validateTab.valid(req.body.tab)){
-    res.send(tabCreate(req.body.author_username, req.body.tab_name, req.body.tab));
+    // add tab to database since it is valid
+    var tab = JSON.parse(req.body.tab);
+    var tabDetail = {author_username: req.body.author_username, tab_name: req.body.tab_name, tab: tab};
+    var tabModel = new Tab(tabDetail);
+    tabModel.save(function(err, tab){
+      if(err){
+        console.log("ERROR" + err);
+        cb.cb(err, null);
+        res.send("Tab Creation Failed");
+      } else{
+        console.log(tab);
+        cb.cb(null, tab);
+        res.json(tab);
+      }
+    });
   } else{
     res.json({ errors: [{ message: 'Invalid tab' }] }).status(400);
   }
 });
-
-//add a tab to the database
-function tabCreate(username, tabName, tabString){
-  var tab = JSON.parse(tabString);
-  var tabDetail = {author_username: username, tab_name : tabName, tab: tab};
-  var tabModel = new Tab(tabDetail);
-  console.log(tabModel.save(function(err, tab){
-    if(err){
-      console.log("ERROR" + err);
-      cb.cb(err, null);
-      return tab;
-    } else{
-      console.log(tab);
-      cb.cb(null, tab);
-      return tab;
-    }
-  }));
-}
 
 
 

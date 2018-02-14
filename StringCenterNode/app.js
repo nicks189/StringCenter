@@ -67,7 +67,7 @@ var apiSignOut = require('./routes/api/user/signOut')(passport);
 var apiRegister= require('./routes/api/user/register')(passport);
 var updateUser = require('./routes/api/user/updateUser')(passport);
 var tabRoutes = require('./routes/api/tab/tabRoutes');
-var userRoutes = require('./routes/api/tab/userRoutes');
+
 
 // API documentation page
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
@@ -88,7 +88,6 @@ app.use('/api/sign-out', apiSignOut);
 app.use('/api/register', apiRegister);
 app.use('/api/update-user', updateUser);
 app.use('/api/tab', tabRoutes);
-app.use('/api/listUser', userRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
