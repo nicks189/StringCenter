@@ -31,10 +31,13 @@ app.use(expressSession({
 }));
 app.use(cookieParser('top-secret'));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
-var userAuth = require('./auth/userAuth');
-userAuth(passport);
+// var userAuth = require('./auth/userAuth');
+// userAuth(passport);
+
+var apiAuth = require('./auth/apiAuth');
+apiAuth(passport);
 
 // flash messaging setup
 app.use(flash());

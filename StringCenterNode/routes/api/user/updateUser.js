@@ -7,15 +7,14 @@ module.exports = function(passport) {
     /*
      * TODO
      */
-    router.put('/:username', function(req, res, next) {
-        console.log(req.body);
+    router.put('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+        console.log(req.user);
         User.findOne({ 'username': req.params.username }, function (error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
                 return res.json({ errors: [{ message: 'Username not found' }] }).status(400);
             }
-            console.log(user);
             if (typeof req.body.newUsername != 'undefined') {
                 user.username = req.body.newUsername;
             }
@@ -37,7 +36,6 @@ module.exports = function(passport) {
                 if (error) {
                     return res.json({ errors: [{ message: 'Username is already taken' }] }).status(400);
                 }
-                console.log(updatedUser);
                 res.json(updatedUser).status(200);
             });
         });

@@ -7,7 +7,7 @@ module.exports = function(passport) {
     /*
      * TODO: add authentication
      */
-    router.delete('/:username', function(req, res, next) {
+    router.delete('/:username', passport.authenticate('jwt', { session: false }, function(req, res, next) {
         User.findOneAndRemove({ 'username': req.params.username}, function(error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
@@ -16,7 +16,7 @@ module.exports = function(passport) {
             }
             res.json({ message: 'Successfully deleted user' }).status(200);
         });
-    });
+    }));
 
     return router;
 };
