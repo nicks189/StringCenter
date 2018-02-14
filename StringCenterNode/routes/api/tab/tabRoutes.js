@@ -16,17 +16,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//get tabs from dummy user
-router.get('/tabs', function(req, res, next){
-  Tab.find().
-      where('author_username').equals('mbechtel69').exec(function(err, Tab){
-          if (err) {
-            return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-          }
-          res.json(Tab).status(200);
-      });
-});
-
 //get tabs with user name sent in post body as author_username
 router.post('/findTabsByAuthorName', function(req, res, next){
   console.log(req.body);
