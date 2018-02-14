@@ -58,10 +58,32 @@ class Tabb{
     }
   }
 
+  String tabToString(){
+    String t = "";
+    t = t + _title + '\n';
+    t = t + _info + '\n';
+    String temp = "";
+    for(Measure measure in _measures){
+      t = t + measure.info + '\n';
+      for(InstString string in measure.strings){
+        temp += string.tuning + ' ';
+        for(String note in string.notes){
+          temp += note;
+        }
+        print(temp);
+        t = t + temp + '\n';
+        temp = "";
+      }
+    }
+  }
+
   get info => _info;
   get tuning => _tuning;
   get measureCount => _measures.length;
+
 }
+
+
 
 
 class Measure{
