@@ -60,6 +60,7 @@ class Register extends StatelessWidget {
               new TextField(controller: _username, decoration: new InputDecoration(hintText: 'Enter your username'),),
               new TextField(controller: _password, decoration: new InputDecoration(hintText: 'Enter your password'), obscureText: true,),
               new TextField(controller: _confirmpassword, decoration: new InputDecoration(hintText: 'Enter your password again'), obscureText: true,),
+              new Padding(padding: new EdgeInsets.all(32.0)),
               new RaisedButton(
                 child: new Text('Register'),
                 onPressed:(){
