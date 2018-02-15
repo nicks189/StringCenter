@@ -21,7 +21,7 @@ class _TabOptionsState extends State<TabOptions> {
   }
 
   Tabb createTab() {
-    return new Tabb(_titleController.text, _infoController.text, _tuningController.text);
+
   }
 
   @override
@@ -68,7 +68,7 @@ class _TabOptionsState extends State<TabOptions> {
               child: new Text('Next'),
               onPressed: () {
                 Navigator.push(context, new MaterialPageRoute(
-                  builder:(BuildContext context) => new CreateMeasure(createTab())
+                  builder:(BuildContext context) => new CreateMeasure(_titleController.text, _infoController.text, _tuningController.text)
                 ));
               },
             ),
