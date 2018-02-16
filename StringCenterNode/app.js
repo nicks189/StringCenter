@@ -29,12 +29,12 @@ app.use(expressSession({
         mongooseConnection: mongoose.connection
     })
 }));
-app.use(cookieParser('top-secret'));
+app.use(cookieParser(config.session.key));
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 
-// var userAuth = require('./auth/userAuth');
-// userAuth(passport);
+var userAuth = require('./auth/userAuth');
+userAuth(passport);
 
 var apiAuth = require('./auth/apiAuth');
 apiAuth(passport);
