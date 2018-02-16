@@ -1,5 +1,5 @@
 var User = require('../models/user');
-var config = require('../config/config')
+var config = require('../config/config');
 
 /*
  * Using passports jwt strategy authentication
