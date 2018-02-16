@@ -20,10 +20,6 @@ class _TabOptionsState extends State<TabOptions> {
     });
   }
 
-  Tabb createTab() {
-
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
