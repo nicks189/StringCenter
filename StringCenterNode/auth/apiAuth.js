@@ -14,18 +14,19 @@ module.exports = function(passport) {
     operations.secretOrKey = config.session.key;
 
     // JwtStrategy for API routes
-    passport.use(new JWTStrategy(operations, function(payload, callback) {
+    passport.use(new JWTStrategy(operations, function(jwt_payload, callback) {
         /*
          * payload contains the unencrypted user.id so
          * we can query the db for it
          */
-        User.findOne({ id: payload.id }, function(error, user) {
+        User.findById(jwt_payload, function(error, user) {
             if (error) {
                 return callback(error, false);
             } else if (!user) {
                 var err = new Error('User doesn\'t exist');
                 return callback(err, false);
             }
+            // sets req.user to user
             callback(null, user);
         });
     }));
