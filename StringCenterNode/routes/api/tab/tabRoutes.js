@@ -31,10 +31,11 @@ module.exports = function(passport){
         });
 
         //create new tab with json data from post
-        router.post('/createTab',  passport.authenticate('jwt', {session: false}), function(req, res, next){
-          if(validateTab.valid(req.body.tab)){
+        router.post('/createTab', function(req, res, next){
+          if(validateTab.valid(JSON.parse(req.body.tab))){
                 // add tab to database since it is valid
-                var tab = req.body.tab;
+
+                var tab = JSON.parse(req.body.tab);
                 var tabDetail = {author_username: req.body.author_username, tab_name: req.body.tab_name, tab: tab};
                 var tabModel = new Tab(tabDetail);
                 tabModel.save(function(err, tab){
