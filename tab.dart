@@ -70,11 +70,11 @@ class Tabb{
         for(String note in string.notes){
           temp += note;
         }
-        print(temp);
         t = t + temp + '\n';
         temp = "";
       }
     }
+    return t;
   }
 
   get info => _info;
