@@ -34,7 +34,7 @@ module.exports = function(passport){
         if(validateTab.valid(req.body.tab)){
             // add tab to database since it is valid
             var tab = req.body.tab;
-            var tabDetail = {author_username: req.user.username, tab_name: req.body.tab_name, tab: tab};
+            var tabDetail = {author_username: req.body.author_username, tab_name: req.body.tab_name, tab: tab};
             var tabModel = new Tab(tabDetail);
             tabModel.save(function(err, tab){
                 if(err){
