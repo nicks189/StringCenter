@@ -96,6 +96,6 @@ function checkStringsTuning(measure, tabTuning){
 }
 
 
-console.log("result of validation on tab: " + validateTab(tabObj));
+//console.log("result of validation on tab: " + validateTab(tabObj));
 
 module.exports = {valid : validateTab};
