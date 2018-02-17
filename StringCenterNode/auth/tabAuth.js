@@ -1,14 +1,13 @@
-var tabObj = {"info":"This is a new tab","measureCount":"1","measures":[{"info":"first measure","tuning":"EADG","stringCount":"4","strings":[{"notes":["-","-","-","-"],"tuning":"E"},{"notes":["-","-","-","-"],"tuning":"A"},{"notes":["-","-","-","-"],"tuning":"D"},{"notes":["-","-","-","-"],"tuning":"G"}]}]};
+//var tabObj = {"info":"This is a new tab","measureCount":"1","measures":[{"info":"first measure","tuning":"EADG","stringCount":"4","strings":[{"notes":["-","-","-","-"],"tuning":"E"},{"notes":["-","-","-","-"],"tuning":"A"},{"notes":["-","-","-","-"],"tuning":"D"},{"notes":["-","-","-","-"],"tuning":"G"}]}]};
 
 //validate tab
 function validateTab(tab){
     if(tab && checkInfo(tab) && checkMeasureCount(tab) && tab.measures && tab.measures[0] && tab.measures[0].tuning){
         var tabTuning = tab.measures[0].tuning;
         for(var i = 0; i < tab.measureCount; i++){
-          if(!validateMeasure(tab.measures[i], tabTuning)){
-            throw err;
-            return false;
-          }
+            if(!validateMeasure(tab.measures[i], tabTuning)){
+                return false;
+            }
         }
         return true;
     } else{
@@ -58,13 +57,13 @@ function checkStringCount(measure){
 
 //checks that all measures have same tuning
 function checkTuning(measure, tabTuning){
-  if(measure && measure.tuning && measure.tuning == tabTuning){
-    return true;
-  } else{
-    console.log(measure.tuning, tabTuning);
-    console.log("invalid tuning in measure " + measure);
-    return false;
-  }
+    if(measure && measure.tuning && measure.tuning == tabTuning){
+        return true;
+    } else{
+        console.log(measure.tuning, tabTuning);
+        console.log("invalid tuning in measure " + measure);
+        return false;
+    }
 }
 
 //chekcs that all strings have same amount of notes
@@ -85,15 +84,15 @@ function checkNoteCount(measure){
 //checks that strings in measure have same tuning as the tab
 function checkStringsTuning(measure, tabTuning){
   var tuningCharArray = tabTuning.split("");
-  if(measure && measure.stringCount && tuningCharArray.length == measure.stringCount){
-    for(var i = 0; i < measure.stringCount; i++){
-      if(measure.strings[i].tuning != tuningCharArray[i]){
-        console.log("string " + i + " does not match tab tuning");
-        return false;
-      }
+    if(measure && measure.stringCount && tuningCharArray.length == measure.stringCount){
+        for(var i = 0; i < measure.stringCount; i++){
+            if(measure.strings[i].tuning != tuningCharArray[i]){
+                console.log("string " + i + " does not match tab tuning");
+                return false;
+            }
+        }
+        return true;
     }
-    return true;
-  }
 }
 
 
