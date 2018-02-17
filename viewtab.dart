@@ -4,26 +4,21 @@ import "dart:io";
 import 'tab.dart';
 
 class viewTab extends StatelessWidget {
-
-  _getTab() async {
-
-    try{
-
-    } catch(exception) {
-
-    }
+  Tabb _t;
+  viewTab(Tabb t){
+    _t = t;
   }
+  List<Tabb> tabs = new List<Tabb>();
+  List<Widget> wl = new List<Widget>();
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('View'),),
+      appBar: new AppBar(title: new Text('View Tab'),),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
-          child: new Column(
-
-          ),
+          child: new Text(_t.tabToString()),
         ),
       ),
     );
