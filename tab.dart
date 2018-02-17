@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 
 class Tabb{
@@ -12,33 +11,43 @@ class Tabb{
   Tabb(String title, String info, String tuning){
     _title = title;
     _info = info;
-    _measures = [new Measure("", tuning.length, 4, tuning)];
+    _measures = [];
     _tuning = tuning;
     _stringCount = tuning.length;
   }
 
   Tabb.fromJson(encodedJson){
     Map json = JSON.decode(encodedJson);
-    _info = json['info'];
-    _tuning = json['tuning'];
-    num measureCount = json['measureCount'];
+    Map t = json['tab'];
+    _title = json['tab_name'];
+    _info = t['info'];
+    _tuning = t['tuning'];
+    num measureCount = t['measureCount'];
     _measures = [];
     for(int i = 0; i < measureCount; i++) {
-      _measures.add(new Measure.fromJson(json['measures'][i]));
+      _measures.add(new Measure.fromJson(t['measures'][i]));
     }
   }
 
   Map toJson(){
+    Map tabMap = new Map();
     Map map = new Map();
     map['info'] = _info;
-    map['tuning'];
-    map['measureCount'] = _measures.length;
+    map['tuning'] = _tuning;
+    map['measureCount'] = _measures.length.toString();
     map['measures'] = _measures;
-    return map;
+    tabMap['author_username'] = "newtestuser";
+    tabMap['tab_name'] = _title;
+    tabMap['tab'] = map;
+    return tabMap;
   }
 
-  void addMeasure(String info, int noteCount){
+  void createMeasure(String info, int noteCount){
     _measures.add(new Measure(info, _stringCount, noteCount, _tuning));
+  }
+
+  void addMeasure(Measure m) {
+    _measures.add(m);
   }
 
   void printTabb(){
@@ -114,7 +123,7 @@ class Measure{
     Map map = new Map();
     map['info'] = _info;
     map['tuning'] = _tuning;
-    map['stringCount'] = _strings.length;
+    map['stringCount'] = _strings.length.toString();
     map['strings'] = _strings;
     return map;
   }
