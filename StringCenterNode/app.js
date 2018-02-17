@@ -69,7 +69,7 @@ var apiSignIn = require('./routes/api/user/signIn')(passport);
 var apiSignOut = require('./routes/api/user/signOut')(passport);
 var apiRegister= require('./routes/api/user/register')(passport);
 var updateUser = require('./routes/api/user/updateUser')(passport);
-var tabRoutes = require('./routes/api/tab/tabRoutes');
+var tabRoutes = require('./routes/api/tab/tabRoutes')(passport);
 
 
 // API documentation page
