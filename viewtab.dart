@@ -5,16 +5,26 @@ import 'tab.dart';
 
 class viewTab extends StatelessWidget {
   Tabb _t;
-  viewTab(Tabb t){
+
+  viewTab(Tabb t) {
     _t = t;
   }
+
   List<Tabb> tabs = new List<Tabb>();
   List<Widget> wl = new List<Widget>();
+
+  /*class
+
+  _viewTabState
+
+  extends State<viewTab>*/
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('View Tab'),),
+      appBar: new AppBar(
+        title: new Text('View Tab'),
+      ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
@@ -23,5 +33,4 @@ class viewTab extends StatelessWidget {
       ),
     );
   }
-
 }

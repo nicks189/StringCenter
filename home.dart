@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'viewtablist.dart';
+import 'tab.dart';
 
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
@@ -20,6 +22,15 @@ class _HomeState extends State<Home> {
                 child: new Text("Login"),
                 onPressed: () {
                   Navigator.of(context).pushNamed('login');
+                },
+              ),
+              new Padding(padding: new EdgeInsets.all(16.0)),
+              new RaisedButton(
+                child: new Text("View Tabs"),
+                onPressed: () {
+                  Navigator.push(context, new MaterialPageRoute(
+                      builder:(BuildContext context) => new viewTabList(),
+                  ));
                 },
               ),
             ],

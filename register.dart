@@ -65,7 +65,7 @@ class Register extends StatelessWidget {
                 child: new Text('Register'),
                 onPressed:(){
                   bool a = false;
-                  _sendRegister(a); // TODO
+                  _sendRegister(a); // TODO authentification
                   if(a) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                 },
               ),
