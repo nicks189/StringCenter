@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'dart:io';
+import 'dart:convert';
+
 import 'tab.dart';
 
 class CreateMeasure extends StatefulWidget {
@@ -26,7 +29,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
 
   _CreateMeasureState(String title, String info, String tuning) {
     _t = new Tabb(title, info, tuning);
-    _m = new Measure('Null', _t.tuning.length, 0, _t.tuning);
+    _m = new Measure('stuff', _t.tuning.length, 0, _t.tuning);
     _noteCount = 0;
   }
 
@@ -43,6 +46,36 @@ class _CreateMeasureState extends State<CreateMeasure> {
         _m.strings[j - 2].notes[i] = _symbolController.text;
       }
     });
+  }
+
+  void _nextMeasure() {
+    setState(() {
+      _t.addMeasure(_m);
+      _m = new Measure("info", _t.tuning.length, _noteCount, _t.tuning);
+    });
+  }
+
+  _pushTab() async {
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/createTab";
+    var httpClient = new HttpClient();
+    String result;
+    var json = JSON.encode(_t);
+    print (json);
+    try {
+      var request = await httpClient.postUrl(Uri.parse(url));
+      print(Uri.parse(url));
+      request.headers.contentType = new ContentType("application", "json");
+      request.write(json);
+      var response = await request.close();
+      var responseBody = await response.transform(UTF8.decoder).join();
+      print('BODY: $responseBody');
+      print(JSON.decode(responseBody)); // fields are the same, just no quotes
+      //TODO (if success result = success)
+      result = 'success';
+    } catch (exception) {
+      result = 'fail';
+      print(exception);
+    }
   }
 
   List<Widget> generateWidgets() {
@@ -113,6 +146,10 @@ class _CreateMeasureState extends State<CreateMeasure> {
           'Create Measure',
           textAlign: TextAlign.center,
         ),
+        actions: [
+          new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
+          new IconButton(icon: new Icon(Icons.print), onPressed: _pushTab),
+        ],
       ),
       body: new Container(
           alignment: Alignment.center,
