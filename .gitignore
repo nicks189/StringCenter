@@ -29,3 +29,11 @@ ios/.generated/
 packages
 pubspec.lock
 .flutter-plugins
+.metadata
+android.iml
+pubspec.yaml
+ss_5.iml
+ss_5_android.iml
+string_center.iml
+android/*
+ios/*
