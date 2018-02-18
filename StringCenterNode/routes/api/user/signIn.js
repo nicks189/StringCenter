@@ -6,9 +6,6 @@ var config = require('../../../config/config')
 module.exports = function(passport) {
     var router = express.Router();
 
-    /*
-     * TODO
-     */
     router.post('/', function(req, res, next) {
         if (req.body.username && req.body.password) {
             User.findOne({ 'username': req.body.username }, function (error, user) {

@@ -4,12 +4,7 @@ var User = require('../../../models/user');
 module.exports = function(passport) {
     var router = express.Router();
 
-    /*
-     * TODO: configure passport to handle this; authentication
-     */
     router.post('/', function(req, res, next) {
-        console.log(req.params);
-        console.log(req.body);
         if (req.body.username && req.body.password) {
             if (req.body.password !== req.body.confirmPassword) {
                 return res.json({ errors: [{ message: 'Passwords don\'t match' }] }).status(400);

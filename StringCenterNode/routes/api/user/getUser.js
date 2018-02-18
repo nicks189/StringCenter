@@ -5,9 +5,11 @@ module.exports = function(passport) {
     var router = express.Router();
 
     /*
-     * TODO: add authentication
+     * TODO: add authorization so only mods/admins can access this;
+     * limit this to some max number of users; limit the info that
+     * is responded
      */
-    router.get('/all', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+    router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         User.find({}, function(error, users) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
@@ -19,10 +21,10 @@ module.exports = function(passport) {
     });
 
     /*
-     * TODO: add authentication
+     * TODO: limit the info that is responded
      */
-    router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        User.findOne({ 'username': req.user.username}, function(error, user) {
+    router.get('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+        User.findOne({ 'username': req.params.username}, function(error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
