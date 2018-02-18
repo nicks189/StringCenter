@@ -69,7 +69,8 @@ class _CreateMeasureState extends State<CreateMeasure> {
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
       print('BODY: $responseBody');
-      print(JSON.decode(responseBody)); // fields are the same, just no quotes
+      Tabb t = new Tabb.fromJson(responseBody);
+      print(t); // fields are the same, just no quotes
       //TODO (if success result = success)
       result = 'success';
     } catch (exception) {
@@ -148,7 +149,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
         ),
         actions: [
           new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
-          new IconButton(icon: new Icon(Icons.print), onPressed: _pushTab),
+          new IconButton(icon: new Icon(Icons.file_upload), onPressed: _pushTab),
         ],
       ),
       body: new Container(

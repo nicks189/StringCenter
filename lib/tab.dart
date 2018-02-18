@@ -22,7 +22,7 @@ class Tabb{
     _title = json['tab_name'];
     _info = t['info'];
     _tuning = t['tuning'];
-    num measureCount = t['measureCount'];
+    num measureCount = int.parse(t['measureCount']);
     _measures = [];
     for(int i = 0; i < measureCount; i++) {
       _measures.add(new Measure.fromJson(t['measures'][i]));
@@ -112,7 +112,7 @@ class Measure{
   Measure.fromJson(json){
     _info = json['info'];
     _tuning = json['tuning'];
-    num stringCount = json['stringCount'];
+    num stringCount = int.parse(json['stringCount']);
     _strings = [];
     for(int i = 0; i < stringCount; i++){
       _strings.add(new InstString.fromJson(json['strings'][i]));
