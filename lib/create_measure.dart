@@ -69,7 +69,9 @@ class _CreateMeasureState extends State<CreateMeasure> {
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
       print('BODY: $responseBody');
-      Tabb t = new Tabb.fromJson(responseBody);
+      Map b = new Map();
+      b = JSON.decode(responseBody);
+      Tabb t = new Tabb.fromJson(b);
       print(t); // fields are the same, just no quotes
       //TODO (if success result = success)
       result = 'success';
