@@ -7,7 +7,7 @@ module.exports = function(passport) {
     /*
      * TODO: add authentication
      */
-    router.get('/', function(req, res, next) {
+    router.get('/all', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         User.find({}, function(error, users) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
@@ -21,8 +21,8 @@ module.exports = function(passport) {
     /*
      * TODO: add authentication
      */
-    router.get('/:username', function(req, res, next) {
-        User.findOne({ 'username': req.params.username}, function(error, user) {
+    router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+        User.findOne({ 'username': req.user.username}, function(error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
