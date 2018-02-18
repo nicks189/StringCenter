@@ -16,8 +16,7 @@ class Tabb{
     _stringCount = tuning.length;
   }
 
-  Tabb.fromJson(encodedJson){
-    Map json = JSON.decode(encodedJson);
+  Tabb.fromJson(Map json){
     Map t = json['tab'];
     _title = json['tab_name'];
     _info = t['info'];
