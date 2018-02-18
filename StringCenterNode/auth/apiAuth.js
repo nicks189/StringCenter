@@ -23,7 +23,7 @@ module.exports = function(passport) {
             if (error) {
                 return callback(error, false);
             } else if (!user) {
-                var err = new Error('User doesn\'t exist');
+                var err = new Error('Invalid token');
                 return callback(err, false);
             }
             // sets req.user to user
