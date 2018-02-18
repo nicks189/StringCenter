@@ -7,7 +7,7 @@ module.exports = function(passport) {
     router.put('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         // req.user is set by passport, see apiAuth.js
         if (req.params.username === req.user.username) {
-            User.findOne({'username': req.user.username}, function (error, user) {
+            User.findOne({'username': req.user.username}, function(error, user) {
                 if (error) {
                     return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
                 } else if (!user) {
@@ -34,7 +34,7 @@ module.exports = function(passport) {
                         firstName: user.firstName, lastName: user.lastName,
                         password: user.password
                     }
-                }, function (error, updatedUser) {
+                }, function(error, updatedUser) {
                     if (error) {
                         return res.json({errors: [{message: 'Username is already taken'}]}).status(400);
                     }

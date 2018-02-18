@@ -29,6 +29,7 @@ var UserSchema = mongoose.Schema({
     }
 });
 
+// password is the new unhashed password
 UserSchema.statics.comparePasswords = function(password, matchedPassword) {
     // Should change to async
     return bcrypt.compareSync(password, matchedPassword);

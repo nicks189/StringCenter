@@ -8,7 +8,7 @@ module.exports = function(passport) {
 
     router.post('/', function(req, res, next) {
         if (req.body.username && req.body.password) {
-            User.findOne({ 'username': req.body.username }, function (error, user) {
+            User.findOne({ 'username': req.body.username }, function(error, user) {
                 if (error) {
                     return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
                 }
