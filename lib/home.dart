@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'viewtablist.dart';
 import 'tab.dart';
 
-class Home extends StatefulWidget {
-  _HomeState createState() => new _HomeState();
-}
+class Home extends StatelessWidget {
+  String _message;
 
-class _HomeState extends State<Home> {
+  Home() {
+    _message = '';
+  }
+
+  Home.withMessage(String message) {
+    _message = message;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -31,6 +37,13 @@ class _HomeState extends State<Home> {
                   Navigator.push(context, new MaterialPageRoute(
                       builder:(BuildContext context) => new viewTabList(),
                   ));
+                },
+              ),
+              new Padding(padding: new EdgeInsets.all(16.0)),
+              new RaisedButton(
+                child: new Text("Create Tab"),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('tabOptions');
                 },
               ),
             ],
