@@ -43,7 +43,7 @@ module.exports = function(passport) {
                 });
             });
         } else {
-            res.json({ errors: [{ message: 'Unauthorized' }] });
+            res.json({ errors: [{ message: 'Unauthorized' }] }).status(501);
         }
     });
 
