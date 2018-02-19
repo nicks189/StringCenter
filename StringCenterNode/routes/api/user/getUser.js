@@ -5,11 +5,12 @@ module.exports = function(passport) {
     var router = express.Router();
 
     /*
+     * --- Get a list of all users ---
      * TODO: add authorization so only mods/admins can access this;
      * limit this to some max number of users; limit the info that
      * is responded
      */
-    router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+    router.get('/all', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         User.find({}, function(error, users) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
@@ -21,9 +22,25 @@ module.exports = function(passport) {
     });
 
     /*
+     * --- Get user by current authentication ---
      * TODO: limit the info that is responded
      */
-    router.get('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+    router.get('/info', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+        User.findOne({ 'username': req.user.username}, function(error, user) {
+            if (error) {
+                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+            } else if (!user) {
+                return res.json({ errors: [{ message: 'Username not found' }] }).status(400);
+            }
+            res.json(user).status(200);
+        });
+    });
+
+    /*
+     * --- Get user by username
+     * TODO: limit the info that is responded
+     */
+    router.get('/info/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         User.findOne({ 'username': req.params.username}, function(error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
