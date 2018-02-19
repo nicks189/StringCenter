@@ -37,7 +37,7 @@ module.exports = function(passport) {
     });
 
     /*
-     * --- Get user by username
+     * --- Get user by username ---
      * TODO: limit the info that is responded
      */
     router.get('/info/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
