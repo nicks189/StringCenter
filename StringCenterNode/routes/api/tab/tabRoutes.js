@@ -18,15 +18,17 @@ module.exports = function(passport){
     });
 
     //get tabs with user name sent in post body as author_username
-    router.get('/findTabsByUser',  passport.authenticate('jwt', {session: false}), function(req, res, next){
-        console.log(req.body);
-        Tab.find().
-            where('author_username').equals(req.user.username).exec(function(err, Tab){
+    router.get('/findTabsByUser/:username',  passport.authenticate('jwt', {session: false}), function(req, res, next){
+        if (req.user.username === req.params.username) {
+            Tab.find().where('author_username').equals(req.params.username).exec(function (err, Tab) {
                 if (err) {
-                    return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
                 }
-                res.json({ tabs: Tab }).status(200);
+                res.json({tabs: Tab}).status(200);
             });
+        } else {
+            res.json({ errors: [{ message: 'Unauthorized' }] }).status(501);
+        }
     });
 
     //create new tab with json data from post
@@ -48,7 +50,6 @@ module.exports = function(passport){
                 }
             });
         } else{
-            res.json({ errors: [{ message: 'Invalid tab' }] }).status(400);
         }
     });
 
