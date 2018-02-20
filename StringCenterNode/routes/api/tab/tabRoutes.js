@@ -60,6 +60,7 @@ module.exports = function(passport){
                 }
             });
         } else{
+            res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
         }
     });
 
