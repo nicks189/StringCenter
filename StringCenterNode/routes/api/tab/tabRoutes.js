@@ -17,8 +17,8 @@ module.exports = function(passport){
     });
 
     //get tab by id
-    router.get('/findTabById:/id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        Tab.findById(req.user.id, function(error, tab) {
+    router.get('/findTabById/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+        Tab.findById(req.params.id, function(error, tab) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!tab) {
