@@ -37,14 +37,14 @@ class _CreateMeasureState extends State<CreateMeasure> {
   void _newMeasure() {
     setState(() {
       _noteCount = int.parse(_noteController.text);
-      _m = new Measure("info", _t.tuning.length, _noteCount, _t.tuning);
+      _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
     });
   }
 
   void _changeNote(int i, int j) {
     setState(() {
       if (j != null && i != null) {
-        _m.strings[j - 2].notes[i] = _symbolController.text;
+        _m.strings[j-2].notes[i] = _symbolController.text;
       }
     });
   }
@@ -52,7 +52,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
   void _nextMeasure() {
     setState(() {
       _t.addMeasure(_m);
-      _m = new Measure("info", _t.tuning.length, _noteCount, _t.tuning);
+      _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
     });
   }
 
@@ -135,7 +135,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
         } else {
           wlist.add(new MaterialButton(
               child: new Text(
-                _m.strings[j - 2].notes[i],
+                _m.strings[j-2].notes[i],
               ),
               onPressed: () {
                 _changeNote(i, j);
