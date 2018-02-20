@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Tab = require('../../../models/tabModel.js');
-var mongoose = require('mongoose');
 var cb = require('../../../middleware/mongoCallback.js');
 var validateTab = require('../../../auth/tabAuth.js');
 
@@ -14,6 +13,18 @@ module.exports = function(passport){
               return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             }
             res.json({ tabs: Tab }).status(200);
+        });
+    });
+
+    //get tab by id
+    router.get('/findTabById:/id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+        Tab.findById(req.user.id, function(error, tab) {
+            if (error) {
+                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+            } else if (!tab) {
+                return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
+            }
+            res.json(tab).status(200);
         });
     });
 
@@ -65,4 +76,4 @@ module.exports = function(passport){
     });
 
     return router;
-}
+};
