@@ -60,14 +60,23 @@ class _TabOptionsState extends State<TabOptions> {
                hintText: 'Enter Tuning',
              ),
            ),
-            new RaisedButton(
-              child: new Text('Next'),
-              onPressed: () {
-                Navigator.push(context, new MaterialPageRoute(
-                  builder:(BuildContext context) => new CreateMeasure(_titleController.text, _infoController.text, _tuningController.text)
-                ));
-              },
-            ),
+           new Builder(
+             builder: (BuildContext context){
+               return new RaisedButton(
+                 child: new Text('Next'),
+                 onPressed: () {
+                   if(_titleController.text != '' && _infoController.text != '' && _tuningController.text != '')
+                   Navigator.push(context, new MaterialPageRoute(
+                       builder:(BuildContext context) => new CreateMeasure(_titleController.text, _infoController.text, _tuningController.text)
+                   ));
+                   else
+                     Scaffold.of(context).showSnackBar(new SnackBar(content: new Text('Please enter tab title, info and tuning')));
+
+                 },
+               );
+             },
+           ),
+
           ],
         ),
       ),

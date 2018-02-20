@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'tab.dart';
+import 'home.dart';
 
 class CreateMeasure extends StatefulWidget {
   String _title;
@@ -75,6 +76,10 @@ class _CreateMeasureState extends State<CreateMeasure> {
       print(t); // fields are the same, just no quotes
       //TODO (if success result = success)
       result = 'success';
+      Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
+          builder: (BuildContext context) => new Home()),
+              (Route<dynamic> route) => false
+      );
     } catch (exception) {
       result = 'fail';
       print(exception);
@@ -151,7 +156,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
         ),
         actions: [
           new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
-          new IconButton(icon: new Icon(Icons.file_upload), onPressed: _pushTab),
+          new IconButton(icon: new Icon(Icons.file_upload), onPressed: () {_pushTab; _t.printTabb();}),
         ],
       ),
       body: new Container(
