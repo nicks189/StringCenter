@@ -5,7 +5,7 @@ var User = require('./user');
 var PostSchema = mongoose.Schema({
     title: {
         type: String,
-        maxlength: [128, 'Title cannot be longer than 128 characters'],
+        maxlength: [64, 'Title cannot be longer than 64 characters'],
         required: true,
         trim: true
     },
