@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'registerdata.dart';
 
 class Register extends StatelessWidget {
-
+ bool a = false;
   static final TextEditingController _firstname = new TextEditingController();
   static final TextEditingController _lastname = new TextEditingController();
   static final TextEditingController _username = new TextEditingController();
@@ -19,7 +19,7 @@ class Register extends StatelessWidget {
   String get confirmpassword => _confirmpassword.text;
 
 
-  _sendRegister(bool auth) async {
+  _sendRegister() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register"; // URL for registration
     var httpClient = new HttpClient();
     String result;
@@ -38,12 +38,12 @@ class Register extends StatelessWidget {
       var data = JSON.decode(responseBody);
       //TODO (if success result = success)
       result = 'success';
-
+      a = true;
     } catch (exception) {
       result = 'fail';
       print(exception);
     }
-    auth = rd.auth(result);
+
   }
 
   @override
@@ -63,9 +63,8 @@ class Register extends StatelessWidget {
               new Padding(padding: new EdgeInsets.all(32.0)),
               new RaisedButton(
                 child: new Text('Register'),
-                onPressed:(){
-                  bool a = false;
-                  _sendRegister(a); // TODO authentification
+                onPressed:() async{
+                   await _sendRegister(); // TODO authentification
                   if(a) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                 },
               ),

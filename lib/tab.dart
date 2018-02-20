@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'globals.dart' as globals;
 
 class Tabb{
   String _title;
@@ -35,7 +35,7 @@ class Tabb{
     map['tuning'] = _tuning;
     map['measureCount'] = _measures.length.toString();
     map['measures'] = _measures;
-    tabMap['author_username'] = "newtestuser";
+    tabMap['author_username'] = globals.username;
     tabMap['tab_name'] = _title;
     tabMap['tab'] = map;
     return tabMap;
@@ -88,6 +88,7 @@ class Tabb{
   get info => _info;
   get tuning => _tuning;
   get measureCount => _measures.length;
+  get title => _title;
 
 }
 

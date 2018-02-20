@@ -156,7 +156,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
         ),
         actions: [
           new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
-          new IconButton(icon: new Icon(Icons.file_upload), onPressed: () {_pushTab; _t.printTabb();}),
+          new IconButton(icon: new Icon(Icons.file_upload), onPressed: _pushTab),
         ],
       ),
       body: new Container(

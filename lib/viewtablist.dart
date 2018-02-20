@@ -3,6 +3,7 @@ import "dart:convert";
 import "dart:io";
 import 'tab.dart';
 import 'viewtab.dart';
+import 'globals.dart' as globals;
 
 class viewTabList extends StatefulWidget {
 
@@ -21,7 +22,7 @@ class viewTabList extends StatefulWidget {
     try {
       var request = await httpClient.getUrl(Uri.parse(url));
       request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
-      request.headers.add("authorization", "bearer eyJhbGciOiJIUzI1NiJ9.NWE4ODlkYWUyZjkzOGMyZDAxZjVkMjdl.3s6PeRjyZUPSgHi3whRkS2-iGQJyvyZ-snauby7XvWE");
+      request.headers.add("authorization", "bearer ${globals.token}");
 
       var response = await request.close();
       var json = await response.transform(UTF8.decoder).join();
@@ -51,7 +52,7 @@ class viewTabList extends StatefulWidget {
       _wl.add(new MaterialButton(onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new viewTab(_tabs[i])));
       },
-        child: new Text("Hello"),
+        child: new Text(_tabs[i].title),
       ));
 
     }
