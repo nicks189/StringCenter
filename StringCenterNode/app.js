@@ -78,6 +78,7 @@ var joinGroup = require('./routes/api/group/joinGroup')(passport);
 var leaveGroup = require('./routes/api/group/leaveGroup')(passport);
 var getGroupPosts = require('./routes/api/group/getGroupPosts')(passport);
 var viewGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
+var createGroup = require('./routes/api/group/createGroup')(passport);
 
 
 
@@ -108,6 +109,7 @@ app.use('/api/join-group', joinGroup);
 app.use('/api/leave-group', leaveGroup);
 app.use('/api/get-group-posts', getGroupPosts);
 app.use('/api/get-group-members', getGroupMembers);
+app.use('/api/create-group', createGroup);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
