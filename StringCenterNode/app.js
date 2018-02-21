@@ -73,6 +73,8 @@ var createPost = require('./routes/api/post/createPost')(passport);
 var getPost = require('./routes/api/post/getPost')(passport);
 var deletePost = require('./routes/api/post/deletePost')(passport);
 
+
+
 // API documentation page
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
 
