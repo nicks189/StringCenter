@@ -33,6 +33,7 @@ class _HomeState extends State<Home> {
 
     try {
       String token = await readFileAsString('token.txt');
+
       var request = await httpClient.getUrl(Uri.parse(url));
       print("url (home): " + Uri.parse(url).toString());
       print("token (home): " + token);
@@ -46,14 +47,15 @@ class _HomeState extends State<Home> {
       //TODO (if success result = success)
 
       //Save token into token.txt
-
-      if (responseBody == "Unauthorized") {
-      }
-      else {
+      Map m = JSON.decode(responseBody); // kind of bad TODO
+      if (m['_id'] != null) {
         globals.isLoggedIn = true;
         Map m = JSON.decode(responseBody);
         globals.username = m['username'];
         globals.token = token;
+      }
+      else {
+
       }
       print("globals.isLoggedin (home): " + globals.isLoggedIn.toString());
       generateWidgets();
