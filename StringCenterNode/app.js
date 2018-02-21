@@ -12,7 +12,6 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
-var swaggerUI = require('swagger-ui-express');
 var apiSpec = require('./docs/api-spec');
 
 var app = express();
@@ -80,10 +79,6 @@ var getGroupPosts = require('./routes/api/group/getGroupPosts')(passport);
 var getGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
 var createGroup = require('./routes/api/group/createGroup')(passport);
 
-
-
-// API documentation page
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
 
 // demo routes
 app.use('/', index);
