@@ -77,7 +77,7 @@ var updatePost = require('./routes/api/post/updatePost')(passport);
 var joinGroup = require('./routes/api/group/joinGroup')(passport);
 var leaveGroup = require('./routes/api/group/leaveGroup')(passport);
 var getGroupPosts = require('./routes/api/group/getGroupPosts')(passport);
-var viewGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
+var getGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
 var createGroup = require('./routes/api/group/createGroup')(passport);
 
 
