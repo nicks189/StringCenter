@@ -12,7 +12,6 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
-var apiSpec = require('./docs/api-spec');
 
 var app = express();
 
