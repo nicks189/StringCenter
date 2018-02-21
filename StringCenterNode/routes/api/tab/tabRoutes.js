@@ -67,7 +67,7 @@ module.exports = function(passport){
                 } else{
                     console.log(tab);
                     cb.cb(null, tab);
-                    res.json(tab);
+                    res.json(tab).status(201);
                 }
             });
         } else{
