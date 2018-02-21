@@ -5,7 +5,8 @@ var GroupSchema = new Schema({
     groupName : {
         type: String,
         maxlength: [20, 'Group name cannot be longer than 20 characters'],
-        required: true
+        required: true,
+        unique: true
     }
 });
 
