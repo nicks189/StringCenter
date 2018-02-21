@@ -25,6 +25,6 @@
     "pug": "^2.0.0-rc.4",
     "pug-bootstrap": "0.0.15",
     "readline-sync": "^1.4.7",
-    "serve-favicon": "~2.4.5",
+    "serve-favicon": "~2.4.5"
   }
 }
