@@ -21,6 +21,7 @@ var UserGroupSchema = new Schema({
 
 UserGroupSchema.methods.validateAndSave = function(callback){
     var userGroup = this;
+
     userGroup.save(function(error, saved){
         /*
          * If an error occured, build array of errorMessages
@@ -31,9 +32,10 @@ UserGroupSchema.methods.validateAndSave = function(callback){
          *   ]
          * }
          */
+
         if(error){
-            var errorMessages = [];
             var key;
+            var errorMessages = [];
             for(key in error.errors){
                 var err = {};
                 err[key] = error.errors[key].message;
@@ -46,6 +48,7 @@ UserGroupSchema.methods.validateAndSave = function(callback){
 
         //No errors
         return callback(null, saved);
+
     });
 }
 
