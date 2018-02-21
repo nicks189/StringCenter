@@ -9,9 +9,9 @@ module.exports = function(passport) {
         if (req.params.username === req.user.username) {
             User.findOne({'username': req.user.username}, function(error, user) {
                 if (error) {
-                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                    return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
                 } else if (!user) {
-                    return res.json({errors: [{message: 'Username not found'}]}).status(400);
+                    return res.json({ errors: [{ message: 'Username not found' }] }).status(400);
                 }
                 if (typeof req.body.newUsername !== 'undefined') {
                     user.username = req.body.newUsername;
@@ -24,11 +24,11 @@ module.exports = function(passport) {
                 }
                 if (typeof req.body.newPassword !== 'undefined') {
                     if (req.body.newPassword !== req.body.confirmNewPassword) {
-                        return res.json({errors: [{message: 'Passwords don\'t match'}]}).status(400);
+                        return res.json({ errors: [{ message: 'Passwords don\'t match' }] }).status(400);
                     }
                     user.password = User.hashPasswordSync(req.body.newPassword);
                 }
-                User.findOneAndUpdate({'username': req.user.username}, {
+                User.findOneAndUpdate({ 'username': req.user.username }, {
                     $set: {
                         name: user.username,
                         firstName: user.firstName, lastName: user.lastName,
@@ -36,7 +36,7 @@ module.exports = function(passport) {
                     }
                 }, function(error, updatedUser) {
                     if (error) {
-                        return res.json({errors: [{message: 'Username is already taken'}]}).status(400);
+                        return res.json({ errors: [{ message: 'Username is already taken' }] }).status(400);
                     }
                     // TODO -- updatedUser is still the old user, fix this
                     res.json(updatedUser).status(200);
