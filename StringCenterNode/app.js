@@ -72,6 +72,7 @@ var tabRoutes = require('./routes/api/tab/tabRoutes')(passport);
 var createPost = require('./routes/api/post/createPost')(passport);
 var getPost = require('./routes/api/post/getPost')(passport);
 var deletePost = require('./routes/api/post/deletePost')(passport);
+var updatePost = require('./routes/api/post/updatePost')(passport);
 
 // API documentation page
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiSpec));
@@ -94,6 +95,7 @@ app.use('/api/tab', tabRoutes);
 app.use('/api/create-post', createPost);
 app.use('/api/get-post', getPost);
 app.use('/api/delete-post', deletePost);
+app.use('/api/update-post', updatePost);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
