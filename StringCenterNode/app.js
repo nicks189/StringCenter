@@ -74,6 +74,11 @@ var getPost = require('./routes/api/post/getPost')(passport);
 var deletePost = require('./routes/api/post/deletePost')(passport);
 var updatePost = require('./routes/api/post/updatePost')(passport);
 
+var joinGroup = require('./routes/api/group/joinGroup')(passport);
+var leaveGroup = require('./routes/api/group/leaveGroup')(passport);
+var getGroupPosts = require('./routes/api/group/getGroupPosts')(passport);
+var viewGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
+
 
 
 // API documentation page
@@ -98,6 +103,11 @@ app.use('/api/create-post', createPost);
 app.use('/api/get-post', getPost);
 app.use('/api/delete-post', deletePost);
 app.use('/api/update-post', updatePost);
+
+app.use('/api/join-group', joinGroup);
+app.use('/api/leave-group', leaveGroup);
+app.use('/api/get-group-posts', getGroupPosts);
+app.use('/api/get-group-members', getGroupMembers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
