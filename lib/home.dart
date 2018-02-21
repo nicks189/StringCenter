@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'log_in.dart';
+import 'servercommunication.dart';
 import 'globals.dart' as globals;
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
@@ -31,20 +32,17 @@ class _HomeState extends State<Home> {
     var httpClient = new HttpClient();
 
     try {
-      String dir = (await getApplicationDocumentsDirectory()).path;
-      File f = new File('$dir/token.txt');
-
+      String token = await readFileAsString('token.txt');
       var request = await httpClient.getUrl(Uri.parse(url));
-      print(Uri.parse(url));
-      String token = await f.readAsString();
-
+      print("url (home): " + Uri.parse(url).toString());
+      print("token (home): " + token);
       request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
       request.headers.add("authorization", "bearer $token");
 
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
 
-      print('BODY: $responseBody'); // fields are in quotes except the last is "__v":0
+      print('Response Body (home): $responseBody'); // fields are in quotes except the last is "__v":0
       //TODO (if success result = success)
 
       //Save token into token.txt
@@ -57,13 +55,13 @@ class _HomeState extends State<Home> {
         globals.username = m['username'];
         globals.token = token;
       }
-      print(globals.isLoggedIn);
+      print("globals.isLoggedin (home): " + globals.isLoggedIn.toString());
       generateWidgets();
       setState((){
 
       });
     } catch (exception) {
-      print(exception);
+      print("exception: " + exception.toString());
       _page = new Login();
       setState((){});
     }
@@ -127,10 +125,10 @@ class _HomeState extends State<Home> {
     if(_loaded == false) {
       _loaded = true;
       requestUser();
-      print(globals.isLoggedIn);
+      print("globals.isLoggedin: " + globals.isLoggedIn.toString());
     }
     //check();
-    print(globals.isLoggedIn);
+    print("globals.isLoggedin: " + globals.isLoggedIn.toString());
     return _page;
 
   }

@@ -27,8 +27,8 @@ class viewTabList extends StatefulWidget {
       var response = await request.close();
       var json = await response.transform(UTF8.decoder).join();
       Map jsonD = JSON.decode(json);
-      print(json);
-      print(jsonD['tabs'].length);
+      print("decoded json map: " + json.toString());
+      print("jsond['tabs'].length: " + jsonD['tabs'].length.toString());
       for (int i = 0; i < jsonD['tabs'].length;i++) {
         _tabs.add(new Tabb.fromJson(jsonD['tabs'][i]));
       }
@@ -46,7 +46,7 @@ class viewTabList extends StatefulWidget {
 
   List<Widget> _generateWidgets() {
 
-    print(_tabs.length);
+    print("_tabs.length: " + _tabs.length.toString());
     for (int i = 0; i < _tabs.length ;i ++){
       //TODO put code for populating widget list
       _wl.add(new MaterialButton(onPressed: () {

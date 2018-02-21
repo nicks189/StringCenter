@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
     String result;
     logindata ld = new logindata(username, password);
     var json = JSON.encode(ld.toJson());
-    print (json);
+    print ("json (login): " + json);
     try {
       var request = await httpClient.postUrl(Uri.parse(url));
       print(Uri.parse(url));
@@ -36,8 +36,8 @@ class Login extends StatelessWidget {
       request.write(json);
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
-      print('BODY: $responseBody'); // fields are in quotes except the last is "__v":0
-      print(JSON.decode(responseBody)); // fields are the same, just no quotes
+      print('ResponseBody (login): $responseBody'); // fields are in quotes except the last is "__v":0
+      print('decoded response body (login): ' + JSON.decode(responseBody).toString()); // fields are the same, just no quotes
       var data = JSON.decode(responseBody);
       //TODO (if success result = success)
       //Save token into token.txt
@@ -49,8 +49,8 @@ class Login extends StatelessWidget {
       globals.token = token;
       globals.username = username;
       String test = await f.readAsString();
-      print("print token from server:" + token);
-      print("print read:" + test);
+      print("print token from server: " + token);
+      print("print read from file: " + test);
       if (test==token) {
         auth = true;
         sg = "done";
@@ -59,7 +59,7 @@ class Login extends StatelessWidget {
     } catch (exception) {
       sg = "fail";
       result = 'fail';
-      print(exception);
+      print("exception: " + exception.toString());
       auth = false;
     }
   }
@@ -81,7 +81,7 @@ class Login extends StatelessWidget {
                 onPressed:() async {
 
                   await _sendLogin();
-                  print(auth);
+                  print("auth :" + auth.toString());
                   //while(sg == "");
                   _username.clear();
                   _password.clear();
