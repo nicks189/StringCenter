@@ -22,3 +22,12 @@ Future<String> readFileAsString(String filename) async {
   return token;
 }
 
+Future<String> getRequestHome(String url, String token) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.getUrl(Uri.parse(url));
+  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.add("authorization", "bearer $token");
+  var response = await request.close();
+  String responseBody = await response.transform(UTF8.decoder).join();
+  return responseBody;
+}

@@ -34,18 +34,17 @@ class _HomeState extends State<Home> {
     try {
       String token = await readFileAsString('token.txt');
 
-      var request = await httpClient.getUrl(Uri.parse(url));
-      print("url (home): " + Uri.parse(url).toString());
-      print("token (home): " + token);
-      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
-      request.headers.add("authorization", "bearer $token");
-
-      var response = await request.close();
-      var responseBody = await response.transform(UTF8.decoder).join();
-
-      print('Response Body (home): $responseBody'); // fields are in quotes except the last is "__v":0
-      //TODO (if success result = success)
-
+//      var request = await httpClient.getUrl(Uri.parse(url));
+//      print("url (home): " + Uri.parse(url).toString());
+//      print("token (home): " + token);
+//      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+//      request.headers.add("authorization", "bearer $token");
+//
+//      var response = await request.close();
+//      var responseBody = await response.transform(UTF8.decoder).join();
+//      print('Response Body (home): $responseBody'); // fields are in quotes except the last is "__v":0
+//      //TODO (if success result = success)
+      String responseBody = await getRequestHome(url, token);
       //Save token into token.txt
       Map m = JSON.decode(responseBody); // kind of bad TODO
       if (m['_id'] != null) {
