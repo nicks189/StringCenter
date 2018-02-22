@@ -8,8 +8,7 @@ import 'globals.dart' as globals;
  * returns Future<String> of file
  * if file doesn't exist, returns String "DNE"
  */
-Future<String> readFileAsString(String filename) async {
-  String dir = (await getApplicationDocumentsDirectory()).path;
+Future<String> readFileAsString(String filename, String dir) async {
   Future<bool> b = new File('$dir/$filename').exists();
   print('path/filename (servercom): $dir/$filename');
   String token = "";
@@ -30,4 +29,19 @@ Future<String> getRequestHome(String url, String token) async {
   var response = await request.close();
   String responseBody = await response.transform(UTF8.decoder).join();
   return responseBody;
+}
+
+Future<String> postRequestLogin(String url, String json) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.postUrl(Uri.parse(url));
+  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.write(json);
+  var response = await request.close();
+  String responseBody = await response.transform(UTF8.decoder).join();
+  return responseBody;
+}
+
+writeFileFromString(String input, String filename, String dir) async {
+  File f = new File('$dir/$filename');
+  await f.writeAsString(input);
 }

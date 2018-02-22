@@ -32,29 +32,19 @@ class _HomeState extends State<Home> {
     var httpClient = new HttpClient();
 
     try {
-      String token = await readFileAsString('token.txt');
-
-//      var request = await httpClient.getUrl(Uri.parse(url));
-//      print("url (home): " + Uri.parse(url).toString());
-//      print("token (home): " + token);
-//      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
-//      request.headers.add("authorization", "bearer $token");
-//
-//      var response = await request.close();
-//      var responseBody = await response.transform(UTF8.decoder).join();
-//      print('Response Body (home): $responseBody'); // fields are in quotes except the last is "__v":0
-//      //TODO (if success result = success)
+      //store token from file into String (if doesn't exist, returns "DNE")
+      String dir = (await getApplicationDocumentsDirectory()).path;
+      String token = await readFileAsString('token.txt', dir);
+      //get request to server, returns "Unauthorized" if token isn't legit
       String responseBody = await getRequestHome(url, token);
-      //Save token into token.txt
-      Map m = JSON.decode(responseBody); // kind of bad TODO
-      if (m['_id'] != null) {
+
+      if (responseBody == "Unauthorized") {
+      }
+      else {
         globals.isLoggedIn = true;
         Map m = JSON.decode(responseBody);
         globals.username = m['username'];
         globals.token = token;
-      }
-      else {
-
       }
       print("globals.isLoggedin (home): " + globals.isLoggedIn.toString());
       generateWidgets();
@@ -67,7 +57,7 @@ class _HomeState extends State<Home> {
       setState((){});
     }
 
-  }
+  } // end requestUser()
 
 
   generateWidgets() {
@@ -132,5 +122,5 @@ class _HomeState extends State<Home> {
     print("globals.isLoggedin: " + globals.isLoggedIn.toString());
     return _page;
 
-  }
-}
+  } // end build
+} // end class _HomeState

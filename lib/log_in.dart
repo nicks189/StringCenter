@@ -6,7 +6,7 @@ import 'logindata.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'globals.dart' as globals;
-
+import 'servercommunication.dart';
 class Login extends StatelessWidget {
 
   static final TextEditingController _username = new TextEditingController();
@@ -30,36 +30,38 @@ class Login extends StatelessWidget {
     var json = JSON.encode(ld.toJson());
     print ("json (login): " + json);
     try {
-      var request = await httpClient.postUrl(Uri.parse(url));
-      print(Uri.parse(url));
-      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
-      request.write(json);
-      var response = await request.close();
-      var responseBody = await response.transform(UTF8.decoder).join();
-      print('ResponseBody (login): $responseBody'); // fields are in quotes except the last is "__v":0
-      print('decoded response body (login): ' + JSON.decode(responseBody).toString()); // fields are the same, just no quotes
+//      var request = await httpClient.postUrl(Uri.parse(url));
+//      print(Uri.parse(url));
+//      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+//      request.write(json);
+//      var response = await request.close();
+//      var responseBody = await response.transform(UTF8.decoder).join();
+//      print('ResponseBody (login): $responseBody'); // fields are in quotes except the last is "__v":0
+//      print('decoded response body (login): ' + JSON.decode(responseBody).toString()); // fields are the same, just no quotes
+      String responseBody = await postRequestLogin(url, json);
       var data = JSON.decode(responseBody);
-      //TODO (if success result = success)
+
       //Save token into token.txt
       Map m = JSON.decode(responseBody);
       String token = m['token'];
       String dir = (await getApplicationDocumentsDirectory()).path;
-      File f = new File('$dir/token.txt');
-      await f.writeAsString(token);
+//      File f = new File('$dir/token.txt');
+//      await f.writeAsString(token);
+      writeFileFromString(token, "token.txt", dir);
+
       globals.token = token;
       globals.username = username;
-      String test = await f.readAsString();
-      print("print token from server: " + token);
-      print("print read from file: " + test);
-      if (test==token) {
+
+//      print("print token from server: " + token);
+//      print("print read from file: " + test);
         auth = true;
         sg = "done";
-      }
+
       result = 'success';
     } catch (exception) {
       sg = "fail";
       result = 'fail';
-      print("exception: " + exception.toString());
+      print("exception: (login) " + exception.toString());
       auth = false;
     }
   }
