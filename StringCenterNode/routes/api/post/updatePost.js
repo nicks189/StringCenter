@@ -23,6 +23,9 @@ module.exports = function(passport) {
             if (typeof req.body.tabId !== 'undefined') {
                 post.tabId = req.body.tabId;
             }
+            if (typeof req.body.groupName !== 'undefined') {
+                post.groupName = req.body.groupName;
+            }
             post.validateAndSave(function(errors, updatedPost) {
                 if (errors) {
                     return res.json(errors).status(400);
