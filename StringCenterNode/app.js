@@ -1,4 +1,4 @@
-// this file is gitignored so make it has to be added
+// this file is gitignored so it has to be added
 var config = require('./config/config');
 
 var express = require('express');
@@ -88,17 +88,23 @@ app.use('/register', register);
 app.use('/edit-account', editAccount);
 
 // api routes
+// user
 app.use('/api/get-user', getUser);
 app.use('/api/delete-user', deleteUser);
 app.use('/api/sign-in', apiSignIn);
 app.use('/api/register', apiRegister);
 app.use('/api/update-user', updateUser);
+
+// tab
 app.use('/api/tab', tabRoutes);
+
+// post
 app.use('/api/create-post', createPost);
 app.use('/api/get-post', getPost);
 app.use('/api/delete-post', deletePost);
 app.use('/api/update-post', updatePost);
 
+// group
 app.use('/api/join-group', joinGroup);
 app.use('/api/leave-group', leaveGroup);
 app.use('/api/get-group-posts', getGroupPosts);
