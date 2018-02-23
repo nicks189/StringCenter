@@ -20,6 +20,7 @@ module.exports = function(passport) {
                 newUser.password = req.body.password;
                 newUser.firstName = req.body.firstName;
                 newUser.lastName = req.body.lastName;
+                newUser.description = req.body.description;
                 console.log(newUser);
                 newUser.validateAndSave(function(errors, user) {
                     if (errors) {

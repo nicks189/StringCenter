@@ -22,6 +22,9 @@ module.exports = function(passport) {
                 if (typeof req.body.newLastName !== 'undefined') {
                     user.lastName = req.body.newLastName;
                 }
+                if (typeof req.body.description !== 'undefined') {
+                    user.description = req.body.description;
+                }
                 if (typeof req.body.newPassword !== 'undefined') {
                     if (req.body.newPassword !== req.body.confirmNewPassword) {
                         return res.json({ errors: [{ message: 'Passwords don\'t match' }] }).status(400);
@@ -32,7 +35,7 @@ module.exports = function(passport) {
                     $set: {
                         name: user.username,
                         firstName: user.firstName, lastName: user.lastName,
-                        password: user.password
+                        password: user.password, description: user.description
                     }
                 }, function(error, updatedUser) {
                     if (error) {
