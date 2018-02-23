@@ -20,8 +20,10 @@ Future<String> readFileAsString(String filename, String dir) async {
   else return "DNE";
   return token;
 }
-
-Future<String> getRequestHome(String url, String token) async {
+/**
+ * used by home
+ */
+Future<String> getRequestToken(String url, String token) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
@@ -30,8 +32,22 @@ Future<String> getRequestHome(String url, String token) async {
   String responseBody = await response.transform(UTF8.decoder).join();
   return responseBody;
 }
-
-Future<String> postRequestLogin(String url, String json) async {
+/**
+ * used by viewtablist
+ */
+Future<String> getRequest(String url) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.getUrl(Uri.parse(url));
+  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.add("authorization", "bearer ${globals.token}");
+  var response = await request.close();
+  String responseBody = await response.transform(UTF8.decoder).join();
+  return responseBody;
+}
+/**
+ * used by log_in and register
+ */
+Future<String> postRequestWrite(String url, String json) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.postUrl(Uri.parse(url));
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
@@ -40,7 +56,9 @@ Future<String> postRequestLogin(String url, String json) async {
   String responseBody = await response.transform(UTF8.decoder).join();
   return responseBody;
 }
-
+/**
+ * used by log_in
+ */
 writeFileFromString(String input, String filename, String dir) async {
   File f = new File('$dir/$filename');
   await f.writeAsString(input);

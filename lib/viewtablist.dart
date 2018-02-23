@@ -4,7 +4,7 @@ import "dart:io";
 import 'tab.dart';
 import 'viewtab.dart';
 import 'globals.dart' as globals;
-
+import 'servercommunication.dart';
 class viewTabList extends StatefulWidget {
 
   _viewTabListState createState() => new _viewTabListState();
@@ -18,19 +18,22 @@ class viewTabList extends StatefulWidget {
 
   _getTabList() async {//'http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabsByAuthorName/:author_username' //
     var url = 'http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabsByUser';
-    var httpClient = new HttpClient();
     try {
-      var request = await httpClient.getUrl(Uri.parse(url));
-      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
-      request.headers.add("authorization", "bearer ${globals.token}");
-
-      var response = await request.close();
-      var json = await response.transform(UTF8.decoder).join();
-      Map jsonD = JSON.decode(json);
+//      var request = await httpClient.getUrl(Uri.parse(url));
+//      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+//      request.headers.add("authorization", "bearer ${globals.token}");
+//
+//      var response = await request.close();
+//      var json = await response.transform(UTF8.decoder).join();
+      //send request
+      String responseBody = await getRequest(url);
+      //decode reponse
+      Map json = JSON.decode(responseBody);
       print("decoded json map: " + json.toString());
-      print("jsond['tabs'].length: " + jsonD['tabs'].length.toString());
-      for (int i = 0; i < jsonD['tabs'].length;i++) {
-        _tabs.add(new Tabb.fromJson(jsonD['tabs'][i]));
+      print("jsond['tabs'].length: " + json['tabs'].length.toString());
+      //populate list of tabs from json
+      for (int i = 0; i < json['tabs'].length;i++) {
+        _tabs.add(new Tabb.fromJson(json['tabs'][i]));
       }
       //_tabs.add(JSON.decode(json));
       _generateWidgets();
