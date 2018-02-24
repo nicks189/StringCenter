@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Tab = require('../../../models/tabModel.js');
 var cb = require('../../../middleware/mongoCallback.js');
-var validateTab = require('../../../auth/tabAuth.js');
+var validateTab = require('../../../middleware/auth/tabAuth.js');
 
 
 module.exports = function(passport){
