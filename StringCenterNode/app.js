@@ -31,10 +31,10 @@ app.use(cookieParser(config.session.key));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var userAuth = require('./auth/userAuth');
+var userAuth = require('./middleware/auth/userAuth');
 userAuth(passport);
 
-var apiAuth = require('./auth/apiAuth');
+var apiAuth = require('./middleware/auth/apiAuth');
 apiAuth(passport);
 
 // flash messaging setup
