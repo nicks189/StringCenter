@@ -7,7 +7,7 @@ var GroupSchema = new Schema({
         maxlength: [20, 'Group name cannot be longer than 20 characters'],
         required: true,
         unique: true
-    }
+    }, 
 });
 
 GroupSchema.methods.validateAndSave = function(callback){

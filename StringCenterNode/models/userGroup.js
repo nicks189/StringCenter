@@ -16,8 +16,14 @@ var UserGroupSchema = new Schema({
         type: String,
         required: true,
         ref: 'Group'
+    },
+
+    admin : {
+        type: Boolean,
+        required: true,
+        default: false
     }
-});
+});''
 
 UserGroupSchema.methods.validateAndSave = function(callback){
     var userGroup = this;
