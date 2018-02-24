@@ -104,6 +104,13 @@ class _HomeState extends State<Home> {
                     Navigator.of(context).pushNamed('tabOptions');
                   },
                 ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("Group Page"),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('groupPage');
+                    },
+                ),
               ],
             ),
           ),

@@ -8,7 +8,7 @@ import 'tab_options.dart';
 import 'tab.dart';
 import 'viewtab.dart';
 import 'viewtablist.dart';
-
+import 'group_page.dart';
 void main() {
   runApp(new StringCenter());
 }
@@ -28,6 +28,7 @@ class _StringCenterState extends State<StringCenter> {
         'tabOptions':(BuildContext context) => new TabOptions(),
         'login':(BuildContext context) => new Login(),
         'register':(BuildContext context) => new Register(),
+        'groupPage':(BuildContext context) => new groupPage(),
       },
       home: new Home(),
     );

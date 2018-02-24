@@ -26,15 +26,6 @@ class Register extends StatelessWidget {
     print ("register data encoded to json: " + json.toString());
     try {
 
-//      var request = await httpClient.postUrl(Uri.parse(url)); // initial request to URL
-//      print("url (register): " + Uri.parse(url).toString());
-//      request.headers.contentType = new ContentType("application", "json", charset: "utf-8"); //specifiying contentType to be json (application)
-//      request.write(json); // actually sending regiserdata to url
-//      var response = await request.close(); // completing request
-//      var responseBody = await response.transform(UTF8.decoder).join(); // parsing response from server
-//      print('ResponseBody: $responseBody'); // fields are in quotes except the last is "__v":0 // printing response from server
-//      print("json decoded responsebody: " + JSON.decode(responseBody).toString()); // fields are the same, just no quotes
-
       String responseBody = await postRequestWrite(url, json);
       registerSuccess = true;
     } catch (exception) {
