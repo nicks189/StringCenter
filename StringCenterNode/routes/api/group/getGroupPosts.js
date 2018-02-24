@@ -6,7 +6,7 @@ module.exports = function(passport){
     //routes
 
     router.post('/', function(req, res, next){
-
+        
     })
 
 

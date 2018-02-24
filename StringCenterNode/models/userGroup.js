@@ -11,19 +11,21 @@ var UserGroupSchema = new Schema({
         required: true,
         ref: 'User'
     },
-
     groupName: {
         type: String,
         required: true,
         ref: 'Group'
     },
-
     admin : {
         type: Boolean,
         required: true,
         default: false
+    },
+    timestamp : {
+        type: Date,
+        default: Date.now
     }
-});''
+});
 
 UserGroupSchema.methods.validateAndSave = function(callback){
     var userGroup = this;
