@@ -14,6 +14,12 @@ module.exports = function(passport){
                 userGroup.forEach(function(e){
                     usernames.push(e.username);
                 });
+
+                //sort usernames alphabetically
+                usernames = usernames.sort(function(a, b){
+                    return a.toLowerCase().localeCompare(b.toLowerCase());
+                });
+
                 res.json({users : usernames});
             });
         }
