@@ -6,7 +6,7 @@ import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
 class viewTabList extends StatefulWidget {
-
+    @override
   _viewTabListState createState() => new _viewTabListState();
 }
 
