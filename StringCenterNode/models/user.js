@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
-// TODO --- probably update followers and following
 var UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -26,12 +25,6 @@ var UserSchema = mongoose.Schema({
         maxlength: [32, 'Last name cannot be longer than 32 characters'],
         trim: true
     },
-    followers: [
-        mongoose.Schema.Types.ObjectId,
-    ],
-    following: [
-        mongoose.Schema.Types.ObjectId
-    ],
     password: {
         type: String,
         minlength: [6, 'Password must be at least 6 characters long'],
