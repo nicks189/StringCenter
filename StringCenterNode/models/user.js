@@ -31,6 +31,10 @@ var UserSchema = mongoose.Schema({
         maxlength: [32, 'Password cannot be longer than 32 characters'],
         required: true,
         trim: true
+    },
+    timestamp : {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -14,6 +14,10 @@ var UserFollowsSchema = new Schema({
         type: String,
         required: true,
         ref: 'User'
+    },
+    timestamp : {
+        type: Date,
+        default: Date.now
     }
 });
 
