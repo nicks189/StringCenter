@@ -11,7 +11,7 @@ module.exports = function(passport) {
        Post.validateUserAndRemove(req.params.id, req.user.username, function (error, post) {
            if (error) {
                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-           } else if (!user) {
+           } else if (!post) {
                return res.json({ errors: [{ message: 'Post not found' }] }).status(400);
            }
            res.json({ message: 'Successfully deleted post' }).status(200);
