@@ -4,7 +4,7 @@ var User = require('./user')
 
 
 // Links users with who they follow, username -> follows -> followsUsername
-var UserFollowersSchema = new Schema({
+var UserFollowsSchema = new Schema({
     username: {
         type: String,
         required: true,
@@ -17,7 +17,7 @@ var UserFollowersSchema = new Schema({
     }
 });
 
-UserFollowersSchema.methods.validateAndSave = function(callback){
+UserFollowsSchema.methods.validateAndSave = function(callback){
     var userFollows = this;
 
     userFollows.save(function(error, saved){
@@ -51,4 +51,4 @@ UserFollowersSchema.methods.validateAndSave = function(callback){
 };
 
 
-module.exports = mongoose.model('UserFollows', UserFollowersSchema);
+module.exports = mongoose.model('UserFollows', UserFollowsSchema);
