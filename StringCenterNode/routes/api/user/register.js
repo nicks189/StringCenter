@@ -21,10 +21,8 @@ module.exports = function(passport) {
                 newUser.firstName = req.body.firstName;
                 newUser.lastName = req.body.lastName;
                 newUser.description = req.body.description;
-                console.log(newUser);
                 newUser.validateAndSave(function(errors, user) {
                     if (errors) {
-                        console.log(errors);
                         return res.json(errors).status(400);
                     }
                     res.json(user).status(201);
