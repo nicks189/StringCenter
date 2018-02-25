@@ -61,25 +61,33 @@ var register = require('./routes/demo/register')(passport);
 var editAccount = require('./routes/demo/editAccount')(passport);
 
 // api routes
+// user
 var getUser = require('./routes/api/user/getUser')(passport);
 var deleteUser = require('./routes/api/user/deleteUser')(passport);
 var apiSignIn = require('./routes/api/user/signIn')(passport);
 var apiRegister= require('./routes/api/user/register')(passport);
 var updateUser = require('./routes/api/user/updateUser')(passport);
+
+// tab
 var tabRoutes = require('./routes/api/tab/tabRoutes')(passport);
+
+// post
 var createPost = require('./routes/api/post/createPost')(passport);
 var getPost = require('./routes/api/post/getPost')(passport);
 var deletePost = require('./routes/api/post/deletePost')(passport);
 var updatePost = require('./routes/api/post/updatePost')(passport);
 
+// group
 var joinGroup = require('./routes/api/group/joinGroup')(passport);
 var leaveGroup = require('./routes/api/group/leaveGroup')(passport);
 var getGroupPosts = require('./routes/api/group/getGroupPosts')(passport);
 var getGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
 var createGroup = require('./routes/api/group/createGroup')(passport);
 
+// followers/following
 var getFollower = require('./routes/api/follower/getFollower')(passport);
 var followUser = require('./routes/api/follower/followUser')(passport);
+var unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
 
 
 // demo routes
@@ -117,6 +125,7 @@ app.use('/api/create-group', createGroup);
 // following/followers
 app.use('/api/get-follower', getFollower);
 app.use('/api/follow-user', followUser);
+app.use('/api/unfollow-user', unfollowUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
