@@ -14,6 +14,10 @@ module.exports = function(passport) {
             } else if (userFollows.length === 0) {
                 return res.json({ errors: [{ message: 'Not following anyone' }] }).status(400);
             }
+            userFollows.sort(function(a, b) {
+                // sort by most recent timestamp
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
             let following = [];
             userFollows.forEach(function(e) {
                  following.push(e.followsUsername);
@@ -32,6 +36,10 @@ module.exports = function(passport) {
             } else if (userFollows.length === 0) {
                 return res.json({ errors: [{ message: 'Not following anyone' }] }).status(400);
             }
+            userFollows.sort(function(a, b) {
+                // sort by most recent timestamp
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
             let following = [];
             userFollows.forEach(function(e) {
                  following.push(e.followsUsername);
@@ -50,6 +58,10 @@ module.exports = function(passport) {
             } else if (userFollows.length === 0) {
                 return res.json({ errors: [{ message: 'No followers' }] }).status(400);
             }
+            userFollows.sort(function(a, b) {
+                // sort by most recent timestamp
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
             let followers = [];
             userFollows.forEach(function(e) {
                  followers.push(e.username);
@@ -68,6 +80,10 @@ module.exports = function(passport) {
             } else if (userFollows.length === 0) {
                 return res.json({ errors: [{ message: 'No followers' }] }).status(400);
             }
+            userFollows.sort(function(a, b) {
+                // sort by most recent timestamp
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
             let followers = [];
             userFollows.forEach(function(e) {
                  followers.push(e.username);

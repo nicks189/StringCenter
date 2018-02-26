@@ -14,6 +14,10 @@ module.exports = function(passport) {
             } else if (posts.length === 0) {
                 return res.json({ errors: [{ message: 'No posts found' }] }).status(400);
             }
+            posts.sort(function(a, b) {
+                // sort by most recent timestamp
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
             res.json({ posts: posts }).status(200);
         });
     });
@@ -25,6 +29,10 @@ module.exports = function(passport) {
             } else if (posts.length === 0) {
                 return res.json({ errors: [{ message: 'No posts found' }] }).status(400);
             }
+            posts.sort(function(a, b) {
+                // sort by most recent timestamp
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
             res.json({ posts: posts }).status(200);
         });
     });
