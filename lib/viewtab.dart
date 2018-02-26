@@ -27,9 +27,7 @@ class viewTab extends StatelessWidget {
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
-        child: new Center(
           child: new Text(_t.tabToString()),
-        ),
       ),
     );
   }
