@@ -5,6 +5,7 @@ import 'create_measure.dart';
 import 'log_in.dart';
 import 'register.dart';
 import 'tab_options.dart';
+import 'profile.dart';
 import 'tab.dart';
 import 'viewtab.dart';
 import 'viewtablist.dart';
@@ -28,6 +29,7 @@ class _StringCenterState extends State<StringCenter> {
         'tabOptions':(BuildContext context) => new TabOptions(),
         'login':(BuildContext context) => new Login(),
         'register':(BuildContext context) => new Register(),
+        'profile':(BuildContext context) => new Profile(),
       },
       home: new Home(),
     );
