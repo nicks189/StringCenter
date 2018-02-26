@@ -44,7 +44,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
   void _changeNote(int i, int j) {
     setState(() {
       if (j != null && i != null) {
-        _m.strings[j-2].notes[i] = _symbolController.text;
+        _m.strings[(1+_t.tuning.length)-j].notes[i] = _symbolController.text;
       }
     });
   }
@@ -86,8 +86,11 @@ class _CreateMeasureState extends State<CreateMeasure> {
     }
   }
 
+  //returns a list of widgets that is used as children in this screen's
   List<Widget> generateWidgets() {
     List<Widget> wlist = [];
+
+    //adds text field for entering the desired number of notes in the measure
     wlist.add(
       new TextField(
         controller: _noteController,
@@ -101,6 +104,8 @@ class _CreateMeasureState extends State<CreateMeasure> {
         ),
       ),
     );
+
+    //adds tuning labels on the left hand side
     wlist.add(new Text(''));
     for (int i = _t.tuning.length - 1; i >= 0; i--) {
       wlist.add(
@@ -110,10 +115,11 @@ class _CreateMeasureState extends State<CreateMeasure> {
         ),
       );
     }
+    //blank space to skip the top row in column 2
     wlist.add(new Text(''));
     for (int i = 0; i < _noteCount; i++) {
       for (int j = 0; j < _t.tuning.length + 2; j++) {
-        if (i == 0 && j == 0) {} else if (i == 1 && j == 0) {
+        if (i == 1 && j == 0) {
           wlist.add(
             new TextField(
               controller: _symbolController,
@@ -125,17 +131,20 @@ class _CreateMeasureState extends State<CreateMeasure> {
               ),
             ),
           );
-        } else if (j == 0) {
+          //skips top row
+        } else if (j == 0 && i != 0) {
           wlist.add(new Text(''));
+          //adds column labels
         } else if (j == 1) {
           wlist.add(new Text(
             i.toString(),
             textAlign: TextAlign.center,
           ));
-        } else {
+          //adds note buttons
+        } else if(!(i == 0 && j == 0)){
           wlist.add(new MaterialButton(
               child: new Text(
-                _m.strings[j-2].notes[i],
+                _m.strings[(1+_t.tuning.length)-j].notes[i],
               ),
               onPressed: () {
                 _changeNote(i, j);

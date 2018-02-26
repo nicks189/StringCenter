@@ -21,6 +21,7 @@ class Tabb{
     _title = json['tab_name'];
     _info = t['info'];
     _tuning = t['tuning'];
+    _stringCount = _tuning.length;
     num measureCount = int.parse(t['measureCount']);
     _measures = [];
     for(int i = 0; i < measureCount; i++) {
@@ -55,9 +56,9 @@ class Tabb{
     String temp = "";
     for(Measure measure in _measures){
       print(measure.info);
-      for(InstString string in measure.strings){
-        temp += string.tuning + ' ';
-        for(String note in string.notes){
+      for(int i = _stringCount-1; i >= 0; i--){
+        temp += measure.strings[i].tuning + ' ';
+        for(String note in measure.strings[i].notes){
           temp += note;
         }
         print(temp);
@@ -73,9 +74,9 @@ class Tabb{
     String temp = "";
     for(Measure measure in _measures){
       t = t + measure.info + '\n';
-      for(InstString string in measure.strings){
-        temp += string.tuning + ' ';
-        for(String note in string.notes){
+      for(int i = _stringCount-1; i >= 0; i--){
+        temp += measure.strings[i].tuning + ' ';
+        for(String note in measure.strings[i].notes){
           temp += note;
         }
         t = t + temp + '\n';
