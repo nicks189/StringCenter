@@ -9,7 +9,7 @@ import 'profile.dart';
 import 'tab.dart';
 import 'viewtab.dart';
 import 'viewtablist.dart';
-
+import 'group_page.dart';
 void main() {
   runApp(new StringCenter());
 }
@@ -30,6 +30,7 @@ class _StringCenterState extends State<StringCenter> {
         'login':(BuildContext context) => new Login(),
         'register':(BuildContext context) => new Register(),
         'profile':(BuildContext context) => new Profile(),
+        'groupPage':(BuildContext context) => new groupPage(),
       },
       home: new Home(),
     );

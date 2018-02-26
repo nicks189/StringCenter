@@ -3,9 +3,9 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'registerdata.dart';
-
+import 'servercommunication.dart';
 class Register extends StatelessWidget {
- bool a = false;
+ bool registerSuccess = false;
   static final TextEditingController _firstname = new TextEditingController();
   static final TextEditingController _lastname = new TextEditingController();
   static final TextEditingController _username = new TextEditingController();
@@ -21,27 +21,16 @@ class Register extends StatelessWidget {
 
   _sendRegister() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register"; // URL for registration
-    var httpClient = new HttpClient();
-    String result;
     registerdata rd = new registerdata(firstName, lastName, username, password, confirmpassword);
     var json = JSON.encode(rd.toJson());
-    print (json);
+    print ("register data encoded to json: " + json.toString());
     try {
-      var request = await httpClient.postUrl(Uri.parse(url)); // initial request to URL
-      print(Uri.parse(url));
-      request.headers.contentType = new ContentType("application", "json", charset: "utf-8"); //specifiying contentType to be json (application)
-      request.write(json); // actually sending regiserdata to url
-      var response = await request.close(); // completing request
-      var responseBody = await response.transform(UTF8.decoder).join(); // parsing response from server
-      print('BODY: $responseBody'); // fields are in quotes except the last is "__v":0 // printing response from server
-      print(JSON.decode(responseBody)); // fields are the same, just no quotes
-      var data = JSON.decode(responseBody);
-      //TODO (if success result = success)
-      result = 'success';
-      a = true;
+
+      String responseBody = await postRequestWrite(url, json);
+      registerSuccess = true;
     } catch (exception) {
-      result = 'fail';
-      print(exception);
+      registerSuccess = false;
+      print("exception: (register) " + exception.toString());
     }
 
   }
@@ -64,8 +53,8 @@ class Register extends StatelessWidget {
               new RaisedButton(
                 child: new Text('Register'),
                 onPressed:() async{
-                   await _sendRegister(); // TODO authentification
-                  if(a) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                   await _sendRegister();
+                  if(registerSuccess) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                 },
               ),
             ],
