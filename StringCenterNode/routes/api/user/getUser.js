@@ -17,6 +17,10 @@ module.exports = function(passport) {
             } else if (users.length === 0) {
                 return res.json({ errors: [{ message: 'No users found' }] }).status(400);
             }
+            // sort users alphabetically
+            users.sort(function(a, b){
+                return a.username.toLowerCase().localeCompare(b.username.toLowerCase());
+            });
             res.json({ users: users }).status(200);
         });
     });
