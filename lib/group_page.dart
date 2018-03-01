@@ -12,20 +12,34 @@ class _groupPageState extends State<groupPage> {
   List<Post> _postList = new List<Post>();
 
   _getPostList() async {
-    for(int i = 0; i < 5;i++) { //TODO this is a STUB too
+    for(int i = 0; i < 16;i++) { //TODO this is a STUB too
       _postList.add(new Post());
     }
-  generateWidgets();
+
   }
 
-  List<Widget> generateWidgets() {
-    _widgetList.add( new Container(
+  @override
+  void initState() {
+    _getPostList().then((widgetList) {
+      widgetList = _generateWidgets();
+      setState(() {
+        _widgetList = widgetList;
+      });
+    });
+  }
+
+
+
+
+  List<Widget> _generateWidgets() {
+
+   List<Widget> widgetList = new List<Widget>();
+    widgetList.add( new Container(
       margin: new EdgeInsets.all(24.0),
       padding: new EdgeInsets.all(12.0),
       decoration: new BoxDecoration(
-        border: new Border.all(color: Colors.lightBlueAccent),
+        border: new Border.all(color: Colors.blue, width: 2.0),
         borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-        color: Colors.lightBlueAccent
         //TODO do this for the rest of the widgets
 
 
@@ -35,24 +49,26 @@ class _groupPageState extends State<groupPage> {
     ),
     );
 
-
-    _widgetList.add(new MaterialButton(
-        child: new Row(
-          children: <Widget>[
-            new Text("Create Post")
-          ],
-        ),
-        height: 64.0,
-        minWidth: 256.0,
-        onPressed: () {
+    widgetList.add(new Container(
+      child: new MaterialButton(
+        minWidth: 128.0,
+        height: 32.0,
+        child: new Text("Create Post", style: new TextStyle(color: Colors.white, fontSize: 16.0),),
+    onPressed: () {
           Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
             body: new Text("Post Creation Screen"),
           )));
-        })
-    );
-
+        }
+      ),
+      margin: new EdgeInsets.all(24.0),
+      decoration: new BoxDecoration(
+        border: new Border.all(color: Colors.red),
+            borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+        color: Colors.red,
+      ),
+    ));
     for (int i = 1; i < _postList.length; i++) {
-      _widgetList.add(new MaterialButton(onPressed: () {
+      widgetList.add(new MaterialButton(onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
             body: new Text("$i"),
         ))); //TODO viewPost instead of scaffold
@@ -61,17 +77,14 @@ class _groupPageState extends State<groupPage> {
       )
       );
     }
-    return _widgetList;
-  }
+  return widgetList;
+  } //_generateWidgets
 
   @override
   Widget build(BuildContext context) {
-    if(_loaded == false) {
-      _loaded = true;
-      _getPostList();
-      setState((){});
+    if(_widgetList == null) {
+      return new Container();
     }
-
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
@@ -87,12 +100,9 @@ class _groupPageState extends State<groupPage> {
       ),
       body: new Container(
         child: new Center(
-          child: new Column(
-            children: _widgetList
+          child: new ListView(scrollDirection: Axis.vertical ,children: _widgetList),
           ),
         ),
-      ),
-
-    );
+      );
   }
 }
