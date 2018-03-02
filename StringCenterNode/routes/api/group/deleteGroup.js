@@ -6,10 +6,10 @@ module.exports = function(passport){
     var router = express.Router();
     //routes
 
-    //todo
+    //TODO, delete all userGroup records when a group is deleted
     //authentication removed for testing
-    router.post('/', function(res, req, next){
-        if(req.body.groupName && req.body.username){
+    router.post('/', function(req, res, next){
+        if(req.body && req.body.groupName && req.body.username){
             UserGroup.findOne({"username" : req.body.username, "groupName" : req.body.groupName}, function(findErr, userGroup){
                 if (findErr) {
                     return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
@@ -28,6 +28,8 @@ module.exports = function(passport){
                     });
                 }
             });
+        } else{
+            return res.send("Error in request");
         }
     });
 
