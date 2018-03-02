@@ -4,6 +4,8 @@ var Group = require('../../../models/group');
 module.exports = function(passport){
     var router = express.Router();
 
+    //gets all groups alphabetically by name
+    //authentication removed for testing
     router.get('/', function(req, res, next){
         Group.find(function(err, groups){
             if (err) {
