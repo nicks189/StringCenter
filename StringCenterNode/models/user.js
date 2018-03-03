@@ -35,7 +35,7 @@ var UserSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    timestamp : {
+    dateCreated: {
         type: Date,
         default: Date.now
     }

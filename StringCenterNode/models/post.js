@@ -30,7 +30,7 @@ var PostSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    timestamp : {
+    dateCreated: {
         type: Date,
         default: Date.now
     }

@@ -15,8 +15,8 @@ module.exports = function(passport) {
                 return res.json({ errors: [{ message: 'No posts found' }] }).status(400);
             }
             posts.sort(function(a, b) {
-                // sort by most recent timestamp
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                // sort by most recent dateCreated
+                return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             res.json({ posts: posts }).status(200);
         });
@@ -30,8 +30,8 @@ module.exports = function(passport) {
                 return res.json({ errors: [{ message: 'No posts found' }] }).status(400);
             }
             posts.sort(function(a, b) {
-                // sort by most recent timestamp
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                // sort by most recent dateCreated
+                return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             res.json({ posts: posts }).status(200);
         });

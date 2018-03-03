@@ -15,7 +15,7 @@ var UserFollowsSchema = new Schema({
         required: true,
         ref: 'User'
     },
-    timestamp : {
+    dateCreated: {
         type: Date,
         default: Date.now
     }

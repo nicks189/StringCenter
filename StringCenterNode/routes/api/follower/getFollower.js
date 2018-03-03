@@ -15,8 +15,8 @@ module.exports = function(passport) {
                 return res.json({ errors: [{ message: 'Not following anyone' }] }).status(400);
             }
             userFollows.sort(function(a, b) {
-                // sort by most recent timestamp
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                // sort by most recent dateCreated
+                return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             let following = [];
             userFollows.forEach(function(e) {
@@ -37,8 +37,8 @@ module.exports = function(passport) {
                 return res.json({ errors: [{ message: 'Not following anyone' }] }).status(400);
             }
             userFollows.sort(function(a, b) {
-                // sort by most recent timestamp
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                // sort by most recent dateCreated
+                return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             let following = [];
             userFollows.forEach(function(e) {
@@ -59,8 +59,8 @@ module.exports = function(passport) {
                 return res.json({ errors: [{ message: 'No followers' }] }).status(400);
             }
             userFollows.sort(function(a, b) {
-                // sort by most recent timestamp
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                // sort by most recent dateCreated
+                return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             let followers = [];
             userFollows.forEach(function(e) {
@@ -81,8 +81,8 @@ module.exports = function(passport) {
                 return res.json({ errors: [{ message: 'No followers' }] }).status(400);
             }
             userFollows.sort(function(a, b) {
-                // sort by most recent timestamp
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                // sort by most recent dateCreated
+                return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             let followers = [];
             userFollows.forEach(function(e) {
