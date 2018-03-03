@@ -31,8 +31,6 @@ class _StringCenterState extends State<StringCenter> {
         'Login':(BuildContext context) => new Login(),
         'Register':(BuildContext context) => new Register(),
         'Profile':(BuildContext context) => new Profile(),
-        'GroupPage':(BuildContext context) => new groupPage(),
-        'Followers':(BuildContext context) => new Followers(),
       },
       home: new Home(),
     );

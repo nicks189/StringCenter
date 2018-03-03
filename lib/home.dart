@@ -4,6 +4,8 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'log_in.dart';
 import 'servercommunication.dart';
+import 'group_page.dart';
+import 'followers.dart';
 import 'globals.dart' as globals;
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
@@ -51,7 +53,7 @@ class _HomeState extends State<Home> {
         globals.username = m['username'];
         globals.token = token;
       }
-      print("globals.isLoggedin (home): " + globals.isLoggedIn.toString());
+      print("globals.isLoggedin (Home): " + globals.isLoggedIn.toString());
 
     } catch (exception) {
       print("exception: " + exception.toString());
@@ -73,7 +75,7 @@ class _HomeState extends State<Home> {
               deleteFile("token.txt", dir);
               globals.isLoggedIn = false;
               globals.username = "";
-              Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
             })
           ],
         ),
@@ -108,14 +110,18 @@ class _HomeState extends State<Home> {
                 new RaisedButton(
                   child: new Text("Group Page"),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('GroupPage');
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder:(BuildContext context) => new GroupPage("A")
+                    ));
                     },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
                   child: new Text("Followers"),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('Followers');
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder:(BuildContext context) => new Followers("Ehlersb")
+                    ));
                   },
                 ),
               ],
