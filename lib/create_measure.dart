@@ -45,13 +45,16 @@ class _CreateMeasureState extends State<CreateMeasure> {
     });
   }
 
+
   void _changeNote(int i, int j) {
-    setState(() {
+    if (!(_symbolFocus.hasFocus) && !(_noteFocus.hasFocus)) {
+      setState(() {
         if (j != null && i != null) {
           _m.strings[(1 + _t.tuning.length) - j].notes[i] =
               _symbolController.text;
         }
-    });
+      });
+  }
   }
 
   void _nextMeasure() {
