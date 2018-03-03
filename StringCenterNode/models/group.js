@@ -48,4 +48,5 @@ GroupSchema.methods.validateAndSave = function(callback){
     });
 }
 
-module.exports = mongoose.model('Group', GroupSchema);
+var Group = mongoose.model('Group', GroupSchema);
+module.exports = Group;

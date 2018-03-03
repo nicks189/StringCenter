@@ -54,5 +54,5 @@ UserFollowsSchema.methods.validateAndSave = function(callback){
     });
 };
 
-
-module.exports = mongoose.model('UserFollows', UserFollowsSchema);
+var UserFollows = mongoose.model('UserFollows', UserFollowsSchema);
+module.exports = UserFollows;

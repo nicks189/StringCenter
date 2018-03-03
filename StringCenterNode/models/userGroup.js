@@ -65,5 +65,5 @@ UserGroupSchema.methods.validateAndSave = function(callback){
     });
 }
 
-
-module.exports = mongoose.model('UserGroup', UserGroupSchema);
+var UserGroup = mongoose.model('UserGroup', UserGroupSchema);
+module.exports = UserGroup;

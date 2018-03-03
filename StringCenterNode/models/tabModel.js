@@ -12,4 +12,5 @@ var TabSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Tab', TabSchema);
+var Tab = mongoose.model('Tab', TabSchema);
+module.exports = Tab;
