@@ -13,8 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _message;
-  bool _loaded = false;
-  Widget _page = new Scaffold();
+  Widget _page = new Container();
 
   _HomeState() {
     _message = '';
@@ -24,12 +23,20 @@ class _HomeState extends State<Home> {
     _message = message;
   }
 
-  requestUser() async {
+  @override
+  void initState() {
+    _requestUser().then((page){
+      page = _generateWidgets();
+      setState((){
+        _page = page;
+      });
+    });
+  }
+
+  _requestUser() async {
 
     String url = 'http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/';
 
-
-    var httpClient = new HttpClient();
 
     try {
       //store token from file into String (if doesn't exist, returns "DNE")
@@ -47,21 +54,17 @@ class _HomeState extends State<Home> {
         globals.token = token;
       }
       print("globals.isLoggedin (home): " + globals.isLoggedIn.toString());
-      generateWidgets();
-      setState((){
 
-      });
     } catch (exception) {
       print("exception: " + exception.toString());
       _page = new Login();
-      setState((){});
     }
 
   } // end requestUser()
 
 
-  generateWidgets() {
-    if(!globals.isLoggedIn) _page = new Login();
+  Widget _generateWidgets() {
+    if(!globals.isLoggedIn) return new Login();
     else
       _page = new Scaffold(
         appBar: new AppBar(
@@ -116,16 +119,14 @@ class _HomeState extends State<Home> {
           ),
         ),
       );
+    return _page;
   }
   
   @override
   Widget build(BuildContext context) {
-    if(_loaded == false) {
-      _loaded = true;
-      requestUser();
-      print("globals.isLoggedin: " + globals.isLoggedIn.toString());
+    if(_page.runtimeType == new Container().runtimeType) {
+      return new Container();
     }
-    //check();
     print("globals.isLoggedin: " + globals.isLoggedIn.toString());
     return _page;
 
