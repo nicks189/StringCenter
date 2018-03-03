@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var Post = require('./post');
+var UserGroup = require('./userGroup');
+var UserFollows = require('./userFollows');
 
 var UserSchema = mongoose.Schema({
     username: {
@@ -75,7 +78,7 @@ UserSchema.statics.isAuthenticated = function(req, res, next) {
 };
 
 UserSchema.methods.validateAndSave = function(callback) {
-    var user = this;
+    let user = this;
     user.save(function (error, saved) {
         /*
          * If an error occured, build array of errorMessages
@@ -87,14 +90,14 @@ UserSchema.methods.validateAndSave = function(callback) {
          * }
          */
         if (error) {
-            var errorMessages = [];
-            var key;
+            let errorMessages = [];
+            let key;
             for (key in error.errors) {
-                var err = {};
+                let err = {};
                 err[key] = error.errors[key].message;
                 errorMessages.push(err);
             }
-            var errors = {};
+            let errors = {};
             errors.errors = errorMessages;
             return callback(errors);
         }
@@ -103,8 +106,34 @@ UserSchema.methods.validateAndSave = function(callback) {
     });
 };
 
+UserSchema.methods.deleteStuff = function(callback) {
+    // have to make these nested
+    let user = this;
+    Post.remove({ 'authorUsername': user.username }, function(e0) {
+        if (e0) {
+            return callback(e0);
+        }
+        UserGroup.remove({ 'username': user.username }, function(e1) {
+            if (e1) {
+                return callback(e1);
+            }
+            UserFollows.remove({ 'username': user.username }, function (e2) {
+                if (e2) {
+                    return callback(e2);
+                }
+                UserFollows.remove({ 'followsUsername': user.username }, function (e3) {
+                    if (e3) {
+                        return callback(e3);
+                    }
+                    callback(null);
+                });
+            });
+        });
+    });
+};
+
 UserSchema.pre('save', function(next) {
-    var user = this;
+    let user = this;
     UserSchema.statics.hashPassword(user.password, function(error, hashedPassword) {
         if (error) {
             next(error);
