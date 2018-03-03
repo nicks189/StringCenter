@@ -10,6 +10,7 @@ import 'tab.dart';
 import 'viewtab.dart';
 import 'viewtablist.dart';
 import 'group_page.dart';
+import 'followers.dart';
 void main() {
   runApp(new StringCenter());
 }
@@ -25,12 +26,13 @@ class _StringCenterState extends State<StringCenter> {
     return new MaterialApp(
       title: 'StringCenter',
       routes: <String, WidgetBuilder> {
-        'home':(BuildContext context) => new Home(),
-        'tabOptions':(BuildContext context) => new TabOptions(),
-        'login':(BuildContext context) => new Login(),
-        'register':(BuildContext context) => new Register(),
-        'profile':(BuildContext context) => new Profile(),
-        'groupPage':(BuildContext context) => new groupPage(),
+        'Home':(BuildContext context) => new Home(),
+        'TabOptions':(BuildContext context) => new TabOptions(),
+        'Login':(BuildContext context) => new Login(),
+        'Register':(BuildContext context) => new Register(),
+        'Profile':(BuildContext context) => new Profile(),
+        'GroupPage':(BuildContext context) => new groupPage(),
+        'Followers':(BuildContext context) => new Followers(),
       },
       home: new Home(),
     );

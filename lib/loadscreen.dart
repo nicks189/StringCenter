@@ -64,7 +64,7 @@ class LoadScreen extends StatelessWidget {
       _loaded = true;
       requestUser(isLoggedIn);
     }
-    if(!isLoggedIn) Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => false);
+    if(!isLoggedIn) Navigator.of(context).pushNamedAndRemoveUntil('Login', (Route<dynamic> route) => false);
     navigate(isLoggedIn, context);
     return new Scaffold(
       appBar: new AppBar(
@@ -78,7 +78,7 @@ class LoadScreen extends StatelessWidget {
 //              new RaisedButton(
 //                child: new Text("Login"),
 //                onPressed: () {
-//                  Navigator.of(context).pushNamed('login');
+//                  Navigator.of(context).pushNamed('Login');
 //                },
 //             ),
               new Padding(padding: new EdgeInsets.all(16.0)),
@@ -86,7 +86,7 @@ class LoadScreen extends StatelessWidget {
                 child: new Text("View Tabs"),
                 onPressed: () {
                   Navigator.push(context, new MaterialPageRoute(
-                    builder:(BuildContext context) => new viewTabList(),
+                    builder:(BuildContext context) => new ViewTabList(),
                   ));
                 },
               ),
@@ -94,7 +94,7 @@ class LoadScreen extends StatelessWidget {
               new RaisedButton(
                 child: new Text("Create Tab"),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('tabOptions');
+                  Navigator.of(context).pushNamed('TabOptions');
                 },
               ),
             ],

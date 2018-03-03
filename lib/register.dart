@@ -54,7 +54,7 @@ class Register extends StatelessWidget {
                 child: new Text('Register'),
                 onPressed:() async{
                    await _sendRegister();
-                  if(registerSuccess) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                  if(registerSuccess) Navigator.of(context).pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
                 },
               ),
             ],
