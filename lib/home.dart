@@ -72,8 +72,7 @@ class _HomeState extends State<Home> {
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.exit_to_app), onPressed: () async {
               String dir = (await getApplicationDocumentsDirectory()).path;
-              File f = new File('$dir/token.txt');
-              f.delete();
+              deleteFile("token.txt", dir);
               globals.isLoggedIn = false;
               globals.username = "";
               Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
