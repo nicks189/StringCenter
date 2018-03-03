@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 import 'post.dart';
-class groupPage extends StatefulWidget {
+class GroupPage extends StatefulWidget {
+  String _givenGroupName;
+
+  GroupPage(givenGroupName) {
+    _givenGroupName = givenGroupName;
+  }
+
   @override
-  _groupPageState createState() => new _groupPageState();
+  _GroupPageState createState() =>
+      new _GroupPageState(_givenGroupName);
+
 }
 
-class _groupPageState extends State<groupPage> {
-  bool _loaded = false;
+class _GroupPageState extends State<GroupPage> {
+  String _groupName;
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
 
+_GroupPageState(_givenGroupName)  {
+  _groupName = _givenGroupName;
+}
+
   _getPostList() async {
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/group/get-group-posts/$_groupName";
     for(int i = 0; i < 16;i++) { //TODO this is a STUB too
       _postList.add(new Post());
     }
@@ -33,7 +46,7 @@ class _groupPageState extends State<groupPage> {
 
   List<Widget> _generateWidgets() {
 
-   List<Widget> widgetList = new List<Widget>();
+  List<Widget> widgetList = new List<Widget>();
     widgetList.add( new Container(
       margin: new EdgeInsets.all(24.0),
       padding: new EdgeInsets.all(12.0),

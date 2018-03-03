@@ -4,18 +4,30 @@ import 'post.dart';
 import 'user.dart';
 
 class Followers extends StatefulWidget {
+  String _givenUser;
+
+  Followers(String givenUser) {
+    _givenUser = givenUser;
+  }
+
   @override
-  _followersState createState() => new _followersState();
+  _FollowersState createState() =>
+      new _FollowersState(_givenUser);
 }
 
-class _followersState extends State<Followers> {
-  String userguy = globals.username;
+class _FollowersState extends State<Followers> {
+  String _user;
   bool _loaded = false;
   List<Widget> _widgetList = new List<Widget>();
-  List<Post> _postList = new List<Post>(); //TODO should be a user object or something
   List<User> _userList = new List<User>();
 
+  _FollowersState(String _givenUser) {
+    _user = _givenUser;
+  }
+
   _getFollowersList() async {
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/follower/get-follower/$_user";
+
     for(int i = 0; i < 16;i++) { //TODO this is a STUB too
       _userList.add(new User());
     }
@@ -60,7 +72,7 @@ class _followersState extends State<Followers> {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("$userguy's Followers"),
+        title: new Text("$_user's Followers"),
         actions: <Widget>[
 //          new IconButton(icon: new Icon(Icons.settings),
 //              onPressed: () {
