@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'dart:convert';
+import 'dart:io';
+
+
 import 'globals.dart' as globals;
 
 class Profile extends StatefulWidget {
@@ -8,12 +12,18 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
 
+  AssetImage i = new AssetImage('images/einstein.jpg');
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(globals.username),
+
+      body: new Container(
+        decoration: new BoxDecoration(
+          image: new DecorationImage(
+              image: i
+          ),
+        ),
       ),
     );
   }
