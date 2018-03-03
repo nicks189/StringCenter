@@ -5,6 +5,7 @@ module.exports = function(passport){
     var router = express.Router();
     //routes
 
+    //TODO if admin leaves make oldest user admin
     //deletes userGroup record with given parameters,
     //authentication removed for testing
     router.post('/', function(req, res, next){

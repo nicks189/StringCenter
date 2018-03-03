@@ -85,7 +85,7 @@ var getGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
 var createGroup = require('./routes/api/group/createGroup')(passport);
 var deleteGroup = require('./routes/api/group/deleteGroup')(passport);
 var getGroups = require('./routes/api/group/getGroups')(passport);
-var getGroupAdmins = require('./routes/api/group/getGroupAdmins')(passport);
+var getUserGroupAdminStatus = require('./routes/api/group/getUserGroupAdminStatus')(passport);
 
 // followers/following
 var getFollower = require('./routes/api/follower/getFollower')(passport);
@@ -126,7 +126,7 @@ app.use('/api/get-group-members', getGroupMembers);
 app.use('/api/create-group', createGroup);
 app.use('/api/delete-group', deleteGroup);
 app.use('/api/get-groups', getGroups);
-app.use('/api/get-group-admins', getGroupAdmins);
+app.use('/api/get-admin-status', getUserGroupAdminStatus);
 
 
 // following/followers
