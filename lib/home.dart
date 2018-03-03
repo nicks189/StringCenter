@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'viewtablist.dart';
-import 'tab.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'dart:convert';
 import 'log_in.dart';
 import 'servercommunication.dart';
@@ -87,7 +85,7 @@ class _HomeState extends State<Home> {
 //              new RaisedButton(
 //                child: new Text("Login"),
 //                onPressed: () {
-//                  Navigator.of(context).pushNamed('login');
+//                  Navigator.of(context).pushNamed('Login');
 //                },
 //             ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
@@ -95,7 +93,7 @@ class _HomeState extends State<Home> {
                   child: new Text("View Tabs"),
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
-                      builder:(BuildContext context) => new viewTabList(),
+                      builder:(BuildContext context) => new ViewTabList(),
                     ));
                   },
                 ),
@@ -103,15 +101,22 @@ class _HomeState extends State<Home> {
                 new RaisedButton(
                   child: new Text("Create Tab"),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('tabOptions');
+                    Navigator.of(context).pushNamed('TabOptions');
                   },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
                   child: new Text("Group Page"),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('groupPage');
+                    Navigator.of(context).pushNamed('GroupPage');
                     },
+                ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("Followers"),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('Followers');
+                  },
                 ),
               ],
             ),

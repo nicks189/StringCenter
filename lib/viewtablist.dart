@@ -5,12 +5,12 @@ import 'tab.dart';
 import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
-class viewTabList extends StatefulWidget {
+class ViewTabList extends StatefulWidget {
     @override
-  _viewTabListState createState() => new _viewTabListState();
+  _ViewTabListState createState() => new _ViewTabListState();
 }
 
-  class _viewTabListState extends State<viewTabList> {
+  class _ViewTabListState extends State<ViewTabList> {
 
     bool _loaded = false;
     List<Tabb> _tabs = new List<Tabb>();
@@ -61,7 +61,7 @@ class viewTabList extends StatefulWidget {
     for (int i = 0; i < _tabs.length ;i ++){
       //TODO put code for populating widget list
       wl.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new viewTab(_tabs[i])));
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewTab(_tabs[i])));
       },
         child: new Text(_tabs[i].title),
       ));

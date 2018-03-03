@@ -3,10 +3,10 @@ import "dart:convert";
 import "dart:io";
 import 'tab.dart';
 
-class viewTab extends StatelessWidget {
+class ViewTab extends StatelessWidget {
   Tabb _t;
 
-  viewTab(Tabb t) {
+  ViewTab(Tabb t) {
     _t = t;
   }
 

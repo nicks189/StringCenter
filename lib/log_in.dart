@@ -76,13 +76,13 @@ class Login extends StatelessWidget {
                   //while(sg == "");
                   _username.clear();
                   _password.clear();
-                   if(auth) Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                   if(auth) Navigator.of(context).pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
                   },
               ),
               new Text("Don't have an account?"),
               new RaisedButton(
                 child: new Text("Register"),
-                onPressed:(){Navigator.of(context).pushNamed('register');},
+                onPressed:(){Navigator.of(context).pushNamed('Register');},
               ),
             ],
           ),

@@ -3,13 +3,13 @@ import 'globals.dart' as globals;
 import 'post.dart';
 import 'user.dart';
 
-class followers extends StatefulWidget {
+class Followers extends StatefulWidget {
   @override
   _followersState createState() => new _followersState();
 }
 
-class _followersState extends State<followers> {
-  String userguy = "MattyB";
+class _followersState extends State<Followers> {
+  String userguy = globals.username;
   bool _loaded = false;
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>(); //TODO should be a user object or something
