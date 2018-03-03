@@ -21,6 +21,11 @@ var UserGroupSchema = new Schema({
         required: true,
         default: false
     },
+    moderator : {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     timestamp : {
         type: Date,
         default: Date.now

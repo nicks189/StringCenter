@@ -17,7 +17,7 @@ module.exports = function(passport){
                     return res.json({errors: [{message: 'This user is not in this group'}]}).status(500);
                 } else if(userGroup){
                     console.log(userGroup);
-                    UserGroup.remove({'username': userGroup.username, 'groupName': userGroup.groupName}, function(removeErr){
+                    userGroup.remove(function(removeErr){
                         if (removeErr) {
                             return res.json({errors: [{message: 'Something went wrong in removal'}]}).status(500);
                         } else{

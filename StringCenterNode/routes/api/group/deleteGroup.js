@@ -1,6 +1,7 @@
 var express = require('express');
 var UserGroup = require('../../../models/userGroup');
 var Group = require('../../../models/group');
+var Post = require('../../../models/post')
 
 module.exports = function(passport){
     var router = express.Router();
@@ -19,11 +20,23 @@ module.exports = function(passport){
                 } else if(userGroup && !userGroup.admin){
                     return res.json({errors: [{message: 'User is not an admin'}]}).status(500);
                 } else if(userGroup && userGroup.admin){
-                    Group.remove({"groupName" : userGroup.groupName}, function(removeErr){
-                        if(removeErr){
-                            return res.json({errors: [{message: 'Something went wrong in removal'}]}).status(500);
+                    Group.remove({"groupName" : userGroup.groupName}, function(groupRemoveErr){
+                        if(groupRemoveErr){
+                            return res.json({errors: [{message: 'Something went wrong in removal of group'}]}).status(500);
                         } else{
-                            return res.json(userGroup);
+                            UserGroup.remove({"groupName" : userGroup.groupName}, function(userGroupRemoveErr, removed){
+                                if(userGroupRemoveErr){
+                                    return res.json({errors: [{message: 'Something went wrong in removal of userGroup'}]}).status(500);
+                                } else {
+                                    Post.remove({"groupName" : userGroup.groupName}, function(postRemoveErr){
+                                        if(postRemoveErr){
+                                            return res.json({errors: [{message: 'Something went wrong in removal of posts'}]}).status(500);
+                                        } else{
+                                            return res.json({userGroup : userGroup});
+                                        }
+                                    });
+                                }
+                            })
                         }
                     });
                 }
