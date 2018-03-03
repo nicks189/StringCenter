@@ -63,3 +63,11 @@ writeFileFromString(String input, String filename, String dir) async {
   File f = new File('$dir/$filename');
   await f.writeAsString(input);
 }
+/**
+ * used by home
+ *
+ */
+deleteFile(String filename, String dir) {
+  File f = new File('$dir/$filename');
+  f.delete();
+}
