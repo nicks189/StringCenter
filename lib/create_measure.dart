@@ -27,6 +27,9 @@ class _CreateMeasureState extends State<CreateMeasure> {
   int _noteCount;
   TextEditingController _noteController = new TextEditingController();
   TextEditingController _symbolController = new TextEditingController();
+  FocusNode _noteFocus = new FocusNode();
+  FocusNode _symbolFocus = new FocusNode();
+
 
   _CreateMeasureState(String title, String info, String tuning) {
     _t = new Tabb(title, info, tuning);
@@ -36,16 +39,18 @@ class _CreateMeasureState extends State<CreateMeasure> {
 
   void _newMeasure() {
     setState(() {
-      _noteCount = int.parse(_noteController.text);
-      _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
+        _noteCount = int.parse(_noteController.text);
+        _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
+
     });
   }
 
   void _changeNote(int i, int j) {
     setState(() {
-      if (j != null && i != null) {
-        _m.strings[(1+_t.tuning.length)-j].notes[i] = _symbolController.text;
-      }
+        if (j != null && i != null) {
+          _m.strings[(1 + _t.tuning.length) - j].notes[i] =
+              _symbolController.text;
+        }
     });
   }
 
@@ -94,6 +99,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
     wlist.add(
       new TextField(
         controller: _noteController,
+        focusNode: _noteFocus,
         maxLength: 2,
         maxLengthEnforced: true,
         onChanged: (_) {
@@ -123,6 +129,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
           wlist.add(
             new TextField(
               controller: _symbolController,
+              focusNode: _symbolFocus,
               maxLength: 2,
               maxLengthEnforced: true,
               onChanged: (_) {},
