@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Tab = require('./tabModel');
 var User = require('./user');
+var Group = require('./group');
 
 var PostSchema = mongoose.Schema({
     title: {
