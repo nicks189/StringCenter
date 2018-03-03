@@ -15,7 +15,7 @@ module.exports = function(passport) {
                 } else if (!user) {
                     return res.json({ errors: [{ message: 'Username not found' }] }).status(500);
                 }
-                user.deleteStuff(function(err) {
+                user.deleteUserInfo(function(err) {
                     if (err) {
                         return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
                     }

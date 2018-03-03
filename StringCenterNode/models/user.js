@@ -106,7 +106,7 @@ UserSchema.methods.validateAndSave = function(callback) {
     });
 };
 
-UserSchema.methods.deleteStuff = function(callback) {
+UserSchema.methods.deleteUserInfo = function(callback) {
     // have to make these nested
     let user = this;
     Post.remove({ 'authorUsername': user.username }, function(e0) {
