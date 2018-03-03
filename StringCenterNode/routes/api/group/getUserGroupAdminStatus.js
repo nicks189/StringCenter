@@ -1,7 +1,7 @@
 var express = require('express');
 var UserGroup = require('../../../models/userGroup');
 
-//todo
+
 module.exports = function(passport){
     var router = express.Router();
     //routes
