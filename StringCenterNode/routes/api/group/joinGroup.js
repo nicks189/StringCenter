@@ -30,7 +30,7 @@ module.exports = function(passport){
                             //when authorization is implemented the above assignment will be
                             //newUserGroup.username = req.user.username;
                             newUserGroup.groupName = req.body.groupName;
-                            if(req.body.admin == true){
+                            if(req.body.admin == "true"){
                                 newUserGroup.admin = req.body.admin;
                             }
                             newUserGroup.validateAndSave(function(errors, userGroup){
