@@ -8,7 +8,7 @@ module.exports = function(passport) {
      * Search for users based on parameter 'query'; looks at username, firstName, and lastName
      * TODO -- Order results based on relevancy
      */
-    router.get('/:query', function(req, res, next) {
+    router.get('/:query', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         // search by regular expression of 'query', 'i' flag ignores case
         let regexp = new RegExp(req.params.query, 'i');
         console.log(regexp);
