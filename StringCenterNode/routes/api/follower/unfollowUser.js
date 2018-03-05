@@ -1,8 +1,8 @@
-var express = require('express');
-var UserFollows = require('../../../models/userFollows');
+const express = require('express');
+const UserFollows = require('../../../models/userFollows');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     router.delete('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         UserFollows.findOneAndRemove({ 'username': req.user.username,

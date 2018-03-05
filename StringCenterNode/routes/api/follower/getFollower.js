@@ -1,8 +1,8 @@
-var express = require('express');
-var UserFollows = require('../../../models/userFollows');
+const express = require('express');
+const UserFollows = require('../../../models/userFollows');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     /*
      * --- Get all users the currently authenticated user follows ---

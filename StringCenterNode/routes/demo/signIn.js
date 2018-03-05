@@ -1,7 +1,7 @@
-var express = require('express');
+const express = require('express');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     /* GET sign in page. */
     router.get('/', function(req, res, next) {

@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Tab = require('./tabModel');
-var User = require('./user');
-var Group = require('./group');
+const mongoose = require('mongoose');
+const Tab = require('./tabModel');
+const User = require('./user');
+const Group = require('./group');
 
-var PostSchema = mongoose.Schema({
+let PostSchema = mongoose.Schema({
     title: {
         type: String,
         maxlength: [64, 'Title cannot be longer than 64 characters'],
@@ -44,7 +44,7 @@ PostSchema.statics.validateUserAndRemove = function(id, username, callback) {
         } else if (!post) {
             return callback(null, false);
         } else if (post.authorUsername !== username) {
-            var err = new Error('Unauthorized');
+            let err = new Error('Unauthorized');
             return callback(err);
         }
         post.remove(function (er, removed) {
@@ -57,7 +57,7 @@ PostSchema.statics.validateUserAndRemove = function(id, username, callback) {
 };
 
 PostSchema.methods.validateAndSave = function(callback) {
-    var post = this;
+    let post = this;
     post.save(function (error, saved) {
         /*
          * If an error occured, build array of errorMessages
@@ -69,14 +69,14 @@ PostSchema.methods.validateAndSave = function(callback) {
          * }
          */
         if (error) {
-            var errorMessages = [];
-            var key;
+            let errorMessages = [];
+            let key;
             for (key in error.errors) {
-                var err = {};
+                let err = {};
                 err[key] = error.errors[key].message;
                 errorMessages.push(err);
             }
-            var errors = {};
+            let errors = {};
             errors.errors = errorMessages;
             return callback(errors);
         }
@@ -85,5 +85,5 @@ PostSchema.methods.validateAndSave = function(callback) {
     });
 };
 
-var Post = mongoose.model('Post', PostSchema);
+let Post = mongoose.model('Post', PostSchema);
 module.exports = Post;

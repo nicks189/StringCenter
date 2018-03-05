@@ -1,10 +1,10 @@
-var express = require('express');
-var jwt = require('jsonwebtoken');
-var User = require('../../../models/user')
-var config = require('../../../config/config')
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const User = require('../../../models/user')
+const config = require('../../../config/config')
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     router.post('/', function(req, res, next) {
         if (req.body.username && req.body.password) {
@@ -14,7 +14,7 @@ module.exports = function(passport) {
                 }
                 if (user && User.comparePasswords(req.body.password, user.password)) {
                     // username and password match
-                    var token = jwt.sign(user.id, config.session.key);
+                    let token = jwt.sign(user.id, config.session.key);
                     return res.json({ message: 'Sign in succesful', token: token }).status(200);
                 }
                 // username or password were wrong, we don't tell the client which one

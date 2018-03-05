@@ -1,15 +1,15 @@
-var User = require('../../models/user');
-var config = require('../../config/config');
+const User = require('../../models/user');
+const config = require('../../config/config');
 
 /*
  * Using passports jwt strategy authentication
  */
-var JWTStrategy = require('passport-jwt').Strategy;
-var JWT = require('passport-jwt').ExtractJwt;
+const JWTStrategy = require('passport-jwt').Strategy;
+const JWT = require('passport-jwt').ExtractJwt;
 
 module.exports = function(passport) {
 
-    var operations = {};
+    let operations = {};
     operations.jwtFromRequest = JWT.fromAuthHeaderAsBearerToken();
     operations.secretOrKey = config.session.key;
 
@@ -23,7 +23,7 @@ module.exports = function(passport) {
             if (error) {
                 return callback(error, false);
             } else if (!user) {
-                var err = new Error('Invalid token');
+                let err = new Error('Invalid token');
                 return callback(err, false);
             }
             // sets req.user to user

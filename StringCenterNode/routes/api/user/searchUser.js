@@ -1,8 +1,8 @@
-var express = require('express');
-var User = require('../../../models/user');
+const express = require('express');
+const User = require('../../../models/user');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     /*
      * Search for users based on parameter 'query'; looks at username, firstName, and lastName

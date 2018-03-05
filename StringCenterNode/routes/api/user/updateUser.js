@@ -1,8 +1,8 @@
-var express = require('express');
-var User = require('../../../models/user');
+const express = require('express');
+const User = require('../../../models/user');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     router.put('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         // req.user is set by passport, see apiAuth.js

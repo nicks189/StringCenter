@@ -1,8 +1,8 @@
-var express = require('express');
-var Post = require('../../../models/post');
+const express = require('express');
+const Post = require('../../../models/post');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     /*
      * TODO: Update authorization so admins/mods can delete posts

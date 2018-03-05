@@ -1,9 +1,9 @@
-var express = require('express');
-var UserFollows = require('../../../models/userFollows');
-var User = require('../../../models/user');
+const express = require('express');
+const UserFollows = require('../../../models/userFollows');
+const User = require('../../../models/user');
 
 module.exports = function(passport){
-    var router = express.Router();
+    let router = express.Router();
 
     router.post('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next){
         if (req.user.username === req.params.username) {

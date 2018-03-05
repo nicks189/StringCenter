@@ -1,8 +1,8 @@
-var express = require('express');
-var Post = require('../../../models/post');
+const express = require('express');
+const Post = require('../../../models/post');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     router.put('/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         Post.findById(req.params.id, function(error, post) {

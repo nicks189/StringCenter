@@ -1,12 +1,12 @@
-var express = require('express');
-var Post = require('../../../models/post');
+const express = require('express');
+const Post = require('../../../models/post');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         if (req.body.title && req.body.content) {
-            var newPost = new Post();
+            let newPost = new Post();
             newPost.title = req.body.title;
             newPost.content = req.body.content;
             newPost.groupName = req.body.groupName;

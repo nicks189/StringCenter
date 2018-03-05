@@ -1,8 +1,8 @@
-var express = require('express');
-var User = require('../../../models/user');
+const express = require('express');
+const User = require('../../../models/user');
 
 module.exports = function(passport) {
-    var router = express.Router();
+    let router = express.Router();
 
     router.post('/', function(req, res, next) {
         if (req.body.username && req.body.password) {
@@ -15,7 +15,7 @@ module.exports = function(passport) {
                 if (req.body.password !== req.body.confirmPassword) {
                     return res.json({ errors: [{ message: 'Passwords don\'t match' }] }).status(400);
                 }
-                var newUser = new User();
+                let newUser = new User();
                 newUser.username = req.body.username;
                 newUser.password = req.body.password;
                 newUser.firstName = req.body.firstName;

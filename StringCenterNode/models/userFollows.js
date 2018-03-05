@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var User = require('./user')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const User = require('./user')
 
 
 // Links users with who they follow, username -> follows -> followsUsername
-var UserFollowsSchema = new Schema({
+let UserFollowsSchema = new Schema({
     username: {
         type: String,
         required: true,
@@ -22,7 +22,7 @@ var UserFollowsSchema = new Schema({
 });
 
 UserFollowsSchema.methods.validateAndSave = function(callback){
-    var userFollows = this;
+    let userFollows = this;
 
     userFollows.save(function(error, saved){
         /*
@@ -36,14 +36,14 @@ UserFollowsSchema.methods.validateAndSave = function(callback){
          */
 
         if(error){
-            var key;
-            var errorMessages = [];
+            let key;
+            let errorMessages = [];
             for(key in error.errors){
-                var err = {};
+                let err = {};
                 err[key] = error.errors[key].message;
                 errorMessages.push(err);
             }
-            var errors = {};
+            let errors = {};
             errors.errors = errorMessages;
             return callback(errors);
         }
@@ -54,5 +54,5 @@ UserFollowsSchema.methods.validateAndSave = function(callback){
     });
 };
 
-var UserFollows = mongoose.model('UserFollows', UserFollowsSchema);
+let UserFollows = mongoose.model('UserFollows', UserFollowsSchema);
 module.exports = UserFollows;

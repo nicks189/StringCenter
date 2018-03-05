@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var Post = require('./post');
-var UserGroup = require('./userGroup');
-var UserFollows = require('./userFollows');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+const Post = require('./post');
+const UserGroup = require('./userGroup');
+const UserFollows = require('./userFollows');
 
-var UserSchema = mongoose.Schema({
+let UserSchema = mongoose.Schema({
     username: {
         type: String,
         minlength: [6, 'Username must be at least 6 characters long'],
@@ -143,5 +143,5 @@ UserSchema.pre('save', function(next) {
     });
 });
 
-var User = mongoose.model('User', UserSchema);
+let User = mongoose.model('User', UserSchema);
 module.exports = User;

@@ -1,9 +1,9 @@
-var User = require('../../models/user');
+const User = require('../../models/user');
 
 /*
  * Using passports local strategy authentication
  */
-var LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
 
 module.exports = function(passport) {
@@ -56,7 +56,7 @@ module.exports = function(passport) {
                 } else if (!(User.passwordConfirm(password, req.body.confirmPassword))) {
                     return callback(null, false, req.flash('errorMessage', 'Passwords don\'t match'));
                 }
-                var newUser = new User();
+                let newUser = new User();
                 newUser.username = username;
                 newUser.password = password;
                 newUser.firstName = req.body.firstName;
