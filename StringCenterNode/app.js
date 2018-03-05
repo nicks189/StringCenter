@@ -67,6 +67,7 @@ var deleteUser = require('./routes/api/user/deleteUser')(passport);
 var apiSignIn = require('./routes/api/user/signIn')(passport);
 var apiRegister= require('./routes/api/user/register')(passport);
 var updateUser = require('./routes/api/user/updateUser')(passport);
+var searchUser = require('./routes/api/user/searchUser')(passport);
 
 // tab
 var tabRoutes = require('./routes/api/tab/tabRoutes')(passport);
@@ -108,6 +109,7 @@ app.use('/api/delete-user', deleteUser);
 app.use('/api/sign-in', apiSignIn);
 app.use('/api/register', apiRegister);
 app.use('/api/update-user', updateUser);
+app.use('/api/search-user', searchUser);
 
 // tab
 app.use('/api/tab', tabRoutes);
