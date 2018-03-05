@@ -109,19 +109,19 @@ UserSchema.methods.validateAndSave = function(callback) {
 UserSchema.methods.deleteUserInfo = function(callback) {
     // have to make these nested
     let user = this;
-    Post.remove({ 'authorUsername': user.username }, function(e0) {
+    Post.remove({ authorUsername: user.username }, function(e0) {
         if (e0) {
             return callback(e0);
         }
-        UserGroup.remove({ 'username': user.username }, function(e1) {
+        UserGroup.remove({ username: user.username }, function(e1) {
             if (e1) {
                 return callback(e1);
             }
-            UserFollows.remove({ 'username': user.username }, function (e2) {
+            UserFollows.remove({ username: user.username }, function (e2) {
                 if (e2) {
                     return callback(e2);
                 }
-                UserFollows.remove({ 'followsUsername': user.username }, function (e3) {
+                UserFollows.remove({ followsUsername: user.username }, function (e3) {
                     if (e3) {
                         return callback(e3);
                     }

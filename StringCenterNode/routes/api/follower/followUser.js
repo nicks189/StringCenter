@@ -9,8 +9,8 @@ module.exports = function(passport){
         if (req.user.username === req.params.username) {
             return res.json({ errors: [{ message: 'Cannot follow yourself' }] }).status(400);
         }
-        UserFollows.findOne({ 'username': req.user.username,
-            'followsUsername': req.params.username }, function(error, userFollows) {
+        UserFollows.findOne({ username: req.user.username,
+            followsUsername: req.params.username }, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (userFollows) {

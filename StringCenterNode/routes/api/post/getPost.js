@@ -8,7 +8,7 @@ module.exports = function(passport) {
      * --- Get posts for the currently authenticated user ---
      */
     router.get('/by-user', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        Post.find({ 'authorUsername': req.user.username}, function(error, posts) {
+        Post.find({ authorUsername: req.user.username}, function(error, posts) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (posts.length === 0) {
@@ -23,7 +23,7 @@ module.exports = function(passport) {
     });
 
     router.get('/by-user/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        Post.find({ 'authorUsername': req.params.username}, function(error, posts) {
+        Post.find({ authorUsername: req.params.username}, function(error, posts) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (posts.length === 0) {

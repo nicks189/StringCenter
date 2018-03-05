@@ -7,11 +7,11 @@ module.exports = function(passport) {
     router.put('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         // req.user is set by passport, see apiAuth.js
         if (req.params.username === req.user.username) {
-            User.findOne({'username': req.user.username}, function(error, user) {
+            User.findOne({ username: req.user.username}, function(error, user) {
                 if (error) {
                     return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
                 } else if (!user) {
-                    return res.json({ errors: [{ message: 'Username not found' }] }).status(400);
+                    return res.json({ errors: [{ message: 'Username not found' }] }).status(200);
                 }
                 if (typeof req.body.newUsername !== 'undefined') {
                     user.username = req.body.newUsername;
@@ -31,7 +31,7 @@ module.exports = function(passport) {
                     }
                     user.password = User.hashPasswordSync(req.body.newPassword);
                 }
-                User.findOneAndUpdate({ 'username': req.user.username }, {
+                User.findOneAndUpdate({ username: req.user.username }, {
                     $set: {
                         name: user.username,
                         firstName: user.firstName, lastName: user.lastName,

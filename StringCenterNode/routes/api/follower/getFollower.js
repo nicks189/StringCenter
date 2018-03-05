@@ -8,7 +8,7 @@ module.exports = function(passport) {
      * --- Get all users the currently authenticated user follows ---
      */
     router.get('/following', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        UserFollows.find({ 'username': req.user.username}, function(error, userFollows) {
+        UserFollows.find({ username: req.user.username}, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (userFollows.length === 0) {
@@ -30,7 +30,7 @@ module.exports = function(passport) {
      * --- Get all users that the user specified by username follows ---
      */
     router.get('/following/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        UserFollows.find({ 'username': req.params.username}, function(error, userFollows) {
+        UserFollows.find({ username: req.params.username}, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (userFollows.length === 0) {
@@ -52,7 +52,7 @@ module.exports = function(passport) {
      * --- Get followers of the currently authenticated user ---
      */
     router.get('/followers', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        UserFollows.find({ 'followsUsername': req.user.username}, function(error, userFollows) {
+        UserFollows.find({ followsUsername: req.user.username}, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (userFollows.length === 0) {
@@ -74,7 +74,7 @@ module.exports = function(passport) {
      * --- Get followers of the user specified by username ---
      */
     router.get('/followers/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        UserFollows.find({ 'followsUsername': req.params.username}, function(error, userFollows) {
+        UserFollows.find({ followsUsername: req.params.username}, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (userFollows.length === 0) {
