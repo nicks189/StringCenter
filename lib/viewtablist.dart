@@ -27,15 +27,9 @@ class ViewTabList extends StatefulWidget {
     }
 
 
-  _getTabList() async {//'http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabsByAuthorName/:author_username' //
+  _getTabList() async {
     var url = 'http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabsByUser';
     try {
-//      var request = await httpClient.getUrl(Uri.parse(url));
-//      request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
-//      request.headers.add("authorization", "bearer ${globals.token}");
-//
-//      var response = await request.close();
-//      var json = await response.transform(UTF8.decoder).join();
       //send request
       String responseBody = await getRequest(url);
       //decode reponse
@@ -46,10 +40,6 @@ class ViewTabList extends StatefulWidget {
       for (int i = 0; i < json['tabs'].length;i++) {
         _tabs.add(new Tabb.fromJson(json['tabs'][i]));
       }
-      //_tabs.add(JSON.decode(json));
-      _generateWidgets();
-
-
     } catch(exception) {
       print('exception viewtablist');
     }
@@ -59,7 +49,6 @@ class ViewTabList extends StatefulWidget {
     List<Widget> wl = new List<Widget>();
     print("_tabs.length: " + _tabs.length.toString());
     for (int i = 0; i < _tabs.length ;i ++){
-      //TODO put code for populating widget list
       wl.add(new MaterialButton(onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewTab(_tabs[i])));
       },
@@ -82,7 +71,7 @@ class ViewTabList extends StatefulWidget {
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
-          child: new Column(children: _wl),
+          child: new ListView(children: _wl),
         ),
       ),
     );

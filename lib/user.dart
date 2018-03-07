@@ -4,8 +4,8 @@ class User {
 
   String _username;
 
-  post(String username) {
+  User(String username) {
     _username = username;
   }
-
+  get username => _username;
 }
