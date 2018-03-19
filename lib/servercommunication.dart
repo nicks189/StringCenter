@@ -45,7 +45,7 @@ Future<String> getRequest(String url) async {
   return responseBody;
 }
 /**
- * used by log_in and register
+ * used by log_in, register, and group_page
  */
 Future<String> postRequestWrite(String url, String json) async {
   HttpClient httpClient = new HttpClient();

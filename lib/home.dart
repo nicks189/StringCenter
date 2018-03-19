@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                   child: new Text("Group Page"),
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
-                        builder:(BuildContext context) => new GroupPage("A")
+                        builder:(BuildContext context) => new GroupPage("a")
                     ));
                     },
                 ),

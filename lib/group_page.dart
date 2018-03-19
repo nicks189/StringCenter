@@ -26,17 +26,19 @@ _GroupPageState(_givenGroupName)  {
 }
 
   _getPostList() async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/group/get-group-posts/$_groupName";//TODO doesn't work
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts";
     try {
-      Map m = {"groupName" : "a"};
+      Map m = {"groupName" : "$_groupName"};
       String json = JSON.encode(m);
       String responseBody = await postRequestWrite(url, json);
-      Map posts = JSON.decode(responseBody);
+      print(responseBody.runtimeType);
+      List posts = JSON.decode(responseBody);
+      print("posts.length: "+ posts.length.toString());
       for(int i = 0; i < posts.length; i++) {
         _postList.add(new Post(posts[i]["title"], posts[i]["content"]));
       }
     } catch(exception) {
-
+      print("grouppage exception: " + exception.toString());
     }
   }
 
