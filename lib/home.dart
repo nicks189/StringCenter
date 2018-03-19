@@ -6,6 +6,7 @@ import 'log_in.dart';
 import 'servercommunication.dart';
 import 'group_page.dart';
 import 'followers.dart';
+import 'profile.dart';
 import 'globals.dart' as globals;
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
@@ -121,6 +122,15 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
                         builder:(BuildContext context) => new Followers("Ehlersb")
+                    ));
+                  },
+                ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("Profile"),
+                  onPressed: () {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder:(BuildContext context) => new Profile()
                     ));
                   },
                 ),

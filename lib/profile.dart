@@ -12,7 +12,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   bool loaded = false;
-  Image i = new Image.asset('images/100x100.png');
+  Image i = new Image.asset('einstein.jpg');
   ByteData bd;
 
   _makeByteArray() async {
@@ -37,24 +37,26 @@ class _ProfileState extends State<Profile> {
       print(exception);
     }
     return new Scaffold(
-
+      appBar: new AppBar(
+        leading: new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
+        title: new Text(globals.username),
+      ),
       body: new Container(
         alignment: Alignment.center,
         padding: new EdgeInsets.all(20.0),
-        child: new Center(
           child: new ListView(
             children: <Widget>[
               new Row(
 
                 children: <Widget>[
                   i,
-                  new Text('ajasdklf;jafjdfl;aks1'),
+                  new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
                 ],
               ),
               new Row(
                 children: <Widget>[
                   i,
-                  new Text('l;asdf;lasfja;lskfjalk;fjl;k1'),
+                  new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
                 ],
               ),
               new Row(
@@ -120,7 +122,6 @@ class _ProfileState extends State<Profile> {
             ],
           ),
         ),
-      ),
     );
   }
 }
