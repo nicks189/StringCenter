@@ -27,7 +27,7 @@ class Login extends StatelessWidget {
     var httpClient = new HttpClient();
     String result;
     logindata ld = new logindata(username, password);
-    var json = JSON.encode(ld.toJson());
+    String json = JSON.encode(ld.toJson());
     print ("json (login): " + json);
     try {
       //send postRequest and get responseBody

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 import 'post.dart';
+import 'servercommunication.dart';
+import 'dart:convert';
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
 
@@ -24,11 +26,20 @@ _GroupPageState(_givenGroupName)  {
 }
 
   _getPostList() async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/group/get-group-posts/$_groupName";
-    for(int i = 0; i < 16;i++) { //TODO this is a STUB too
-      _postList.add(new Post());
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts";
+    try {
+      Map m = {"groupName" : "$_groupName"};
+      String json = JSON.encode(m);
+      String responseBody = await postRequestWrite(url, json);
+      print(responseBody.runtimeType);
+      List posts = JSON.decode(responseBody);
+      print("posts.length: "+ posts.length.toString());
+      for(int i = 0; i < posts.length; i++) {
+        _postList.add(new Post(posts[i]["title"], posts[i]["content"]));
+      }
+    } catch(exception) {
+      print("grouppage exception: " + exception.toString());
     }
-
   }
 
   @override
@@ -53,8 +64,6 @@ _GroupPageState(_givenGroupName)  {
       decoration: new BoxDecoration(
         border: new Border.all(color: Colors.blue, width: 2.0),
         borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-        //TODO do this for the rest of the widgets
-
 
       ),
       child: new Text("new group description test test description new new test "
@@ -80,13 +89,13 @@ _GroupPageState(_givenGroupName)  {
         color: Colors.red,
       ),
     ));
-    for (int i = 1; i < _postList.length; i++) {
+    for (int i = 0; i < _postList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-            body: new Text("$i"),
-        ))); //TODO viewPost instead of scaffold
+            body: new Text(_postList[i].content),
+        )));
       },
-          child: new Text("Thing $i"), //TODO /*_postList[i].title*/ STUB
+          child: new Text(_postList[i].title),
       )
       );
     }
@@ -96,7 +105,7 @@ _GroupPageState(_givenGroupName)  {
   @override
   Widget build(BuildContext context) {
     if(_widgetList == null) {
-      return new Container();
+      return new Container(child: new Column(children: [new Text("Loading..."),]));
     }
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(

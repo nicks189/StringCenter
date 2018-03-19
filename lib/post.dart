@@ -8,10 +8,13 @@ class Post {
   String _groupName;
   String _authorUsername;
 
-  post(String title, String content, [tabID='', groupName='']) {
+  Post(String title, String content, [tabID='', groupName='']) {
     _title = title;
     _content = content;
     _authorUsername = globals.username;
   }
+
+  get title => _title;
+  get content => _content;
 
 }
