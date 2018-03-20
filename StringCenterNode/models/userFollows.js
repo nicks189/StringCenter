@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User = require('./user')
-
+const util = require('../middleware/util');
 
 // Links users with who they follow, username -> follows -> followsUsername
 let UserFollowsSchema = new Schema({
@@ -22,36 +22,7 @@ let UserFollowsSchema = new Schema({
 });
 
 UserFollowsSchema.methods.validateAndSave = function(callback){
-    let userFollows = this;
-
-    userFollows.save(function(error, saved){
-        /*
-         * If an error occured, build array of errorMessages
-         * and add them to an error object so we get the form
-         * {
-         *   errors: [
-         *     ...
-         *   ]
-         * }
-         */
-
-        if(error){
-            let key;
-            let errorMessages = [];
-            for(key in error.errors){
-                let err = {};
-                err[key] = error.errors[key].message;
-                errorMessages.push(err);
-            }
-            let errors = {};
-            errors.errors = errorMessages;
-            return callback(errors);
-        }
-
-        //No errors
-        return callback(null, saved);
-
-    });
+    util.validateAndSave(this, callback);
 };
 
 let UserFollows = mongoose.model('UserFollows', UserFollowsSchema);

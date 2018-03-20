@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Tab = require('./tabModel');
 const User = require('./user');
 const Group = require('./group');
+const util = require('../middleware/util');
 
 let PostSchema = mongoose.Schema({
     title: {
@@ -57,32 +58,7 @@ PostSchema.statics.validateUserAndRemove = function(id, username, callback) {
 };
 
 PostSchema.methods.validateAndSave = function(callback) {
-    let post = this;
-    post.save(function (error, saved) {
-        /*
-         * If an error occured, build array of errorMessages
-         * and add them to an error object so we get the form
-         * {
-         *   errors: [
-         *     ...
-         *   ]
-         * }
-         */
-        if (error) {
-            let errorMessages = [];
-            let key;
-            for (key in error.errors) {
-                let err = {};
-                err[key] = error.errors[key].message;
-                errorMessages.push(err);
-            }
-            let errors = {};
-            errors.errors = errorMessages;
-            return callback(errors);
-        }
-        // No error, return the saved post
-        return callback(null, saved);
-    });
+    util.validateAndSave(this, callback);
 };
 
 let Post = mongoose.model('Post', PostSchema);

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var User = require('./user')
 var Group = require('./group');
-
+var util = require('../middleware/util');
 
 //Schema to link users with groups, 'middleman'
 var UserGroupSchema = new Schema({
@@ -33,36 +33,7 @@ var UserGroupSchema = new Schema({
 });
 
 UserGroupSchema.methods.validateAndSave = function(callback){
-    var userGroup = this;
-
-    userGroup.save(function(error, saved){
-        /*
-         * If an error occured, build array of errorMessages
-         * and add them to an error object so we get the form
-         * {
-         *   errors: [
-         *     ...
-         *   ]
-         * }
-         */
-
-        if(error){
-            var key;
-            var errorMessages = [];
-            for(key in error.errors){
-                var err = {};
-                err[key] = error.errors[key].message;
-                errorMessages.push(err);
-            }
-            var errors = {};
-            errors.errors = errorMessages;
-            return callback(errors);
-        }
-
-        //No errors
-        return callback(null, saved);
-
-    });
+    util.validateAndSave(this, callback);
 }
 
 var UserGroup = mongoose.model('UserGroup', UserGroupSchema);

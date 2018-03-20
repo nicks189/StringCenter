@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt-nodejs');
 const Post = require('./post');
 const UserGroup = require('./userGroup');
 const UserFollows = require('./userFollows');
+const util = require('../middleware/util');
 
 let UserSchema = mongoose.Schema({
     username: {
@@ -78,32 +79,7 @@ UserSchema.statics.isAuthenticated = function(req, res, next) {
 };
 
 UserSchema.methods.validateAndSave = function(callback) {
-    let user = this;
-    user.save(function (error, saved) {
-        /*
-         * If an error occured, build array of errorMessages
-         * and add them to an error object so we get the form
-         * {
-         *   errors: [
-         *     ...
-         *   ]
-         * }
-         */
-        if (error) {
-            let errorMessages = [];
-            let key;
-            for (key in error.errors) {
-                let err = {};
-                err[key] = error.errors[key].message;
-                errorMessages.push(err);
-            }
-            let errors = {};
-            errors.errors = errorMessages;
-            return callback(errors);
-        }
-        // No error, return the saved user
-        return callback(null, saved);
-    });
+    util.validateAndSave(this, callback);
 };
 
 UserSchema.methods.deleteUserInfo = function(callback) {
