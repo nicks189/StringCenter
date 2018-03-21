@@ -3,6 +3,7 @@ import 'globals.dart' as globals;
 import 'post.dart';
 import 'servercommunication.dart';
 import 'dart:convert';
+import 'group_object.dart';
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
 
@@ -20,9 +21,10 @@ class _GroupPageState extends State<GroupPage> {
   String _groupName;
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
-
+  Group _group;
 _GroupPageState(_givenGroupName)  {
   _groupName = _givenGroupName;
+  _group = new Group(_groupName);
 }
 
   _getPostList() async {
