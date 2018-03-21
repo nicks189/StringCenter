@@ -3,6 +3,10 @@ import 'globals.dart' as globals;
 import 'post.dart';
 import 'servercommunication.dart';
 import 'dart:convert';
+import 'tab.dart';
+import 'group_object.dart';
+import 'user.dart';
+
 class Browse extends StatefulWidget {
 
   @override
@@ -12,7 +16,11 @@ class Browse extends StatefulWidget {
 }
 
 class _BrowseState extends State<Browse> {
+
   List<Widget> _widgetList = new List<Widget>();
+  List<Tabb> _tabList = new List<Tabb>();
+  List<User> _userList = new List<User>();
+  List<Group> _groupList = new List<Group>();
 
   _getPostList() async { // TODO wrong
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts";
@@ -29,9 +37,38 @@ class _BrowseState extends State<Browse> {
       print("grouppage exception: " + exception.toString());
     }
   }
-//TODO Need 3 different async getters (users, groups, tabs [i think])
 
-  List<Widget> _generateWidgets() { //TODO probably dont need genWidgets
+  _getTabList() async {
+    var url = "";
+    try {
+
+      for (int i = 0; i < ;i++) {
+
+      }
+    } catch(exception) {
+      print("browse gettablist exception: " + exception.toString());
+    }
+  }
+  _getGroupList() async {
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-groups";
+    try {
+      String responseBody = await getRequest(url);
+
+
+    } catch(exception) {
+      print("browse getgrouplist exception: " + exception.toString());
+    }
+  }
+  _getUserList() async {
+    var url = "";
+    try {
+
+    } catch(exception) {
+      print("browse getuserlist exception: " + exception.toString());
+    }
+  }
+
+  List<Widget> _generateWidgets() { //TODO need 3 genwidgets
 
     List<Widget> widgetList = new List<Widget>();
     widgetList.add( new Container(
@@ -82,11 +119,35 @@ class _BrowseState extends State<Browse> {
   Widget build(BuildContext context) {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
+      appBar: new AppBar(
+          title: new Text("Browse")
+      ),
       body: new Container(
         child: new Center(
           child: new Column(
             children: <Widget>[
-            new ListView(scrollDirection: Axis.vertical ,children: _widgetList),
+              new Row(
+                children: <Widget>[
+                  new RaisedButton(
+                    child: new Text("Tabs"),
+                    onPressed: () {
+                    },
+                  ),
+                  new RaisedButton(
+                    child: new Text("Groups"),
+                    onPressed: () {
+
+                    },
+                  ),
+                  new RaisedButton(
+                    child: new Text("Users"),
+                    onPressed: () {
+
+                    },
+                  ),
+                ],
+              ),
+              new ListView(scrollDirection: Axis.vertical ,children: _widgetList),
             ],
           ),
         ),

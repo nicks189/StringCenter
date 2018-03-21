@@ -31,7 +31,7 @@ class ViewTabList extends StatefulWidget {
     var url = 'http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabsByUser';
     try {
       //send request
-      String responseBody = await getRequest(url);
+      String responseBody = await getRequestAuthorization(url);
       //decode reponse
       Map js = json.decode(responseBody);
       print("decoded json map: " + js.toString());

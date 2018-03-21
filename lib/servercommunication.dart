@@ -21,9 +21,20 @@ Future<String> readFileAsString(String filename, String dir) async {
   return token;
 }
 /**
- * used by home
+ * used by Browse (get group list)
  */
-Future<String> getRequestToken(String url, String token) async {
+Future<String> getRequest(String url) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.getUrl(Uri.parse(url));
+  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  var response = await request.close();
+  String responseBody = await response.transform(UTF8.decoder).join();
+  return responseBody;
+}
+/**
+ * used by home and profile
+ */
+Future<String> getRequestTokenAuthorization(String url, String token) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
@@ -34,9 +45,9 @@ Future<String> getRequestToken(String url, String token) async {
 }
 
 /**
- * used by viewtablist
+ * used by viewtablist and followers (gets token from local storage of token)
  */
-Future<String> getRequest(String url) async {
+Future<String> getRequestAuthorization(String url) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");

@@ -22,7 +22,7 @@ class _ProfileState extends State<Profile> {
   _getPostList() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
     try {
-      String responseBody = await getRequestToken(url, globals.token);
+      String responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map posts = json.decode(responseBody);
 
       print("posts.length: "+ posts['posts'].length.toString());
