@@ -10,7 +10,7 @@ module.exports = function(passport) {
      * limit this to some max number of users;
      */
     router.get('/all', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        User.find({}, { password: 0 }, function(error, users) {
+        User.find({}, { password: 0, profilePic: 0 }, function(error, users) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (users.length === 0) {
@@ -28,7 +28,7 @@ module.exports = function(passport) {
      * --- Get user by current authentication ---
      */
     router.get('/info', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        User.findOne({ username: req.user.username}, { password: 0 }, function(error, user) {
+        User.findOne({ username: req.user.username}, { password: 0, profilePic: 0 }, function(error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
@@ -42,7 +42,7 @@ module.exports = function(passport) {
      * --- Get user by username ---
      */
     router.get('/info/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        User.findOne({ username: req.params.username}, { password: 0 }, function(error, user) {
+        User.findOne({ username: req.params.username}, { password: 0, profilePic: 0 }, function(error, user) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
