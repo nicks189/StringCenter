@@ -136,6 +136,9 @@ app.use('/api/get-follower', getFollower);
 app.use('/api/follow-user', followUser);
 app.use('/api/unfollow-user', unfollowUser);
 
+const userTests = require('./tests/userTests');
+// userTests.test();
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     let err = new Error('Not Found');

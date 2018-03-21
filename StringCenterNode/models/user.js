@@ -39,6 +39,10 @@ let UserSchema = mongoose.Schema({
     dateCreated: {
         type: Date,
         default: Date.now
+    },
+    profilePic: {
+        data: Buffer,
+        contentType: String
     }
 });
 
