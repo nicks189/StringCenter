@@ -33,12 +33,12 @@ class ViewTabList extends StatefulWidget {
       //send request
       String responseBody = await getRequest(url);
       //decode reponse
-      Map json = JSON.decode(responseBody);
-      print("decoded json map: " + json.toString());
-      print("jsond['tabs'].length: " + json['tabs'].length.toString());
+      Map js = json.decode(responseBody);
+      print("decoded json map: " + js.toString());
+      print("js['tabs'].length: " + js['tabs'].length.toString());
       //populate list of tabs from json
-      for (int i = 0; i < json['tabs'].length;i++) {
-        _tabs.add(new Tabb.fromJson(json['tabs'][i]));
+      for (int i = 0; i < js['tabs'].length;i++) {
+        _tabs.add(new Tabb.fromJson(js['tabs'][i]));
       }
     } catch(exception) {
       print('exception viewtablist');

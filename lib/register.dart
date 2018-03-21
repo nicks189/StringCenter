@@ -22,11 +22,11 @@ class Register extends StatelessWidget {
   _sendRegister() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/register"; // URL for registration
     registerdata rd = new registerdata(firstName, lastName, username, password, confirmpassword);
-    var json = JSON.encode(rd.toJson());
-    print ("register data encoded to json: " + json.toString());
+    var js = json.encode(rd.toJson());
+    print ("register data encoded to json: " + js.toString());
     try {
 
-      String responseBody = await postRequestWrite(url, json);
+      String responseBody = await postRequestWrite(url, js);
       registerSuccess = true;
     } catch (exception) {
       registerSuccess = false;

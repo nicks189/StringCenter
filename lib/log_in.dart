@@ -27,14 +27,14 @@ class Login extends StatelessWidget {
     var httpClient = new HttpClient();
     String result;
     logindata ld = new logindata(username, password);
-    String json = JSON.encode(ld.toJson());
-    print ("json (login): " + json);
+    String js = json.encode(ld.toJson());
+    print ("json (login): " + js);
     try {
       //send postRequest and get responseBody
-      String responseBody = await postRequestWrite(url, json);
+      String responseBody = await postRequestWrite(url, js);
 
       //Save token into token.txt
-      Map m = JSON.decode(responseBody);
+      Map m = json.decode(responseBody);
       String token = m['token'];
       String dir = (await getApplicationDocumentsDirectory()).path;
       writeFileFromString(token, "token.txt", dir);

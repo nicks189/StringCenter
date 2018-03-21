@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
       }
       else {
         globals.isLoggedIn = true;
-        Map m = JSON.decode(responseBody);
+        Map m = json.decode(responseBody);
         globals.username = m['username'];
         globals.token = token;
       }

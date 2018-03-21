@@ -29,9 +29,9 @@ _GroupPageState(_givenGroupName)  {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts";
     try {
       Map m = {"groupName" : "$_groupName"};
-      String json = JSON.encode(m);
-      String responseBody = await postRequestWrite(url, json);
-      List posts = JSON.decode(responseBody);
+      String js = json.encode(m);
+      String responseBody = await postRequestWrite(url, js);
+      List posts = json.decode(responseBody);
       print("posts.length: "+ posts.length.toString());
       for(int i = 0; i < posts.length; i++) {
         _postList.add(new Post(posts[i]["title"], posts[i]["content"]));

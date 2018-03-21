@@ -68,18 +68,18 @@ class _CreateMeasureState extends State<CreateMeasure> {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/createTab";
     var httpClient = new HttpClient();
     String result;
-    var json = JSON.encode(_t);
-    print (json);
+    var js = json.encode(_t);
+    print (js);
     try {
       var request = await httpClient.postUrl(Uri.parse(url));
       print(Uri.parse(url));
       request.headers.contentType = new ContentType("application", "json");
-      request.write(json);
+      request.write(js);
       var response = await request.close();
       var responseBody = await response.transform(UTF8.decoder).join();
       print('BODY: $responseBody');
       Map b = new Map();
-      b = JSON.decode(responseBody);
+      b = json.decode(responseBody);
       Tabb t = new Tabb.fromJson(b);
       print(t); // fields are the same, just no quotes
       //TODO (if success result = success)
