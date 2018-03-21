@@ -39,10 +39,6 @@ class Login extends StatelessWidget {
       String dir = (await getApplicationDocumentsDirectory()).path;
       writeFileFromString(token, "token.txt", dir);
 
-      globals.token = token;
-      globals.username = username;
-
-
       auth = true;
       sg = "done";
 

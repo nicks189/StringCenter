@@ -8,6 +8,7 @@ import 'group_page.dart';
 import 'followers.dart';
 import 'profile.dart';
 import 'globals.dart' as globals;
+import 'user.dart';
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 }
@@ -51,7 +52,8 @@ class _HomeState extends State<Home> {
       else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
-        globals.username = m['username'];
+        User u = new User(m['username'], m['description']);
+        globals.user = u;
         globals.token = token;
       }
       print("globals.isLoggedin (Home): " + globals.isLoggedIn.toString());
@@ -75,7 +77,7 @@ class _HomeState extends State<Home> {
               String dir = (await getApplicationDocumentsDirectory()).path;
               deleteFile("token.txt", dir);
               globals.isLoggedIn = false;
-              globals.username = "";
+              globals.user = null;
               Navigator.of(context).pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
             })
           ],
