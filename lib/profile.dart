@@ -15,19 +15,19 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
 
   Image i = new Image.asset('einstein.jpg');
-  List<Widget> _widgetList;
-  List<Post> _postList;
+  List<Widget> _widgetList = new List<Widget>();
+  List<Post> _postList = new List<Post>();
 
 
   _getPostList() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
     try {
       String responseBody = await getRequestToken(url, globals.token);
-      List posts = json.decode(responseBody);
+      Map posts = json.decode(responseBody);
 
-      print("posts.length: "+ posts.length.toString());
-      for(int i = 0; i < posts[0].length; i++) {
-        _postList.add(new Post(posts[0][i]["title"], posts[0][i]["content"]));
+      print("posts.length: "+ posts['posts'].length.toString());
+      for(int i = 0; i < posts['posts'].length; i++) {
+        _postList.add(new Post(posts['posts'][i]["title"], posts['posts'][i]["content"]));
       }
     } catch(exception) {
       print("profilepage exception: " + exception.toString());
@@ -90,6 +90,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+
 
     return new Scaffold(
       appBar: new AppBar(
