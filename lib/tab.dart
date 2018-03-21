@@ -36,7 +36,7 @@ class Tabb{
     map['tuning'] = _tuning;
     map['measureCount'] = _measures.length.toString();
     map['measures'] = _measures;
-    tabMap['author_username'] = globals.username;
+    tabMap['author_username'] = globals.user.username;
     tabMap['tab_name'] = _title;
     tabMap['tab'] = map;
     return tabMap;

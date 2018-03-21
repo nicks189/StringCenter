@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
           borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
 
         ),
-        child: new Text(globals.)
+        child: new Text(globals.user.username)
     ),
     );
     widgetList.add(new Container(
@@ -96,7 +96,7 @@ class _ProfileState extends State<Profile> {
     return new Scaffold(
       appBar: new AppBar(
         leading: new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
-        title: new Text(globals.username),
+        title: new Text(globals.user.username),
       ),
       body: new Container(
         alignment: Alignment.center,

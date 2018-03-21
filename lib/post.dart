@@ -11,7 +11,7 @@ class Post {
   Post(String title, String content, [tabID='', groupName='']) {
     _title = title;
     _content = content;
-    _authorUsername = globals.username;
+    _authorUsername = globals.user.username;
   }
 
   get title => _title;
