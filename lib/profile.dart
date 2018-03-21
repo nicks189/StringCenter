@@ -45,19 +45,20 @@ class _ProfileState extends State<Profile> {
   }
 
   List<Widget> _generateWidgets() {
-    _widgetList.add( new Container(
-        margin: new EdgeInsets.all(24.0),
+    List<Widget> widgetList = new List<Widget>();
+    widgetList.add(new Text('About Me:', textAlign: TextAlign.left, style: new TextStyle(fontSize: 20.0),));
+    widgetList.add( new Container(
+        margin: new EdgeInsets.all(12.0),
         padding: new EdgeInsets.all(12.0),
         decoration: new BoxDecoration(
           border: new Border.all(color: Colors.blue, width: 2.0),
           borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
 
         ),
-        child: new Text("new group description test test description new new test "
-            "new description new new test description new test new test")
+        child: new Text(globals.)
     ),
     );
-    _widgetList.add(new Container(
+    widgetList.add(new Container(
       child: new MaterialButton(
           minWidth: 128.0,
           height: 32.0,
@@ -76,7 +77,7 @@ class _ProfileState extends State<Profile> {
       ),
     ));
     for (int i = 0; i < _postList.length; i++) {
-      _widgetList.add(new MaterialButton(onPressed: () {
+      widgetList.add(new MaterialButton(onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
           body: new Text(_postList[i].content),
         )));
@@ -85,7 +86,7 @@ class _ProfileState extends State<Profile> {
       )
       );
     }
-    return _widgetList;
+    return widgetList;
   }
 
   @override

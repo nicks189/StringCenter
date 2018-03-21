@@ -1,5 +1,7 @@
 library ss_5.globals;
 
-String username;
+import 'user.dart';
+
+User user;
 bool isLoggedIn = false;
 String token;
