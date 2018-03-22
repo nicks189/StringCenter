@@ -21,29 +21,19 @@ class _BrowseState extends State<Browse> {
   List<Tabb> _tabList = new List<Tabb>();
   List<User> _userList = new List<User>();
   List<Group> _groupList = new List<Group>();
-
-  _getPostList() async { // TODO wrong
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts";
-    try {
-      Map m = {"groupName" : "$_groupName"};
-      String js = json.encode(m);
-      String responseBody = await postRequestWrite(url, js);
-      List posts = json.decode(responseBody);
-      print("posts.length: "+ posts.length.toString());
-      for(int i = 0; i < posts.length; i++) {
-        _postList.add(new Post(posts[i]["title"], posts[i]["content"]));
-      }
-    } catch(exception) {
-      print("grouppage exception: " + exception.toString());
-    }
-  }
-
+  
   _getTabList() async {
-    var url = "";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/";
     try {
-
-      for (int i = 0; i < ;i++) {
-
+      //send request
+      String responseBody = await getRequestAuthorization(url);
+      //decode reponse
+      Map js = json.decode(responseBody);
+      print("decoded json map: (browse) " + js.toString());
+      print("js['tabs'].length: (browse) " + js['tabs'].length.toString());
+      //populate list of tabs from json
+      for (int i = 0; i < js['tabs'].length;i++) {
+        _tabList.add(new Tabb.fromJson(js['tabs'][i]));
       }
     } catch(exception) {
       print("browse gettablist exception: " + exception.toString());
@@ -53,21 +43,41 @@ class _BrowseState extends State<Browse> {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-groups";
     try {
       String responseBody = await getRequest(url);
-
+      Map groups = json.decode(responseBody);
+      print("groups.length (browse) : " + groups["groupsByName"].length.toString());
+      // populate group list with new group objects parsed from server
+      for (int i = 0; i < groups["groupsByName"].length; i++) {
+        _groupList.add(new Group(groups["groupsByName"][i]));
+      }
 
     } catch(exception) {
       print("browse getgrouplist exception: " + exception.toString());
     }
   }
   _getUserList() async {
-    var url = "";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/all";
     try {
+      String responseBody = await getRequestAuthorization(url);
+      Map users = json.decode(responseBody);
+      for (int i = 0; i < users["users"].length; i++) {
+        _userList.add(new User(users["users"][i]["username"],
+                                users["users"][i]["description"]));
+      }
 
     } catch(exception) {
       print("browse getuserlist exception: " + exception.toString());
     }
   }
 
+  List<Widget> _genTabWidgets() {
+
+  }
+  List<Widget> _genGroupWidgets() {
+
+  }
+  List<Widget> _genUserWidgets() {
+
+  }
   List<Widget> _generateWidgets() { //TODO need 3 genwidgets
 
     List<Widget> widgetList = new List<Widget>();
