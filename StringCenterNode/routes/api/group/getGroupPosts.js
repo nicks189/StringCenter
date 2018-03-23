@@ -5,6 +5,8 @@ module.exports = function(passport){
     var router = express.Router();
     //routes
 
+    //change to make the same as get user posts
+    
     //authentication removed for testing
     //queries posts by groupName and sorts them by timestamp
     router.post('/', function(req, res, next){
