@@ -28,13 +28,14 @@ class _ViewUserState extends State<ViewUser> {
   }
 
   _getPostList() async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user"; //TODO i was working on this
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
     try {
       String responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map posts = json.decode(responseBody);
 
       print("posts.length: "+ posts['posts'].length.toString());
       for(int i = 0; i < posts['posts'].length; i++) {
+        if(posts['posts'][i]["authorUsername"] == _userName)
         _postList.add(new Post(posts['posts'][i]["title"], posts['posts'][i]["content"]));
       }
     } catch(exception) {

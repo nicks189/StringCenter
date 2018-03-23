@@ -25,6 +25,56 @@ class _BrowseState extends State<Browse> {
   List<User> _userList = new List<User>();
   List<Group> _groupList = new List<Group>();
 
+  @override
+  void initState() {
+    _widgetList.add(new SizedBox(height: 8.0,));
+  }
+  _addTabsGroupsUsers(List<Widget> wl) {
+    wl.add(
+      new Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        new RaisedButton(
+          padding: new EdgeInsets.all(8.0),
+          child: new Text("Tabs"),
+          onPressed: () {
+            _getTabList().then((wl) {
+              wl = _genTabWidgets();
+              setState(() {
+                _widgetList = wl;
+              });
+            });
+          },
+        ),
+        new RaisedButton(
+          padding: new EdgeInsets.all(8.0),
+          child: new Text("Groups"),
+          onPressed: () {
+            _getGroupList().then((wl) {
+              wl = _genGroupWidgets();
+              setState((){
+                _widgetList = wl;
+              });
+            });
+          },
+        ),
+        new RaisedButton(
+          padding: new EdgeInsets.all(8.0),
+          child: new Text("Users"),
+          onPressed: () {
+            _getUserList().then((wl) {
+              wl = _genUserWidgets();
+              setState(() {
+                _widgetList = wl;
+              });
+            });
+          },
+        ),
+      ],
+    ),
+    );
+  }
+
   _getTabList() async {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/";
     try {
@@ -72,8 +122,8 @@ class _BrowseState extends State<Browse> {
     }
   }
 
-  _genTabWidgets() {
-  List<Widget> widgetList = new List<Widget>();
+  List<Widget> _genTabWidgets() {
+    List<Widget> widgetList = new List<Widget>();
     for(int i = 0; i < _tabList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewTab(_tabList[i])));
@@ -81,11 +131,9 @@ class _BrowseState extends State<Browse> {
       child: new Text(_tabList[i].title),
       ));
    }
-    setState(() {
-     _widgetList = widgetList;
-    });
+    return widgetList;
   }
-   _genGroupWidgets() {
+  List<Widget> _genGroupWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for(int i = 0; i < _groupList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
@@ -94,27 +142,22 @@ class _BrowseState extends State<Browse> {
         child: new Text(_groupList[i].groupName),
       ));
     }
-    setState(() {
-      _widgetList = widgetList;
-    });
+    return widgetList;
   }
-  _genUserWidgets() { //TODO make viewUser and edit accordingly
+  List<Widget> _genUserWidgets() {
     List<Widget> widgetList = new List<Widget>();
-    for(int i = 0; i < _groupList.length; i++) {
+    for(int i = 0; i < _userList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new GroupPage(_groupList[i].groupName)));
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewUser(_userList[i].username)));
       },
-        child: new Text(_groupList[i].groupName),
+        child: new Text(_userList[i].username),
       ));
     }
-    setState(() {
-      _widgetList = widgetList;
-    });
+    return widgetList;
   }
 
   @override
   Widget build(BuildContext context) {
-    var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
           title: new Text("Browse")
@@ -124,36 +167,50 @@ class _BrowseState extends State<Browse> {
           child: new Column(
             children: <Widget>[
               new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   new RaisedButton(
+                    padding: new EdgeInsets.all(8.0),
                     child: new Text("Tabs"),
                     onPressed: () {
-                      _getTabList().then(() {
-                        _genTabWidgets();
+                      _getTabList().then((wl) {
+                        wl = _genTabWidgets();
+                        setState(() {
+                          _widgetList = wl;
+                        });
                       });
                     },
                   ),
                   new RaisedButton(
+                    padding: new EdgeInsets.all(8.0),
                     child: new Text("Groups"),
                     onPressed: () {
-                      _getGroupList().then(() {
-                        _genTabWidgets();
+                      _getGroupList().then((wl) {
+                        wl = _genGroupWidgets();
+                        setState((){
+                          _widgetList = wl;
+                        });
                       });
                     },
                   ),
                   new RaisedButton(
+                    padding: new EdgeInsets.all(8.0),
                     child: new Text("Users"),
                     onPressed: () {
-                      _getUserList().then(() {
-                        _genTabWidgets();
+                      _getUserList().then((wl) {
+                        wl = _genUserWidgets();
+                        setState(() {
+                          _widgetList = wl;
+                        });
                       });
                     },
                   ),
                 ],
               ),
-              new ListView(scrollDirection: Axis.vertical ,children: _widgetList),
+              new Expanded(child: new ListView(scrollDirection: Axis.vertical ,children: _widgetList),),
+
             ],
-          ),
+          )
         ),
       ),
     );
