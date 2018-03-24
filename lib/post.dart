@@ -26,5 +26,6 @@ class Post {
 
   get tabID => _tabID;
   get content => _content;
+  get authorUsername => _authorUsername;
 
 }
