@@ -31,9 +31,8 @@ Future<String> getRequest(String url) async {
   String responseBody = await response.transform(UTF8.decoder).join();
   return responseBody;
 }
-/**
- * used by home and profile
- */
+
+ //used by home and profile
 Future<String> getRequestTokenAuthorization(String url, String token) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
@@ -65,7 +64,18 @@ Future<String> postRequestWrite(String url, String json) async {
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
   request.write(json);
   var response = await request.close();
-  String responseBody = await response.transform(UTF8.decoder).join();
+  String responseBody = await response.transform(utf8.decoder).join();
+  return responseBody;
+}
+
+Future<String> postRequestWriteAuthorization(String url, String json) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.postUrl(Uri.parse(url));
+  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.add("authorization", "bearer ${globals.token}");
+  request.write(json);
+  var response = await request.close();
+  String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
 
