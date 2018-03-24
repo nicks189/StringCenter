@@ -30,16 +30,12 @@ module.exports = function(passport){
 
     //get tabs with username sent in parameter
     router.get('/findTabsByUser/:username',  passport.authenticate('jwt', {session: false}), function(req, res, next){
-        if (req.user.username === req.params.username) {
-            Tab.find().where('author_username').equals(req.params.username).exec(function (err, Tab) {
-                if (err) {
-                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-                }
-                res.json({tabs: Tab}).status(200);
-            });
-        } else {
-            res.json({ errors: [{ message: 'Unauthorized' }] }).status(501);
-        }
+        Tab.find().where('author_username').equals(req.params.username).exec(function (err, Tab) {
+            if (err) {
+                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+            }
+            res.json({tabs: Tab}).status(200);
+        });
     });
 
     //get tabs with username from authentication
