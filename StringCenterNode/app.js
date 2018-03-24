@@ -94,6 +94,9 @@ let getFollower = require('./routes/api/follower/getFollower')(passport);
 let followUser = require('./routes/api/follower/followUser')(passport);
 let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
 
+// general
+let search = require('./routes/api/general/search')(passport);
+
 
 // demo routes
 app.use('/', index);
@@ -138,7 +141,10 @@ app.use('/api/get-follower', getFollower);
 app.use('/api/follow-user', followUser);
 app.use('/api/unfollow-user', unfollowUser);
 
-const userTests = require('./tests/userTests');
+// general
+app.use('/api/search', search);
+
+// const userTests = require('./tests/userTests');
 // userTests.testCompare();
 
 // catch 404 and forward to error handler
