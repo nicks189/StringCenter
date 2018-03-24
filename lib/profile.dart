@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
+import 'create_post.dart';
 
 
 import 'globals.dart' as globals;
@@ -64,9 +65,7 @@ class _ProfileState extends State<Profile> {
           height: 32.0,
           child: new Text("Create Post", style: new TextStyle(color: Colors.white, fontSize: 16.0),),
           onPressed: () {
-            Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-              body: new Text("Post Creation Screen"),
-            )));
+            Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new CreatePost()));
           }
       ),
       margin: new EdgeInsets.all(24.0),
