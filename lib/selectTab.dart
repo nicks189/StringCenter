@@ -62,7 +62,7 @@ class _SelectTabState extends State<SelectTab> {
     print("_tabs.length: " + _tabs.length.toString());
     for (int i = 0; i < _tabs.length ;i ++){
       wl.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new CreatePost(_tabs[i])));
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new CreatePost(_tabs[i], _s)));
       },
         child: new Text(_tabs[i].title),
       ));
