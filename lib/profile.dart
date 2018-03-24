@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
 
       print("posts.length: "+ posts['posts'].length.toString());
       for(int i = 0; i < posts['posts'].length; i++) {
-        _postList.add(new Post(posts['posts'][i]["title"], posts['posts'][i]["content"]));
+        _postList.add(new Post(posts['posts'][i]["content"]));
       }
     } catch(exception) {
       print("profilepage exception: " + exception.toString());

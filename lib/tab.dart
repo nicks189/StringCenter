@@ -4,6 +4,7 @@ import 'globals.dart' as globals;
 class Tabb{
   String _title;
   String _info;
+  String _id;
   String _tuning;
   num _stringCount;
   List<Measure> _measures;
@@ -19,6 +20,7 @@ class Tabb{
   Tabb.fromJson(Map json){
     Map t = json['tab'];
     _title = json['tab_name'];
+    _id = json['_id'];
     _info = t['info'];
     _tuning = t['tuning'];
     _stringCount = _tuning.length;
@@ -86,6 +88,7 @@ class Tabb{
     return t;
   }
 
+  get id => _id;
   get info => _info;
   get tuning => _tuning;
   get measureCount => _measures.length;

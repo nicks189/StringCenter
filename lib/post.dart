@@ -10,7 +10,18 @@ class Post {
   Post(String content, [tabID='', groupName='']) {
     _content = content;
     _authorUsername = globals.user.username;
+    _tabID = tabID;
+    _groupName = groupName;
   }
+
+  Map toJson() {
+    Map map = new Map();
+    map['content'] = _content;
+    map['tabId'] = _tabID;
+    map['groupName'] = _groupName;
+    return map;
+  }
+
 
   get content => _content;
   get authorUsername => _authorUsername;
