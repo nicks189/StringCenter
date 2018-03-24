@@ -27,14 +27,21 @@ class _ViewPostState extends State<ViewPost> {
     _post = givenPost;
   }
 
+  _generateWidgets() {
+
+  }
+
+  @override
+  void initState() {
+    _generateWidgets();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
     return new Scaffold(
       appBar: new AppBar(
         leading: new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
-        title: new Text(globals.user.username),
+        title: new Text(_post.authorUsername),
       ),
       body: new Container(
         alignment: Alignment.center,

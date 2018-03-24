@@ -5,7 +5,7 @@ class User {
   String _username;
   String _description;
 
-  User(String username, [String description]) {
+  User(String username, String userID, [String description]) {
     _username = username;
   }
 

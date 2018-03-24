@@ -13,5 +13,6 @@ class Post {
   }
 
   get content => _content;
+  get authorUsername => _authorUsername;
 
 }
