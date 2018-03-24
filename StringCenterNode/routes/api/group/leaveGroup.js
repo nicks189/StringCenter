@@ -12,6 +12,7 @@ module.exports = function(passport){
     //authentication removed for testing
     router.post('/', function(req, res, next){
         if(req.body.username && req.body.groupName){
+            //find matching record
             UserGroup.findOne({"username": req.body.username, "groupName": req.body.groupName}, function(findErr, userGroup){
                 if (findErr) {
                     return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
@@ -20,12 +21,13 @@ module.exports = function(passport){
                     return res.json({errors: [{message: 'This user is not in this group'}]}).status(500);
                 } else if(userGroup){
                     console.log(userGroup);
+                    //delete usergroup
                     userGroup.remove(function(removeErr){
                         if (removeErr) {
                             return res.json({errors: [{message: 'Something went wrong in removal'}]}).status(500);
                         } else{
 
-                            //change admin
+                            //change admin (find userGroup records)
                             UserGroup.find({"groupName": req.body.groupName}, function(error, usersStillInGroup){
                                 usersStillInGroup = usersStillInGroup.sort(function(a, b){
                                     return new Date(b.timestamp) - new Date(a.timestamp);
@@ -43,6 +45,7 @@ module.exports = function(passport){
                                         console.log("updated");
                                         //res.json(userGroup).status(201);
                                     });
+                                //only user left is one leaving
                                 } else if(usersStillInGroup <= 1){
                                     //No more users in group, delete group and all posts associated
                                     Group.remove({"groupName" : userGroup.groupName}, function(groupRemoveErr){
@@ -64,7 +67,6 @@ module.exports = function(passport){
                                 }
 
                             });
-                            return res.json(userGroup);
                         }
                     });
                 }
