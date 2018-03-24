@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import "dart:convert";
 import "dart:io";
 import 'tab.dart';
+import 'create_post.dart';
 import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
-class ViewTabList extends StatefulWidget {
+class SelectTab extends StatefulWidget {
+  String _s;
+
+  SelectTab(String s) {
+    _s = s;
+  }
+
   @override
-  _ViewTabListState createState() => new _ViewTabListState();
+  _SelectTabState createState() => new _SelectTabState(_s);
 }
 
-class _ViewTabListState extends State<ViewTabList> {
+class _SelectTabState extends State<SelectTab> {
+  String _s;
+
+  _SelectTabState(String s) {
+    _s = s;
+  }
 
   bool _loaded = false;
   List<Tabb> _tabs = new List<Tabb>();
