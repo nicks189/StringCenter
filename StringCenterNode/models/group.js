@@ -13,7 +13,7 @@ var GroupSchema = new Schema({
         type: String,
         maxlength: [1000, 'Group description cannot be longer than 1000 characters'],
     },
-    timestamp : {
+    dateCreated : {
         type: Date,
         default: Date.now
     }
