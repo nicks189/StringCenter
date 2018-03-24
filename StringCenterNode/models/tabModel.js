@@ -8,6 +8,7 @@ var TabSchema = new Schema({
   tab: {type: Object, required: true},
   dateCreated : {
       type: Date,
+      required: true,
       default: Date.now
   }
 });

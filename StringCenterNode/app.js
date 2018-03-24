@@ -68,6 +68,7 @@ let apiSignIn = require('./routes/api/user/signIn')(passport);
 let apiRegister= require('./routes/api/user/register')(passport);
 let updateUser = require('./routes/api/user/updateUser')(passport);
 let searchUser = require('./routes/api/user/searchUser')(passport);
+let setProfilePic = require('./routes/api/user/setProfilePic')(passport);
 
 // tab
 let tabRoutes = require('./routes/api/tab/tabRoutes')(passport);
@@ -110,6 +111,7 @@ app.use('/api/sign-in', apiSignIn);
 app.use('/api/register', apiRegister);
 app.use('/api/update-user', updateUser);
 app.use('/api/search-user', searchUser);
+app.use('/api/set-profile-pic', setProfilePic);
 
 // tab
 app.use('/api/tab', tabRoutes);
@@ -137,7 +139,7 @@ app.use('/api/follow-user', followUser);
 app.use('/api/unfollow-user', unfollowUser);
 
 const userTests = require('./tests/userTests');
-// userTests.test();
+// userTests.testCompare();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

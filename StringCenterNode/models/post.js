@@ -5,12 +5,6 @@ const Group = require('./group');
 const util = require('../middleware/util');
 
 let PostSchema = mongoose.Schema({
-    title: {
-        type: String,
-        maxlength: [64, 'Title cannot be longer than 64 characters'],
-        required: true,
-        trim: true
-    },
     content: {
         type: String,
         maxlength: [500, 'Content cannot be longer than 500 characters'],
@@ -33,6 +27,7 @@ let PostSchema = mongoose.Schema({
     },
     dateCreated: {
         type: Date,
+        required: true,
         default: Date.now
     }
 });

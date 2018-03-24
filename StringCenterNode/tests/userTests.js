@@ -1,5 +1,6 @@
 const fs = require('fs');
 const User = require('../models/user');
+
 exports.test = function () {
     let imgPath = '/home/nick/Pictures/favicon/favicon-16x16.png';
 
@@ -24,11 +25,14 @@ exports.test = function () {
 };
 
 exports.testCompare = function() {
-    User.find({ username: 'thisisatestuser' }, function(error, user) {
-        if (error) {
-            console.log(error.message);
-        } else {
+    // User.find({ username: 'thisisatestuser' }, function(error, user) {
+    //     if (error) {
+    //         console.log(error.message);
+    //     } else {
 
-        }
-    });
+    //     }
+    // });
+    let imgPath = '/home/nick/Pictures/favicon/favicon-16x16.png';
+    let img = fs.readFileSync(imgPath);
+    console.log(img);
 };
