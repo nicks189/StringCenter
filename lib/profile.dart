@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
 import 'create_post.dart';
+import 'view_post.dart';
 
 
 import 'globals.dart' as globals;
@@ -26,9 +27,17 @@ class _ProfileState extends State<Profile> {
       String responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map posts = json.decode(responseBody);
 
-      print("posts.length: "+ posts['posts'].length.toString());
-      for(int i = 0; i < posts['posts'].length; i++) {
-        _postList.add(new Post(posts['posts'][i]["content"]));
+      if(posts['posts'] != null) {
+        print("posts.length: " + posts['posts'].length.toString());
+
+        for (int i = 0; i < posts['posts'].length; i++) {
+          if(posts['posts'][i]['tabId'] != null) {
+            _postList.add(new Post(posts['posts'][i]["content"], posts['posts'][i]['tabId']));
+          }else {
+            _postList.add(new Post(posts['posts'][i]["content"]));
+          }
+
+        }
       }
     } catch(exception) {
       print("profilepage exception: " + exception.toString());
@@ -77,9 +86,7 @@ class _ProfileState extends State<Profile> {
     ));
     for (int i = 0; i < _postList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-          body: new Text(_postList[i].content),
-        )));
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewPost(_postList[i])));
       },
         child: new Text(_postList[i].content),
       )

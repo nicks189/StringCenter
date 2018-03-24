@@ -17,12 +17,14 @@ class Post {
   Map toJson() {
     Map map = new Map();
     map['content'] = _content;
-    map['tabId'] = _tabID;
+    if(_tabID != '') {
+      map['tabId'] = _tabID;
+    }
     map['groupName'] = _groupName;
     return map;
   }
 
-
+  get tabID => _tabID;
   get content => _content;
 
 }

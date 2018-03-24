@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
+import 'dart:async';
+import 'tab.dart';
 import 'post.dart';
 
 
@@ -10,9 +12,11 @@ import 'globals.dart' as globals;
 
 class ViewPost extends StatefulWidget {
   Post _givenPost;
+
   ViewPost(Post givenPost){
     _givenPost = givenPost;
   }
+
   @override
   _ViewPostState createState() =>
       new _ViewPostState(_givenPost);
@@ -20,16 +24,36 @@ class ViewPost extends StatefulWidget {
 
 class _ViewPostState extends State<ViewPost> {
   Post _post;
-  Image i = new Image.asset('einstein.jpg');
-  List<Widget> _widgetList = new List<Widget>();
-  List<Post> _postList = new List<Post>();
+  Tabb _t;
   _ViewPostState(Post givenPost) {
     _post = givenPost;
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    _getTab();
+    setState(() {
+    });
+  }
 
+  _getTab() async{
+    try {
+    String response = await getRequestAuthorization("http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabById/${_post.tabID}");
+    _t = new Tabb.fromJson(json.decode(response));
+    }catch (exception){
+      print('get tab by id exception' + exception.toString());
+    }
+  }
+
+  Widget _showTab(){
+    if(_t != null){
+      return new Text(_t.tabToString());
+    }else
+      return new Text('');
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return new Scaffold(
       appBar: new AppBar(
@@ -39,8 +63,11 @@ class _ViewPostState extends State<ViewPost> {
       body: new Container(
         alignment: Alignment.center,
         padding: new EdgeInsets.all(20.0),
-        child: new ListView(
-          children: _widgetList,
+        child: new Column(
+          children: <Widget>[
+            new Text(_post.content),
+            _showTab(),
+          ],
         ),
       ),
     );

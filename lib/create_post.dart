@@ -41,8 +41,15 @@ class _CreatePostState extends State<CreatePost> {
     }else{
       p = new Post(_ptc.text);
     }
-    postRequestWriteAuthorization('http://proj-309-ss-5.cs.iastate.edu:3000/api/create-post', json.encode(p));
-    Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Home()));
+    try {
+      postRequestWriteAuthorization(
+          'http://proj-309-ss-5.cs.iastate.edu:3000/api/create-post',
+          json.encode(p));
+      Navigator.push(context,
+          new MaterialPageRoute(builder: (BuildContext context) => new Home()));
+    } catch (exception) {
+      print('send post exception' + exception.toString());
+    }
   }
 
   _selectTab() {

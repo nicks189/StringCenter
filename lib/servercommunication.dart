@@ -28,7 +28,7 @@ Future<String> getRequest(String url) async {
   var request = await httpClient.getUrl(Uri.parse(url));
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
   var response = await request.close();
-  String responseBody = await response.transform(UTF8.decoder).join();
+  String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
 
@@ -39,7 +39,7 @@ Future<String> getRequestTokenAuthorization(String url, String token) async {
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
   request.headers.add("authorization", "bearer $token");
   var response = await request.close();
-  String responseBody = await response.transform(UTF8.decoder).join();
+  String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
 
@@ -52,7 +52,7 @@ Future<String> getRequestAuthorization(String url) async {
   request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
   request.headers.add("authorization", "bearer ${globals.token}");
   var response = await request.close();
-  String responseBody = await response.transform(UTF8.decoder).join();
+  String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
 /**
