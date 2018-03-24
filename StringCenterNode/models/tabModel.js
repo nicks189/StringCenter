@@ -6,7 +6,7 @@ var TabSchema = new Schema({
   author_username: {type: String, required: true, ref: 'User'},
   tab_name: {type: String, required: true},
   tab: {type: Object, required: true},
-  timestamp : {
+  dateCreated : {
       type: Date,
       default: Date.now
   }

@@ -26,7 +26,7 @@ var UserGroupSchema = new Schema({
         required: true,
         default: false
     },
-    timestamp : {
+    dateCreated : {
         type: Date,
         default: Date.now
     }
