@@ -4,21 +4,28 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
-import 'create_post.dart';
 
 
 import 'globals.dart' as globals;
 
-class Profile extends StatefulWidget {
-  _ProfileState createState() => new _ProfileState();
+class ViewUser extends StatefulWidget {
+  String _givenUserName;
+  ViewUser(String givenUserName){
+    _givenUserName = givenUserName;
+  }
+  @override
+  _ViewUserState createState() =>
+      new _ViewUserState(_givenUserName);
 }
 
-class _ProfileState extends State<Profile> {
-
+class _ViewUserState extends State<ViewUser> {
+  String _userName;
   Image i = new Image.asset('einstein.jpg');
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
-
+  _ViewUserState(String givenUserName) {
+    _userName = givenUserName;
+  }
 
   _getPostList() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
@@ -28,6 +35,7 @@ class _ProfileState extends State<Profile> {
 
       print("posts.length: "+ posts['posts'].length.toString());
       for(int i = 0; i < posts['posts'].length; i++) {
+        if(posts['posts'][i]["authorUsername"] == _userName)
         _postList.add(new Post(posts['posts'][i]["title"], posts['posts'][i]["content"]));
       }
     } catch(exception) {
@@ -65,7 +73,9 @@ class _ProfileState extends State<Profile> {
           height: 32.0,
           child: new Text("Create Post", style: new TextStyle(color: Colors.white, fontSize: 16.0),),
           onPressed: () {
-            Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new CreatePost()));
+            Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
+              body: new Text("Post Creation Screen"),
+            )));
           }
       ),
       margin: new EdgeInsets.all(24.0),
@@ -100,10 +110,10 @@ class _ProfileState extends State<Profile> {
       body: new Container(
         alignment: Alignment.center,
         padding: new EdgeInsets.all(20.0),
-          child: new ListView(
-            children: _widgetList,
-          ),
+        child: new ListView(
+          children: _widgetList,
         ),
+      ),
     );
   }
 }

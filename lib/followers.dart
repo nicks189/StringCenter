@@ -30,7 +30,7 @@ class _FollowersState extends State<Followers> {
   _getFollowersList() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-follower/followers/$_user";
     try {
-      String responseBody = await getRequest(url);
+      String responseBody = await getRequestAuthorization(url);
       Map js = json.decode(responseBody);
       print("decoded json map: " + js.toString());
       print("js['followers'].length: " + js['followers'].length.toString());

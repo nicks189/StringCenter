@@ -9,6 +9,7 @@ import 'followers.dart';
 import 'profile.dart';
 import 'globals.dart' as globals;
 import 'user.dart';
+import 'browse.dart';
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 }
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
       String dir = (await getApplicationDocumentsDirectory()).path;
       String token = await readFileAsString('token.txt', dir);
       //get request to server, returns "Unauthorized" if token isn't legit
-      String responseBody = await getRequestToken(url, token);
+      String responseBody = await getRequestTokenAuthorization(url, token);
 
       if (responseBody == "Unauthorized") {
       }
@@ -133,6 +134,15 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
                         builder:(BuildContext context) => new Profile()
+                    ));
+                  },
+                ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("Browse"),
+                  onPressed: () {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder:(BuildContext context) => new Browse()
                     ));
                   },
                 ),
