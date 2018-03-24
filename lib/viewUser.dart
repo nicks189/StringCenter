@@ -91,7 +91,7 @@ class _ViewUserState extends State<ViewUser> {
           body: new Text(_postList[i].content),
         )));
       },
-        child: new Text(_postList[i].title),
+        child: new Text(_postList[i].content),
       )
       );
     }
