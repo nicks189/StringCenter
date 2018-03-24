@@ -34,10 +34,19 @@ class _FollowersState extends State<Followers> {
       Map js = json.decode(responseBody);
       url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/all";
       responseBody = await getRequestAuthorization(url);
+      Map js2 = json.decode(responseBody);
       print("decoded json map: " + js.toString());
       print("js['followers'].length: " + js['followers'].length.toString());
       for (int i = 0; i < js['followers'].length; i++) {
-        _userList.add(new User(js['followers'][i], js[]));
+        String tempU = js['followers'][i];
+        String tempU2 = "";
+        for (int j = 0; j < js2['users'].length; j++) {
+          if (tempU == js2['users'][j]) {
+            tempU2 = tempU;
+            break;
+          }
+        }
+        _userList.add(new User(js['followers'][i], tempU));
       }
     } catch (exception) {
       print("exception followers");

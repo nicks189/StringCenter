@@ -29,51 +29,6 @@ class _BrowseState extends State<Browse> {
   void initState() {
     _widgetList.add(new SizedBox(height: 8.0,));
   }
-  _addTabsGroupsUsers(List<Widget> wl) {
-    wl.add(
-      new Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        new RaisedButton(
-          padding: new EdgeInsets.all(8.0),
-          child: new Text("Tabs"),
-          onPressed: () {
-            _getTabList().then((wl) {
-              wl = _genTabWidgets();
-              setState(() {
-                _widgetList = wl;
-              });
-            });
-          },
-        ),
-        new RaisedButton(
-          padding: new EdgeInsets.all(8.0),
-          child: new Text("Groups"),
-          onPressed: () {
-            _getGroupList().then((wl) {
-              wl = _genGroupWidgets();
-              setState((){
-                _widgetList = wl;
-              });
-            });
-          },
-        ),
-        new RaisedButton(
-          padding: new EdgeInsets.all(8.0),
-          child: new Text("Users"),
-          onPressed: () {
-            _getUserList().then((wl) {
-              wl = _genUserWidgets();
-              setState(() {
-                _widgetList = wl;
-              });
-            });
-          },
-        ),
-      ],
-    ),
-    );
-  }
 
   _getTabList() async {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/";
@@ -85,6 +40,8 @@ class _BrowseState extends State<Browse> {
       print("decoded json map: (browse) " + js.toString());
       print("js['tabs'].length: (browse) " + js['tabs'].length.toString());
       //populate list of tabs from json
+        _tabList.removeRange(0, _tabList.length);
+
       for (int i = 0; i < js['tabs'].length;i++) {
         _tabList.add(new Tabb.fromJson(js['tabs'][i]));
       }
@@ -99,6 +56,7 @@ class _BrowseState extends State<Browse> {
       Map groups = json.decode(responseBody);
       print("groups.length (browse) : " + groups["groupsByName"].length.toString());
       // populate group list with new group objects parsed from server
+        _groupList.removeRange(0, _groupList.length);
       for (int i = 0; i < groups["groupsByName"].length; i++) {
         _groupList.add(new Group(groups["groupsByName"][i]));
       }
@@ -112,6 +70,7 @@ class _BrowseState extends State<Browse> {
     try {
       String responseBody = await getRequestAuthorization(url);
       Map users = json.decode(responseBody);
+      _userList.removeRange(0, _userList.length);
       for (int i = 0; i < users["users"].length; i++) {
         _userList.add(new User(users["users"][i]["username"],
                                 users["users"][i]["description"]));

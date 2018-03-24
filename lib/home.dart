@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
       String token = await readFileAsString('token.txt', dir);
       //get request to server, returns "Unauthorized" if token isn't legit
       String responseBody = await getRequestTokenAuthorization(url, token);
-
+      print("home" + responseBody);
       if (responseBody == "Unauthorized") {
       }
       else {

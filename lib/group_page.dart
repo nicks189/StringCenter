@@ -33,6 +33,7 @@ _GroupPageState(_givenGroupName)  {
       Map m = {"groupName" : "$_groupName"};
       String js = json.encode(m);
       String responseBody = await postRequestWrite(url, js);
+
       List posts = json.decode(responseBody);
       print("posts.length: "+ posts.length.toString());
       for(int i = 0; i < posts.length; i++) {
