@@ -5,9 +5,8 @@ module.exports = function(passport) {
     let router = express.Router();
 
     router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        if (req.body.title && req.body.content) {
+        if (req.body.content) {
             let newPost = new Post();
-            newPost.title = req.body.title;
             newPost.content = req.body.content;
             newPost.groupName = req.body.groupName;
             newPost.tabId = req.body.tabId;

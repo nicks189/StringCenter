@@ -14,9 +14,6 @@ module.exports = function(passport) {
                 // Only the original author can edit a post
                 return res.json({ errors: [{ message: 'Unauthorized' }] }).status(400);
             }
-            if (typeof req.body.title !== 'undefined') {
-                post.title = req.body.title;
-            }
             if (typeof req.body.content !== 'undefined') {
                 post.content = req.body.content;
             }
