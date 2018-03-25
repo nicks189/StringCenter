@@ -72,3 +72,6 @@ typings/
 db/db.js
 config
 config/config.js
+
+# File uploads
+uploads/
