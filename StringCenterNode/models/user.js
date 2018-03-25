@@ -43,7 +43,7 @@ let UserSchema = mongoose.Schema({
     },
     profilePic: {
         type: String,
-        default: './uploads/icon-user-default.png'
+        default: 'uploads/icon-user-default.png'
     }
 });
 
