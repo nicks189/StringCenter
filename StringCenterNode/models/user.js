@@ -42,8 +42,8 @@ let UserSchema = mongoose.Schema({
         default: Date.now
     },
     profilePic: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        default: './uploads/icon-user-default.png'
     }
 });
 

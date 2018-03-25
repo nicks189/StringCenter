@@ -74,4 +74,4 @@ config
 config/config.js
 
 # File uploads
-uploads/
+public/uploads/
