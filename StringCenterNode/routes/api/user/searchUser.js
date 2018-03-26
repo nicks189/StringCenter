@@ -5,29 +5,16 @@ module.exports = function(passport) {
     let router = express.Router();
 
     /*
-     * Search for users based on parameter 'query'; looks at username, firstName, and lastName
+     * Search for users based on parameter 'query'; looks at username
      * TODO -- Order results based on relevancy
      */
     router.get('/:query', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         // search by regular expression of 'query', 'i' flag ignores case
         let regexp = new RegExp(req.params.query, 'i');
-        console.log(regexp);
-        User.find({
-            $or: [
-                { username: regexp },
-                { firstName: regexp },
-                { lastName: regexp }
-            ]
-        }, { password: 0}, function(error, users) {
+        User.search(regexp, function(error, users) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-            } else if (users.length === 0) {
-                return res.json({ errors: [{ message: 'No users found' }] }).status(200);
             }
-            // sort users alphabetically
-            users.sort(function(a, b){
-                return a.username.toLowerCase().localeCompare(b.username.toLowerCase());
-            });
             res.json({ users: users }).status(200);
         });
     });
