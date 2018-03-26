@@ -11,7 +11,7 @@ var GroupSchema = new Schema({
     },
     description : {
         type: String,
-        maxlength: [500, 'Group description cannot be longer than 1000 characters'],
+        maxlength: [500, 'Group description cannot be longer than 1000 characters']
     },
     dateCreated : {
         type: Date,
