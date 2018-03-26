@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
       else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
-        User u = new User(m['username'], m['description']);
+        User u = new User(m['username'],m['_id'], m['description']);
         globals.user = u;
         globals.token = token;
       }
@@ -110,15 +110,6 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.of(context).pushNamed('TabOptions');
                   },
-                ),
-                new Padding(padding: new EdgeInsets.all(16.0)),
-                new RaisedButton(
-                  child: new Text("Group Page"),
-                  onPressed: () {
-                    Navigator.push(context, new MaterialPageRoute(
-                        builder:(BuildContext context) => new GroupPage("a")
-                    ));
-                    },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(

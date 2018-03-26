@@ -20,29 +20,39 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
+  Group _group;
   String _groupName;
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
-  Group _group;
 _GroupPageState(_givenGroupName)  {
   _groupName = _givenGroupName;
-  _group = new Group(_groupName);
 }
 
   _getPostList() async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts";
+    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts/$_groupName";
     try {
+      //get postlist from group $groupName
       Map m = {"groupName" : "$_groupName"};
       String js = json.encode(m);
-      String responseBody = await postRequestWrite(url, js);
-
-      List posts = json.decode(responseBody);
-      print("posts.length: "+ posts.length.toString());
-      for(int i = 0; i < posts.length; i++) {
-        if(posts[i]['tabId'] != null) {
-          _postList.add(new Post(posts[i]["content"], posts[i]['tabId']));
+      String responseBody = await getRequest(url);
+      Map posts = json.decode(responseBody);
+      //store group as group_object
+      url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group/$_groupName";
+      responseBody = await getRequest(url);
+      Map m2 = json.decode(responseBody);
+      print("group page get group: " + responseBody);
+      if(m2['group']['description'] != null) {
+        _group = new Group(_groupName, m2['group']['description']);
+      }
+      else {
+        _group = new Group(_groupName);
+      }
+      print("posts.length: "+ posts['posts'].length.toString());
+      for(int i = 0; i < posts['posts'].length; i++) {
+        if(posts['posts'][i]['tabId'] != null) {
+          _postList.add(new Post(posts['posts'][i]["content"], posts['posts'][i]['tabId']));
         }else {
-          _postList.add(new Post(posts[i]["content"]));
+          _postList.add(new Post(posts['posts'][i]["content"]));
         }
       }
     } catch(exception) {
@@ -64,20 +74,20 @@ _GroupPageState(_givenGroupName)  {
 
 
   List<Widget> _generateWidgets() {
-
   List<Widget> widgetList = new List<Widget>();
-    widgetList.add( new Container(
-      margin: new EdgeInsets.all(24.0),
-      padding: new EdgeInsets.all(12.0),
-      decoration: new BoxDecoration(
-        border: new Border.all(color: Colors.blue, width: 2.0),
-        borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+  if(_group.description != '') {
+    widgetList.add(new Container(
+        margin: new EdgeInsets.all(24.0),
+        padding: new EdgeInsets.all(12.0),
+        decoration: new BoxDecoration(
+          border: new Border.all(color: Colors.blue, width: 2.0),
+          borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
 
-      ),
-      child: new Text("new group description test test description new new test "
-          "new description new new test description new test new test")
+        ),
+        child: new Text(_group.description)
     ),
     );
+  }
 
     widgetList.add(new Container(
       child: new MaterialButton(

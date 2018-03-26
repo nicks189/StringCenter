@@ -6,6 +6,7 @@ import 'servercommunication.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'util.dart';
+import 'viewUser.dart';
 class Followers extends StatefulWidget {
   String _givenUser;
 
@@ -74,8 +75,7 @@ class _FollowersState extends State<Followers> {
 
     for (int i = 0; i < _userList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-          body: new Text(_userList[i].username)),
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewUser(_userList[i].username),
         ));
       },
         child: new Text(_userList[i].username),

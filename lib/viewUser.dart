@@ -7,6 +7,7 @@ import 'post.dart';
 
 
 import 'globals.dart' as globals;
+import 'user.dart';
 
 class ViewUser extends StatefulWidget {
   String _givenUserName;
@@ -20,6 +21,7 @@ class ViewUser extends StatefulWidget {
 
 class _ViewUserState extends State<ViewUser> {
   String _userName;
+  User _user;
   Image i = new Image.asset('einstein.jpg');
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
@@ -30,8 +32,13 @@ class _ViewUserState extends State<ViewUser> {
   _getPostList() async {
     var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
     try {
+      //getting postlist
       String responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map posts = json.decode(responseBody);
+      //create current user object
+      url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/";
+      responseBody = await getRequestTokenAuthorization(url, globals.token);
+      Map
 
       print("posts.length: "+ posts['posts'].length.toString());
       for(int i = 0; i < posts['posts'].length; i++) {
