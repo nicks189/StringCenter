@@ -7,16 +7,20 @@ var GroupSchema = new Schema({
         type: String,
         maxlength: [20, 'Group name cannot be longer than 20 characters'],
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     description : {
         type: String,
-        maxlength: [500, 'Group description cannot be longer than 1000 characters']
+        maxlength: [500, 'Group description cannot be longer than 1000 characters'],
+        default: "",
+        trim: true
     },
     dateCreated : {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now,
+        trim: true
     }
 });
 

@@ -15,7 +15,8 @@ function validateTab(tab){
     }
 }
 
-//check if field exists and is smaller than 1000 characters
+
+
 function checkInfo(tabOrMeasure){
     if(tabOrMeasure && tabOrMeasure.info && tabOrMeasure.info.length < 1000){
         return true;

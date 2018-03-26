@@ -30,7 +30,7 @@ module.exports = function(passport){
                     newUserGroup.username = req.body.username;
                     newUserGroup.groupName = req.body.groupName;
                     newUserGroup.admin = true;
-
+                    
                     newGroup.validateAndSave(function(errors, group){
                         if(errors){
                             return res.json(errors).status(400);
