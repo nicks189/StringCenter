@@ -98,6 +98,17 @@ class _ViewUserState extends State<ViewUser> {
     return widgetList;
   }
 
+  _follow() {
+    Map m = new Map();
+    m['username'] = globals.user.username;
+    m['followsUsername'] = _userName;
+    try {
+      postRequestWriteAuthorization('http://proj-309-ss-5.cs.iastate.edu:3000/api/follow-user/$_userName', json.encode(m));
+    } catch (exception) {
+      print('follow error' + exception.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -105,7 +116,10 @@ class _ViewUserState extends State<ViewUser> {
     return new Scaffold(
       appBar: new AppBar(
         leading: new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
-        title: new Text(globals.user.username),
+        title: new Text(_userName),
+        actions: <Widget>[
+          new RaisedButton(onPressed: _follow, child: new Text('Follow'),),
+        ],
       ),
       body: new Container(
         alignment: Alignment.center,
