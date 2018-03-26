@@ -58,6 +58,7 @@ class _ProfileState extends State<Profile> {
   }
 
   List<Widget> _generateWidgets() {
+    print(globals.user.description);
     List<Widget> widgetList = new List<Widget>();
     widgetList.add(new Text('About Me:', textAlign: TextAlign.left, style: new TextStyle(fontSize: 20.0),));
     widgetList.add( new Container(
