@@ -17,16 +17,19 @@ let UserSchema = mongoose.Schema({
     description: {
         type: String,
         maxlength: [140, 'Description cannot be longer than 140 characters'],
+        default: "",
         trim: true
     },
     firstName: {
         type: String,
         maxlength: [32, 'First name cannot be longer than 32 characters'],
+        default: "",
         trim: true
     },
     lastName: {
         type:String,
         maxlength: [32, 'Last name cannot be longer than 32 characters'],
+        default: "",
         trim: true
     },
     password: {
