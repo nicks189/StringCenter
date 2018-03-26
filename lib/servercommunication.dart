@@ -82,6 +82,17 @@ Future<String> postRequestWriteAuthorization(String url, String json) async {
   return responseBody;
 }
 
+Future<String> putRequestWriteAuthorization(String url, String json) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.putUrl(Uri.parse(url));
+  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.add("authorization", "bearer ${globals.token}");
+  request.write(json);
+  var response = await request.close();
+  String responseBody = await response.transform(utf8.decoder).join();
+  return responseBody;
+}
+
 /**
  * used by log_in
  */
