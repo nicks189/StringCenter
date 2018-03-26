@@ -83,6 +83,23 @@ UserSchema.statics.isAuthenticated = function(req, res, next) {
     res.redirect('/sign-in');
 };
 
+UserSchema.statics.search = function(regex, callback) {
+    User.find({
+        $or: [
+            { username: regex }
+        ]
+    }, { password: 0}, { limit: 100 }, function(error, users) {
+        if (error) {
+            return callback(error);
+        }
+        // sort alphabetically
+        // users.sort(function(a, b){
+        //     return a.username.toLowerCase().localeCompare(b.username.toLowerCase());
+        // });
+        return callback(null, users);
+    });
+};
+
 UserSchema.methods.validateAndSave = function(callback) {
     util.validateAndSave(this, callback);
 };
