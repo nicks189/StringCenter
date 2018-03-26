@@ -10,7 +10,7 @@ module.exports = function(passport){
     //req.body.username will be replaced  by req.user.username when authentication is put back.
     //when a user creates a group they will automatically be the admin.
     router.post('/', function(req, res, next) {
-        if(req.body.groupName && req.body.description){
+        if(req.body.groupName && req.body.description && req.body.username){
             //checks if group already exists, if it does, it will respond with an error, if not
             //it will create the group
             Group.findOne({'groupName' : req.body.groupName}, function (err, group) {

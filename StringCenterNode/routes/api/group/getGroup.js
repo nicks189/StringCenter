@@ -16,6 +16,6 @@ module.exports = function(passport){
                 res.json({ group: group }).status(200);
             });
         }
-    });
+    }); 
     return router;
 }
