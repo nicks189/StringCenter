@@ -7,7 +7,7 @@ import 'selectTab.dart';
 import 'post.dart';
 import 'servercommunication.dart';
 import 'home.dart';
-
+import 'util.dart';
 class CreatePost extends StatefulWidget {
   Tabb _t;
   String _s;
@@ -61,6 +61,9 @@ class _CreatePostState extends State<CreatePost> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Create Post'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);})
+        ],
       ),
       body: new Container(
         padding: new EdgeInsets.all(20.0),

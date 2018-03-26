@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'group_object.dart';
 import 'create_post.dart';
 import 'view_post.dart';
+import 'util.dart';
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
   GroupPage(givenGroupName) {
@@ -122,7 +123,8 @@ _GroupPageState(_givenGroupName)  {
               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Scaffold( //TODO goto settings screen
                 body: new Text("settings screen stub"),
               )));
-          })
+          }),
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
         ],
       ),
       body: new Container(

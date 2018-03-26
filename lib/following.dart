@@ -6,6 +6,7 @@ import 'servercommunication.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'viewUser.dart';
+import 'util.dart';
 class Following extends StatefulWidget {
   String _givenUser;
 
@@ -94,6 +95,7 @@ class _FollowingState extends State<Following> {
       appBar: new AppBar(
         title: new Text("$_user's Following"),
         actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
 //          new IconButton(icon: new Icon(Icons.settings),
 //              onPressed: () {
 //                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Scaffold( //TODO goto settings screen

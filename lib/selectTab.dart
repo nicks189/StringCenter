@@ -6,6 +6,7 @@ import 'create_post.dart';
 import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
+import 'util.dart';
 class SelectTab extends StatefulWidget {
   String _s;
 
@@ -79,7 +80,12 @@ class _SelectTabState extends State<SelectTab> {
     print("tabs: " + _tabs.toString());
     print("widgets: " + _wl.toString());
     return new Scaffold(
-      appBar: new AppBar(title: new Text('View Tab List'),),
+      appBar: new AppBar(
+        title: new Text('View Tab List'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
+        ],
+      ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
