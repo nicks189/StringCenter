@@ -67,7 +67,9 @@ Future<String> postRequestWrite(String url, String json) async {
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
-
+/**
+ * view user
+ */
 Future<String> postRequestWriteAuthorization(String url, String json) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.postUrl(Uri.parse(url));

@@ -9,7 +9,8 @@ import 'user.dart';
 import 'viewtab.dart';
 import 'group_page.dart';
 import 'viewUser.dart';
-
+import 'home.dart';
+import 'util.dart';
 class Browse extends StatefulWidget {
 
   @override
@@ -119,7 +120,10 @@ class _BrowseState extends State<Browse> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-          title: new Text("Browse")
+        title: new Text("Browse"),
+        actions: <Widget>[new IconButton(icon: new Icon(Icons.home), onPressed: ()
+        {goHome(context);}),
+        ],
       ),
       body: new Container(
         child: new Center(

@@ -5,7 +5,7 @@ class Group {
   String _groupName;
   String _description;
 
-  Group(String groupName, [String description]) {
+  Group(String groupName, [String description = '']) {
     _groupName = groupName;
     _description = description;
   }

@@ -8,7 +8,6 @@ import 'create_post.dart';
 import 'view_post.dart';
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
-
   GroupPage(givenGroupName) {
     _givenGroupName = givenGroupName;
   }

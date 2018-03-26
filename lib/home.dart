@@ -10,6 +10,7 @@ import 'profile.dart';
 import 'globals.dart' as globals;
 import 'user.dart';
 import 'browse.dart';
+import 'following.dart';
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 }
@@ -125,6 +126,15 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.push(context, new MaterialPageRoute(
                         builder:(BuildContext context) => new Followers("Ehlersb")
+                    ));
+                  },
+                ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("Following"),
+                  onPressed: () {
+                    Navigator.push(context, new MaterialPageRoute(
+                        builder:(BuildContext context) => new Following("Ehlersb")
                     ));
                   },
                 ),
