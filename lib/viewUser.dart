@@ -38,8 +38,8 @@ class _ViewUserState extends State<ViewUser> {
       //create current user object
       url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/";
       responseBody = await getRequestTokenAuthorization(url, globals.token);
-      Map
-
+      Map uInfo = json.decode(responseBody);
+      _user = new User(uInfo['username'], uInfo['description']);
       print("posts.length: "+ posts['posts'].length.toString());
       for(int i = 0; i < posts['posts'].length; i++) {
         if(posts['posts'][i]["authorUsername"] == _userName)
@@ -71,7 +71,7 @@ class _ViewUserState extends State<ViewUser> {
           borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
 
         ),
-        child: new Text(globals.user.username)
+        child: new Text(_user.description)
     ),
     );
     for (int i = 0; i < _postList.length; i++) {
