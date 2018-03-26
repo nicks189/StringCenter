@@ -13,7 +13,12 @@ class User {
     _description = description;
   }
 
+  void set description(String s) {
+    _description = s;
+  }
+
   get username => _username;
   get userID => _userID;
   get description => _description;
+
 }
