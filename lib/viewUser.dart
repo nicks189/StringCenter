@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
-
+import 'view_post.dart';
 
 import 'globals.dart' as globals;
 import 'user.dart';
@@ -39,11 +39,11 @@ class _ViewUserState extends State<ViewUser> {
       url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/";
       responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map uInfo = json.decode(responseBody);
-      _user = new User(uInfo['username'], uInfo['description']);
+      _user = new User(uInfo['username'], uInfo['_id'], uInfo['description']);
       print("posts.length: "+ posts['posts'].length.toString());
       for(int i = 0; i < posts['posts'].length; i++) {
         if(posts['posts'][i]["authorUsername"] == _userName)
-        _postList.add(new Post(posts['posts'][i]["title"], posts['posts'][i]["content"]));
+        _postList.add(new Post(posts['posts'][i]["content"],posts['posts'][i]["tabId"]));
       }
     } catch(exception) {
       print("profilepage exception: " + exception.toString());
@@ -78,9 +78,8 @@ class _ViewUserState extends State<ViewUser> {
       widgetList.add(new MaterialButton(
 
         onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-          body: new Text(_postList[i].content),
-        )));
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewPost(_postList[i]),
+        ));
       },
         child: new Text(_postList[i].content),
       )
