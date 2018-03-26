@@ -12,7 +12,7 @@ import 'view_post.dart';
 
 
 import 'globals.dart' as globals;
-
+import 'util.dart';
 class Profile extends StatefulWidget {
   _ProfileState createState() => new _ProfileState();
 }
@@ -112,11 +112,8 @@ class _ProfileState extends State<Profile> {
         leading: new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
         title: new Text(globals.user.username),
         actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.home),
-              onPressed: () {goHome(context);}
-          ),
-          new RaisedButton(onPressed: _editProfile, child: new Text('Edit Profile'),)
+          new RaisedButton(onPressed: _editProfile, child: new Text('Edit Profile'),),
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
         ],
       ),
       body: new Container(

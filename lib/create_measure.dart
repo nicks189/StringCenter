@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'tab.dart';
 import 'home.dart';
+import 'util.dart';
 
 class CreateMeasure extends StatefulWidget {
   String _title;
@@ -176,6 +177,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
         actions: [
           new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
           new IconButton(icon: new Icon(Icons.file_upload), onPressed: _pushTab),
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
         ],
       ),
       body: new Container(
