@@ -86,6 +86,7 @@ let getGroupPosts = require('./routes/api/group/getGroupPosts')(passport);
 let getGroupMembers = require('./routes/api/group/getGroupMembers')(passport);
 let createGroup = require('./routes/api/group/createGroup')(passport);
 let deleteGroup = require('./routes/api/group/deleteGroup')(passport);
+let getGroup = require('./routes/api/group/getGroup')(passport);
 let getGroups = require('./routes/api/group/getGroups')(passport);
 let getUserGroupAdminStatus = require('./routes/api/group/getUserGroupAdminStatus')(passport);
 
@@ -129,6 +130,7 @@ app.use('/api/get-group-posts', getGroupPosts);
 app.use('/api/get-group-members', getGroupMembers);
 app.use('/api/create-group', createGroup);
 app.use('/api/delete-group', deleteGroup);
+app.use('/api/get-group', getGroup);
 app.use('/api/get-groups', getGroups);
 app.use('/api/get-admin-status', getUserGroupAdminStatus);
 
