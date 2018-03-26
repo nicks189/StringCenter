@@ -20,9 +20,26 @@ var GroupSchema = new Schema({
     }
 });
 
+GroupSchema.statics.search = function(regex, callback) {
+    Group.find({
+        $or: [
+            { groupName: regex }
+        ]
+    }, {}, { limit: 100 }, function(error, groups) {
+        if (error) {
+            return callback(error);
+        }
+        // sort alphabetically
+        // groups.sort(function(a, b){
+        //     return a.groupName.toLowerCase().localeCompare(b.groupName.toLowerCase());
+        // });
+        return callback(null, groups);
+    });
+};
+
 GroupSchema.methods.validateAndSave = function(callback){
     util.validateAndSave(this, callback);
-}
+};
 
 var Group = mongoose.model('Group', GroupSchema);
 module.exports = Group;

@@ -37,11 +37,10 @@ module.exports = function(passport) {
                         firstName: user.firstName, lastName: user.lastName,
                         password: user.password, description: user.description
                     }
-                }, function(error, updatedUser) {
+                }, { new: true }, function(error, updatedUser) {
                     if (error) {
                         return res.json({ errors: [{ message: 'Username is already taken' }] }).status(400);
                     }
-                    // TODO -- updatedUser is still the old user, fix this
                     res.json(updatedUser).status(200);
                 });
             });

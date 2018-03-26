@@ -52,6 +52,19 @@ PostSchema.statics.validateUserAndRemove = function(id, username, callback) {
     });
 };
 
+PostSchema.statics.search = function(regex, callback) {
+    Post.find({
+        $or: [
+            { content: regex }
+        ]
+    }, {}, { limit: 100 }, function(error, posts) {
+        if (error) {
+            return callback(error);
+        }
+        return callback(null, posts);
+    });
+};
+
 PostSchema.methods.validateAndSave = function(callback) {
     util.validateAndSave(this, callback);
 };
