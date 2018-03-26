@@ -67,26 +67,10 @@ class _ViewUserState extends State<ViewUser> {
         child: new Text(globals.user.username)
     ),
     );
-    widgetList.add(new Container(
-      child: new MaterialButton(
-          minWidth: 128.0,
-          height: 32.0,
-          child: new Text("Create Post", style: new TextStyle(color: Colors.white, fontSize: 16.0),),
-          onPressed: () {
-            Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-              body: new Text("Post Creation Screen"),
-            )));
-          }
-      ),
-      margin: new EdgeInsets.all(24.0),
-      decoration: new BoxDecoration(
-        border: new Border.all(color: Colors.red),
-        borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-        color: Colors.red,
-      ),
-    ));
     for (int i = 0; i < _postList.length; i++) {
-      widgetList.add(new MaterialButton(onPressed: () {
+      widgetList.add(new MaterialButton(
+
+        onPressed: () {
         Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
           body: new Text(_postList[i].content),
         )));

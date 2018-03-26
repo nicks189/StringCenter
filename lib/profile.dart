@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
+import 'util.dart';
+import 'home.dart';
 import 'create_post.dart';
+import 'edit_profile.dart';
 import 'view_post.dart';
 
 
@@ -65,7 +68,7 @@ class _ProfileState extends State<Profile> {
           borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
 
         ),
-        child: new Text(globals.user.username)
+        child: new Text(globals.user.description)
     ),
     );
     widgetList.add(new Container(
@@ -95,6 +98,11 @@ class _ProfileState extends State<Profile> {
     return widgetList;
   }
 
+  _editProfile() {
+    Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new EditProfile()));
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -103,6 +111,13 @@ class _ProfileState extends State<Profile> {
       appBar: new AppBar(
         leading: new Image.asset('images/einstein.jpg', fit: BoxFit.scaleDown,),
         title: new Text(globals.user.username),
+        actions: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.home),
+              onPressed: () {goHome(context);}
+          ),
+          new RaisedButton(onPressed: _editProfile, child: new Text('Edit Profile'),)
+        ],
       ),
       body: new Container(
         alignment: Alignment.center,

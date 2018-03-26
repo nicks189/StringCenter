@@ -1,6 +1,7 @@
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'globals.dart' as globals;
 
