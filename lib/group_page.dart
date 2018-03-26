@@ -4,6 +4,8 @@ import 'post.dart';
 import 'servercommunication.dart';
 import 'dart:convert';
 import 'group_object.dart';
+import 'create_post.dart';
+import 'view_post.dart';
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
 
@@ -37,7 +39,11 @@ _GroupPageState(_givenGroupName)  {
       List posts = json.decode(responseBody);
       print("posts.length: "+ posts.length.toString());
       for(int i = 0; i < posts.length; i++) {
-        _postList.add(new Post(posts[i]["title"], posts[i]["content"]));
+        if(posts[i]['tabId'] != null) {
+          _postList.add(new Post(posts[i]["content"], posts[i]['tabId']));
+        }else {
+          _postList.add(new Post(posts[i]["content"]));
+        }
       }
     } catch(exception) {
       print("grouppage exception: " + exception.toString());
@@ -79,9 +85,8 @@ _GroupPageState(_givenGroupName)  {
         height: 32.0,
         child: new Text("Create Post", style: new TextStyle(color: Colors.white, fontSize: 16.0),),
     onPressed: () {
-          Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-            body: new Text("Post Creation Screen"),
-          )));
+          Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new CreatePost()
+          ));
         }
       ),
       margin: new EdgeInsets.all(24.0),
@@ -93,9 +98,8 @@ _GroupPageState(_givenGroupName)  {
     ));
     for (int i = 0; i < _postList.length; i++) {
       widgetList.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new Scaffold(
-            body: new Text(_postList[i].content),
-        )));
+        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewPost(_postList[i]),
+        ));
       },
           child: new Text(_postList[i].content),
       )
