@@ -9,6 +9,7 @@ module.exports = function(passport){
 
     //request from user to join a group based on groupName, only required body field once authentication
     //is implemented is groupName. As of now validation has been removed for easy testing
+    //TODO check if user exists
     router.post('/', function(req, res, next){
         if(req.body.groupName){
             console.log(req.body);

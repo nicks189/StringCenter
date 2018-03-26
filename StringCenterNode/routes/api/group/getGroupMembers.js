@@ -7,20 +7,20 @@ module.exports = function(passport){
 
     //queries by requested groupName and returns all usernames in that group
     //authentication removed for testing
-    router.post('/', function(req, res, next){
-        if(req.body.groupName){
-            UserGroup.find({"groupName": req.body.groupName}, function(error, userGroup){
+    router.get('/:groupName', function(req, res, next){
+        if(req.params.groupName){
+            UserGroup.find({"groupName": req.params.groupName}, function(error, userGroup){
                 let usernames = [];
                 userGroup.forEach(function(e){
                     usernames.push(e.username);
                 });
 
-                //sort usernames alphabetically
+                //sort usernames alphabeticallybingbangboom
                 usernames = usernames.sort(function(a, b){
                     return a.toLowerCase().localeCompare(b.toLowerCase());
                 });
 
-                res.json({users : usernames});
+                res.json({usernames : usernames});
             });
         }
     })
