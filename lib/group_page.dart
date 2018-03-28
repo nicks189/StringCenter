@@ -7,6 +7,8 @@ import 'group_object.dart';
 import 'create_post.dart';
 import 'view_post.dart';
 import 'util.dart';
+///GroupPage is a StatefulWidget that displays a group's page based on the
+///groupname supplied as the parameter _givenGroupName to the Widget
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
   GroupPage(givenGroupName) {

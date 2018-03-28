@@ -4,13 +4,14 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'log_in.dart';
 import 'servercommunication.dart';
-import 'group_page.dart';
 import 'followers.dart';
 import 'profile.dart';
 import 'globals.dart' as globals;
 import 'user.dart';
 import 'browse.dart';
 import 'following.dart';
+///Home is a StatefulWidget that is the home screen of the app. This screen isn't accessible if
+///a user is not logged in. This Widget checks if a user is logged in every time it is opened.
 class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 }

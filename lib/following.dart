@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'viewUser.dart';
 import 'util.dart';
+///Following is a StatefulWidget that allows a user to see who a user is Following
 class Following extends StatefulWidget {
   String _givenUser;
 

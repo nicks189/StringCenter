@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'util.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
@@ -36,7 +36,7 @@ class _ViewUserState extends State<ViewUser> {
       String responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map posts = json.decode(responseBody);
       //create current user object
-      url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/";
+      url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/$_userName";
       responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map uInfo = json.decode(responseBody);
       _user = new User(uInfo['username'], uInfo['_id'], uInfo['description']);
@@ -109,6 +109,7 @@ class _ViewUserState extends State<ViewUser> {
         title: new Text(_userName),
         actions: <Widget>[
           new RaisedButton(onPressed: _follow, child: new Text('Follow'),),
+          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
         ],
       ),
       body: new Container(

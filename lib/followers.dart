@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'util.dart';
 import 'viewUser.dart';
+/// Followers is a StatefulWidget that allows a user to see the Followers of a user
 class Followers extends StatefulWidget {
   String _givenUser;
 

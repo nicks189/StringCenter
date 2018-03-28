@@ -1,5 +1,5 @@
 import 'globals.dart' as globals;
-
+/// Object that stores data for groups
 class Group {
 
   String _groupName;

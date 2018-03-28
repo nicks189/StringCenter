@@ -11,6 +11,12 @@ import 'group_page.dart';
 import 'viewUser.dart';
 import 'home.dart';
 import 'util.dart';
+
+/// Browse is a StatefulWidget that allows users to request a list of either Groups, Users, or Tabs
+/// When a group is selected by the user, the app will route to GroupPage
+/// When a user is selected by the user, the app will route to ViewUser
+/// when a tab is selected by the user, the app will route to ViewTab
+///
 class Browse extends StatefulWidget {
 
   @override
@@ -19,17 +25,20 @@ class Browse extends StatefulWidget {
 
 }
 
+// State for Browse
 class _BrowseState extends State<Browse> {
 
+  // list of Widget's that will be displayed in a ListView. This will hold ViewTab's, ViewUser's, and GroupPage's
   List<Widget> _widgetList = new List<Widget>();
+  // list of Tabb's that will be used to populate _widgetList
   List<Tabb> _tabList = new List<Tabb>();
+  // list of Users that will be used to populate _widgetList
   List<User> _userList = new List<User>();
+  // list of Groups that will be used to populate _widgetList
   List<Group> _groupList = new List<Group>();
 
-  @override
-  void initState() {
-    _widgetList.add(new SizedBox(height: 8.0,));
-  }
+  // _getTabList is an async method that requests the server to return a json object that
+  // contains all tabs in the database. This object is parsed to populate _tabList
 
   _getTabList() async {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/";
@@ -50,6 +59,8 @@ class _BrowseState extends State<Browse> {
       print("browse gettablist exception: " + exception.toString());
     }
   }
+  // _getGroupList is an async method that requests the server to return a json object that
+  // contains all groups in the database. This object is parsed to populate _groupList
   _getGroupList() async {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-groups";
     try {
@@ -66,6 +77,8 @@ class _BrowseState extends State<Browse> {
       print("browse getgrouplist exception: " + exception.toString());
     }
   }
+  /// getUserList is an async method that requests the server to return a json object that
+  /// contains all user in the database. This object is parsed to populate _userList
   _getUserList() async {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/all";
     try {
@@ -81,7 +94,8 @@ class _BrowseState extends State<Browse> {
       print("browse getuserlist exception: " + exception.toString());
     }
   }
-
+  // _genTabWidgets populates _widgetList with Widget's that are MaterialButtons
+  // whose onPressed() routes to ViewTab's that view Tabbs from _tabList onPressed
   List<Widget> _genTabWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for(int i = 0; i < _tabList.length; i++) {
@@ -93,6 +107,8 @@ class _BrowseState extends State<Browse> {
    }
     return widgetList;
   }
+  // _genGroupWidgets populates _widgetList with widget's that are MaterialButtons
+  // whose onPressed() routes to GroupPage's that are in _groupList
   List<Widget> _genGroupWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for(int i = 0; i < _groupList.length; i++) {
@@ -104,6 +120,8 @@ class _BrowseState extends State<Browse> {
     }
     return widgetList;
   }
+  // _genUserWidgets populates _widgetList with Widget's that are MaterialButtons
+  // whose onPressed() routes to ViewUser's that are in _userList
   List<Widget> _genUserWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for(int i = 0; i < _userList.length; i++) {
@@ -115,7 +133,15 @@ class _BrowseState extends State<Browse> {
     }
     return widgetList;
   }
-
+//build of Browse Widget, provides UI for the Browse Widget
+  //Has an AppBar
+  //Has a Row of three RaisedButtons with titles Tabs, Groups, and Users,
+  // whose onPressed() call
+  // _getTabList and _genTabWidgets,
+  // _getGroupList and _genGroupWidgets,
+  // _getUserList and _genUserWidgets, respectively
+  //Has a ListView wrapped by an Expanded
+  // the ListView displays the current state of _widgetList
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

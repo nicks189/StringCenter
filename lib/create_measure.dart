@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'tab.dart';
 import 'home.dart';
 import 'util.dart';
-
+/// CreateMeasure is a StatefulWidget that is the interface for a user to create a measure of a Tabb
 class CreateMeasure extends StatefulWidget {
   String _title;
   String _info;
@@ -21,7 +21,7 @@ class CreateMeasure extends StatefulWidget {
   _CreateMeasureState createState() =>
       new _CreateMeasureState(_title, _info, _tuning);
 }
-
+//State for CreateMeasure
 class _CreateMeasureState extends State<CreateMeasure> {
   Tabb _t;
   Measure _m;
@@ -165,7 +165,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
     }
     return wlist;
   }
-
+//build of CreateMeasure widget, provides UI for the CreateMeasure Widget
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

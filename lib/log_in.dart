@@ -7,6 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
+///Login is a StatelessWidget that is the login screen for the app.
+///The app will route to this Widget if no user is currently logged in.
+///This Widget contains two TextFields for username and password and a button which routes to the Register Widget.
 class Login extends StatelessWidget {
 
   static final TextEditingController _username = new TextEditingController();

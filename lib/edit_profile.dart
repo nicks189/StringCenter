@@ -10,7 +10,7 @@ import 'post.dart';
 
 
 import 'globals.dart' as globals;
-
+/// EditProfile is a StatefulWidget that allows a user to edit the state of their profile
 class EditProfile extends StatefulWidget {
 
   @override

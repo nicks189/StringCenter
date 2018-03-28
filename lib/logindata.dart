@@ -1,3 +1,4 @@
+///logindata is an object used for storing and parsing information given on the login screen
 class logindata {
   String firstName;
   String lastName;

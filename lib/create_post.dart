@@ -8,6 +8,8 @@ import 'post.dart';
 import 'servercommunication.dart';
 import 'home.dart';
 import 'util.dart';
+/// CreatePost is a StatefulWidget that allows a user to create a Post which may
+/// or may not contain a Tabb object, and may or may not contain a text field
 class CreatePost extends StatefulWidget {
   Tabb _t;
   String _s;
@@ -21,7 +23,7 @@ class CreatePost extends StatefulWidget {
   _CreatePostState createState() => new _CreatePostState(_t, _s);
 }
 
-
+// State for CreatePost
 class _CreatePostState extends State<CreatePost> {
 
   Tabb _t;
@@ -55,7 +57,7 @@ class _CreatePostState extends State<CreatePost> {
   _selectTab() {
     Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new SelectTab(_ptc.text)));
   }
-
+// build of CreatePost, provides UI for creating a Post
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
