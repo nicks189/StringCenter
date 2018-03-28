@@ -1,3 +1,4 @@
+///registerdata is an object used for storing and parsing information given on the register screen
 class registerdata {
   String firstName;
   String lastName;

@@ -7,6 +7,9 @@ import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
 import 'util.dart';
+///SelectTab is a StatefulWidget that is routed to from CreatePost.
+///In this Widget a list of tabs are fetched and the user selects one to
+///attach to a Post they are creating.
 class SelectTab extends StatefulWidget {
   String _s;
 

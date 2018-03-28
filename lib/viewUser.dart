@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'util.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
 import 'view_post.dart';
-
 import 'globals.dart' as globals;
 import 'user.dart';
-
+///ViewUser is a StatefulWidget that displays a user's page
+///Takes in a [_givenUserName] in order to determine which user to display
 class ViewUser extends StatefulWidget {
   String _givenUserName;
   ViewUser(String givenUserName){

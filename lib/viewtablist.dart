@@ -5,6 +5,7 @@ import 'tab.dart';
 import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
+///ViewTabList is a StatefulWidget that lists all tabs for a user to select to view or edit
 class ViewTabList extends StatefulWidget {
     @override
   _ViewTabListState createState() => new _ViewTabListState();

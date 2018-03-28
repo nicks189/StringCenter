@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'globals.dart' as globals;
-
+///Tabb defines the data stored in Tabb objects and has various methods for manipulating
+///the data or putting it into useful formats for displaying, etc.
 class Tabb{
   String _title;
   String _info;

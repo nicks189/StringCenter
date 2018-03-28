@@ -9,7 +9,7 @@ import 'post.dart';
 
 
 import 'globals.dart' as globals;
-
+///ViewPost is a StatefulWidget that displays Post's
 class ViewPost extends StatefulWidget {
   Post _givenPost;
 

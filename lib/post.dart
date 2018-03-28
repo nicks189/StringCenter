@@ -1,5 +1,5 @@
 import 'globals.dart' as globals;
-
+///Posts are objects that store the data for Posts (user and group posts)
 class Post {
 
   String _content;

@@ -1,5 +1,5 @@
 import 'globals.dart' as globals;
-
+///User's are objects that model the data for users.
 class User {
 
   String _username;

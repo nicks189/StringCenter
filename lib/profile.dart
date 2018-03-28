@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+import'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
@@ -9,10 +8,10 @@ import 'home.dart';
 import 'create_post.dart';
 import 'edit_profile.dart';
 import 'view_post.dart';
-
-
 import 'globals.dart' as globals;
 import 'util.dart';
+///Profile is a StatefulWidget that is the profile page for the user
+///that is currently logged in.
 class Profile extends StatefulWidget {
   _ProfileState createState() => new _ProfileState();
 }

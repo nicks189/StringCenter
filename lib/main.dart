@@ -14,7 +14,8 @@ import 'followers.dart';
 void main() {
   runApp(new StringCenter());
 }
-
+ ///StringCenter is a StatefulWidget which is the Widget ran by main in the app
+///routes are declared here, as well as the the home Widget
 class StringCenter extends StatefulWidget {
   _StringCenterState createState() => new _StringCenterState();
 }

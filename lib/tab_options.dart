@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'tab.dart';
 import 'create_measure.dart';
-
+///TabOptions is StatefulWidget that prompts the user for the title of a tab,
+///description of a tab, type of tab (guitar or bass), and tuning of a tab
 class TabOptions extends StatefulWidget {
   _TabOptionsState createState() => new _TabOptionsState();
 }

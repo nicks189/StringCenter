@@ -4,6 +4,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'registerdata.dart';
 import 'servercommunication.dart';
+///Register is a StatelessWidget that allows a user to register for an account
+///for StringCenter. A user must enter firstName, lastName, username, password,
+///and confirmpassword.
 class Register extends StatelessWidget {
  bool registerSuccess = false;
   static final TextEditingController _firstname = new TextEditingController();
