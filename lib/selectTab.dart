@@ -7,6 +7,7 @@ import 'viewtab.dart';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
 import 'util.dart';
+
 ///SelectTab is a StatefulWidget that is routed to from CreatePost.
 ///In this Widget a list of tabs are fetched and the user selects one to
 ///attach to a Post they are creating.
@@ -42,7 +43,6 @@ class _SelectTabState extends State<SelectTab> {
     });
   }
 
-
   _getTabList() async {
     var url = 'http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/findTabsByUser';
     try {
@@ -53,10 +53,10 @@ class _SelectTabState extends State<SelectTab> {
       print("decoded json map: " + js.toString());
       print("js['tabs'].length: " + js['tabs'].length.toString());
       //populate list of tabs from json
-      for (int i = 0; i < js['tabs'].length;i++) {
+      for (int i = 0; i < js['tabs'].length; i++) {
         _tabs.add(new Tabb.fromJson(js['tabs'][i]));
       }
-    } catch(exception) {
+    } catch (exception) {
       print('exception viewtablist');
     }
   }
@@ -64,20 +64,24 @@ class _SelectTabState extends State<SelectTab> {
   List<Widget> _generateWidgets() {
     List<Widget> wl = new List<Widget>();
     print("_tabs.length: " + _tabs.length.toString());
-    for (int i = 0; i < _tabs.length ;i ++){
-      wl.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new CreatePost(_tabs[i], _s)));
-      },
+    for (int i = 0; i < _tabs.length; i++) {
+      wl.add(new MaterialButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      new CreatePost(_tabs[i], _s)));
+        },
         child: new Text(_tabs[i].title),
       ));
-
     }
     return wl;
   }
 
   @override
   Widget build(BuildContext context) {
-    if(_wl == null) {
+    if (_wl == null) {
       return new Container();
     }
     print("tabs: " + _tabs.toString());
@@ -86,7 +90,11 @@ class _SelectTabState extends State<SelectTab> {
       appBar: new AppBar(
         title: new Text('View Tab List'),
         actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
+          new IconButton(
+              icon: new Icon(Icons.home),
+              onPressed: () {
+                goHome(context);
+              }),
         ],
       ),
       body: new Container(
@@ -97,5 +105,4 @@ class _SelectTabState extends State<SelectTab> {
       ),
     );
   }
-
 }

@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'util.dart';
 import 'viewUser.dart';
+
 /// Followers is a StatefulWidget that allows a user to see the Followers of a user
 class Followers extends StatefulWidget {
   String _givenUser;
@@ -16,8 +17,7 @@ class Followers extends StatefulWidget {
   }
 
   @override
-  _FollowersState createState() =>
-      new _FollowersState(_givenUser);
+  _FollowersState createState() => new _FollowersState(_givenUser);
 }
 
 class _FollowersState extends State<Followers> {
@@ -31,7 +31,8 @@ class _FollowersState extends State<Followers> {
   }
 
   _getFollowersList() async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/get-follower/followers/$_user";
+    var url =
+        "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-follower/followers/$_user";
     try {
       String responseBody = await getRequestAuthorization(url);
       Map js = json.decode(responseBody);
@@ -54,7 +55,6 @@ class _FollowersState extends State<Followers> {
     } catch (exception) {
       print("exception followers");
     }
-
   }
 
   @override
@@ -67,28 +67,28 @@ class _FollowersState extends State<Followers> {
     });
   }
 
-
-
-
   List<Widget> _generateWidgets() {
-
     List<Widget> widgetList = new List<Widget>();
 
     for (int i = 0; i < _userList.length; i++) {
-      widgetList.add(new MaterialButton(onPressed: () {
-        Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new ViewUser(_userList[i].username),
-        ));
-      },
+      widgetList.add(new MaterialButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    new ViewUser(_userList[i].username),
+              ));
+        },
         child: new Text(_userList[i].username),
-      )
-      );
+      ));
     }
     return widgetList;
   } //_generateWidgets
 
   @override
   Widget build(BuildContext context) {
-    if(_widgetList == null) {
+    if (_widgetList == null) {
       return new Container();
     }
     var spacer = new SizedBox(height: 32.0);
@@ -96,7 +96,11 @@ class _FollowersState extends State<Followers> {
       appBar: new AppBar(
         title: new Text("$_user's Followers"),
         actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
+          new IconButton(
+              icon: new Icon(Icons.home),
+              onPressed: () {
+                goHome(context);
+              }),
 //          new IconButton(icon: new Icon(Icons.settings),
 //              onPressed: () {
 //                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Scaffold( //TODO goto settings screen
@@ -107,7 +111,8 @@ class _FollowersState extends State<Followers> {
       ),
       body: new Container(
         child: new Center(
-          child: new ListView(scrollDirection: Axis.vertical ,children: _widgetList),
+          child: new ListView(
+              scrollDirection: Axis.vertical, children: _widgetList),
         ),
       ),
     );

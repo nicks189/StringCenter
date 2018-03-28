@@ -7,19 +7,23 @@ class registerdata {
   String confirmPassword;
   String id;
 
-  registerdata(this.firstName, this.lastName, this.username, this.password, this.confirmPassword);
+  registerdata(this.firstName, this.lastName, this.username, this.password,
+      this.confirmPassword);
 
   Map toJson() {
-    return {"firstName" : firstName,
-      "lastName" : lastName,
-      "username" : username,
-      "password" : password,
-      "confirmPassword" : confirmPassword};
-
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "username": username,
+      "password": password,
+      "confirmPassword": confirmPassword
+    };
   }
+
   bool auth(String _in) {
     if (_in == 'success')
       return true;
-    else return false;
+    else
+      return false;
   }
 }

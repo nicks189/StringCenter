@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'tab.dart';
 import 'home.dart';
 import 'util.dart';
+
 /// CreateMeasure is a StatefulWidget that is the interface for a user to create a measure of a Tabb
 class CreateMeasure extends StatefulWidget {
   String _title;
@@ -21,6 +22,7 @@ class CreateMeasure extends StatefulWidget {
   _CreateMeasureState createState() =>
       new _CreateMeasureState(_title, _info, _tuning);
 }
+
 //State for CreateMeasure
 class _CreateMeasureState extends State<CreateMeasure> {
   Tabb _t;
@@ -31,7 +33,6 @@ class _CreateMeasureState extends State<CreateMeasure> {
   FocusNode _noteFocus = new FocusNode();
   FocusNode _symbolFocus = new FocusNode();
 
-
   _CreateMeasureState(String title, String info, String tuning) {
     _t = new Tabb(title, info, tuning);
     _m = new Measure('stuff', _t.tuning.length, 0, _t.tuning);
@@ -40,12 +41,10 @@ class _CreateMeasureState extends State<CreateMeasure> {
 
   void _newMeasure() {
     setState(() {
-        _noteCount = int.parse(_noteController.text);
-        _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
-
+      _noteCount = int.parse(_noteController.text);
+      _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
     });
   }
-
 
   void _changeNote(int i, int j) {
     if (!(_symbolFocus.hasFocus) && !(_noteFocus.hasFocus)) {
@@ -55,7 +54,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
               _symbolController.text;
         }
       });
-  }
+    }
   }
 
   void _nextMeasure() {
@@ -66,11 +65,11 @@ class _CreateMeasureState extends State<CreateMeasure> {
   }
 
   _pushTab() async {
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/createTab";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/createTab";
     var httpClient = new HttpClient();
     String result;
     var js = json.encode(_t);
-    print (js);
+    print(js);
     try {
       var request = await httpClient.postUrl(Uri.parse(url));
       print(Uri.parse(url));
@@ -85,10 +84,9 @@ class _CreateMeasureState extends State<CreateMeasure> {
       print(t); // fields are the same, just no quotes
       //TODO (if success result = success)
       result = 'success';
-      Navigator.of(context).pushAndRemoveUntil(new MaterialPageRoute(
-          builder: (BuildContext context) => new Home()),
-              (Route<dynamic> route) => false
-      );
+      Navigator.of(context).pushAndRemoveUntil(
+          new MaterialPageRoute(builder: (BuildContext context) => new Home()),
+          (Route<dynamic> route) => false);
     } catch (exception) {
       result = 'fail';
       print(exception);
@@ -152,10 +150,10 @@ class _CreateMeasureState extends State<CreateMeasure> {
             textAlign: TextAlign.center,
           ));
           //adds note buttons
-        } else if(!(i == 0 && j == 0)){
+        } else if (!(i == 0 && j == 0)) {
           wlist.add(new MaterialButton(
               child: new Text(
-                _m.strings[(1+_t.tuning.length)-j].notes[i],
+                _m.strings[(1 + _t.tuning.length) - j].notes[i],
               ),
               onPressed: () {
                 _changeNote(i, j);
@@ -165,6 +163,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
     }
     return wlist;
   }
+
 //build of CreateMeasure widget, provides UI for the CreateMeasure Widget
   @override
   Widget build(BuildContext context) {
@@ -176,8 +175,13 @@ class _CreateMeasureState extends State<CreateMeasure> {
         ),
         actions: [
           new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
-          new IconButton(icon: new Icon(Icons.file_upload), onPressed: _pushTab),
-          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);}),
+          new IconButton(
+              icon: new Icon(Icons.file_upload), onPressed: _pushTab),
+          new IconButton(
+              icon: new Icon(Icons.home),
+              onPressed: () {
+                goHome(context);
+              }),
         ],
       ),
       body: new Container(

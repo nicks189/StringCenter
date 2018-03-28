@@ -8,6 +8,7 @@ import 'post.dart';
 import 'servercommunication.dart';
 import 'home.dart';
 import 'util.dart';
+
 /// CreatePost is a StatefulWidget that allows a user to create a Post which may
 /// or may not contain a Tabb object, and may or may not contain a text field
 class CreatePost extends StatefulWidget {
@@ -25,22 +26,21 @@ class CreatePost extends StatefulWidget {
 
 // State for CreatePost
 class _CreatePostState extends State<CreatePost> {
-
   Tabb _t;
   String _s;
   TextEditingController _ptc = new TextEditingController();
 
-  _CreatePostState([Tabb t, String s='']) {
+  _CreatePostState([Tabb t, String s = '']) {
     _t = t;
     _s = s;
-   _ptc.text = s;
+    _ptc.text = s;
   }
-  
+
   _finalizePost() {
     Post p;
-    if(_t != null) {
+    if (_t != null) {
       p = new Post(_ptc.text, _t.id);
-    }else{
+    } else {
       p = new Post(_ptc.text);
     }
     try {
@@ -55,8 +55,12 @@ class _CreatePostState extends State<CreatePost> {
   }
 
   _selectTab() {
-    Navigator.push(context, new MaterialPageRoute(builder:(BuildContext context) => new SelectTab(_ptc.text)));
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext context) => new SelectTab(_ptc.text)));
   }
+
 // build of CreatePost, provides UI for creating a Post
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,11 @@ class _CreatePostState extends State<CreatePost> {
       appBar: new AppBar(
         title: new Text('Create Post'),
         actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.home), onPressed: () {goHome(context);})
+          new IconButton(
+              icon: new Icon(Icons.home),
+              onPressed: () {
+                goHome(context);
+              })
         ],
       ),
       body: new Container(
@@ -75,8 +83,14 @@ class _CreatePostState extends State<CreatePost> {
               new TextField(
                 controller: _ptc,
               ),
-              new RaisedButton(onPressed: _selectTab, child: new Text('Select Tab'),),
-              new RaisedButton(onPressed: _finalizePost, child: new Text('Post'),),
+              new RaisedButton(
+                onPressed: _selectTab,
+                child: new Text('Select Tab'),
+              ),
+              new RaisedButton(
+                onPressed: _finalizePost,
+                child: new Text('Post'),
+              ),
             ],
           ),
         ),

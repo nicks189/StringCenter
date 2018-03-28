@@ -1,7 +1,7 @@
 import 'globals.dart' as globals;
+
 /// Object that stores data for groups
 class Group {
-
   String _groupName;
   String _description;
 
@@ -11,6 +11,6 @@ class Group {
   }
 
   get groupName => _groupName;
-  get description => _description;
 
+  get description => _description;
 }

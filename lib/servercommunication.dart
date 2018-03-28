@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'globals.dart' as globals;
+
 ///servercommunication contains methods for sending requests to the server and for
 ///reading and writing files locally.
 
@@ -14,47 +15,54 @@ import 'globals.dart' as globals;
 Future<String> getRequest(String url) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
-  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.contentType =
+      new ContentType("application", "json", charset: "utf-8");
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
- //sends get request to [url]
- //contains header 'application/json'
- //contains header 'authorization/bearer $[token]'
- //returns response from server as Future<String>
- //used by home and profile
+
+//sends get request to [url]
+//contains header 'application/json'
+//contains header 'authorization/bearer $[token]'
+//returns response from server as Future<String>
+//used by home and profile
 Future<String> getRequestTokenAuthorization(String url, String token) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
-  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.contentType =
+      new ContentType("application", "json", charset: "utf-8");
   request.headers.add("authorization", "bearer $token");
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
- //sends get request to [url]
- //contains header 'application/json'
- //contains header 'authorization/bearer token' where token is token of current user
- //returns response from server as Future<String>
- //used by viewtablist and followers (gets token from local storage of token)
+
+//sends get request to [url]
+//contains header 'application/json'
+//contains header 'authorization/bearer token' where token is token of current user
+//returns response from server as Future<String>
+//used by viewtablist and followers (gets token from local storage of token)
 Future<String> getRequestAuthorization(String url) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
-  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.contentType =
+      new ContentType("application", "json", charset: "utf-8");
   request.headers.add("authorization", "bearer ${globals.token}");
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
+
 //Post request to [url]
 //body is written with [json]
 //returns response from server as Future<String>
- //used by log_in, register, and group_page
+//used by log_in, register, and group_page
 Future<String> postRequestWrite(String url, String json) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.postUrl(Uri.parse(url));
-  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.contentType =
+      new ContentType("application", "json", charset: "utf-8");
   request.write(json);
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
@@ -69,13 +77,15 @@ Future<String> postRequestWrite(String url, String json) async {
 Future<String> postRequestWriteAuthorization(String url, String json) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.postUrl(Uri.parse(url));
-  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.contentType =
+      new ContentType("application", "json", charset: "utf-8");
   request.headers.add("authorization", "bearer ${globals.token}");
   request.write(json);
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
+
 //Put request to [url] with body [json]
 //contains header application/json
 //contains header authorization/bearer token
@@ -83,13 +93,15 @@ Future<String> postRequestWriteAuthorization(String url, String json) async {
 Future<String> putRequestWriteAuthorization(String url, String json) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.putUrl(Uri.parse(url));
-  request.headers.contentType = new ContentType("application", "json", charset: "utf-8");
+  request.headers.contentType =
+      new ContentType("application", "json", charset: "utf-8");
   request.headers.add("authorization", "bearer ${globals.token}");
   request.write(json);
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
+
 //returns Future<String> of file
 //if file doesn't exist, returns String "DNE"
 Future<String> readFileAsString(String filename, String dir) async {
@@ -100,16 +112,18 @@ Future<String> readFileAsString(String filename, String dir) async {
     File f = new File('$dir/$filename');
     token = await f.readAsString();
     print("token (servercom):  " + token);
-  }
-  else return "DNE";
+  } else
+    return "DNE";
   return token;
 }
+
 //writes [input] to [dir] with [filename] as the filename
 //used by log in
 writeFileFromString(String input, String filename, String dir) async {
   File f = new File('$dir/$filename');
   await f.writeAsString(input);
 }
+
 //deletes file [filename] from directory [dir]
 //used by home
 deleteFile(String filename, String dir) {

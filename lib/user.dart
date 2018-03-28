@@ -1,13 +1,12 @@
 import 'globals.dart' as globals;
+
 ///User's are objects that model the data for users.
 class User {
-
   String _username;
   String _userID;
   String _description;
 
-
-  User(String username, String userID, [String description='']) {
+  User(String username, String userID, [String description = '']) {
     _username = username;
     _userID = userID;
     _description = description;
@@ -18,7 +17,8 @@ class User {
   }
 
   get username => _username;
-  get userID => _userID;
-  get description => _description;
 
+  get userID => _userID;
+
+  get description => _description;
 }

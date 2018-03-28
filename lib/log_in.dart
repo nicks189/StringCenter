@@ -7,17 +7,17 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'globals.dart' as globals;
 import 'servercommunication.dart';
+
 ///Login is a StatelessWidget that is the login screen for the app.
 ///The app will route to this Widget if no user is currently logged in.
 ///This Widget contains two TextFields for username and password and a button which routes to the Register Widget.
 class Login extends StatelessWidget {
-
   static final TextEditingController _username = new TextEditingController();
   static final TextEditingController _password = new TextEditingController();
 
   String get username => _username.text;
-  String get password => _password.text;
 
+  String get password => _password.text;
 
   bool auth = false;
   String sg = "";
@@ -25,13 +25,12 @@ class Login extends StatelessWidget {
   //auth refers to whether login attempt succeeded
   //message is used to make authorization wait in the context
   _sendLogin() async {
-
-    var url ="http://proj-309-ss-5.cs.iastate.edu:3000/api/sign-in";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/sign-in";
     var httpClient = new HttpClient();
     String result;
     logindata ld = new logindata(username, password);
     String js = json.encode(ld.toJson());
-    print ("json (login): " + js);
+    print("json (login): " + js);
     try {
       //send postRequest and get responseBody
       String responseBody = await postRequestWrite(url, js);
@@ -57,31 +56,45 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('Login'),),
+      appBar: new AppBar(
+        title: new Text('Login'),
+      ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new TextField(controller: _username, decoration: new InputDecoration(hintText: 'Enter your username'),),
-              new TextField(controller: _password, decoration: new InputDecoration(hintText: 'Enter your password'), obscureText: true,),
+              new TextField(
+                controller: _username,
+                decoration:
+                    new InputDecoration(hintText: 'Enter your username'),
+              ),
+              new TextField(
+                controller: _password,
+                decoration:
+                    new InputDecoration(hintText: 'Enter your password'),
+                obscureText: true,
+              ),
               new Padding(padding: new EdgeInsets.all(32.0)),
               new RaisedButton(
                 child: new Text('Login'),
-                onPressed:() async {
-
+                onPressed: () async {
                   await _sendLogin();
                   print("auth :" + auth.toString());
                   //while(sg == "");
                   _username.clear();
                   _password.clear();
-                   if(auth) Navigator.of(context).pushNamedAndRemoveUntil('Home', (Route<dynamic> route) => false);
-                  },
+                  if (auth)
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        'Home', (Route<dynamic> route) => false);
+                },
               ),
               new Text("Don't have an account?"),
               new RaisedButton(
                 child: new Text("Register"),
-                onPressed:(){Navigator.of(context).pushNamed('Register');},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('Register');
+                },
               ),
             ],
           ),

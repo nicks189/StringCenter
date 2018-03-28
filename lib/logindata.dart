@@ -10,14 +10,13 @@ class logindata {
   logindata(this.username, this.password);
 
   Map toJson() {
-    return {
-      "username" : username,
-      "password" : password};
-
+    return {"username": username, "password": password};
   }
+
   bool auth(String _in) {
     if (_in == 'success')
       return true;
-    else return false;
+    else
+      return false;
   }
 }
