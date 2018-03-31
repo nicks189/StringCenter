@@ -36,7 +36,7 @@ function validateTab(tab){
 
 /**
  * Checks if info field is present in object
- * @param  {Tab or Measure} tabOrMeasure    A Tab or a Measure, to be checked for info field (see Tab object at top of file)
+ * @param  {TabOrMeasure} tabOrMeasure    A Tab or a Measure, to be checked for info field (see Tab object at top of file)
  * @return {boolean}                        true if tabOrMeasure contains an info, false otherwise
  */
 function checkInfo(tabOrMeasure){
@@ -102,7 +102,7 @@ function checkStringCount(measure){
  * @return {boolean}                  true if tuning is the same on every measure in the tab, false otherwise
  */
 function checkTuning(measure, tabTuning){
-    if(measure && measure.tuning && me[description]asure.tuning == tabTuning){
+    if(measure && measure.tuning && measure.tuning == tabTuning){
         return true;
     } else{
         console.log(measure.tuning, tabTuning);

@@ -6,7 +6,13 @@ var validateTab = require('../../../middleware/auth/tabAuth.js');
 
 
 module.exports = function(passport){
-    //get all tabs
+    /**
+     * Get all tabs
+     * @param  {HttpRequest}    req  url: 3000/api/tab
+     * @param  {HttpResponse}   res  {tabs}
+     * @param  {Function}       next
+     * @return {HttpResponse}        an array of tabs {tabs:Tab}
+     */
     router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
         Tab.find(function(err, Tab){
             if (err) {
@@ -16,7 +22,13 @@ module.exports = function(passport){
         });
     });
 
-    //get tab by id
+    /**
+     * Get tab by id
+     * @param  {HttpRequest}    req  url: 3000/api/tab/findTabByID/:id
+     * @param  {HttpResponse}   res  {tab}
+     * @param  {Function}       next
+     * @return {HttpResponse}        a tab object having an id matching that of the request
+     */
     router.get('/findTabById/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         Tab.findById(req.params.id, function(error, tab) {
             if (error) {
