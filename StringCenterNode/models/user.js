@@ -47,6 +47,11 @@ let UserSchema = mongoose.Schema({
     profilePic: {
         type: String,
         default: 'uploads/icon-user-default.png'
+    },
+    adminStatus: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 
