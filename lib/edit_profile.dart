@@ -7,6 +7,7 @@ import 'dart:async';
 import 'tab.dart';
 import 'profile.dart';
 import 'post.dart';
+import 'util.dart';
 
 import 'globals.dart' as globals;
 
@@ -37,6 +38,18 @@ class _EditProfileState extends State<EditProfile> {
         (Route<dynamic> route) => false);
   }
 
+  _deleteAccount() async {
+    Map m = new Map();
+    String response = await deleteRequestWriteAuthorization(
+        'http://proj-309-ss-5.cs.iastate.edu:3000/api/delete-user/${globals.user
+            .username}',
+        json.encode(m));
+    if (m['message'] != null) {
+      globals.isLoggedIn = false;
+      goHome(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -57,10 +70,19 @@ class _EditProfileState extends State<EditProfile> {
               controller: _aboutMe,
             ),
             new Padding(padding: new EdgeInsets.all(20.0)),
-            new RaisedButton(
-              onPressed: _setChanges,
-              child: new Text('Apply Changes'),
-            )
+            new ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new RaisedButton(
+                  onPressed: _setChanges,
+                  child: new Text('Apply Changes'),
+                ),
+                new RaisedButton(
+                  onPressed: _deleteAccount,
+                  child: new Text('Delete Account'),
+                )
+              ],
+            ),
           ],
         ),
       ),

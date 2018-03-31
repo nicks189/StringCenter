@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 import 'post.dart';
 import 'servercommunication.dart';
+import 'dart:async';
+import 'dart:io';
 import 'dart:convert';
 import 'group_object.dart';
 import 'create_post.dart';
@@ -23,7 +25,12 @@ class _CreateGroupState extends State<CreateGroup> {
 
 
   _save() {
-
+    Map m = new Map();
+    m['groupName'] = _name.text;
+    m['description'] = _desc.text;
+    m['username'] = globals.user.username;
+    postRequestWriteAuthorization('http://proj-309-ss-5.cs.iastate.edu:3000/api/create-group', json.encode(m));
+    goHome(context);
   }
 
   @override
@@ -59,6 +66,7 @@ class _CreateGroupState extends State<CreateGroup> {
             new TextField(controller: _name,),
             new Text('Enter Group Description:'),
             new TextField(controller: _desc,),
+            new RaisedButton(onPressed: _save, child: new Text('Create Group'),)
           ],
         ),
       ),

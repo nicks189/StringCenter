@@ -11,6 +11,8 @@ import 'globals.dart' as globals;
 import 'user.dart';
 import 'browse.dart';
 import 'following.dart';
+import 'util.dart';
+import 'fileIO.dart';
 
 ///Home is a StatefulWidget that is the home screen of the app. This screen isn't accessible if
 ///a user is not logged in. This Widget checks if a user is logged in every time it is opened.
@@ -50,7 +52,8 @@ class _HomeState extends State<Home> {
       //get request to server, returns "Unauthorized" if token isn't legit
       String responseBody = await getRequestTokenAuthorization(url, token);
       print("home" + responseBody);
-      if (responseBody == "Unauthorized") {} else {
+      if (responseBody == "Unauthorized") {
+      } else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
         User u = new User(m['username'], m['_id'], m['description'], m['adminStatus']);
@@ -59,7 +62,8 @@ class _HomeState extends State<Home> {
       }
       print("globals.isLoggedin (Home): " + globals.isLoggedIn.toString());
     } catch (exception) {
-      print("exception: " + exception.toString());
+      resetAuth();
+      print("requestuser exception: " + exception.toString());
       _page = new Login();
     }
   } // end requestUser()
@@ -87,7 +91,7 @@ class _HomeState extends State<Home> {
         body: new Container(
           padding: new EdgeInsets.all(32.0),
           child: new Center(
-            child: new Column(
+            child: new ListView(
               children: <Widget>[
 //              new RaisedButton(
 //                child: new Text("Login"),
