@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
         body: new Container(
           padding: new EdgeInsets.all(32.0),
           child: new Center(
-            child: new Column(
+            child: new ListView(
               children: <Widget>[
 //              new RaisedButton(
 //                child: new Text("Login"),

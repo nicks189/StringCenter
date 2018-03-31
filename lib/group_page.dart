@@ -137,7 +137,7 @@ class _GroupPageState extends State<GroupPage> {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("GroupName"),
+        title: new Text(_groupName),
         actions: <Widget>[
           new IconButton(
               icon: new Icon(Icons.settings),
