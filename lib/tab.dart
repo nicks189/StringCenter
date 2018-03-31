@@ -20,6 +20,7 @@ class Tabb {
   }
 
   Tabb.fromJson(Map json) {
+    print('Entered tabb.fromJson');
     Map t = json['tab'];
     _title = json['tab_name'];
     _id = json['_id'];
@@ -148,7 +149,7 @@ class Measure {
 }
 
 class InstString {
-  List<String> _notes;
+  List _notes;
   String _tuning;
 
   InstString(int noteCount, String tuning) {
