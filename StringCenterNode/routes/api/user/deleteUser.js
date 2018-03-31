@@ -4,11 +4,8 @@ const User = require('../../../models/user');
 module.exports = function(passport) {
     let router = express.Router();
 
-    /*
-     * TODO: Add authorization so admins can delete other users
-     */
     router.delete('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        if (req.params.username === req.user.username) {
+        if (req.params.username === req.user.username || req.user.adminStatus === true) {
             User.findOneAndRemove({ 'username': req.params.username }, function (error, user) {
                 if (error) {
                     return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
