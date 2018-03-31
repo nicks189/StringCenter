@@ -68,7 +68,7 @@ class _ViewUserState extends State<ViewUser> {
   List<Widget> _generateWidgets() {
     List<Widget> widgetList = new List<Widget>();
     widgetList.add(new Text(
-      'About Me:',
+      'About:',
       textAlign: TextAlign.left,
       style: new TextStyle(fontSize: 20.0),
     ));
