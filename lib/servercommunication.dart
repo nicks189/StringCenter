@@ -42,7 +42,7 @@ Future<String> getRequestTokenAuthorization(String url, String token) async {
 //contains header 'application/json'
 //contains header 'authorization/bearer token' where token is token of current user
 //returns response from server as Future<String>
-//used by viewtablist and followers (gets token from local storage of token)
+//used by viewtablist, followers, and search (gets token from local storage of token)
 Future<String> getRequestAuthorization(String url) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.getUrl(Uri.parse(url));
