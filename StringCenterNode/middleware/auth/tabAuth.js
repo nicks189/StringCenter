@@ -1,6 +1,24 @@
-//var tabObj = {"info":"This is a new tab","measureCount":"1","measures":[{"info":"first measure","tuning":"EADG","stringCount":"4","strings":[{"notes":["-","-","-","-"],"tuning":"E"},{"notes":["-","-","-","-"],"tuning":"A"},{"notes":["-","-","-","-"],"tuning":"D"},{"notes":["-","-","-","-"],"tuning":"G"}]}]};
+/*Tab object
+{Tab} tab   tabObj = {"info":"This is a new tab","
+*                                  measureCount":"1",
+*                                  "measures":[{"info":"first measure",
+*                                                 "tuning":"EADG",
+*                                                 "stringCount":"4",
+*                                                 "strings":[{"notes":["-","-","-","-"],"tuning":"E"},
+*                                                            {"notes":["-","-","-","-"],"tuning":"A"},
+*                                                            {"notes":["-","-","-","-"],"tuning":"D"},
+*                                                            {"notes":["-","-","-","-"],"tuning":"G"}]
+*                                              }]
+*                               };
+ */
 
-//validate tab
+
+
+/**
+ * Validate that the tab object has the correct structure
+ * @param  {Tab} tab   (see Tab object at top of file)
+ * @return {boolean}   true if valid, false otherwise
+ */
 function validateTab(tab){
     if(tab && checkInfo(tab) && checkMeasureCount(tab) && tab.measures && tab.measures[0] && tab.measures[0].tuning){
         var tabTuning = tab.measures[0].tuning;
@@ -16,7 +34,11 @@ function validateTab(tab){
 }
 
 
-
+/**
+ * Checks if info field is present in object
+ * @param  {Tab or Measure} tabOrMeasure    A Tab or a Measure, to be checked for info field (see Tab object at top of file)
+ * @return {boolean}                        true if tabOrMeasure contains an info, false otherwise
+ */
 function checkInfo(tabOrMeasure){
     if(tabOrMeasure && tabOrMeasure.info && tabOrMeasure.info.length < 1000){
         return true;
@@ -26,7 +48,12 @@ function checkInfo(tabOrMeasure){
     }
 }
 
-//checks that measure count matches actual measure count of tab
+
+/**
+ * Checks that measure count matches actual measure count of tab
+ * @param  {Tab} tab    (see Tab object at top of file)
+ * @return {boolean}    true if tab contains a measure count, false otherwise
+ */
 function checkMeasureCount(tab){
     if(tab && tab.measureCount && tab.measureCount == tab.measures.length){
         return true;
@@ -36,7 +63,13 @@ function checkMeasureCount(tab){
     }
 }
 
-//validate measure
+
+/**
+ * Checks if measure is valid
+ * @param  {Measure} measure           (see Tab object at top of file)
+ * @param  {Array[String]} tabTuning   array of characters repersenting the tuning of the instrument
+ * @return {boolean}                   true if valid, false otherwise
+ */
 function validateMeasure(measure, tabTuning){
     if(checkInfo(measure) && checkStringCount(measure) && checkTuning(measure, tabTuning) && checkNoteCount(measure) && checkStringsTuning(measure, tabTuning)){
         return true;
@@ -46,7 +79,12 @@ function validateMeasure(measure, tabTuning){
     }
 }
 
-//checks that stringCount matches the actual number of strings
+
+/**
+ * Checks that stringCount matches the actual number of strings
+ * @param  {Measure} measure    (see Tab object at top of file)
+ * @return {boolean}            true if measure contains a stringCount, false otherwise
+ */
 function checkStringCount(measure){
     if(measure && measure.tuning && measure.stringCount && measure.strings && measure.tuning.length == measure.stringCount && measure.stringCount == measure.strings.length){
         return true;
@@ -56,9 +94,15 @@ function checkStringCount(measure){
     }
 }
 
-//checks that all measures have same tuning
+
+/**
+ * Checks that all measures have same tuning
+ * @param  {Measure} measure          (see Tab object at top of file)
+ * @param  {Array[String]} tabTuning  array of characters repersenting the tuning of the instrument
+ * @return {boolean}                  true if tuning is the same on every measure in the tab, false otherwise
+ */
 function checkTuning(measure, tabTuning){
-    if(measure && measure.tuning && measure.tuning == tabTuning){
+    if(measure && measure.tuning && me[description]asure.tuning == tabTuning){
         return true;
     } else{
         console.log(measure.tuning, tabTuning);
@@ -67,7 +111,12 @@ function checkTuning(measure, tabTuning){
     }
 }
 
-//chekcs that all strings have same amount of notes
+
+/**
+ * Checks that all strings have same amount of notes
+ * @param  {Measure} measure (see Tab object at top of file)
+ * @return {boolean}         if all strings in a measure have the same amount of notes, return true. Otherwise false.
+ */
 function checkNoteCount(measure){
     if(measure && measure.stringCount){
         for(var i = 0; i < measure.stringCount; i++){
@@ -82,7 +131,13 @@ function checkNoteCount(measure){
     }
 }
 
-//checks that strings in measure have same tuning as the tab
+
+/**
+ * Checks that the measure tuning matches the tab tuning
+ * @param  {Measure} measure          (see Tab object at top of file)
+ * @param  {Array[String]} tabTuning  array of characters repersenting the tuning of the instrument
+ * @return {boolean}                  true if measure tuning matches the tab tuning, otherwise false
+ */
 function checkStringsTuning(measure, tabTuning){
   var tuningCharArray = tabTuning.split("");
     if(measure && measure.stringCount && tuningCharArray.length == measure.stringCount){
@@ -97,6 +152,5 @@ function checkStringsTuning(measure, tabTuning){
 }
 
 
-//console.log("result of validation on tab: " + validateTab(tabObj));
 
 module.exports = {valid : validateTab};
