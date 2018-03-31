@@ -5,8 +5,8 @@ class User {
   String _username;
   String _userID;
   String _description;
-
-  User(String username, String userID, [String description = '']) {
+  bool _isAdmin;
+  User(String username, String userID, [String description = '', bool isAdmin = false]) {
     _username = username;
     _userID = userID;
     _description = description;
@@ -21,4 +21,6 @@ class User {
   get userID => _userID;
 
   get description => _description;
+
+  get isAdmin => _isAdmin;
 }

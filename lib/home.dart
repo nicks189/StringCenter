@@ -6,6 +6,7 @@ import 'log_in.dart';
 import 'servercommunication.dart';
 import 'followers.dart';
 import 'profile.dart';
+import 'create_group.dart';
 import 'globals.dart' as globals;
 import 'user.dart';
 import 'browse.dart';
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
       } else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
-        User u = new User(m['username'], m['_id'], m['description']);
+        User u = new User(m['username'], m['_id'], m['description'], m['adminStatus']);
         globals.user = u;
         globals.token = token;
       }
@@ -90,7 +91,7 @@ class _HomeState extends State<Home> {
         body: new Container(
           padding: new EdgeInsets.all(32.0),
           child: new Center(
-            child: new Column(
+            child: new ListView(
               children: <Widget>[
 //              new RaisedButton(
 //                child: new Text("Login"),
@@ -156,6 +157,16 @@ class _HomeState extends State<Home> {
                         context,
                         new MaterialPageRoute(
                             builder: (BuildContext context) => new Browse()));
+                  },
+                ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("CreateGroup"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (BuildContext context) => new CreateGroup()));
                   },
                 ),
               ],
