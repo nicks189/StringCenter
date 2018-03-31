@@ -11,6 +11,7 @@ import 'group_page.dart';
 import 'viewUser.dart';
 import 'home.dart';
 import 'util.dart';
+import 'view_post.dart';
 
 /// Browse is a StatefulWidget that allows users to request a list of either Groups, Users, or Tabs
 /// When a group is selected by the user, the app will route to GroupPage
@@ -24,8 +25,8 @@ class Search extends StatefulWidget {
 
 // State for Browse
 class _SearchState extends State<Search> {
-  //Map holding state of dropdown menu
-  Map<num, String> dropDownState = {0: 'All', 1: 'Tabs', 2:'Users', 3:'Groups', 4:'Posts'};
+  //Map of dropdown menu
+  Map<num, String> dropDownMap = {0: 'All', 1: 'Users', 2:'Groups', 3:'Tabs', 4:'Posts'};
   // list of Widget's that will be displayed in a ListView. This will hold ViewTab's, ViewUser's, and GroupPage's
   List<Widget> _widgetList = new List<Widget>();
 
@@ -40,8 +41,8 @@ class _SearchState extends State<Search> {
 
   // list of Posts that will be used to populate _widgetList
   List<Post> _postList = new List<Post>();
-  //state of the dropdown. 0 = all, 1 = tabs, 2 = users, 3 = groups, 4 = posts
-  //int dropDownState = 0;
+  //state of the dropdown. 0 = all, 1 = users, 2 = groups, 3 = tabs, 4 = posts
+  int dropDownState = 0;
 
   // _getSearchList is an async method that requests the server to return a json object that
   // contains all tabs in the database. This object is parsed to populate _tabList, _userList, _groupList, and _postList
@@ -61,17 +62,7 @@ class _SearchState extends State<Search> {
   // whose onPressed() routes to ViewTab's that view Tabbs from _tabList onPressed
   List<Widget> _genTabWidgets() {
     List<Widget> widgetList = new List<Widget>();
-    for (int i = 0; i < _tabList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) => new ViewTab(_tabList[i])));
-        },
-        child: new Text(_tabList[i].title),
-      ));
-    }
+
     return widgetList;
   }
 
@@ -79,36 +70,68 @@ class _SearchState extends State<Search> {
   // whose onPressed() routes to GroupPage's that are in _groupList
   List<Widget> _genGroupWidgets() {
     List<Widget> widgetList = new List<Widget>();
-    for (int i = 0; i < _groupList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                  new GroupPage(_groupList[i].groupName)));
-        },
-        child: new Text(_groupList[i].groupName),
-      ));
-    }
+
     return widgetList;
   }
 
   // _genUserWidgets populates _widgetList with Widget's that are MaterialButtons
   // whose onPressed() routes to ViewUser's that are in _userList
-  List<Widget> _genUserWidgets() {
+  List<Widget> _generateWidgets() {
     List<Widget> widgetList = new List<Widget>();
-    for (int i = 0; i < _userList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                  new ViewUser(_userList[i].username)));
-        },
-        child: new Text(_userList[i].username),
-      ));
+    if(dropDownState == 0 || dropDownState == 1){ //users
+      for (int i = 0; i < _userList.length; i++) {
+        widgetList.add(new MaterialButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new ViewUser(_userList[i].username)));
+          },
+          child: new Text(_userList[i].username),
+        ));
+      }
+    }
+
+    if(dropDownState == 0 || dropDownState == 2) { //groups
+      for (int i = 0; i < _groupList.length; i++) {
+        widgetList.add(new MaterialButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new GroupPage(_groupList[i].groupName)));
+          },
+          child: new Text(_groupList[i].groupName),
+        ));
+      }
+    }
+    if(dropDownState == 0 || dropDownState == 3){ //tabs
+      for (int i = 0; i < _tabList.length; i++) {
+        widgetList.add(new MaterialButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => new ViewTab(_tabList[i])));
+          },
+          child: new Text(_tabList[i].title),
+        ));
+      }
+    }
+    if(dropDownState == 0 || dropDownState == 4){ //posts
+      for (int i = 0; i < _postList.length; i++) {
+        widgetList.add(new MaterialButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => new ViewPost(_postList[i])));
+          },
+          child: new Text(_postList[i].content, maxLines: 1),
+        ));
+      }
     }
     return widgetList;
   }
