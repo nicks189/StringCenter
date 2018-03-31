@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                         context,
                         new MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                new Followers("Ehlersb")));
+                                new Followers(globals.user.username)));
                   },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
                         context,
                         new MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                new Following("Ehlersb")));
+                                new Following(globals.user.username)));
                   },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
