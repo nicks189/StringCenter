@@ -10,6 +10,7 @@ class User {
     _username = username;
     _userID = userID;
     _description = description;
+    _isAdmin = isAdmin;
   }
 
   void set description(String s) {

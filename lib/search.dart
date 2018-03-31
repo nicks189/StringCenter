@@ -25,6 +25,8 @@ class Search extends StatefulWidget {
 
 // State for Browse
 class _SearchState extends State<Search> {
+  //text field controller of search
+  static final TextEditingController _search = new TextEditingController();
   //Map of dropdown menu
   Map<num, String> dropDownMap = {0: 'All', 1: 'Users', 2:'Groups', 3:'Tabs', 4:'Posts'};
   // list of Widget's that will be displayed in a ListView. This will hold ViewTab's, ViewUser's, and GroupPage's
@@ -48,7 +50,7 @@ class _SearchState extends State<Search> {
   // contains all tabs in the database. This object is parsed to populate _tabList, _userList, _groupList, and _postList
 
   _getSearchList() async {
-    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/general/search";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/search/$_search";
 
     try {
       String responseBody = await getRequestAuthorization(url);
@@ -58,24 +60,9 @@ class _SearchState extends State<Search> {
     }
   }
 
-  // _genTabWidgets populates _widgetList with Widget's that are MaterialButtons
-  // whose onPressed() routes to ViewTab's that view Tabbs from _tabList onPressed
-  List<Widget> _genTabWidgets() {
-    List<Widget> widgetList = new List<Widget>();
 
-    return widgetList;
-  }
-
-  // _genGroupWidgets populates _widgetList with widget's that are MaterialButtons
-  // whose onPressed() routes to GroupPage's that are in _groupList
-  List<Widget> _genGroupWidgets() {
-    List<Widget> widgetList = new List<Widget>();
-
-    return widgetList;
-  }
-
-  // _genUserWidgets populates _widgetList with Widget's that are MaterialButtons
-  // whose onPressed() routes to ViewUser's that are in _userList
+  // _generateWidgets populates _widgetList with Widget's that are MaterialButtons
+  // whose onPressed() routes to corresponding widgets (users, groups, tabs, posts)
   List<Widget> _generateWidgets() {
     List<Widget> widgetList = new List<Widget>();
     if(dropDownState == 0 || dropDownState == 1){ //users
@@ -165,12 +152,16 @@ class _SearchState extends State<Search> {
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    new TextField(
+                      controller: _search,
+                      decoration: new InputDecoration(hintText: "Enter a search term"),
+                    ),
                     new RaisedButton(
                       padding: new EdgeInsets.all(8.0),
-                      child: new Text("Tabs"),
+                      child: new Text("Search"),
                       onPressed: () {
                         _getSearchList().then((wl) {
-                          wl = _genTabWidgets();
+                          wl = _generateWidgets();
                           setState(() {
                             _widgetList = wl;
                           });
