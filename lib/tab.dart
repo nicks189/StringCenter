@@ -72,6 +72,27 @@ class Tabb {
     }
   }
 
+  String render() {
+    String t = "";
+    t = t + 'Name: ' + _title + '\n';
+    t = t + 'Info: ' + _info + '\n';
+    String temp = "";
+    // for (Measure measure in _measures) {
+    for (int i = 0; i < _measures.length; i++) {
+      Measure measure = _measures[i];
+      t = t + 'Measure ${i + 1}: ' + measure.info + '\n';
+      for (int i = _stringCount - 1; i >= 0; i--) {
+        temp += measure.strings[i].tuning + ' ';
+        for (String note in measure.strings[i].notes) {
+          temp += note + ' ';
+        }
+        t = t + temp + '\n';
+        temp = "";
+      }
+    }
+    return t;
+  }
+
   String tabToString() {
     String t = "";
     t = t + _title + '\n';
