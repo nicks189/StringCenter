@@ -25,6 +25,7 @@ doc/api/
 .packages
 .pub/
 build/
+test/
 ios/.generated/
 packages
 pubspec.lock
