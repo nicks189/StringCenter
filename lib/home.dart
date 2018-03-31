@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
       if (responseBody == "Unauthorized") {} else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
-        User u = new User(m['username'], m['_id'], m['description']);
+        User u = new User(m['username'], m['_id'], m['description'], m['adminStatus']);
         globals.user = u;
         globals.token = token;
       }
