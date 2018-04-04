@@ -23,9 +23,9 @@ module.exports = function(passport){
     });
 
     /**
-     * Get tab by id
+     * Get tab by tab id
      * @param  {HttpRequest}    req  url: 3000/api/tab/findTabByID/:id
-     * @param  {HttpResponse}   res  {tab}
+     * @param  {HttpResponse}   res
      * @param  {Function}       next
      * @return {HttpResponse}        a tab object having an id matching that of the request
      */
@@ -40,7 +40,14 @@ module.exports = function(passport){
         });
     });
 
-    //get tabs with username sent in parameter
+
+    /**
+     * Get tabs with username sent in parameter of request
+     * @param  {HttpRequest}    req   url: 3000/api/tab/findTabsByUser/:username
+     * @param  {HttpResponse}   res
+     * @param  {Function}       next
+     * @return {HttpResponse}         tabs whose author_username matches the request
+     */
     router.get('/findTabsByUser/:username',  passport.authenticate('jwt', {session: false}), function(req, res, next){
         Tab.find().where('author_username').equals(req.params.username).exec(function (err, Tab) {
             if (err) {
@@ -50,7 +57,14 @@ module.exports = function(passport){
         });
     });
 
-    //get tabs with username from authentication
+
+    /**
+     * Get tabs with username from authentication (the user currently logged in)
+     * @param  {HttpRequest}    req  url: 3000/api/tab/findTabsByUser
+     * @param  {HttpResponse}   res
+     * @param  {Function}       next
+     * @return {HttpResponse}        tabs for the current user
+     */
     router.get('/findTabsByUser',  passport.authenticate('jwt', {session: false}), function(req, res, next){
         Tab.find().where('author_username').equals(req.user.username).exec(function (err, Tab) {
             if (err) {
@@ -60,7 +74,14 @@ module.exports = function(passport){
         });
     });
 
-    //create new tab with json data from post
+
+    /**
+     * Create new tab with data from request and store it in the database
+     * @param  {HttpRequest}    req  url: 3000/api/tab/findTabsByUser
+     * @param  {HttpResponse}   res
+     * @param  {Function}       next
+     * @return {HttpResponse}        returns the created tab back to the client
+     */
     router.post('/createTab', function(req, res, next){
         if(validateTab.valid(req.body.tab)){
             // add tab to database since it is valid
