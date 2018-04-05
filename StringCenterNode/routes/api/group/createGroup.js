@@ -9,6 +9,16 @@ module.exports = function(passport){
     //authentication has been removed for testing
     //req.body.username will be replaced  by req.user.username when authentication is put back.
     //when a user creates a group they will automatically be the admin.
+
+    /**
+     * Create group record in DB based on groupName and description given in the request.
+     * Note: the user who created the group will be the groups admin, thus putting the user
+     * into the group (creating a UserGroup record)
+     * @param  {HttpRequest}    req  url: 3000/api/create-group
+     * @param  {HttpResponse}   res
+     * @param  {Function}       next
+     * @return {Group}               returns created group record
+     */
     router.post('/', function(req, res, next) {
         if(req.body.groupName && req.body.description && req.body.username){
             //checks if group already exists, if it does, it will respond with an error, if not
@@ -30,7 +40,7 @@ module.exports = function(passport){
                     newUserGroup.username = req.body.username;
                     newUserGroup.groupName = req.body.groupName;
                     newUserGroup.admin = true;
-                    
+
                     newGroup.validateAndSave(function(errors, group){
                         if(errors){
                             return res.json(errors).status(400);

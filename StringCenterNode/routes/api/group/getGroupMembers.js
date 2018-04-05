@@ -7,6 +7,13 @@ module.exports = function(passport){
 
     //queries by requested groupName and returns all usernames in that group
     //authentication removed for testing
+    /**
+     * Returns usernames in alphabetical order for members in a given Group.
+     * @param  {HttpRequest}    req  url: 3000/api/get-group-members/:groupName
+     * @param  {HttpResponse}   res
+     * @param  {Function} next
+     * @return {Group}        [
+     */
     router.get('/:groupName', function(req, res, next){
         if(req.params.groupName){
             UserGroup.find({"groupName": req.params.groupName}, function(error, userGroup){
@@ -20,7 +27,9 @@ module.exports = function(passport){
                     return a.toLowerCase().localeCompare(b.toLowerCase());
                 });
 
-                res.json({usernames : usernames});
+
+                return (usernames.length > 0 ? res.json({ usernames : usernames }).status(200) : res.json({errors: [{message : 'Group does not exist'}]}));
+
             });
         }
     })

@@ -11,7 +11,7 @@ module.exports = function(passport){
      * @param  {HttpRequest}    req  url: 3000/api/tab
      * @param  {HttpResponse}   res  {tabs}
      * @param  {Function}       next
-     * @return {HttpResponse}        an array of tabs {tabs:Tab}
+     * @return {Tab}       an array of tabs {tabs:Tab}
      */
     router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
         Tab.find(function(err, Tab){
@@ -27,7 +27,7 @@ module.exports = function(passport){
      * @param  {HttpRequest}    req  url: 3000/api/tab/findTabByID/:id
      * @param  {HttpResponse}   res
      * @param  {Function}       next
-     * @return {HttpResponse}        a tab object having an id matching that of the request
+     * @return {Tab}       a tab object having an id matching that of the request
      */
     router.get('/findTabById/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         Tab.findById(req.params.id, function(error, tab) {
@@ -46,7 +46,7 @@ module.exports = function(passport){
      * @param  {HttpRequest}    req   url: 3000/api/tab/findTabsByUser/:username
      * @param  {HttpResponse}   res
      * @param  {Function}       next
-     * @return {HttpResponse}         tabs whose author_username matches the request
+     * @return {Tab}        tabs whose author_username matches the request
      */
     router.get('/findTabsByUser/:username',  passport.authenticate('jwt', {session: false}), function(req, res, next){
         Tab.find().where('author_username').equals(req.params.username).exec(function (err, Tab) {
@@ -63,7 +63,7 @@ module.exports = function(passport){
      * @param  {HttpRequest}    req  url: 3000/api/tab/findTabsByUser
      * @param  {HttpResponse}   res
      * @param  {Function}       next
-     * @return {HttpResponse}        tabs for the current user
+     * @return {Tab}       tabs for the current user
      */
     router.get('/findTabsByUser',  passport.authenticate('jwt', {session: false}), function(req, res, next){
         Tab.find().where('author_username').equals(req.user.username).exec(function (err, Tab) {
@@ -80,7 +80,7 @@ module.exports = function(passport){
      * @param  {HttpRequest}    req  url: 3000/api/tab/findTabsByUser
      * @param  {HttpResponse}   res
      * @param  {Function}       next
-     * @return {HttpResponse}        returns the created tab back to the client
+     * @return {Tab}       returns the created tab back to the client
      */
     router.post('/createTab', function(req, res, next){
         if(validateTab.valid(req.body.tab)){
