@@ -5,10 +5,15 @@ module.exports = function(passport){
     var router = express.Router();
     //routes
 
-    //change to make the same as get user posts
-
     //authentication removed for testing
-    //queries posts by groupName and sorts them by timestamp
+
+    /**
+     * Returns all posts tied with the requested groupName ordered by timestamp
+     * @param  {HttpRequest}    req  url: 3000/api/get-group-posts/:groupName
+     * @param  {HttpResponse}   res
+     * @param  {Function}       next
+     * @return {Post}                returns an array of Post objects tied with the given Group
+     */
     router.get('/:groupName', function(req, res, next){
         if(req.params.groupName){
             Post.find({"groupName" : req.params.groupName}, function(error, posts){
@@ -20,7 +25,6 @@ module.exports = function(passport){
             });
         }
     });
-
 
     return router;
 }

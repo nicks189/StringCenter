@@ -13,9 +13,9 @@ module.exports = function(passport){
     /**
      * Deletes group if user who requested delete is a group admin.
      * Deletes all records associated with the group, UserGroup, Post and the Group record itself
-     * @param  {HttpRequest}    req  url: 3000/api/delete-group
+     * @param  {HttpRequest}    req  url: 3000/api/delete-group (body must contain 'groupName' of Group to be deleted)
      * @param  {HttpResponse}   res
-     * @param  {Function}       next 
+     * @param  {Function}       next
      * @return {UserGroup}           UserGroup record of user who deleted group
      */
     router.post('/', function(req, res, next){

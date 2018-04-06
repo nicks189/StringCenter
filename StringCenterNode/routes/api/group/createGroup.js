@@ -14,7 +14,7 @@ module.exports = function(passport){
      * Create group record in DB based on groupName and description given in the request.
      * Note: the user who created the group will be the groups admin, thus putting the user
      * into the group (creating a UserGroup record)
-     * @param  {HttpRequest}    req  url: 3000/api/create-group
+     * @param  {HttpRequest}    req  url: 3000/api/create-group (body must contain 'groupName', and optionally a 'description')
      * @param  {HttpResponse}   res
      * @param  {Function}       next
      * @return {Group}               returns created group record

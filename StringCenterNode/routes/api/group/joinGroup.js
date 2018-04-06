@@ -9,9 +9,18 @@ module.exports = function(passport){
 
     //request from user to join a group based on groupName, only required body field once authentication
     //is implemented is groupName. As of now validation has been removed for easy testing
-    //TODO check if user exists
+    //authentication has been removed for testing
+
+    /**
+     * Adds a UserGroup record to the database based on the given groupName, in turn adding the user
+     * to the Group. Returns the created UserGroup record.
+     * @param  {HttpRequest}   req  url: 3000/api/join-group (body of request must contain 'groupName')
+     * @param  {[type]}   res  [description]
+     * @param  {Function} next [description]
+     * @return {[type]}        [description]
+     */
     router.post('/', function(req, res, next){
-        if(req.body.groupName){
+        if(req.body.groupName && req.body.username){
             console.log(req.body);
 
             Group.findOne({"groupName": req.body.groupName}, function(groupError, group){
@@ -35,10 +44,7 @@ module.exports = function(passport){
                                 newUserGroup.admin = req.body.admin;
                             }
                             newUserGroup.validateAndSave(function(errors, userGroup){
-                                if(errors){
-                                    return res.json(errors).status(400);
-                                }
-                                res.json(userGroup).status(201);
+                                return (!errors ? res.json(userGroup).status(201) : res.json(errors).status(400));
                             });
                         }
                     });

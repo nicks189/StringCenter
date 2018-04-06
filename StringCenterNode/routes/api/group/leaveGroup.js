@@ -7,9 +7,20 @@ module.exports = function(passport){
     var router = express.Router();
     //routes
 
-    //TODO if admin leaves make oldest user admin
+
     //deletes userGroup record with given parameters,
     //authentication removed for testing
+    //TODO: test new conditional
+    /**
+     * Removes UserGroup record matching the username who has requested to leave the Group, in turn
+     * removing them from the Group. If the user who has left the group is an admin, the user who has
+     * been in the Group the longest will become the new admin. If the user who left the group is the last member
+     * of the Group, the Group, and all it's records (Post, UserGroup), will be deleted as well.
+     * @param  {HttpRequest}    req  url: 3000/api/leave-group (body must contain a 'groupName')
+     * @param  {HttpResponse}   res
+     * @param  {Function}       next
+     * @return {UserGroup}           returns UserGroup record of the user who left the Group
+     */
     router.post('/', function(req, res, next){
         if(req.body.username && req.body.groupName){
             //find matching record
@@ -34,7 +45,7 @@ module.exports = function(passport){
                                 });
 
                                 //if there are still users in group
-                                if(usersStillInGroup.length > 1 && !usersStillInGroup[1].admin){
+                                if(userGroup.admin && usersStillInGroup.length > 1 && !usersStillInGroup[1].admin){
                                     usersStillInGroup[1].admin = true;
                                     console.log(usersStillInGroup);
                                     usersStillInGroup[1].validateAndSave(function(errors, userGroup){
@@ -64,14 +75,14 @@ module.exports = function(passport){
                                         }
                                     });
                                     //return res.json('Group removed, no more members').status(200);
+                                } else{
+                                    return res.json({userGroup : userGroup});
                                 }
-
                             });
                         }
                     });
                 }
             });
-
         }
     });
 
