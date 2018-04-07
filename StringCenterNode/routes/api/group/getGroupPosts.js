@@ -1,19 +1,19 @@
 var express = require('express');
 var Post = require('../../../models/post');
 
-module.exports = function(passport){
+
+//authentication removed for testing
+/**
+ * Returns all posts tied with the requested groupName ordered by timestamp
+ * @param  {passport}       passport  used for authentication
+ * @param  {HttpRequest}    req  url: 3000/api/get-group-posts/:groupName
+ * @param  {HttpResponse}   res
+ * @param  {Function}       next
+ * @return {Post}                returns an array of Post objects tied with the given Group
+ */
+function getGroupPosts(passport){
     var router = express.Router();
-    //routes
 
-    //authentication removed for testing
-
-    /**
-     * Returns all posts tied with the requested groupName ordered by timestamp
-     * @param  {HttpRequest}    req  url: 3000/api/get-group-posts/:groupName
-     * @param  {HttpResponse}   res
-     * @param  {Function}       next
-     * @return {Post}                returns an array of Post objects tied with the given Group
-     */
     router.get('/:groupName', function(req, res, next){
         if(req.params.groupName){
             Post.find({"groupName" : req.params.groupName}, function(error, posts){
@@ -28,3 +28,6 @@ module.exports = function(passport){
 
     return router;
 }
+
+
+module.exports = getGroupPosts;

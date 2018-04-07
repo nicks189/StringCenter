@@ -3,22 +3,19 @@ var UserGroup = require('../../../models/userGroup');
 var User = require('../../../models/user');
 var Group = require('../../../models/group');
 
+//authentication has been removed for testing
 
-module.exports = function(passport){
+/**
+ * Adds a UserGroup record to the database based on the given groupName, in turn adding the user
+ * to the Group. Returns the created UserGroup record.
+ * @param  {passport}       passport  used for authentication
+ * @param  {HttpRequest}    req       url: 3000/api/join-group (body of request must contain 'groupName')
+ * @param  {HttpResponse}   res
+ * @param  {Function}       next
+ * @return {UserGroup}                returns UserGroup record that is created when the user joins the group
+ */
+function joinGroup(passport){
     var router = express.Router();
-
-    //request from user to join a group based on groupName, only required body field once authentication
-    //is implemented is groupName. As of now validation has been removed for easy testing
-    //authentication has been removed for testing
-
-    /**
-     * Adds a UserGroup record to the database based on the given groupName, in turn adding the user
-     * to the Group. Returns the created UserGroup record.
-     * @param  {HttpRequest}   req  url: 3000/api/join-group (body of request must contain 'groupName')
-     * @param  {[type]}   res  [description]
-     * @param  {Function} next [description]
-     * @return {[type]}        [description]
-     */
     router.post('/', function(req, res, next){
         if(req.body.groupName && req.body.username){
             console.log(req.body);
@@ -56,3 +53,6 @@ module.exports = function(passport){
     });
     return router;
 }
+
+
+module.exports = joinGroup;

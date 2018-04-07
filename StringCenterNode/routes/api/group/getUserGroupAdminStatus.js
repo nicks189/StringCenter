@@ -2,17 +2,18 @@ var express = require('express');
 var UserGroup = require('../../../models/userGroup');
 
 
-module.exports = function(passport){
+/**
+ * Returns a boolean value representing whether or not a given user is an admin
+ * in the given group
+ * @param  {passport}       passport  used for authentication
+ * @param  {HttpRequest}    req  url: 3000/api/get-admin-status/:username/:groupName
+ * @param  {HttpResponse}   res
+ * @param  {Function}       next
+ * @return {Boolean}             returns true if user is admin in given group, false otherwise
+ */
+function getUserGroupAdminStatus(passport){
     var router = express.Router();
-    //routes
-    /**
-     * Returns a boolean value representing whether or not a given user is an admin
-     * in the given group
-     * @param  {HttpRequest}    req  url: 3000/api/get-admin-status/:username/:groupName
-     * @param  {HttpResponse}   res
-     * @param  {Function}       next
-     * @return {Boolean}             returns true if user is admin in given group, false otherwise
-     */
+
     router.get('/:username/:groupName', function(req, res, next){
         if(req.params.groupName && req.params.username){
             UserGroup.findOne({'groupName' : req.params.groupName, 'username' : req.params.username}, function(err, userGroup){
@@ -31,3 +32,5 @@ module.exports = function(passport){
 
     return router;
 }
+
+module.exports = getUserGroupAdminStatus;

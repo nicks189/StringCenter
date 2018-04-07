@@ -67,7 +67,7 @@ function checkMeasureCount(tab){
 /**
  * Checks if measure is valid
  * @param  {Measure} measure           (see Tab object at top of file)
- * @param  {Array[String]} tabTuning   array of characters repersenting the tuning of the instrument
+ * @param  {Array} tabTuning           array of characters repersenting the tuning of the instrument
  * @return {boolean}                   true if valid, false otherwise
  */
 function validateMeasure(measure, tabTuning){
@@ -98,7 +98,7 @@ function checkStringCount(measure){
 /**
  * Checks that all measures have same tuning
  * @param  {Measure} measure          (see Tab object at top of file)
- * @param  {Array[String]} tabTuning  array of characters repersenting the tuning of the instrument
+ * @param  {Array} tabTuning  array of characters repersenting the tuning of the instrument
  * @return {boolean}                  true if tuning is the same on every measure in the tab, false otherwise
  */
 function checkTuning(measure, tabTuning){
@@ -135,7 +135,7 @@ function checkNoteCount(measure){
 /**
  * Checks that the measure tuning matches the tab tuning
  * @param  {Measure} measure          (see Tab object at top of file)
- * @param  {Array[String]} tabTuning  array of characters repersenting the tuning of the instrument
+ * @param  {Array} tabTuning  array of characters repersenting the tuning of the instrument
  * @return {boolean}                  true if measure tuning matches the tab tuning, otherwise false
  */
 function checkStringsTuning(measure, tabTuning){

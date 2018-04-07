@@ -1,18 +1,20 @@
 var express = require('express');
 var Group = require('../../../models/group');
 
-module.exports = function(passport){
+
+//authentication removed for testing
+/**
+ * Get Group record by groupName
+ * @param  {passport}       passport  used for authentication
+ * @param  {HttpRequest}    req  url: 3000/api/get-group/:groupName
+ * @param  {HttpResponse}   res
+ * @param  {Function}       next 
+ * @return {Group}        returns Group record with matching groupName given in the request, else {
+ *                        else it will return a message saying the Group does not exist.
+ */
+function getGroup(passport){
     var router = express.Router();
 
-    //authentication removed for testing
-    /**
-     * Get Group record by groupName
-     * @param  {HttpRequest}   req  url: 3000/api/get-group/:groupName
-     * @param  {HttpResponse}        res
-     * @param  {Function} next [description]
-     * @return {Group}        returns Group record with matching groupName given in the request, else {
-     *                        else it will return a message saying the Group does not exist.
-     */
     router.get('/:groupName', function(req, res, next){
         if(req.params.groupName){
             Group.findOne({groupName : req.params.groupName}, function(err, group){
@@ -26,3 +28,6 @@ module.exports = function(passport){
 
     return router;
 }
+
+
+module.exports = getGroup;
