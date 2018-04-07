@@ -3,6 +3,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../../../models/user')
 const config = require('../../../config/config')
 
+/**
+ * Generate and send JWT in response used for authentication
+ * Body:
+ *       username
+ *       password
+ * @param  {HttpRequest}   req  url: /api/sign-in/
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {String}        JSON Web Token
+ */
 module.exports = function(passport) {
     let router = express.Router();
 

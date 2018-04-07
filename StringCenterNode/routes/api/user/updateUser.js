@@ -1,6 +1,22 @@
 const express = require('express');
 const User = require('../../../models/user');
 
+/**
+ * Update user
+ * Body:
+ *       newUsername        (optional)
+ *       newFirstName       (optional)
+ *       newLastName        (optional)
+ *       description        (optional)
+ *       newPassword        (optional)
+ *       confirmNewPassword (optional)
+ *
+ * @param  {HttpRequest}   req  url: /api/update-user/:username
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {User}          Updated user
+ */
 module.exports = function(passport) {
     let router = express.Router();
 

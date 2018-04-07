@@ -1,6 +1,18 @@
 const express = require('express');
 const Post = require('../../../models/post');
 
+/**
+ * Update post
+ * Body:
+ *       content   (optional)
+ *       tabId     (optional)
+ *       groupName (optional)
+ * @param  {HttpRequest}   req  url: /api/update-post/:id
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {String}
+ */
 module.exports = function(passport) {
     let router = express.Router();
 

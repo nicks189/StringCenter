@@ -3,6 +3,17 @@ const User = require('../../../models/user');
 const multerOptions = require('../../../middleware/multerOptions');
 const upload = require('multer')(multerOptions).single('profilePic');
 
+/**
+ * Upload image file and save location as users profile picture
+ * Body:
+ *       profilePic (file)
+ *
+ * @param  {HttpRequest}   req  url: /api/set-profile-pic/
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {User}          Updates user
+ */
 module.exports = function(passport) {
     let router = express.Router();
 
@@ -11,18 +22,17 @@ module.exports = function(passport) {
             if (error) {
                return res.json({ message: error.message });
             }
-            console.log(req.file);
-            User.findOne({username: req.user.username}, function (error, user) {
+            User.findOne({ username: req.user.username }, function (error, user) {
                 if (error) {
                     return res.json({ errors: [{ message: 'Something went wrong' }]}).status(500);
                 } else if (!user) {
                     return res.json({ errors: [{ message: 'Username not found' }]}).status(200);
                 }
-                User.findOneAndUpdate({username: req.user.username}, {
+                User.findOneAndUpdate({ username: req.user.username }, {
                     $set: {
                         profilePic: 'uploads/' + req.file.filename,
                     }
-                }, {new: true}, function (error, updatedUser) {
+                }, { new: true }, function (error, updatedUser) {
                     if (error) {
                         return res.json({ errors: [{ message: 'Something went wrong' }]}).status(500);
                     }

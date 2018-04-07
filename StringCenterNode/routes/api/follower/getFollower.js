@@ -1,57 +1,72 @@
 const express = require('express');
 const UserFollows = require('../../../models/userFollows');
 
-module.exports = function(passport) {
+/**
+ * Get all users followed by {username}, or by the current
+ * user if username is empty
+ * @param  {HttpRequest}   req  url: /api/get-follower/following/:username
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {userFollows}   List of relationships
+ */
+module.exports.getFollowing = function(passport) {
     let router = express.Router();
 
-    /*
-     * --- Get all users the currently authenticated user follows ---
-     */
-    router.get('/following', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        UserFollows.find({ username: req.user.username}, function(error, userFollows) {
+    router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+        UserFollows.find({username: req.user.username}, function (error, userFollows) {
             if (error) {
-                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
             } else if (userFollows.length === 0) {
-                return res.json({ errors: [{ message: 'Not following anyone' }] }).status(400);
+                return res.json({errors: [{message: 'Not following anyone'}]}).status(400);
             }
-            userFollows.sort(function(a, b) {
+            userFollows.sort(function (a, b) {
                 // sort by most recent dateCreated
                 return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             let following = [];
-            userFollows.forEach(function(e) {
-                 following.push(e.followsUsername);
+            userFollows.forEach(function (e) {
+                following.push(e.followsUsername);
             });
-            res.json({ following: following }).status(200);
+            res.json({following: following}).status(200);
         });
     });
 
-    /*
-     * --- Get all users that the user specified by username follows ---
-     */
-    router.get('/following/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-        UserFollows.find({ username: req.params.username}, function(error, userFollows) {
+    router.get('/:username', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+        UserFollows.find({username: req.params.username}, function (error, userFollows) {
             if (error) {
-                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
             } else if (userFollows.length === 0) {
-                return res.json({ errors: [{ message: 'Not following anyone' }] }).status(400);
+                return res.json({errors: [{message: 'Not following anyone'}]}).status(400);
             }
-            userFollows.sort(function(a, b) {
+            userFollows.sort(function (a, b) {
                 // sort by most recent dateCreated
                 return new Date(b.dateCreated) - new Date(a.dateCreated);
             });
             let following = [];
-            userFollows.forEach(function(e) {
-                 following.push(e.followsUsername);
+            userFollows.forEach(function (e) {
+                following.push(e.followsUsername);
             });
-            res.json({ following: following }).status(200);
+            res.json({following: following}).status(200);
         });
     });
 
-    /*
-     * --- Get followers of the currently authenticated user ---
-     */
-    router.get('/followers', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+    return router;
+};
+
+/**
+ * Get all followers of username, or followers of current user
+ * if username is empty
+ * @param  {HttpRequest}   req  url: /api/get-follower/followers/:username
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {userFollow}    List of relationships
+ */
+module.exports.getFollowers = function(passport) {
+    let router = express.Router();
+
+    router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         UserFollows.find({ followsUsername: req.user.username}, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
@@ -70,10 +85,7 @@ module.exports = function(passport) {
         });
     });
 
-    /*
-     * --- Get followers of the user specified by username ---
-     */
-    router.get('/followers/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+    router.get('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         UserFollows.find({ followsUsername: req.params.username}, function(error, userFollows) {
             if (error) {
                 return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);

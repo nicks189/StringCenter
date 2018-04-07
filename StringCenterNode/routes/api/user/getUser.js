@@ -5,13 +5,15 @@ const User = require('../../../models/user');
 // limit this to some max number of users;
 /**
  * Get list of all users, ordered alphabetically and omitting passwords.
- * @param  {HttpRequest}   req  url: 3000/api/get-user/all
+ * @param  {HttpRequest}   req  url: /api/get-user/all
  * @param  {HttpResponse}  res
  * @param  {Function}      next
+ * @param  {Passport}      passport
  * @return {User}
  */
 module.exports.getAllUsers = function(passport) {
     let router = express.Router();
+
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
         User.find({}, {password: 0}, function (error, users) {
             if (error) {
@@ -26,6 +28,7 @@ module.exports.getAllUsers = function(passport) {
             res.json({users: users}).status(200);
         });
     });
+
     return router;
 };
 
@@ -38,6 +41,7 @@ module.exports.getAllUsers = function(passport) {
  */
 module.exports.getUserInfo = function(passport) {
     let router = express.Router();
+
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
         User.findOne({username: req.user.username}, {password: 0}, function (error, user) {
             if (error) {
@@ -59,5 +63,6 @@ module.exports.getUserInfo = function(passport) {
             res.json(user).status(200);
         });
     });
+
     return router;
 };
