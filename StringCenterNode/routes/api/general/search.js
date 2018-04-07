@@ -4,10 +4,18 @@ const User = require('../../../models/user');
 const Tab = require('../../../models/tabModel');
 const Group = require('../../../models/group');
 
+// TODO: order by relevancy (in models)
+/**
+ * Search for users, groups, posts, and tabs for 'query'
+ * @param  {HttpRequest}   req  url: /api/search/
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {List}          List of users, groups, posts, tabs
+ */
 module.exports = function(passport) {
     let router = express.Router();
 
-    // TODO: order by relevancy (in models)
     router.get('/:query', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         // search by regular expression of 'query', 'i' flag ignores case
         let regex = new RegExp(req.params.query, 'i');

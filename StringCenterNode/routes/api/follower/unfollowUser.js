@@ -1,6 +1,14 @@
 const express = require('express');
 const UserFollows = require('../../../models/userFollows');
 
+/**
+ * Unfollow user specified by username
+ * @param  {HttpRequest}   req  url: /api/unfollow-user/:username
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {String}
+ */
 module.exports = function(passport) {
     let router = express.Router();
 

@@ -1,6 +1,21 @@
 const express = require('express');
 const User = require('../../../models/user');
 
+/**
+ * Register new user.
+ * Body:
+ *       username
+ *       password
+ *       confirmPassword
+ *       firstName   (optional)
+ *       lastName    (optional)
+ *       description (optional)
+ * @param  {HttpRequest}   req  url: /api/register
+ * @param  {HttpResponse}  res
+ * @param  {Function}      next
+ * @param  {Passport}      passport
+ * @return {User}          Created user
+ */
 module.exports = function(passport) {
     let router = express.Router();
 

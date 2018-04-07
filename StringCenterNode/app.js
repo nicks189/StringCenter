@@ -80,7 +80,8 @@ let createTab = require('./routes/api/tab/tabRoutes').createTab(passport);
 
 // post
 let createPost = require('./routes/api/post/createPost')(passport);
-let getPost = require('./routes/api/post/getPost')(passport);
+let getPostsForUser = require('./routes/api/post/getPost').getPostsForUser(passport);
+let getPostById = require('./routes/api/post/getPost').getPostById(passport);
 let deletePost = require('./routes/api/post/deletePost')(passport);
 let updatePost = require('./routes/api/post/updatePost')(passport);
 
@@ -96,7 +97,8 @@ let getGroups = require('./routes/api/group/getGroups')(passport);
 let getUserGroupAdminStatus = require('./routes/api/group/getUserGroupAdminStatus')(passport);
 
 // followers/following
-let getFollower = require('./routes/api/follower/getFollower')(passport);
+let getFollowing = require('./routes/api/follower/getFollower').getFollowing(passport);
+let getFollowers = require('./routes/api/follower/getFollower').getFollowers(passport);
 let followUser = require('./routes/api/follower/followUser')(passport);
 let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
 
@@ -116,7 +118,6 @@ app.use('/edit-account', editAccount);
 // user
 app.use('/api/get-user/all', getAllUsers);
 app.use('/api/get-user/info', getUserInfo);
-
 app.use('/api/delete-user', deleteUser);
 app.use('/api/sign-in', apiSignIn);
 app.use('/api/register', apiRegister);
@@ -132,7 +133,8 @@ app.use('/api/tab/createTab', createTab);
 
 // post
 app.use('/api/create-post', createPost);
-app.use('/api/get-post', getPost);
+app.use('/api/get-post/by-user', getPostsForUser);
+app.use('/api/get-post/by-id', getPostById);
 app.use('/api/delete-post', deletePost);
 app.use('/api/update-post', updatePost);
 
@@ -149,7 +151,8 @@ app.use('/api/get-admin-status', getUserGroupAdminStatus);
 
 
 // following/followers
-app.use('/api/get-follower', getFollower);
+app.use('/api/get-follower/following', getFollowing);
+app.use('/api/get-follower/followers', getFollowers);
 app.use('/api/follow-user', followUser);
 app.use('/api/unfollow-user', unfollowUser);
 
