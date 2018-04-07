@@ -10,7 +10,7 @@ const User = require('../../../models/user');
  * @param  {Passport}      passport
  * @return {User}          List of users
  */
-module.exports = function(passport) {
+module.exports = function searchUser(passport) {
     let router = express.Router();
 
     router.get('/:query', passport.authenticate('jwt', { session: false }), function(req, res, next) {

@@ -14,7 +14,7 @@ const Post = require('../../../models/post');
  * @param  {Passport}      passport
  * @return {Post}          Created post
  */
-module.exports = function(passport) {
+module.exports = function createPost(passport) {
     let router = express.Router();
 
     router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {

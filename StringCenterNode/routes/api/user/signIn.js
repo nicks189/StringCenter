@@ -14,7 +14,7 @@ const config = require('../../../config/config')
  * @param  {Passport}      passport
  * @return {String}        JSON Web Token
  */
-module.exports = function(passport) {
+module.exports = function signIn(passport) {
     let router = express.Router();
 
     router.post('/', function(req, res, next) {

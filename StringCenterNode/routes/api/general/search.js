@@ -13,7 +13,7 @@ const Group = require('../../../models/group');
  * @param  {Passport}      passport
  * @return {List}          List of users, groups, posts, tabs
  */
-module.exports = function(passport) {
+module.exports = function search(passport) {
     let router = express.Router();
 
     router.get('/:query', passport.authenticate('jwt', { session: false }), function(req, res, next) {

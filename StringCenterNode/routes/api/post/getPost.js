@@ -10,7 +10,7 @@ const Post = require('../../../models/post');
  * @param  {Passport}      passport
  * @return {Post}          List of posts
  */
-module.exports.getPostsForUser = function(passport) {
+module.exports.getPostsForUser = function getPost(passport) {
     let router = express.Router();
 
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {

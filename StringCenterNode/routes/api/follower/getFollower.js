@@ -10,7 +10,7 @@ const UserFollows = require('../../../models/userFollows');
  * @param  {Passport}      passport
  * @return {userFollows}   List of relationships
  */
-module.exports.getFollowing = function(passport) {
+module.exports.getFollowing = function getFollowing(passport) {
     let router = express.Router();
 
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
@@ -63,7 +63,7 @@ module.exports.getFollowing = function(passport) {
  * @param  {Passport}      passport
  * @return {userFollow}    List of relationships
  */
-module.exports.getFollowers = function(passport) {
+module.exports.getFollowers = function getFollowers(passport) {
     let router = express.Router();
 
     router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {

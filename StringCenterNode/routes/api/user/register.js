@@ -16,7 +16,7 @@ const User = require('../../../models/user');
  * @param  {Passport}      passport
  * @return {User}          Created user
  */
-module.exports = function(passport) {
+module.exports = function register(passport) {
     let router = express.Router();
 
     router.post('/', function(req, res, next) {

@@ -17,7 +17,7 @@ const User = require('../../../models/user');
  * @param  {Passport}      passport
  * @return {User}          Updated user
  */
-module.exports = function(passport) {
+module.exports = function updateUser(passport) {
     let router = express.Router();
 
     router.put('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {

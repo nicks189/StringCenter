@@ -14,7 +14,7 @@ const upload = require('multer')(multerOptions).single('profilePic');
  * @param  {Passport}      passport
  * @return {User}          Updates user
  */
-module.exports = function(passport) {
+module.exports = function setPofilePic(passport) {
     let router = express.Router();
 
     router.put('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {

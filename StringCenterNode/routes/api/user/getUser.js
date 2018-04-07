@@ -11,7 +11,7 @@ const User = require('../../../models/user');
  * @param  {Passport}      passport
  * @return {User}
  */
-module.exports.getAllUsers = function(passport) {
+module.exports.getAllUsers = function getAllUsers(passport) {
     let router = express.Router();
 
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
@@ -39,7 +39,7 @@ module.exports.getAllUsers = function(passport) {
  * @param  {Function}      next
  * @return {User}
  */
-module.exports.getUserInfo = function(passport) {
+module.exports.getUserInfo = function getUserInfo(passport) {
     let router = express.Router();
 
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {

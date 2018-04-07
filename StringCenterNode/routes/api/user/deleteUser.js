@@ -9,7 +9,7 @@ const User = require('../../../models/user');
  * @param  {Passport}      passport
  * @return {User}
  */
-module.exports = function(passport) {
+module.exports = function deleteUser(passport) {
     let router = express.Router();
 
     router.delete('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
