@@ -72,7 +72,11 @@ let searchUser = require('./routes/api/user/searchUser')(passport);
 let setProfilePic = require('./routes/api/user/setProfilePic')(passport);
 
 // tab
-let tabRoutes = require('./routes/api/tab/tabRoutes')(passport);
+let getAllTabs = require('./routes/api/tab/tabRoutes').getAllTabs(passport);
+let findTabsById = require('./routes/api/tab/tabRoutes').findTabsById(passport);
+let findTabsByUser = require('./routes/api/tab/tabRoutes').findTabsByUser(passport);
+let createTab = require('./routes/api/tab/tabRoutes').createTab(passport);
+
 
 // post
 let createPost = require('./routes/api/post/createPost')(passport);
@@ -121,7 +125,10 @@ app.use('/api/search-user', searchUser);
 app.use('/api/set-profile-pic', setProfilePic);
 
 // tab
-app.use('/api/tab', tabRoutes);
+app.use('/api/tab', getAllTabs);
+app.use('/api/tab/findTabsById', findTabsById);
+app.use('/api/tab/findTabsByUser', findTabsByUser);
+app.use('/api/tab/createTab', createTab);
 
 // post
 app.use('/api/create-post', createPost);
