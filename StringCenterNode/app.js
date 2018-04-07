@@ -62,7 +62,8 @@ let editAccount = require('./routes/demo/editAccount')(passport);
 
 // api routes
 // user
-let getUser = require('./routes/api/user/getUser')(passport);
+let getAllUsers = require('./routes/api/user/getUser').getAllUsers(passport);
+let getUserInfo = require('./routes/api/user/getUser').getUserInfo(passport);
 let deleteUser = require('./routes/api/user/deleteUser')(passport);
 let apiSignIn = require('./routes/api/user/signIn')(passport);
 let apiRegister= require('./routes/api/user/register')(passport);
@@ -109,7 +110,9 @@ app.use('/edit-account', editAccount);
 
 // api routes
 // user
-app.use('/api/get-user', getUser);
+app.use('/api/get-user/all', getAllUsers);
+app.use('/api/get-user/info', getUserInfo);
+
 app.use('/api/delete-user', deleteUser);
 app.use('/api/sign-in', apiSignIn);
 app.use('/api/register', apiRegister);
