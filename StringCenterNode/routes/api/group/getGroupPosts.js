@@ -6,7 +6,7 @@ var Post = require('../../../models/post');
 /**
  * Returns all posts tied with the requested groupName ordered by timestamp
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req  url: 3000/api/get-group-posts/:groupName
+ * @param  {HttpGetRequest}    req  url: /api/get-group-posts/:groupName
  * @param  {HttpResponse}   res
  * @param  {Function}       next
  * @return {Post}                returns an array of Post objects tied with the given Group

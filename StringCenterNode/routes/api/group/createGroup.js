@@ -7,10 +7,10 @@ var UserGroup = require('../../../models/userGroup');
  * Create group record in DB based on groupName and description given in the request.
  * Note: the user who created the group will be the groups admin, thus putting the user
  * into the group (creating a UserGroup record)
- * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req       url: 3000/api/create-group (body must contain 'groupName', and optionally a 'description')
- * @param  {HttpResponse}   res
- * @param  {Function}       next
+ * @param  {passport}           passport  used for authentication
+ * @param  {HttpPostRequest}    req       url: /api/create-group (body must contain 'groupName', and optionally a 'description')
+ * @param  {HttpResponse}       res
+ * @param  {Function}           next
  * @return {Group}                    returns created group record
  */
 function createGroup(passport){

@@ -6,7 +6,7 @@ var UserGroup = require('../../../models/userGroup');
  * Returns a boolean value representing whether or not a given user is an admin
  * in the given group
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req  url: 3000/api/get-admin-status/:username/:groupName
+ * @param  {HttpGetRequest}    req  url: /api/get-admin-status/:username/:groupName
  * @param  {HttpResponse}   res
  * @param  {Function}       next
  * @return {Boolean}             returns true if user is admin in given group, false otherwise

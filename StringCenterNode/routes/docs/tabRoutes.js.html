@@ -1,72 +1,43 @@
-var express = require('express');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: tabRoutes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: tabRoutes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var express = require('express');
 var router = express.Router();
 var Tab = require('../../../models/tabModel.js');
 var cb = require('../../../middleware/mongoCallback.js');
 var validateTab = require('../../../middleware/auth/tabAuth.js');
 
-/*
-   Tab Object stucture
-   {
-   "author_username": "xxxx",
-   "tab_name": "Tab",
-   "tab": {
-       "info": "Tab",
-       "measureCount": "1",
-       "measures": [
-           {
-               "info": "first measure",
-               "tuning": "EADG",
-               "stringCount": "4",
-               "strings": [
-                   {
-                       "notes": [
-                           "-",
-                           "-",
-                           "-",
-                           "-"
-                       ],
-                       "tuning": "E"
-                   },
-                   {
-                       "notes": [
-                           "-",
-                           "-",
-                           "-",
-                           "-"
-                       ],
-                       "tuning": "A"
-                   },
-                   {
-                       "notes": [
-                           "-",
-                           "-",
-                           "-",
-                           "-"
-                       ],
-                       "tuning": "D"
-                   },
-                   {
-                       "notes": [
-                           "-",
-                           "-",
-                           "-",
-                           "-"
-                       ],
-                       "tuning": "G"
-                   }
-               ]
-           }
-       ]
-   }
-}
-*/
-
 /**
  * Get all tabs
- * @param  {HttpRequest}    req  url: /api/tab
+ * @param  {HttpRequest}    req  url: 3000/api/tab
  * @param  {HttpResponse}   res  {tabs}
  * @param  {Function}       next
- * @return {Tab}       an array of tabs {tabs:Tab} (tab obj at top of src file)
+ * @return {Tab}       an array of tabs {tabs:Tab}
  */
 module.exports.getAllTabs = function(passport){
     router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next) {
@@ -83,10 +54,10 @@ module.exports.getAllTabs = function(passport){
 
 /**
  * Get tab by tab id
- * @param  {HttpGetRequest}    req  url: /api/tab/findTabByID/:id
+ * @param  {HttpRequest}    req  url: 3000/api/tab/findTabByID/:id
  * @param  {HttpResponse}   res
  * @param  {Function}       next
- * @return {Tab}       a tab object having an id matching that of the request (tab obj at top of src file)
+ * @return {Tab}       a tab object having an id matching that of the request
  */
 module.exports.findTabsById = function(passport){
     router.get('/findTabById/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -105,10 +76,10 @@ module.exports.findTabsById = function(passport){
 
 /**
  * Get tabs with username sent in parameter of request or by using authentication (for logged in user)
- * @param  {HttpGetRequest}    req   url: /api/tab/findTabsByUser/:username
+ * @param  {HttpRequest}    req   url: 3000/api/tab/findTabsByUser/:username
  * @param  {HttpResponse}   res
  * @param  {Function}       next
- * @return {Tab}        tabs whose author_username matches the request (tab obj at top of src file)
+ * @return {Tab}        tabs whose author_username matches the request
  */
 module.exports.findTabsByUser = function(passport){
     router.get('/findTabsByUser/:username',  passport.authenticate('jwt', {session: false}), function(req, res, next){
@@ -134,11 +105,66 @@ module.exports.findTabsByUser = function(passport){
 
 //authentication
 /**
- * Create new tab with tab object from body request and store it in the database (tab obj at top of src file)
- * @param  {HttpPostRequest}    req  url: /api/tab/findTabsByUser
+ * Create new tab with tab object from body request and store it in the database
+ *   Tab Object stucture
+    {
+ 	"author_username": "xxxx",
+ 	"tab_name": "Tab",
+ 	"tab": {
+ 		"info": "Tab",
+ 		"measureCount": "1",
+ 		"measures": [
+ 			{
+ 				"info": "first measure",
+ 				"tuning": "EADG",
+ 				"stringCount": "4",
+ 				"strings": [
+ 					{
+ 						"notes": [
+ 							"-",
+ 							"-",
+ 							"-",
+ 							"-"
+ 						],
+ 						"tuning": "E"
+ 					},
+ 					{
+ 						"notes": [
+ 							"-",
+ 							"-",
+ 							"-",
+ 							"-"
+ 						],
+ 						"tuning": "A"
+ 					},
+ 					{
+ 						"notes": [
+ 							"-",
+ 							"-",
+ 							"-",
+ 							"-"
+ 						],
+ 						"tuning": "D"
+ 					},
+ 					{
+ 						"notes": [
+ 							"-",
+ 							"-",
+ 							"-",
+ 							"-"
+ 						],
+ 						"tuning": "G"
+ 					}
+ 				]
+ 			}
+ 		]
+ 	}
+ }
+ * @param  {HttpPostRequest}    req  url: 3000/api/tab/findTabsByUser
+
  * @param  {HttpResponse}   res
  * @param  {Function}       next
- * @return {Tab}       returns the created tab back to the client (tab obj at top of src file)
+ * @return {Tab}       returns the created tab back to the client
  */
 module.exports.createTab = function(passport){
     router.post('/createTab', function(req, res, next){
@@ -164,3 +190,26 @@ module.exports.createTab = function(passport){
     });
     return router;
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createTab">createTab</a></li><li><a href="global.html#findTabsById">findTabsById</a></li><li><a href="global.html#findTabsByUser">findTabsByUser</a></li><li><a href="global.html#getAllTabs">getAllTabs</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 07 2018 17:05:10 GMT-0500 (CDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
