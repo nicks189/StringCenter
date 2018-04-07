@@ -6,7 +6,7 @@ var UserGroup = require('../../../models/userGroup');
 /**
  * Returns usernames in alphabetical order for members in a Group with the matching groupName.
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req  url: 3000/api/get-group-members/:groupName
+ * @param  {HttpGetRequest}    req  url: /api/get-group-members/:groupName
  * @param  {HttpResponse}   res
  * @param  {Function} next
  * @return {Group}        [

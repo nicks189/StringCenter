@@ -9,7 +9,7 @@ var Group = require('../../../models/group');
  * Adds a UserGroup record to the database based on the given groupName, in turn adding the user
  * to the Group. Returns the created UserGroup record.
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req       url: 3000/api/join-group (body of request must contain 'groupName')
+ * @param  {HttpPostRequest}    req       url: /api/join-group (body of request must contain 'groupName')
  * @param  {HttpResponse}   res
  * @param  {Function}       next
  * @return {UserGroup}                returns UserGroup record that is created when the user joins the group

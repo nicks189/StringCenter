@@ -6,7 +6,7 @@ var Group = require('../../../models/group');
 /**
  * Returns all groups in the database, sorted alphabetically by groupName
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req  url: 3000/api/get-groups
+ * @param  {HttpGetRequest}    req  url: /api/get-groups
  * @param  {HttpResponse}   res
  * @param  {Function}       next
  * @return {groupName}           returns an alphabetically sorted array of all the groupNames in the database

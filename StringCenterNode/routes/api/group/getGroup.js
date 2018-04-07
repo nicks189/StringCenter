@@ -6,9 +6,9 @@ var Group = require('../../../models/group');
 /**
  * Get Group record by groupName
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req  url: 3000/api/get-group/:groupName
+ * @param  {HttpGetRequest}    req  url: /api/get-group/:groupName
  * @param  {HttpResponse}   res
- * @param  {Function}       next 
+ * @param  {Function}       next
  * @return {Group}        returns Group record with matching groupName given in the request, else {
  *                        else it will return a message saying the Group does not exist.
  */
