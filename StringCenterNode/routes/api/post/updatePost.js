@@ -7,7 +7,8 @@ const Post = require('../../../models/post');
  *       content   (optional)
  *       tabId     (optional)
  *       groupName (optional)
- * @param  {Passport}      Authentication
+ *
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/update-post/:id
  * @param  {HttpResponse}  res
  * @param  {Function}      next

@@ -4,7 +4,7 @@ const Post = require('../../../models/post');
 /**
  * Get all posts created by username or the currently authenticated user
  * if username isn't passed
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/get-post/by-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
@@ -48,7 +48,7 @@ module.exports.getPostsForUser = function getPost(passport) {
 
 /**
  * Get post by id
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/get-post/by-id/:id
  * @param  {HttpResponse}  res
  * @param  {Function}      next

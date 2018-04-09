@@ -4,7 +4,7 @@ const Post = require('../../../models/post');
 // TODO: Update authorization so admins/mods can delete posts
 /**
  * Delete post by id
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/delete-post/:id
  * @param  {HttpResponse}  res
  * @param  {Function}      next

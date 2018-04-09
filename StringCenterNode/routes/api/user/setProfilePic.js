@@ -8,7 +8,7 @@ const upload = require('multer')(multerOptions).single('profilePic');
  * Body:
  *       profilePic (file)
  *
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/set-profile-pic/
  * @param  {HttpResponse}  res
  * @param  {Function}      next

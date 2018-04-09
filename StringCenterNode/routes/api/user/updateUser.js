@@ -11,7 +11,7 @@ const User = require('../../../models/user');
  *       newPassword        (optional)
  *       confirmNewPassword (optional)
  *
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/update-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next

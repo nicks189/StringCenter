@@ -3,7 +3,7 @@ const User = require('../../../models/user');
 
 /**
  * Get user by username, omitting password.
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/get-user/info/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next

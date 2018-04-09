@@ -8,7 +8,7 @@ const config = require('../../../config/config')
  * Body:
  *       username
  *       password
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/sign-in/
  * @param  {HttpResponse}  res
  * @param  {Function}      next

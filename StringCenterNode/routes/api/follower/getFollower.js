@@ -4,7 +4,7 @@ const UserFollows = require('../../../models/userFollows');
 /**
  * Get all users followed by {username}, or by the current
  * user if username is empty
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/get-follower/following/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next

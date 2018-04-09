@@ -4,7 +4,7 @@ const User = require('../../../models/user');
 
 /**
  * Follow new user
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/follow-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next

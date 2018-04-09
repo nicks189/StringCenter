@@ -7,7 +7,7 @@ const Group = require('../../../models/group');
 // TODO: order by relevancy (in models)
 /**
  * Search for users, groups, posts, and tabs for 'query'
- * @param  {Passport}      Authentication
+ * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/search/
  * @param  {HttpResponse}  res
  * @param  {Function}      next
