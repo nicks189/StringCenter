@@ -63,6 +63,7 @@ var validateTab = require('../../../middleware/auth/tabAuth.js');
 
 /**
  * Get all tabs
+ * @param {passport} passport  used for authentication
  * @param  {HttpRequest}    req  url: /api/tab
  * @param  {HttpResponse}   res  {tabs}
  * @param  {Function}       next
@@ -83,6 +84,7 @@ module.exports.getAllTabs = function(passport){
 
 /**
  * Get tab by tab id
+ * @param {passport} passport  used for authentication
  * @param  {HttpGetRequest}    req  url: /api/tab/findTabByID/:id
  * @param  {HttpResponse}   res
  * @param  {Function}       next
@@ -105,6 +107,7 @@ module.exports.findTabsById = function(passport){
 
 /**
  * Get tabs with username sent in parameter of request or by using authentication (for logged in user)
+ * @param {passport} passport  used for authentication
  * @param  {HttpGetRequest}    req   url: /api/tab/findTabsByUser/:username
  * @param  {HttpResponse}   res
  * @param  {Function}       next
@@ -135,6 +138,7 @@ module.exports.findTabsByUser = function(passport){
 //authentication
 /**
  * Create new tab with tab object from body request and store it in the database (tab obj at top of src file)
+ * @param {passport} passport  used for authentication
  * @param  {HttpPostRequest}    req  url: /api/tab/findTabsByUser
  * @param  {HttpResponse}   res
  * @param  {Function}       next

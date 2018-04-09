@@ -9,7 +9,7 @@ var Group = require('../../../models/group');
  * been in the Group the longest will become the new admin. If the user who left the group is the last member
  * of the Group, the Group, and all it's records (Post, UserGroup), will be deleted as well.
  * @param  {passport}       passport  used for authentication
- * @param  {HttpPostRequest}    req  url: /api/leave-group (body must contain a 'groupName')
+ * @param  {HttpPostRequest}    req  url: /api/leave-group (body : 'groupName')
  * @param  {HttpResponse}   res
  * @param  {Function}       next
  * @return {UserGroup}           returns UserGroup record of the user who left the Group

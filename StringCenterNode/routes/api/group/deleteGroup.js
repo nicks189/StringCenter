@@ -10,7 +10,7 @@ var Post = require('../../../models/post')
  * Deletes group if user who requested delete is a group admin.
  * Deletes all records associated with the group, UserGroup, Post and the Group record itself
  * @param  {passport}       passport  used for authentication
- * @param  {HttpRequest}    req  url: /api/delete-group (body must contain 'groupName' of Group to be deleted)
+ * @param  {HttpRequest}    req  url: /api/delete-group (body : 'groupName')
  * @param  {HttpResponse}   res
  * @param  {Function}       next
  * @return {UserGroup}           UserGroup record of user who deleted group
