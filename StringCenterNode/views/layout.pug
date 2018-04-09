@@ -12,7 +12,10 @@ append body
                 +nav_item("/about", "active") About
             else
                 +nav_item("/about") About
-            +nav_item("/api-docs") API Docs
+            if nav === "docs"
+                +nav_item("/documentation", "active") Documentation
+            else
+                +nav_item("/documentation") Documentation
             if nav === "sign-in" || nav === "sign-out" || nav === "register" || nav === "edit-account"
                 +nav_item_dropdown("#", "active")(label="Account")
                     +nav_item("sign-in") Sign in
@@ -32,4 +35,4 @@ append body
     block content
     block footer
     .footer.navbar-fixed-bottom.text-center
-        p @Copyright 2018 Nick Steger
+        p @Copyright 2018 StringCenter

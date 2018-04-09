@@ -59,6 +59,7 @@ let signIn = require('./routes/demo/signIn')(passport);
 let signOut = require('./routes/demo/signOut')(passport);
 let register = require('./routes/demo/register')(passport);
 let editAccount = require('./routes/demo/editAccount')(passport);
+let docs = require('./routes/demo/documentation')(passport);
 
 // api routes
 // user
@@ -105,7 +106,6 @@ let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
 // general
 let search = require('./routes/api/general/search')(passport);
 
-
 // demo routes
 app.use('/', index);
 app.use('/about', about);
@@ -113,6 +113,7 @@ app.use('/sign-in', signIn);
 app.use('/sign-out', signOut);
 app.use('/register', register);
 app.use('/edit-account', editAccount);
+app.use('/documentation', docs);
 
 // api routes
 // user
