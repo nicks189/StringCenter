@@ -10,10 +10,10 @@ const User = require('../../../models/user');
  *       firstName   (optional)
  *       lastName    (optional)
  *       description (optional)
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/register
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {User}          Created user
  */
 module.exports = function register(passport) {

@@ -11,10 +11,10 @@ const User = require('../../../models/user');
  *       newPassword        (optional)
  *       confirmNewPassword (optional)
  *
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/update-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {User}          Updated user
  */
 module.exports = function updateUser(passport) {

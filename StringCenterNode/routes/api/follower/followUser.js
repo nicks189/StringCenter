@@ -4,10 +4,10 @@ const User = require('../../../models/user');
 
 /**
  * Follow new user
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/follow-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {userFollows}   Newly created relationship
  */
 module.exports = function followUser(passport){

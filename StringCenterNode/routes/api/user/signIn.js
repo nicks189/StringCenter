@@ -8,10 +8,10 @@ const config = require('../../../config/config')
  * Body:
  *       username
  *       password
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/sign-in/
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {String}        JSON Web Token
  */
 module.exports = function signIn(passport) {

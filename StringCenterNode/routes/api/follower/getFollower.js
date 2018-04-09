@@ -4,10 +4,10 @@ const UserFollows = require('../../../models/userFollows');
 /**
  * Get all users followed by {username}, or by the current
  * user if username is empty
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/get-follower/following/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {userFollows}   List of relationships
  */
 module.exports.getFollowing = function getFollowing(passport) {
@@ -57,10 +57,10 @@ module.exports.getFollowing = function getFollowing(passport) {
 /**
  * Get all followers of username, or followers of current user
  * if username is empty
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/get-follower/followers/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {userFollow}    List of relationships
  */
 module.exports.getFollowers = function getFollowers(passport) {

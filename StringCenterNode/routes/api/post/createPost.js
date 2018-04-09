@@ -8,10 +8,10 @@ const Post = require('../../../models/post');
  *       groupName (optional)
  *       tabId     (optional)
  *
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/create-post/
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {Post}          Created post
  */
 module.exports = function createPost(passport) {
