@@ -3,10 +3,10 @@ const UserFollows = require('../../../models/userFollows');
 
 /**
  * Unfollow user specified by username
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/unfollow-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {String}
  */
 module.exports = function unfollowUser(passport) {

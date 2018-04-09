@@ -8,10 +8,10 @@ const upload = require('multer')(multerOptions).single('profilePic');
  * Body:
  *       profilePic (file)
  *
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/set-profile-pic/
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {User}          Updates user
  */
 module.exports = function setPofilePic(passport) {

@@ -4,10 +4,10 @@ const User = require('../../../models/user');
 // TODO -- Order results based on relevancy
 /**
  * Search for users based on parameter 'query'
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/search-user/:query
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {User}          List of users
  */
 module.exports = function searchUser(passport) {

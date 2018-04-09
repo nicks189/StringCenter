@@ -5,10 +5,10 @@ const User = require('../../../models/user');
 // limit this to some max number of users;
 /**
  * Get list of all users, ordered alphabetically and omitting passwords.
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: /api/get-user/all
  * @param  {HttpResponse}  res
  * @param  {Function}      next
- * @param  {Passport}      passport
  * @return {User}
  */
 module.exports.getAllUsers = function getAllUsers(passport) {
@@ -34,6 +34,7 @@ module.exports.getAllUsers = function getAllUsers(passport) {
 
 /**
  * Get by username or currently authenticated user if no parameter, omitting password.
+ * @param  {Passport}      Authentication
  * @param  {HttpRequest}   req  url: 3000/api/get-user/info
  * @param  {HttpResponse}  res
  * @param  {Function}      next
