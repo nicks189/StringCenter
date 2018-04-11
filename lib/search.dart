@@ -13,10 +13,14 @@ import 'home.dart';
 import 'util.dart';
 import 'view_post.dart';
 
-/// Browse is a StatefulWidget that allows users to request a list of either Groups, Users, or Tabs
-/// When a group is selected by the user, the app will route to GroupPage
-/// When a user is selected by the user, the app will route to ViewUser
-/// when a tab is selected by the user, the app will route to ViewTab
+/// Search is a StatefulWidget that allows users to request a list of either Groups,
+/// Users, Posts, Tabs, or all of these,  based on a search keyword or keywords.
+/// The user will enter a search phrase and choose All, Groups, Users, Posts, or Tabs
+/// from a drop down menu in order to get a list of results that they are trying to search for.
+/// When a group is selected by the user, the app will route to GroupPage.
+/// When a user is selected by the user, the app will route to ViewUser.
+/// When a tab is selected by the user, the app will route to ViewTab.
+/// When a post is selected by the user, the app will route to ViewPost.
 ///
 class Search extends StatefulWidget {
   @override
@@ -123,20 +127,11 @@ class _SearchState extends State<Search> {
     return widgetList;
   }
 
-//build of Browse Widget, provides UI for the Browse Widget
-  //Has an AppBar
-  //Has a Row of three RaisedButtons with titles Tabs, Groups, and Users,
-  // whose onPressed() call
-  // _getTabList and _genTabWidgets,
-  // _getGroupList and _genGroupWidgets,
-  // _getUserList and _genUserWidgets, respectively
-  //Has a ListView wrapped by an Expanded
-  // the ListView displays the current state of _widgetList
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Browse"),
+        title: new Text("Search"),
         actions: <Widget>[
           new IconButton(
               icon: new Icon(Icons.home),

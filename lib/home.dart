@@ -13,6 +13,7 @@ import 'browse.dart';
 import 'following.dart';
 import 'util.dart';
 import 'fileIO.dart';
+import 'search.dart';
 
 ///Home is a StatefulWidget that is the home screen of the app. This screen isn't accessible if
 ///a user is not logged in. This Widget checks if a user is logged in every time it is opened.
@@ -157,6 +158,16 @@ class _HomeState extends State<Home> {
                         context,
                         new MaterialPageRoute(
                             builder: (BuildContext context) => new Browse()));
+                  },
+                ),
+                new Padding(padding: new EdgeInsets.all(16.0)),
+                new RaisedButton(
+                  child: new Text("Search"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (BuildContext context) => new Search()));
                   },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
