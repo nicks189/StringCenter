@@ -127,10 +127,7 @@ class _ProfileState extends State<Profile> {
         ),
         title: new Text(globals.user.username),
         actions: <Widget>[
-          new RaisedButton(
-            onPressed: _editProfile,
-            child: new Text('Edit Profile'),
-          ),
+          new IconButton(icon: new Icon(Icons.settings), onPressed: _editProfile),
           new IconButton(
               icon: new Icon(Icons.home),
               onPressed: () {
