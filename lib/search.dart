@@ -58,9 +58,21 @@ class _SearchState extends State<Search> {
 
     try {
       String responseBody = await getRequestAuthorization(url);
-
+      Map m = json.decode(responseBody);
+      for (int i = 0; i < m['users'].length;i++) {
+        _userList.add(m['users'][i]);
+      }
+      for (int i = 0; i < m['groups'].length;i++) {
+        _groupList.add(m['users'][i]);
+      }
+      for (int i = 0; i < m['posts'].length;i++) {
+        _postList.add(m['users'][i]);
+      }
+      for (int i = 0; i < m['tabs'].length;i++) {
+        _tabList.add(m['users'][i]);
+      }
     } catch (exception) {
-
+      print("search exception: " + exception.toString());
     }
   }
 
@@ -144,6 +156,7 @@ class _SearchState extends State<Search> {
         child: new Center(
             child: new Column(
               children: <Widget>[
+                new Expanded(child:
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -154,7 +167,7 @@ class _SearchState extends State<Search> {
                     new RaisedButton(
                       padding: new EdgeInsets.all(8.0),
                       child: new Text("Search"),
-                      onPressed: () {
+                      onPressed: () {if(_search.toString().isNotEmpty)
                         _getSearchList().then((wl) {
                           wl = _generateWidgets();
                           setState(() {
@@ -163,7 +176,41 @@ class _SearchState extends State<Search> {
                         });
                       },
                     ),
+                    new DropdownButton<String>(
+                      value: dropDownMap[0],
+                      hint: new Text('Pick a search filter'),
+                      items: [
+                        new DropdownMenuItem(
+                          value: dropDownMap[0],
+                          child: new Text(dropDownMap[0]),
+                        ),
+                        new DropdownMenuItem(
+                          value: dropDownMap[1],
+                          child: new Text(dropDownMap[1]),
+                        ),
+                        new DropdownMenuItem(
+                          value: dropDownMap[2],
+                          child: new Text(dropDownMap[2]),
+                        ),
+                        new DropdownMenuItem(
+                          value: dropDownMap[3],
+                          child: new Text(dropDownMap[3]),
+                        ),
+                        new DropdownMenuItem(
+                          value: dropDownMap[4],
+                          child: new Text(dropDownMap[4]),
+                        ),
+                      ],
+                      onChanged: (_value) {
+                        if(_value == dropDownMap[0])dropDownState = 0;
+                        else if(_value == dropDownMap[1])dropDownState = 1;
+                        else if(_value == dropDownMap[2])dropDownState = 2;
+                        else if(_value == dropDownMap[3])dropDownState = 3;
+                        else if(_value == dropDownMap[4])dropDownState = 4;
+                      },
+                    ),
                   ],
+                ),
                 ),
                 new Expanded(
                   child: new ListView(
