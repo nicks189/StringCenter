@@ -23,6 +23,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _message;
+  Color themeColor = new Color.fromARGB(255, 242, 155, 41);
+  TextStyle buttonStyle = new TextStyle(color: Colors.white);
   Widget _page = new Container();
 
   _HomeState() {
@@ -75,6 +77,7 @@ class _HomeState extends State<Home> {
     else
       _page = new Scaffold(
         appBar: new AppBar(
+          backgroundColor: themeColor,
           title: new Text('Home'),
           actions: <Widget>[
             new IconButton(
@@ -90,9 +93,17 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: new Container(
+          decoration: new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("images/guitar.jpg"),
+              fit: BoxFit.cover,
+            ),
+
+          ),
           padding: new EdgeInsets.all(32.0),
           child: new Center(
             child: new ListView(
+              itemExtent: 30.0,
               children: <Widget>[
 //              new RaisedButton(
 //                child: new Text("Login"),
@@ -102,7 +113,11 @@ class _HomeState extends State<Home> {
 //             ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("View Tabs"),
+                  color: themeColor,
+                  child: new Text(
+                    "View Tabs",
+                    style: buttonStyle,
+                  ),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -113,14 +128,16 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("Create Tab"),
+                  color: themeColor,
+                  child: new Text("Create Tab", style: buttonStyle,),
                   onPressed: () {
                     Navigator.of(context).pushNamed('TabOptions');
                   },
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("Followers"),
+                  color: themeColor,
+                  child: new Text("Followers", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -131,7 +148,8 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("Following"),
+                  color: themeColor,
+                  child: new Text("Following", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -142,7 +160,8 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("Profile"),
+                  color: themeColor,
+                  child: new Text("Profile", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -152,7 +171,8 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("Browse"),
+                  color: themeColor,
+                  child: new Text("Browse", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -162,7 +182,8 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("Search"),
+                  color: themeColor,
+                  child: new Text("Search", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -172,7 +193,8 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  child: new Text("CreateGroup"),
+                  color: themeColor,
+                  child: new Text("CreateGroup", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
                         context,
