@@ -8,12 +8,12 @@ const Group = require('../../../models/group');
 /**
  * Search for users, groups, posts, and tabs for 'query'
  * @param  {Passport}      passport Authentication
- * @param  {HttpRequest}   req  url: /api/search/
+ * @param  {HttpRequest}   req  url: /api/search/:query
  * @param  {HttpResponse}  res
  * @param  {Function}      next
  * @return {List}          List of users, groups, posts, tabs
  */
-module.exports = function search(passport) {
+function search(passport) {
     let router = express.Router();
 
     router.get('/:query', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -44,3 +44,5 @@ module.exports = function search(passport) {
 
     return router;
 };
+
+module.exports = search;

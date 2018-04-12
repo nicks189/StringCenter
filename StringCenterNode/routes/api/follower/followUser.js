@@ -10,7 +10,7 @@ const User = require('../../../models/user');
  * @param  {Function}      next
  * @return {userFollows}   Newly created relationship
  */
-module.exports = function followUser(passport){
+function followUser(passport){
     let router = express.Router();
 
     router.post('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next){
@@ -45,3 +45,5 @@ module.exports = function followUser(passport){
 
     return router;
 };
+
+module.exports = followUser;

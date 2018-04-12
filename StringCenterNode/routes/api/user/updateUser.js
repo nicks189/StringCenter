@@ -3,21 +3,14 @@ const User = require('../../../models/user');
 
 /**
  * Update user
- * Body:
- *       newUsername        (optional)
- *       newFirstName       (optional)
- *       newLastName        (optional)
- *       description        (optional)
- *       newPassword        (optional)
- *       confirmNewPassword (optional)
- *
+ * Body: newUsername, newFirstName, newLastName, description, newPassword, confirmNewPassword
  * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/update-user/:username
  * @param  {HttpResponse}  res
  * @param  {Function}      next
  * @return {User}          Updated user
  */
-module.exports = function updateUser(passport) {
+function updateUser(passport) {
     let router = express.Router();
 
     router.put('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -67,3 +60,5 @@ module.exports = function updateUser(passport) {
 
     return router;
 };
+
+module.exports = updateUser;

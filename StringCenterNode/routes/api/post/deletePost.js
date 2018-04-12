@@ -10,7 +10,7 @@ const Post = require('../../../models/post');
  * @param  {Function}      next
  * @return {String}        Message
  */
-module.exports = function deletePost(passport) {
+function deletePost(passport) {
     let router = express.Router();
 
     router.delete('/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -26,3 +26,5 @@ module.exports = function deletePost(passport) {
 
     return router;
 };
+
+module.exports = deletePost;

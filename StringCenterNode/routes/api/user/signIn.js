@@ -5,16 +5,14 @@ const config = require('../../../config/config')
 
 /**
  * Generate and send JWT in response used for authentication
- * Body:
- *       username
- *       password
+ * Body: username, password
  * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/sign-in/
  * @param  {HttpResponse}  res
  * @param  {Function}      next
  * @return {String}        JSON Web Token
  */
-module.exports = function signIn(passport) {
+function signIn(passport) {
     let router = express.Router();
 
     router.post('/', function(req, res, next) {
@@ -38,3 +36,5 @@ module.exports = function signIn(passport) {
 
     return router;
 };
+
+module.exports =  signIn;

@@ -14,7 +14,7 @@ const Post = require('../../../models/post');
  * @param  {Function}      next
  * @return {String}
  */
-module.exports = function updatePost(passport) {
+function updatePost(passport) {
     let router = express.Router();
 
     router.put('/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -47,3 +47,5 @@ module.exports = function updatePost(passport) {
 
     return router;
 };
+
+module.exports = updatePost;

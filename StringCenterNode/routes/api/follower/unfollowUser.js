@@ -9,7 +9,7 @@ const UserFollows = require('../../../models/userFollows');
  * @param  {Function}      next
  * @return {String}
  */
-module.exports = function unfollowUser(passport) {
+function unfollowUser(passport) {
     let router = express.Router();
 
     router.delete('/:username', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -28,3 +28,5 @@ module.exports = function unfollowUser(passport) {
 
     return router;
 };
+
+module.exports = unfollowUser;

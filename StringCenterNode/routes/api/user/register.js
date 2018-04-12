@@ -3,13 +3,7 @@ const User = require('../../../models/user');
 
 /**
  * Register new user.
- * Body:
- *       username
- *       password
- *       confirmPassword
- *       firstName   (optional)
- *       lastName    (optional)
- *       description (optional)
+ * Body: newUsername, newFirstName, newLastName, description, newPassword, confirmNewPassword
  *
  * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/register
@@ -17,7 +11,7 @@ const User = require('../../../models/user');
  * @param  {Function}      next
  * @return {User}          Created user
  */
-module.exports = function register(passport) {
+function register(passport) {
     let router = express.Router();
 
     router.post('/', function(req, res, next) {
@@ -51,3 +45,5 @@ module.exports = function register(passport) {
 
     return router;
 };
+
+module.exports = register;

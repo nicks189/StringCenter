@@ -3,18 +3,14 @@ const Post = require('../../../models/post');
 
 /**
  * Create post
- * Body:
- *       content
- *       groupName (optional)
- *       tabId     (optional)
- *
+ * Body: content, groupName, tabId
  * @param  {Passport}      passport Authentication
  * @param  {HttpRequest}   req  url: /api/create-post/
  * @param  {HttpResponse}  res
  * @param  {Function}      next
  * @return {Post}          Created post
  */
-module.exports = function createPost(passport) {
+function createPost(passport) {
     let router = express.Router();
 
     router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -37,3 +33,5 @@ module.exports = function createPost(passport) {
 
     return router;
 };
+
+module.exports = createPost;
