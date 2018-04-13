@@ -39,6 +39,7 @@ class _GroupPageState extends State<GroupPage> {
       Map m = {"groupName": "$_groupName"};
       String js = json.encode(m);
       String responseBody = await getRequest(url);
+      print ("group_page responsebody getpostlist: " + responseBody.toString());
       Map posts = json.decode(responseBody);
       //store group as group_object
       url =
@@ -53,7 +54,7 @@ class _GroupPageState extends State<GroupPage> {
       }
       print("posts.length: " + posts['posts'].length.toString());
       for (int i = 0; i < posts['posts'].length; i++) {
-        if (posts['posts'][i]['tabId'] != null) {
+        if (posts['posts'][i]['tabId'] != null) { //TODO problematic
           _postList.add(new Post(
               posts['posts'][i]["content"], posts['posts'][i]['tabId']));
         } else {

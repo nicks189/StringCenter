@@ -232,12 +232,18 @@ class _SearchState extends State<Search> {
                       padding: new EdgeInsets.all(8.0),
                       child: new Text("Search"),
                       onPressed: () {if(_search.text.isNotEmpty)
+                      {
+                        _postList.removeRange(0, _postList.length);
+                        _userList.removeRange(0, _userList.length);
+                        _tabList.removeRange(0, _tabList.length);
+                        _groupList.removeRange(0, _groupList.length);
                         _getSearchList().then((wl) {
                           wl = _generateWidgets();
                           setState(() {
                             _widgetList = wl;
                           });
                         });
+                      }
                       },
                     ),
                   ],

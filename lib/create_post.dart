@@ -14,39 +14,44 @@ import 'util.dart';
 class CreatePost extends StatefulWidget {
   Tabb _t;
   String _s;
+  String _groupName;
 
-  CreatePost([Tabb t, String s]) {
+  CreatePost([Tabb t, String s, String groupName]) {
     _t = t;
     _s = s;
+    _groupName = groupName;
   }
 
   @override
-  _CreatePostState createState() => new _CreatePostState(_t, _s);
+  _CreatePostState createState() => new _CreatePostState(_t, _s, _groupName);
 }
 
 // State for CreatePost
 class _CreatePostState extends State<CreatePost> {
   Tabb _t;
   String _s;
+  String _groupName;
   TextEditingController _ptc = new TextEditingController();
 
-  _CreatePostState([Tabb t, String s = '']) {
+  _CreatePostState([Tabb t, String s = '', String groupName]) {
     _t = t;
     _s = s;
     _ptc.text = s;
+    _groupName = groupName;
   }
 
-  _finalizePost() {
+  _finalizePost() async {
     Post p;
-    if (_t != null) {
-      p = new Post(_ptc.text, _t.id);
+    if (_t != null) { //TODO Problematic
+      p = new Post(_ptc.text, _t.id, _groupName);
     } else {
-      p = new Post(_ptc.text);
+      p = new Post(_ptc.text,'',_groupName);
     }
     try {
-      postRequestWriteAuthorization(
+      String responseBody = await postRequestWriteAuthorization(
           'http://proj-309-ss-5.cs.iastate.edu:3000/api/create-post',
           json.encode(p));
+      print("create_post responseBody: " + responseBody);
       Navigator.push(context,
           new MaterialPageRoute(builder: (BuildContext context) => new Home()));
     } catch (exception) {
