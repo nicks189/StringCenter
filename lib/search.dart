@@ -54,23 +54,31 @@ class _SearchState extends State<Search> {
   // contains all tabs in the database. This object is parsed to populate _tabList, _userList, _groupList, and _postList
 
   _getSearchList() async {
-    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/search/$_search";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/search/"+_search.text;
 
     try {
       String responseBody = await getRequestAuthorization(url);
       Map m = json.decode(responseBody);
+      print("search searchterm: " + _search.text);
+      print("search responsebody: " + responseBody.toString());
       for (int i = 0; i < m['users'].length;i++) {
-        _userList.add(m['users'][i]);
+        _userList.add(new User(m["users"][i]["username"], m["users"][i]["description"]));
       }
       for (int i = 0; i < m['groups'].length;i++) {
-        _groupList.add(m['users'][i]);
+        _groupList.add(new Group(m["groups"][i]["groupName"]));
       }
       for (int i = 0; i < m['posts'].length;i++) {
-        _postList.add(m['users'][i]);
+        if (m['posts'][i]['tabId'] != null) {
+          _postList.add(new Post(
+              m['posts'][i]["content"], m['posts'][i]['tabId']));
+        } else {
+          _postList.add(new Post(m['posts'][i]["content"]));
+        }
       }
       for (int i = 0; i < m['tabs'].length;i++) {
-        _tabList.add(m['users'][i]);
+        _tabList.add(new Tabb.fromJson(m['tabs'][i]));
       }
+
     } catch (exception) {
       print("search exception: " + exception.toString());
     }
@@ -156,28 +164,18 @@ class _SearchState extends State<Search> {
         child: new Center(
             child: new Column(
               children: <Widget>[
-                new Expanded(child:
+                new Container(
+                  padding: new EdgeInsets.all(16.0),
+                  child:new TextField(
+                  controller: _search,
+                  decoration: new InputDecoration(hintText: "Enter a search term"),
+                  ),
+                ),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new TextField(
-                      controller: _search,
-                      decoration: new InputDecoration(hintText: "Enter a search term"),
-                    ),
-                    new RaisedButton(
-                      padding: new EdgeInsets.all(8.0),
-                      child: new Text("Search"),
-                      onPressed: () {if(_search.toString().isNotEmpty)
-                        _getSearchList().then((wl) {
-                          wl = _generateWidgets();
-                          setState(() {
-                            _widgetList = wl;
-                          });
-                        });
-                      },
-                    ),
                     new DropdownButton<String>(
-                      value: dropDownMap[0],
+                      value: dropDownMap[dropDownState],
                       hint: new Text('Pick a search filter'),
                       items: [
                         new DropdownMenuItem(
@@ -202,15 +200,47 @@ class _SearchState extends State<Search> {
                         ),
                       ],
                       onChanged: (_value) {
-                        if(_value == dropDownMap[0])dropDownState = 0;
-                        else if(_value == dropDownMap[1])dropDownState = 1;
-                        else if(_value == dropDownMap[2])dropDownState = 2;
-                        else if(_value == dropDownMap[3])dropDownState = 3;
-                        else if(_value == dropDownMap[4])dropDownState = 4;
+                        if(_value == dropDownMap[0]) {
+                          dropDownState = 0;
+                          print(dropDownState.toString());
+                          setState((){});
+                        }
+                        else if(_value == dropDownMap[1]) {
+                          dropDownState = 1;
+                          print(dropDownState.toString());
+                          setState((){});
+                        }
+                        else if(_value == dropDownMap[2]) {
+                          dropDownState = 2;
+                          print(dropDownState.toString());
+                          setState((){});
+                        }
+                        else if(_value == dropDownMap[3])
+                        {
+                          dropDownState = 3;
+                          print(dropDownState.toString());
+                          setState((){});
+                        }
+                        else if(_value == dropDownMap[4]){
+                          dropDownState = 4;
+                          print(dropDownState.toString());
+                          setState((){});
+                        }
+                      }, //onChanged
+                    ),
+                    new RaisedButton(
+                      padding: new EdgeInsets.all(8.0),
+                      child: new Text("Search"),
+                      onPressed: () {if(_search.text.isNotEmpty)
+                        _getSearchList().then((wl) {
+                          wl = _generateWidgets();
+                          setState(() {
+                            _widgetList = wl;
+                          });
+                        });
                       },
                     ),
                   ],
-                ),
                 ),
                 new Expanded(
                   child: new ListView(
