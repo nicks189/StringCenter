@@ -135,7 +135,6 @@ module.exports.findTabsByUser = function(passport){
 }
 
 
-//authentication
 /**
  * Create new tab with tab object from body request and store it in the database (tab obj at top of src file)
  * @param {passport} passport  used for authentication
@@ -164,6 +163,26 @@ module.exports.createTab = function(passport){
             });
         } else{
             res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
+        }
+    });
+    return router;
+}
+
+
+module.exports.deleteTab = function(passport){
+    router.delete('/deleteTab/:tabID/:username', function(req, res, next){
+        if(req.params.tabID && req.params.username){
+            Tab.remove({"_id" : req.params.tabID, "author_username" : req.params.username}, function(err, tab){
+                if(err){
+                    return res.json({ errors: [{ message: 'Something went wrong' }] }).status(400);
+                }
+
+                if(!tab){
+                    return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
+                }
+
+                return res.send("Tab deleted").status(201);
+            });
         }
     });
     return router;
