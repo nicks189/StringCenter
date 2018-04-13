@@ -27,7 +27,7 @@ var UserGroup = require('../../../models/userGroup');
                     return a.toLowerCase().localeCompare(b.toLowerCase());
                 });
 
-                return (usernames.length > 0 ? res.json({ usernames : usernames }).status(200) : res.json({errors: [{message : 'Group does not exist'}]}));
+                return (usernames.length > 0 ? res.json({ usernames : usernames }).status(200) : res.json({errors: [{message : 'no one in Group'}]}));
             });
         }
     });

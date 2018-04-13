@@ -24,7 +24,6 @@ function createGroup(passport){
                 if (err) {
                     return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
                 } else if(group) {
-                    console.log(group);
                     return res.json({errors: [{message: 'This Group already exists, try a different name'}]}).status(500);
                 } else{
                     //create group record
