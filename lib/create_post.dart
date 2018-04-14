@@ -88,12 +88,12 @@ class _CreatePostState extends State<CreatePost> {
               new TextField(
                 controller: _ptc,
               ),
-              new Padding(padding: EdgeInsets.all(8.0)),
+              new Padding(padding: new EdgeInsets.all(8.0)),
               new RaisedButton(
                 onPressed: _selectTab,
                 child: new Text('Select Tab'),
               ),
-              new Padding(padding: EdgeInsets.all(8.0)),
+              new Padding(padding: new EdgeInsets.all(8.0)),
               new RaisedButton(
                 onPressed: _finalizePost,
                 child: new Text('Post'),
