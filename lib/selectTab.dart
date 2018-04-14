@@ -13,20 +13,23 @@ import 'util.dart';
 ///attach to a Post they are creating.
 class SelectTab extends StatefulWidget {
   String _s;
+  String _groupName;
 
-  SelectTab(String s) {
+  SelectTab(String s, [String groupName = '']) {
     _s = s;
   }
 
   @override
-  _SelectTabState createState() => new _SelectTabState(_s);
+  _SelectTabState createState() => new _SelectTabState(_s,_groupName);
 }
 
 class _SelectTabState extends State<SelectTab> {
   String _s;
+  String _groupName;
 
-  _SelectTabState(String s) {
+  _SelectTabState(String s,[String groupName = '']) {
     _s = s;
+    _groupName = groupName;
   }
 
   bool _loaded = false;
@@ -71,7 +74,7 @@ class _SelectTabState extends State<SelectTab> {
               context,
               new MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      new CreatePost(_tabs[i], _s)));
+                      new CreatePost(_tabs[i], _s, )));
         },
         child: new Text(_tabs[i].title),
       ));
