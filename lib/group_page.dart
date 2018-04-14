@@ -103,7 +103,7 @@ class _GroupPageState extends State<GroupPage> {
             Navigator.push(
                 context,
                 new MaterialPageRoute(
-                    builder: (BuildContext context) => new CreatePost()));
+                    builder: (BuildContext context) => new CreatePost(null, '', _groupName)));
           }),
       margin: new EdgeInsets.all(24.0),
       decoration: new BoxDecoration(

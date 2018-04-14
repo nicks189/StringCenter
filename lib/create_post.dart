@@ -63,7 +63,7 @@ class _CreatePostState extends State<CreatePost> {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (BuildContext context) => new SelectTab(_ptc.text)));
+            builder: (BuildContext context) => new SelectTab(_ptc.text,_groupName)));
   }
 
 // build of CreatePost, provides UI for creating a Post
