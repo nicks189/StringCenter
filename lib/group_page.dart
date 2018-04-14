@@ -56,9 +56,9 @@ class _GroupPageState extends State<GroupPage> {
       for (int i = 0; i < posts['posts'].length; i++) {
         if (posts['posts'][i]['tabId'] != null) { //TODO problematic
           _postList.add(new Post(
-              posts['posts'][i]["content"], posts['posts'][i]['tabId']));
+              posts['posts'][i]["content"], posts['posts'][i]['tabId'], posts['posts'][i]['groupName']));
         } else {
-          _postList.add(new Post(posts['posts'][i]["content"]));
+          _postList.add(new Post(posts['posts'][i]["content"],'',posts['posts'][i]['groupName']));
         }
       }
     } catch (exception) {

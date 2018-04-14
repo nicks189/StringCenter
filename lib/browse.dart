@@ -118,6 +118,7 @@ class _BrowseState extends State<Browse> {
   List<Widget> _genGroupWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _groupList.length; i++) {
+      print(_groupList[i].groupName);
       widgetList.add(new MaterialButton(
         onPressed: () {
           Navigator.push(

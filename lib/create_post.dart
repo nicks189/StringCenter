@@ -33,7 +33,7 @@ class _CreatePostState extends State<CreatePost> {
   String _groupName;
   TextEditingController _ptc = new TextEditingController();
 
-  _CreatePostState([Tabb t, String s = '', String groupName]) {
+  _CreatePostState([Tabb t, String s = '', String groupName = '']) {
     _t = t;
     _s = s;
     _ptc.text = s;
@@ -42,7 +42,7 @@ class _CreatePostState extends State<CreatePost> {
 
   _finalizePost() async {
     Post p;
-    if (_t != null) { //TODO Problematic
+    if (_t != null) {
       p = new Post(_ptc.text, _t.id, _groupName);
     } else {
       p = new Post(_ptc.text,'',_groupName);
