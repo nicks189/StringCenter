@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'util.dart';
 import 'dart:convert';
 import 'servercommunication.dart';
+import 'dart:async';
 import 'post.dart';
 import 'view_post.dart';
 import 'globals.dart' as globals;
@@ -108,6 +109,29 @@ class _ViewUserState extends State<ViewUser> {
     } catch (exception) {
       print('follow error' + exception.toString());
     }
+  }
+
+  Future<List> _getFollowingList() async {
+    List<String> userList = new List<String>();
+    var url =
+        "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-follower/following/${globals.user.username}";
+    try {
+      String responseBody = await getRequestAuthorization(url);
+      Map js = json.decode(responseBody);
+      print("decoded json map: " + js.toString());
+      print("js['following'].length: " + js['following'].length.toString());
+      for (int i = 0; i < js['following'].length; i++) {
+        userList.add(js['following'][i]);
+      }
+    } catch (exception) {
+      print("exception following");
+    }
+    return userList;
+  }
+
+  Future<bool>_checkFollowing() async {
+    List<String> userList = await _getFollowingList();
+    return userList.contains(_userName);
   }
 
   @override
