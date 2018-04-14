@@ -151,6 +151,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text("Search"),
         actions: <Widget>[
           new IconButton(
@@ -165,7 +166,7 @@ class _SearchState extends State<Search> {
             child: new Column(
               children: <Widget>[
                 new Container(
-                  padding: new EdgeInsets.all(16.0),
+                  padding: new EdgeInsets.all(55.0),
                   child:new TextField(
                   controller: _search,
                   decoration: new InputDecoration(hintText: "Enter a search term"),
