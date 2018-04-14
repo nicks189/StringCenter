@@ -58,10 +58,11 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text('Login'),
       ),
       body: new Container(
-        padding: new EdgeInsets.all(32.0),
+        padding: new EdgeInsets.all(40.0),
         child: new Center(
           child: new Column(
             children: <Widget>[
@@ -70,13 +71,14 @@ class Login extends StatelessWidget {
                 decoration:
                     new InputDecoration(hintText: 'Enter your username'),
               ),
+              new Padding(padding: new EdgeInsets.all(10.0)),
               new TextField(
                 controller: _password,
                 decoration:
                     new InputDecoration(hintText: 'Enter your password'),
                 obscureText: true,
               ),
-              new Padding(padding: new EdgeInsets.all(32.0)),
+              new Padding(padding: new EdgeInsets.all(10.0)),
               new RaisedButton(
                 child: new Text('Login'),
                 onPressed: () async {
@@ -90,7 +92,10 @@ class Login extends StatelessWidget {
                         'Home', (Route<dynamic> route) => false);
                 },
               ),
+              new Padding(padding: new EdgeInsets.all(5.0)),
               new Text("Don't have an account?"),
+              new Padding(padding: new EdgeInsets.all(5.0)),
+
               new RaisedButton(
                 child: new Text("Register"),
                 onPressed: () {
