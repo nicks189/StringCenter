@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'servercommunication.dart';
 import 'post.dart';
 import 'util.dart';
+import 'followers.dart';
+import 'following.dart';
 import 'home.dart';
 import 'create_post.dart';
 import 'edit_profile.dart';
@@ -59,10 +61,34 @@ class _ProfileState extends State<Profile> {
   List<Widget> _generateWidgets() {
     print(globals.user.description);
     List<Widget> widgetList = new List<Widget>();
-    widgetList.add(new Text(
-      'About Me:',
-      textAlign: TextAlign.left,
-      style: new TextStyle(fontSize: 20.0),
+    widgetList.add(new Row(
+        children: <Widget>[
+          new Text(
+          'About Me:',
+          textAlign: TextAlign.left,
+         style: new TextStyle(fontSize: 20.0),
+         ),
+          new Padding(padding: new EdgeInsets.only(right: 40.0)),
+          new RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new Followers(globals.user.username)));
+            },
+            child: new Text('Followers'),),
+          new Padding(padding: new EdgeInsets.only(right: 15.0)),
+          new RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new Following(globals.user.username)));
+            },
+            child: new Text('Following'),),
+        ]
     ));
     widgetList.add(
       new Container(
@@ -96,16 +122,23 @@ class _ProfileState extends State<Profile> {
       ),
     ));
     for (int i = 0; i < _postList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
+      widgetList.add(
+        new Container(
+          decoration: new BoxDecoration(
+            border: Border.all(color: globals.themeColor)
+          ),
+          child: new MaterialButton(
+            onPressed: () {
+            Navigator.push(
               context,
               new MaterialPageRoute(
                   builder: (BuildContext context) =>
                       new ViewPost(_postList[i])));
         },
         child: new Text(_postList[i].content),
-      ));
+      )
+        ));
+      widgetList.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return widgetList;
   }
@@ -121,6 +154,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         leading: new Image.asset(
           'images/einstein.jpg',
           fit: BoxFit.scaleDown,
