@@ -99,6 +99,7 @@ let getGroup = require('./routes/api/group/getGroup')(passport);
 let getGroups = require('./routes/api/group/getGroups')(passport);
 let getUserGroupAdminStatus = require('./routes/api/group/getUserGroupAdminStatus')(passport);
 let updateGroup = require('./routes/api/group/updateGroup')(passport);
+let promoteUser = require('./routes/api/group/promoteUser')(passport);
 
 // followers/following
 let getFollowing = require('./routes/api/follower/getFollower').getFollowing(passport);
@@ -155,6 +156,7 @@ app.use('/api/get-group', getGroup);
 app.use('/api/get-groups', getGroups);
 app.use('/api/get-admin-status', getUserGroupAdminStatus);
 app.use('/api/update-group', updateGroup);
+app.use('/api/promote-user-in-group', promoteUser);
 
 // following/followers
 app.use('/api/get-follower/following', getFollowing);
