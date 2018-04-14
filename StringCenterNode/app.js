@@ -78,6 +78,7 @@ let findTabsById = require('./routes/api/tab/tabRoutes').findTabsById(passport);
 let findTabsByUser = require('./routes/api/tab/tabRoutes').findTabsByUser(passport);
 let createTab = require('./routes/api/tab/tabRoutes').createTab(passport);
 let deleteTab = require('./routes/api/tab/tabRoutes').deleteTab(passport);
+let updateTab = require('./routes/api/tab/tabRoutes').updateTab(passport);
 
 
 // post
@@ -134,6 +135,7 @@ app.use('/api/tab/findTabsById', findTabsById);
 app.use('/api/tab/findTabsByUser', findTabsByUser);
 app.use('/api/tab/createTab', createTab);
 app.use('/api/tab/deleteTab', deleteTab);
+app.use('/api/tab/updateTab', updateTab);
 
 // post
 app.use('/api/create-post', createPost);

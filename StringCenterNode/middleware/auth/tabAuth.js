@@ -120,7 +120,7 @@ function checkTuning(measure, tabTuning){
 function checkNoteCount(measure){
     if(measure && measure.stringCount){
         for(var i = 0; i < measure.stringCount; i++){
-            if(measure.strings && measure.strings[0] && measure.strings[i] && measure.strings[0].notes && measure.strings[1].notes && measure.strings[0].notes.length != measure.strings[i].notes.length){
+            if(measure.strings && measure.strings[0] && measure.strings[i] && measure.strings[0].notes && measure.strings[i].notes && measure.strings[0].notes.length != measure.strings[i].notes.length){
               console.log("invalid note count in measure " + measure + " in string " + i);
               return false;
             }

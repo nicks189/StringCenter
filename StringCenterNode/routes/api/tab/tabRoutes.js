@@ -145,7 +145,7 @@ module.exports.findTabsByUser = function(passport){
  */
 module.exports.createTab = function(passport){
     router.post('/createTab', function(req, res, next){
-        if(validateTab.valid(req.body.tab)){
+        if(req.body.tab && validateTab.valid(req.body.tab)){
             // add tab to database since it is valid
             var tab = req.body.tab;
             var tabDetail = {author_username: req.body.author_username, tab_name: req.body.tab_name, tab: tab};
@@ -154,15 +154,15 @@ module.exports.createTab = function(passport){
                 if(err){
                     console.log("ERROR" + err);
                     cb.cb(err, null);
-                    res.send("Tab Creation Failed");
+                    return res.send("Tab Creation Failed");
                 } else{
                     console.log(tab);
                     cb.cb(null, tab);
-                    res.json(tab).status(201);
+                    return res.json(tab).status(201);
                 }
             });
         } else{
-            res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
+            return res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
         }
     });
     return router;
@@ -187,6 +187,43 @@ module.exports.deleteTab = function(passport){
 
                 return (tab.n == 1 ? res.send({message : "Tab deleted"}).status(201) : res.json({ errors: [{ message: 'Tab not found' }] }).status(400));
             });
+        }
+    });
+    return router;
+}
+
+
+/**
+ * Update tab in database
+ * @param  {passport} passport  used for authentication
+ * @param  {HttpPostRequest}    req  url: /api/tab/updateTab (body: tabID, author_username, newTab, newTabName(optional))
+ * @param  {HttpResponse}   res
+ * @param  {Function}       next
+ * @return {Message}            If an existing tab is found with tabID and newTab is valid, the requested tab will be updated and returned. 
+ */
+module.exports.updateTab = function(passport){
+    router.put('/updateTab', function(req, res, next){
+        if(req.body.tabID && req.body.author_username && req.body.newTab && validateTab.valid(req.body.newTab)){
+            Tab.findOne({"_id" : req.body.tabID, "author_username" : req.body.author_username}, function(err, tab){
+                if(!tab){
+                    return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
+                }
+                tab.tab = req.body.newTab;
+                if(req.body.newTabName){
+                    tab.tab_name = req.body.newTabName;
+                }
+                tab.save(function(saveErr, tab){
+                    if(saveErr){
+                        return res.json({ errors: [{ message: 'Something went wrong in saving the new tab' }] }).status(500);
+                    }
+
+                    return res.json({newTab : tab});
+                })
+            });
+        } else if(!req.body.newTab){
+            return res.json({ errors: [{ message: 'No newTab sent' }] }).status(400);
+        } else{
+            return res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
         }
     });
     return router;
