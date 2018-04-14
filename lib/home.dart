@@ -23,8 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _message;
-  Color themeColor = new Color.fromARGB(255, 242, 155, 41);
-  TextStyle buttonStyle = new TextStyle(color: Colors.white);
+  TextStyle buttonStyle = new TextStyle(color: Colors.white, fontFamily: 'times');
   Widget _page = new Container();
 
   _HomeState() {
@@ -77,7 +76,7 @@ class _HomeState extends State<Home> {
     else
       _page = new Scaffold(
         appBar: new AppBar(
-          backgroundColor: themeColor,
+          backgroundColor: globals.themeColor,
           title: new Text('Home'),
           actions: <Widget>[
             new IconButton(
@@ -113,7 +112,7 @@ class _HomeState extends State<Home> {
 //             ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text(
                     "View Tabs",
                     style: buttonStyle,
@@ -128,7 +127,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("Create Tab", style: buttonStyle,),
                   onPressed: () {
                     Navigator.of(context).pushNamed('TabOptions');
@@ -136,7 +135,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("Followers", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
@@ -148,7 +147,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("Following", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
@@ -160,7 +159,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("Profile", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
@@ -171,7 +170,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("Browse", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
@@ -182,7 +181,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("Search", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(
@@ -193,7 +192,7 @@ class _HomeState extends State<Home> {
                 ),
                 new Padding(padding: new EdgeInsets.all(16.0)),
                 new RaisedButton(
-                  color: themeColor,
+                  color: globals.themeColor,
                   child: new Text("CreateGroup", style: buttonStyle,),
                   onPressed: () {
                     Navigator.push(

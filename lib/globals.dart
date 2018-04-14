@@ -1,5 +1,6 @@
 library ss_5.globals;
 
+import 'package:flutter/material.dart';
 import 'user.dart';
 
 ///Globals stores data that is required on a global scope
@@ -11,3 +12,4 @@ bool isLoggedIn = false;
 
 /// contains authentification token for current user, will be empty if User is null
 String token;
+Color themeColor = new Color.fromARGB(255, 242, 155, 41);
