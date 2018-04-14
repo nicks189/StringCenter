@@ -52,8 +52,7 @@ class _CreatePostState extends State<CreatePost> {
           'http://proj-309-ss-5.cs.iastate.edu:3000/api/create-post',
           json.encode(p));
       print("create_post responseBody: " + responseBody);
-      Navigator.push(context,
-          new MaterialPageRoute(builder: (BuildContext context) => new Home()));
+      goHome(context);
     } catch (exception) {
       print('send post exception' + exception.toString());
     }

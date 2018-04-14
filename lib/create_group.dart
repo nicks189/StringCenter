@@ -39,19 +39,8 @@ class _CreateGroupState extends State<CreateGroup> {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: globals.themeColor,
-        title: new Text("GroupName"),
+        title: new Text("Create Group"),
         actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.settings),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (BuildContext context) => new Scaffold(
-                          //TODO goto settings screen
-                          body: new Text("settings screen stub"),
-                        )));
-              }),
           new IconButton(
               icon: new Icon(Icons.home),
               onPressed: () {
