@@ -24,6 +24,7 @@ class ViewUser extends StatefulWidget {
 class _ViewUserState extends State<ViewUser> {
   String _userName;
   User _user;
+  bool _isFollowing;
   Image i = new Image.asset('einstein.jpg');
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
@@ -60,8 +61,11 @@ class _ViewUserState extends State<ViewUser> {
   void initState() {
     _getPostList().then((widgetList) {
       widgetList = _generateWidgets();
-      setState(() {
-        _widgetList = widgetList;
+      _checkFollowing().then((isFollowing) {
+        setState(() {
+          _isFollowing = isFollowing;
+          _widgetList = widgetList;
+        });
       });
     });
   }
@@ -98,10 +102,8 @@ class _ViewUserState extends State<ViewUser> {
     return widgetList;
   }
 
-  _follow() {
+  _follow() async {
     Map m = new Map();
-    m['username'] = globals.user.username;
-    m['followsUsername'] = _userName;
     try {
       postRequestWriteAuthorization(
           'http://proj-309-ss-5.cs.iastate.edu:3000/api/follow-user/$_userName',
@@ -109,6 +111,23 @@ class _ViewUserState extends State<ViewUser> {
     } catch (exception) {
       print('follow error' + exception.toString());
     }
+    setState(() {
+      _isFollowing = true;
+    });
+  }
+
+  _unfollow() async {
+    Map m = new Map();
+    try {
+      deleteRequestWriteAuthorization(
+          'http://proj-309-ss-5.cs.iastate.edu:3000/api/unfollow-user/$_userName',
+          json.encode(m));
+    } catch (exception) {
+      print('follow error' + exception.toString());
+    }
+    setState(() {
+      _isFollowing = false;
+    });
   }
 
   Future<List> _getFollowingList() async {
@@ -134,6 +153,20 @@ class _ViewUserState extends State<ViewUser> {
     return userList.contains(_userName);
   }
 
+  RaisedButton _generateFollowButton() {
+    if (_isFollowing) {
+      return new RaisedButton(
+        onPressed: _unfollow,
+        child: new Text('Unfollow'),
+      );
+    } else {
+      return new RaisedButton(
+        onPressed: _follow,
+        child: new Text('Follow'),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -144,10 +177,7 @@ class _ViewUserState extends State<ViewUser> {
         ),
         title: new Text(_userName),
         actions: <Widget>[
-          new RaisedButton(
-            onPressed: _follow,
-            child: new Text('Follow'),
-          ),
+          _generateFollowButton(),
           new IconButton(
               icon: new Icon(Icons.home),
               onPressed: () {
