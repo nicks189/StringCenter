@@ -68,7 +68,7 @@ class _ProfileState extends State<Profile> {
           textAlign: TextAlign.left,
          style: new TextStyle(fontSize: 20.0),
          ),
-          new Padding(padding: new EdgeInsets.only(right: 40.0)),
+          new Padding(padding: new EdgeInsets.only(right: 25.0)),
           new RaisedButton(
             color: globals.themeColor,
             onPressed: () {
