@@ -169,6 +169,14 @@ module.exports.createTab = function(passport){
 }
 
 
+/**
+ * Delete tab from database based on params tabID and username (username will be removed when authenticaiton is put back)
+ * @param  {passport} passport  used for authentication
+ * @param  {HttpPostRequest}    req  url: /api/tab/deleteTab/:tabID/:username
+ * @param  {HttpResponse}   res
+ * @param  {Function}       next
+ * @return {Message}       if tab is deleted returns "Tab deleted", if tab is not found "Tab not found"
+ */
 module.exports.deleteTab = function(passport){
     router.delete('/deleteTab/:tabID/:username', function(req, res, next){
         if(req.params.tabID && req.params.username){
@@ -177,11 +185,7 @@ module.exports.deleteTab = function(passport){
                     return res.json({ errors: [{ message: 'Something went wrong' }] }).status(400);
                 }
 
-                if(!tab){
-                    return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
-                }
-
-                return res.send("Tab deleted").status(201);
+                return (tab.n == 1 ? res.send({message : "Tab deleted"}).status(201) : res.json({ errors: [{ message: 'Tab not found' }] }).status(400));
             });
         }
     });
