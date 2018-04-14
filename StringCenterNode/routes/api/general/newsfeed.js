@@ -12,26 +12,24 @@ function newsfeed(passport){
                 return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
             }
 
-
             var followsPosts = [];
-            console.log(follows);
-            follows.forEach(function(f){
-                console.log(f);
+
+            follows.forEach(function(f, i){
                 Post.find({"authorUsername" : f.followsUsername}, function(err, fPosts){
-                    console.log(fPosts);
                     fPosts.forEach(function(fp){
-                        console.log(fp);
                         followsPosts.push(fp);
                     });
+
+
+                    followsPosts.sort(function (a, b) {
+                        return new Date(b.dateCreated) - new Date(a.dateCreated);
+                    });
+
+                    if(i == follows.length - 1){
+                        return (followsPosts.length > 0 ? res.json({posts: followsPosts}).status(200) : res.json({errors: [{message: 'Newsfeed empty'}]}));
+                    }
                 });
             });
-
-            console.log(followsPosts)
-            followsPosts.sort(function (a, b) {
-                return new Date(b.dateCreated) - new Date(a.dateCreated);
-            });
-
-            return (followsPosts.length > 0 ? res.json({posts: followsPosts}).status(200) : res.json({errors: [{message: 'Newsfeed empty'}]}));
         });
     });
     return router;
