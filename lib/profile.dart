@@ -70,6 +70,7 @@ class _ProfileState extends State<Profile> {
          ),
           new Padding(padding: new EdgeInsets.only(right: 40.0)),
           new RaisedButton(
+            color: globals.themeColor,
             onPressed: () {
               Navigator.push(
                   context,
@@ -77,9 +78,10 @@ class _ProfileState extends State<Profile> {
                       builder: (BuildContext context) =>
                       new Followers(globals.user.username)));
             },
-            child: new Text('Followers'),),
+            child: new Text('Followers'), textColor: Colors.white,),
           new Padding(padding: new EdgeInsets.only(right: 15.0)),
           new RaisedButton(
+            color: globals.themeColor,
             onPressed: () {
               Navigator.push(
                   context,
@@ -87,7 +89,7 @@ class _ProfileState extends State<Profile> {
                       builder: (BuildContext context) =>
                       new Following(globals.user.username)));
             },
-            child: new Text('Following'),),
+            child: new Text('Following'), textColor: Colors.white,),
         ]
     ));
     widgetList.add(
@@ -95,7 +97,7 @@ class _ProfileState extends State<Profile> {
           margin: new EdgeInsets.all(12.0),
           padding: new EdgeInsets.all(12.0),
           decoration: new BoxDecoration(
-            border: new Border.all(color: Colors.blue, width: 2.0),
+            border: new Border.all(color: globals.themeColor, width: 2.0),
             borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
           ),
           child: new Text(globals.user.description)),
@@ -116,9 +118,9 @@ class _ProfileState extends State<Profile> {
           }),
       margin: new EdgeInsets.all(24.0),
       decoration: new BoxDecoration(
-        border: new Border.all(color: Colors.red),
+        border: new Border.all(color: globals.themeColor),
         borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-        color: Colors.red,
+        color: globals.themeColor,
       ),
     ));
     for (int i = 0; i < _postList.length; i++) {
@@ -135,7 +137,13 @@ class _ProfileState extends State<Profile> {
                   builder: (BuildContext context) =>
                       new ViewPost(_postList[i])));
         },
-        child: new Text(_postList[i].content),
+        child: new Row(
+          children: <Widget>[
+             new Text(_postList[i].content),
+            new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)
+            ],
+          )
+            
       )
         ));
       widgetList.add(new Padding(padding: new EdgeInsets.all(10.0)));

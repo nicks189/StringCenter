@@ -12,4 +12,6 @@ bool isLoggedIn = false;
 
 /// contains authentification token for current user, will be empty if User is null
 String token;
-Color themeColor = new Color.fromARGB(255, 242, 155, 41);
+
+/// the color object used as the theme color
+Color themeColor = new Color.fromARGB(255, 173, 71, 17);
