@@ -4,6 +4,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'registerdata.dart';
 import 'servercommunication.dart';
+import 'logindata.dart';
+import 'fileIO.dart';
+import 'package:path_provider/path_provider.dart';
 
 ///Register is a StatelessWidget that allows a user to register for an account
 ///for StringCenter. A user must enter firstName, lastName, username, password,
@@ -40,6 +43,25 @@ class Register extends StatelessWidget {
     } catch (exception) {
       registerSuccess = false;
       print("exception: (register) " + exception.toString());
+    }
+  }
+  _sendLogin() async {
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/sign-in";
+    logindata ld = new logindata(username, password);
+    String js = json.encode(ld.toJson());
+    print("json (login in register): " + js);
+    try {
+      //send postRequest and get responseBody
+      String responseBody = await postRequestWrite(url, js);
+
+      //Save token into token.txt
+      Map m = json.decode(responseBody);
+      String token = m['token'];
+      String dir = (await getApplicationDocumentsDirectory()).path;
+      writeFileFromString(token, "token.txt", dir);
+    } catch (exception) {
+      print("exception: (login in register) " + exception.toString());
+
     }
   }
 
@@ -86,9 +108,11 @@ class Register extends StatelessWidget {
                 child: new Text('Register'),
                 onPressed: () async {
                   await _sendRegister();
-                  if (registerSuccess)
+                  if (registerSuccess){
+                    await _sendLogin();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'Home', (Route<dynamic> route) => false);
+                  }
                 },
               ),
             ],

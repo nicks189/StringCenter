@@ -40,12 +40,15 @@ class _EditProfileState extends State<EditProfile> {
 
   _deleteAccount() async {
     Map m = new Map();
+    Map r = new Map();
     String response = await deleteRequestWriteAuthorization(
         'http://proj-309-ss-5.cs.iastate.edu:3000/api/delete-user/${globals.user
             .username}',
         json.encode(m));
-    if (m['message'] != null) {
-      globals.isLoggedIn = false;
+    r = json.decode(response);
+    print(response);
+    print(r);
+    if (r['message'] != null) {
       goHome(context);
     }
   }

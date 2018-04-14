@@ -55,6 +55,10 @@ class _HomeState extends State<Home> {
       String responseBody = await getRequestTokenAuthorization(url, token);
       print("home" + responseBody);
       if (responseBody == "Unauthorized") {
+        resetAuth();
+        _page = new Login();
+        setState(() {
+        });
       } else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
@@ -67,6 +71,8 @@ class _HomeState extends State<Home> {
       resetAuth();
       print("requestuser exception: " + exception.toString());
       _page = new Login();
+      setState(() {
+      });
     }
   } // end requestUser()
 
