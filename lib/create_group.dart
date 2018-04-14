@@ -38,6 +38,7 @@ class _CreateGroupState extends State<CreateGroup> {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text("GroupName"),
         actions: <Widget>[
           new IconButton(
@@ -59,13 +60,23 @@ class _CreateGroupState extends State<CreateGroup> {
         ],
       ),
       body: new Container(
+        padding: new EdgeInsets.all(40.0),
         child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text('Enter Group Name:'),
-            new TextField(controller: _name,),
-            new Text('Enter Group Description:'),
-            new TextField(controller: _desc,),
+            new TextField(
+              controller: _name,
+              decoration: new InputDecoration(
+                hintText: 'Enter Group Name',
+             ),
+            ),
+            new Padding(padding: new EdgeInsets.all(15.0)),
+            new TextField(
+              controller: _desc,
+              decoration: new InputDecoration(
+                hintText: 'Enter Group Description',
+              ),
+            ),
+            new Padding(padding: new EdgeInsets.all(15.0)),
             new RaisedButton(onPressed: _save, child: new Text('Create Group'),)
           ],
         ),
