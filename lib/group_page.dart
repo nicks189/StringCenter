@@ -22,7 +22,7 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-  Group _group;
+  Group _group = new Group('','');
   String _groupName;
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
@@ -54,7 +54,7 @@ class _GroupPageState extends State<GroupPage> {
       }
       print("posts.length: " + posts['posts'].length.toString());
       for (int i = 0; i < posts['posts'].length; i++) {
-        if (posts['posts'][i]['tabId'] != null) { //TODO problematic
+        if (posts['posts'][i]['tabId'] != null) {
           _postList.add(new Post(
               posts['posts'][i]["content"], posts['posts'][i]['tabId'], posts['posts'][i]['groupName']));
         } else {
@@ -78,50 +78,27 @@ class _GroupPageState extends State<GroupPage> {
 
   List<Widget> _generateWidgets() {
     List<Widget> widgetList = new List<Widget>();
-    if (_group.description != '') {
-      widgetList.add(
-        new Container(
-            margin: new EdgeInsets.all(24.0),
-            padding: new EdgeInsets.all(12.0),
-            decoration: new BoxDecoration(
-              border: new Border.all(color: Colors.blue, width: 2.0),
-              borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-            ),
-            child: new Text(_group.description)),
-      );
-    }
-
-    widgetList.add(new Container(
-      child: new MaterialButton(
-          minWidth: 128.0,
-          height: 32.0,
-          child: new Text(
-            "Create Post",
-            style: new TextStyle(color: Colors.white, fontSize: 16.0),
-          ),
-          onPressed: () {
-            Navigator.push(
-                context,
-                new MaterialPageRoute(
-                    builder: (BuildContext context) => new CreatePost(null, '', _groupName)));
-          }),
-      margin: new EdgeInsets.all(24.0),
-      decoration: new BoxDecoration(
-        border: new Border.all(color: Colors.red),
-        borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-        color: Colors.red,
-      ),
-    ));
     for (int i = 0; i < _postList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                builder: (BuildContext context) => new ViewPost(_postList[i]),
-              ));
-        },
-        child: new Text(_postList[i].content),
+      widgetList.add(new Container(
+          decoration: new BoxDecoration(
+              border: Border.all(color: globals.themeColor)
+          ),
+          child: new MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                        new ViewPost(_postList[i])));
+              },
+              child: new Row(
+                children: <Widget>[
+                  new Text(_postList[i].content),
+                  new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)
+                ],
+              )
+
+          )
       ));
     }
     return widgetList;
@@ -138,6 +115,7 @@ class _GroupPageState extends State<GroupPage> {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text(_groupName),
         actions: <Widget>[
           new IconButton(
@@ -160,8 +138,68 @@ class _GroupPageState extends State<GroupPage> {
       ),
       body: new Container(
         child: new Center(
-          child: new ListView(
-              scrollDirection: Axis.vertical, children: _widgetList),
+          child: new Column(
+            children: <Widget>[
+              new Container(
+                  margin: new EdgeInsets.all(24.0),
+                  padding: new EdgeInsets.all(10.0),
+                  decoration: new BoxDecoration(
+                    border: new Border.all(color: globals.themeColor, width: 2.0),
+                    borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+                  ),
+                  child: new Text(_group.description)
+              ),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                new Container(
+                  child: new MaterialButton(
+                      minWidth: 128.0,
+                      height: 32.0,
+                      child: new Text(
+                        "Group Members",
+                        style: new TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute( //TODO add group members button
+                                builder: (BuildContext context) => new CreatePost(null, '', _groupName)));
+                      }),
+                  margin: new EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
+                  decoration: new BoxDecoration(
+                    border: new Border.all(color: globals.themeColor),
+                    borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+                    color: globals.themeColor,
+                  ),
+                ),
+                new Container(
+                  child: new MaterialButton(
+                      minWidth: 128.0,
+                      height: 32.0,
+                      child: new Text(
+                        "Create Post",
+                        style: new TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (BuildContext context) => new CreatePost(null, '', _groupName)));
+                      }),
+                  margin: new EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
+                  decoration: new BoxDecoration(
+                    border: new Border.all(color: globals.themeColor),
+                    borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+                    color: globals.themeColor,
+                  ),
+                ),
+              ],
+              ),
+              new Expanded(child: new ListView(scrollDirection: Axis.vertical, children: _widgetList),
+              ),
+            ],
+          ),
         ),
       ),
     );

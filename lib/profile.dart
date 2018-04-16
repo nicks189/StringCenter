@@ -108,7 +108,7 @@ class _ProfileState extends State<Profile> {
           height: 32.0,
           child: new Text(
             "Create Post",
-            style: new TextStyle(color: Colors.white, fontSize: 16.0),
+            style: new TextStyle(color: Colors.white),
           ),
           onPressed: () {
             Navigator.push(
