@@ -137,12 +137,7 @@ class _ProfileState extends State<Profile> {
                   builder: (BuildContext context) =>
                       new ViewPost(_postList[i])));
         },
-        child: new Row(
-          children: <Widget>[
-             new Text(_postList[i].content),
-            new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)
-            ],
-          )
+        child: new Text(_postList[i].content, softWrap: true,),
             
       )
         ));
