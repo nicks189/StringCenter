@@ -8,6 +8,7 @@ class Tabb {
   String _info;
   String _id;
   String _tuning;
+  String _authorUsername;
   num _stringCount;
   List<Measure> _measures;
 
@@ -24,6 +25,7 @@ class Tabb {
     Map t = json['tab'];
     _title = json['tab_name'];
     _id = json['_id'];
+    _authorUsername = json['author_username'];
     _info = t['info'];
     _tuning = t['tuning'];
     _stringCount = _tuning.length;
@@ -41,7 +43,7 @@ class Tabb {
     map['tuning'] = _tuning;
     map['measureCount'] = _measures.length.toString();
     map['measures'] = _measures;
-    tabMap['author_username'] = globals.user.username;
+    tabMap['author_username'] = _authorUsername;
     tabMap['tab_name'] = _title;
     tabMap['tab'] = map;
     return tabMap;
@@ -58,6 +60,7 @@ class Tabb {
   void printTabb() {
     print(_title);
     print(_info);
+    print(_authorUsername);
     String temp = "";
     for (Measure measure in _measures) {
       print(measure.info);
@@ -76,6 +79,7 @@ class Tabb {
     String t = "";
     t = t + 'Name: ' + _title + '\n';
     t = t + 'Info: ' + _info + '\n';
+    t = t + 'Author: ' + _authorUsername + '\n';
     String temp = "";
     // for (Measure measure in _measures) {
     for (int i = 0; i < _measures.length; i++) {
@@ -97,6 +101,7 @@ class Tabb {
     String t = "";
     t = t + _title + '\n';
     t = t + _info + '\n';
+    t = t + 'Author: ' + _authorUsername + '\n';
     String temp = "";
     for (Measure measure in _measures) {
       t = t + measure.info + '\n';
