@@ -14,19 +14,28 @@ const User = require('../../../models/user');
 module.exports.getAllUsers = function getAllUsers(passport) {
     let router = express.Router();
 
-    router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
-        User.find({}, {password: 0}, function (error, users) {
-            if (error) {
-                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-            } else if (users.length === 0) {
-                return res.json({errors: [{message: 'No users found'}]}).status(200);
-            }
-            // sort users alphabetically
-            users.sort(function (a, b) {
-                return a.username.toLowerCase().localeCompare(b.username.toLowerCase());
+    router.get('/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+        let page = req.params.page;
+        const pageSize = 100;
+        if (!page) {
+            page = 1;
+        }
+        User
+            .find({}, { password: 0 })
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .exec(function (error, users) {
+                if (error) {
+                    return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+                } else if (users.length === 0) {
+                    return res.json({ errors: [{ message: 'No users found' }] }).status(200);
+                }
+                // sort users alphabetically
+                users.sort(function (a, b) {
+                    return a.username.toLowerCase().localeCompare(b.username.toLowerCase());
+                });
+                res.json({ users: users }).status(200);
             });
-            res.json({users: users}).status(200);
-        });
     });
 
     return router;
@@ -44,11 +53,11 @@ module.exports.getUserInfo = function getUserInfo(passport) {
     let router = express.Router();
 
     router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
-        User.findOne({username: req.user.username}, {password: 0}, function (error, user) {
+        User.findOne({ username: req.user.username }, { password: 0 }, function (error, user) {
             if (error) {
-                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             } else if (!user) {
-                return res.json({errors: [{message: 'Username not found'}]}).status(200);
+                return res.json({ errors: [{ message: 'Username not found' }] }).status(200);
             }
             res.json(user).status(200);
         });

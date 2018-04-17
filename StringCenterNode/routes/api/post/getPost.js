@@ -12,35 +12,52 @@ const Post = require('../../../models/post');
  */
 module.exports.getPostsForUser = function getPost(passport) {
     let router = express.Router();
+    const pageSize = 100;
 
-    router.get('/', passport.authenticate('jwt', {session: false}), function (req, res, next) {
-        Post.find({authorUsername: req.user.username}, function (error, posts) {
-            if (error) {
-                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-            } else if (posts.length === 0) {
-                return res.json({errors: [{message: 'No posts found'}]}).status(400);
-            }
-            posts.sort(function (a, b) {
-                // sort by most recent dateCreated
-                return new Date(b.dateCreated) - new Date(a.dateCreated);
+    router.get('/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+        let page = req.params.page;
+        if (!page) {
+            page = 1;
+        }
+        Post
+            .find({authorUsername: req.user.username})
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .exec(function (error, posts) {
+                if (error) {
+                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                } else if (posts.length === 0) {
+                    return res.json({errors: [{message: 'No posts found'}]}).status(400);
+                }
+                posts.sort(function (a, b) {
+                    // sort by most recent dateCreated
+                    return new Date(b.dateCreated) - new Date(a.dateCreated);
+                });
+                res.json({posts: posts}).status(200);
             });
-            res.json({posts: posts}).status(200);
-        });
     });
 
-    router.get('/:username', passport.authenticate('jwt', {session: false}), function (req, res, next) {
-        Post.find({authorUsername: req.params.username}, function (error, posts) {
-            if (error) {
-                return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-            } else if (posts.length === 0) {
-                return res.json({errors: [{message: 'No posts found'}]}).status(400);
-            }
-            posts.sort(function (a, b) {
-                // sort by most recent dateCreated
-                return new Date(b.dateCreated) - new Date(a.dateCreated);
+    router.get('/:username/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+        let page = req.params.page;
+        if (!page) {
+            page = 1;
+        }
+        Post
+            .find({authorUsername: req.params.username})
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .exec(function (error, posts) {
+                if (error) {
+                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                } else if (posts.length === 0) {
+                    return res.json({errors: [{message: 'No posts found'}]}).status(400);
+                }
+                posts.sort(function (a, b) {
+                    // sort by most recent dateCreated
+                    return new Date(b.dateCreated) - new Date(a.dateCreated);
+                });
+                res.json({posts: posts}).status(200);
             });
-            res.json({posts: posts}).status(200);
-        });
     });
 
     return router;
