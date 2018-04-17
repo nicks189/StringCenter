@@ -7,7 +7,7 @@ import 'group_object.dart';
 import 'create_post.dart';
 import 'view_post.dart';
 import 'util.dart';
-
+import 'viewUserList.dart';
 ///GroupPage is a StatefulWidget that displays a group's page based on the
 ///groupname supplied as the parameter _givenGroupName to the Widget
 class GroupPage extends StatefulWidget {
@@ -143,6 +143,7 @@ class _GroupPageState extends State<GroupPage> {
               new Container(
                   margin: new EdgeInsets.all(24.0),
                   padding: new EdgeInsets.all(10.0),
+                  width: 400.0,
                   decoration: new BoxDecoration(
                     border: new Border.all(color: globals.themeColor, width: 2.0),
                     borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
@@ -163,8 +164,8 @@ class _GroupPageState extends State<GroupPage> {
                       onPressed: () {
                         Navigator.push(
                             context,
-                            new MaterialPageRoute( //TODO add group members button
-                                builder: (BuildContext context) => new CreatePost(null, '', _groupName)));
+                            new MaterialPageRoute(
+                                builder: (BuildContext context) => new ViewUserList(_groupName)));
                       }),
                   margin: new EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
                   decoration: new BoxDecoration(

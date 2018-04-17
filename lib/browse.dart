@@ -166,6 +166,7 @@ class _BrowseState extends State<Browse> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Browse"),
+        backgroundColor: globals.themeColor,
         actions: <Widget>[
           new IconButton(
               icon: new Icon(Icons.home),
@@ -178,6 +179,7 @@ class _BrowseState extends State<Browse> {
         child: new Center(
             child: new Column(
           children: <Widget>[
+            new Padding(padding: EdgeInsets.all(12.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
