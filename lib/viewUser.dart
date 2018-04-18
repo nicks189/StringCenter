@@ -181,6 +181,8 @@ class _ViewUserState extends State<ViewUser> {
           Navigator.of(context).pushAndRemoveUntil(
               new MaterialPageRoute(builder: (BuildContext context) => new Following(_followingUser)),
                   (Route<dynamic> route) => false);
+          else
+            Navigator.of(context).pop();
         }),
         /*new Image.asset(
           'images/einstein.jpg',
