@@ -77,7 +77,7 @@ class _FollowingState extends State<Following> {
               context,
               new MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    new ViewUser(_userList[i].username),
+                    new ViewUser(_userList[i].username, _user),
               ));
         },
         child: new Text(_userList[i].username),
