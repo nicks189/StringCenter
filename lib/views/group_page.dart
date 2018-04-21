@@ -40,13 +40,13 @@ class _GroupPageState extends State<GroupPage> {
       //get postlist from group $groupName
       Map m = {"groupName": "$_groupName"};
       String js = json.encode(m);
-      String responseBody = await getRequest(url);
+      String responseBody = await getRequestAuthorization(url);
       print ("group_page responsebody getpostlist: " + responseBody.toString());
       Map posts = json.decode(responseBody);
       //store group as group_object
       url =
           "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group/$_groupName";
-      responseBody = await getRequest(url);
+      responseBody = await getRequestAuthorization(url);
       Map m2 = json.decode(responseBody);
       print("group page get group: " + responseBody);
       if (m2['group']['description'] != null) {
