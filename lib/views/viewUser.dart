@@ -121,7 +121,7 @@ class _ViewUserState extends State<ViewUser> {
           margin: new EdgeInsets.all(12.0),
           padding: new EdgeInsets.all(12.0),
           decoration: new BoxDecoration(
-            border: new Border.all(color: Colors.blue, width: 2.0),
+            border: new Border.all(color: globals.themeColor, width: 2.0),
             borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
           ),
           child: new Text(_user.description)),

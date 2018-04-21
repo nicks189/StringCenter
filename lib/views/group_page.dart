@@ -9,12 +9,12 @@ import 'package:ss_5/views/create_post.dart';
 import 'package:ss_5/views/view_post.dart';
 import 'package:ss_5/util/util.dart';
 import 'package:ss_5/views/viewUserList.dart';
+import 'package:ss_5/data/tab.dart';
 
 ///GroupPage is a StatefulWidget that displays a group's page based on the
 ///groupname supplied as the parameter _givenGroupName to the Widget
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
-
   GroupPage(givenGroupName) {
     _givenGroupName = givenGroupName;
   }
@@ -58,7 +58,7 @@ class _GroupPageState extends State<GroupPage> {
       for (int i = 0; i < posts['posts'].length; i++) {
         if (posts['posts'][i]['tabId'] != null) {
           _postList.add(new Post(
-              posts['posts'][i]["content"], posts['posts'][i]['tabId'], posts['posts'][i]['groupName']));
+              posts['posts'][i]["content"], posts['posts'][i]['tabId'], posts['posts'][i]['groupName'], Tabb.fromJson(posts['posts'][i]['tab'])));
         } else {
           _postList.add(new Post(posts['posts'][i]["content"],'',posts['posts'][i]['groupName']));
         }
@@ -82,6 +82,7 @@ class _GroupPageState extends State<GroupPage> {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _postList.length; i++) {
       widgetList.add(new Container(
+        margin: EdgeInsets.all(12.0),
           decoration: new BoxDecoration(
               border: Border.all(color: globals.themeColor)
           ),
@@ -96,6 +97,7 @@ class _GroupPageState extends State<GroupPage> {
               child: new Row(
                 children: <Widget>[
                   new Text(_postList[i].content),
+                  //TODO add render to post, put here
                   new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)
                 ],
               )
