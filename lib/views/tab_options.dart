@@ -42,25 +42,6 @@ class _TabOptionsState extends State<TabOptions> {
                 hintText: 'Enter Tab Info',
               ),
             ),
-            new Row(
-              children: <Widget>[
-                new DropdownButton<String>(
-                  value: m[2],
-                  hint: new Text('Select an Instrument'),
-                  items: [
-                    new DropdownMenuItem(
-                      value: m[1],
-                      child: new Text(m[1]),
-                    ),
-                    new DropdownMenuItem(
-                      value: m[2],
-                      child: new Text(m[2]),
-                    )
-                  ],
-                  onChanged: (_) {},
-                ),
-              ],
-            ),
             new TextField(
               controller: _tuningController,
               decoration: new InputDecoration(
