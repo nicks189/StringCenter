@@ -48,7 +48,8 @@ class _ViewPostState extends State<ViewPost> {
 
   Widget _showTab() {
     if (_t != null) {
-      return new Text(_t.tabToString());
+      return new Text(_t.render(),
+          style: new TextStyle(fontSize: 22.0, fontFamily: 'monospace'));
     } else
       return new Text('');
   }
@@ -67,10 +68,18 @@ class _ViewPostState extends State<ViewPost> {
       body: new Container(
         alignment: Alignment.center,
         padding: new EdgeInsets.all(20.0),
-        child: new Column(
+        child: new ListView(
           children: <Widget>[
-            new Text(_post.content),
-            _showTab(),
+            new Container(
+                margin: new EdgeInsets.all(24.0),
+                padding: new EdgeInsets.all(10.0),
+                width: 400.0,
+                decoration: new BoxDecoration(
+                    border: Border.all(color: globals.themeColor)
+                ),
+                child: new Text(_post.content),
+                ),
+                _showTab(),
           ],
         ),
       ),

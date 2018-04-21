@@ -86,7 +86,7 @@ class Tabb {
     // for (Measure measure in _measures) {
     for (int i = 0; i < _measures.length; i++) {
       Measure measure = _measures[i];
-      t = t + 'Measure ${i + 1}: ' + measure.info + '\n';
+      t = t + '\n';
       for (int i = _stringCount - 1; i >= 0; i--) {
         temp += measure.strings[i].tuning + ' ';
         for (String note in measure.strings[i].notes) {

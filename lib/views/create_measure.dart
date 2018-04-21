@@ -61,7 +61,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
   void _nextMeasure() {
     setState(() {
       _t.addMeasure(_m);
-      _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
+      _m = new Measure('', _t.tuning.length, _noteCount, _t.tuning);
     });
   }
 

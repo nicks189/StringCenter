@@ -42,6 +42,7 @@ class ViewTab extends StatelessWidget {
       return new Scaffold(
         appBar: new AppBar(
           title: new Text('View Tab'),
+          backgroundColor: globals.themeColor,
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.edit), onPressed: (){
               Navigator.of(context).pushAndRemoveUntil(
