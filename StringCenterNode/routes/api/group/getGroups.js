@@ -13,27 +13,15 @@ var Group = require('../../../models/group');
  */
 function getGroups(passport){
     var router = express.Router();
-
-    router.get('/', function(req, res, next){
+    router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next){
         Group.find(function(err, groups){
-            if (err) {
-              return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-            }
-
+            if (err) {return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);}
             let groupNames = [];
-            groups.forEach(function(e){
-                groupNames.push(e.groupName);
-            });
-
-            //sort usernames alphabetically
-            groupNames = groupNames.sort(function(a, b){
-                return a.toLowerCase().localeCompare(b.toLowerCase());
-            });
-
+            groups.forEach(function(e){groupNames.push(e.groupName);});
+            groupNames = groupNames.sort(function(a, b){return a.toLowerCase().localeCompare(b.toLowerCase());});
             res.json({ groupsByName: groupNames }).status(200);
         });
     });
-
     return router;
 }
 
