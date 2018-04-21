@@ -18,6 +18,7 @@ class SelectTab extends StatefulWidget {
 
   SelectTab(String s, [String groupName = '']) {
     _s = s;
+    _groupName = groupName;
   }
 
   @override
@@ -75,7 +76,7 @@ class _SelectTabState extends State<SelectTab> {
               context,
               new MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      new CreatePost(_tabs[i], _s, )));
+                      new CreatePost(_tabs[i], _s, _groupName)));
         },
         child: new Text(_tabs[i].title),
       ));
