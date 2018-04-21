@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:ss_5/util/util.dart';
 import 'home.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 import 'dart:convert';
 class EditTab extends StatefulWidget {
   Tabb _t;
@@ -19,6 +21,7 @@ class _EditTabState extends State<EditTab> {
   String _title;
   String _info;
   String _tuning;
+  num index = 0;
   Tabb _t;
   Measure _m;
   int _noteCount;
@@ -29,9 +32,9 @@ class _EditTabState extends State<EditTab> {
 
   _EditTabState(Tabb t) {
     _t = t;
-    _noteCount = 0;
-    _noteController.text = '6';
-    _symbolController.text = '8';
+    _noteCount = _t.measures[0].strings[0].noteCount;
+    _m = _t.measures[index];
+    _noteController.text = _t.measures[0].strings[0].noteCount.toString();
   }
 
   void _newMeasure() {
@@ -54,30 +57,48 @@ class _EditTabState extends State<EditTab> {
 
   void _nextMeasure() {
     setState(() {
-      _t.addMeasure(_m);
-      _m = new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
+      _t.measures[index] = _m;
+      index = _t.measures.length;
+      _t.addMeasure(new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning));
+      _m = _t.measures[index];
+      new Measure(_t.info, _t.tuning.length, _noteCount, _t.tuning);
+    });
+  }
+
+  void _viewNext() {
+    setState(() {
+      _t.measures[index] = _m;
+      if(index < (_t.measures.length - 1)) {
+        _m = _t.measures[index + 1];
+        index++;
+      }
+    });
+  }
+  void _viewPrevious() {
+    setState(() {
+      _t.measures[index] = _m;
+      if(index > 0) {
+        _m = _t.measures[index - 1];
+        index--;
+      }
     });
   }
 
   _pushTab() async {
+    _t.measures[index] = _m;
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/updateTab";
     var httpClient = new HttpClient();
     String result;
-    var js = json.encode(_t);
-    print(js);
+    Map m = new Map();
+    m['tabID'] = _t.id;
+    m['newTab'] = _t;
+    var js = json.encode(m);
+    print('test json'+js);
     try {
-      var request = await httpClient.postUrl(Uri.parse(url));
-      print(Uri.parse(url));
-      request.headers.contentType = new ContentType("application", "json");
-      request.write(js);
-      var response = await request.close();
-      var responseBody = await response.transform(UTF8.decoder).join();
-      print('BODY: $responseBody');
+      var responseBody = await putRequestWriteAuthorization(url, js);
+      print('BODY edittab pushtab: $responseBody');
       Map b = new Map();
       b = json.decode(responseBody);
-      Tabb t = new Tabb.fromJson(b);
-      print(t); // fields are the same, just no quotes
-      //TODO (if success result = success)
       result = 'success';
       Navigator.of(context).pushAndRemoveUntil(
           new MaterialPageRoute(builder: (BuildContext context) => new Home()),
@@ -164,11 +185,23 @@ class _EditTabState extends State<EditTab> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text(
-          'Create Measure',
+          'Edit Tab',
           textAlign: TextAlign.center,
         ),
         actions: [
+          new IconButton(
+              icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+                _viewPrevious();
+              }),
+          new IconButton(
+              icon: new Icon(Icons.arrow_forward),
+              onPressed: () {
+                _viewNext();
+              }),
+
           new IconButton(icon: new Icon(Icons.add), onPressed: _nextMeasure),
           new IconButton(
               icon: new Icon(Icons.file_upload), onPressed: _pushTab),
@@ -191,6 +224,5 @@ class _EditTabState extends State<EditTab> {
             children: generateWidgets(),
           )),
     );
-    return new Scaffold();
   }
 }
