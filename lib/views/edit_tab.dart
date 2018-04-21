@@ -16,6 +16,6 @@ class _EditTabState extends State<EditTab> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return new Scaffold();
   }
 }
