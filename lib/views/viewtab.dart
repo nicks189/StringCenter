@@ -63,6 +63,7 @@ class ViewTab extends StatelessWidget {
     else
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text('View Tab'),
       ),
       body: new Container(

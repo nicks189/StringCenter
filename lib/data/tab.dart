@@ -128,7 +128,7 @@ class Tabb {
   get measureCount => _measures.length;
 
   get title => _title;
-  
+
   get measures => _measures;
 }
 
