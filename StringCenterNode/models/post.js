@@ -29,6 +29,10 @@ let PostSchema = mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    tab: {
+        type: Object,
+        default: null
     }
 });
 

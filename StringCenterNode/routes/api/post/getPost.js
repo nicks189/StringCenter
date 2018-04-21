@@ -110,7 +110,14 @@ module.exports.getPostById = function(passport) {
             } else if (!post) {
                 return res.json({ errors: [{ message: 'Post not found' }] }).status(400);
             }
-            res.json(post).status(200);
+            Tab.findById(post.tabId, function (error, tab) {
+                if (error) {
+                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                } else if (tab) {
+                    post.tab = tab;
+                }
+                res.json(post).status(200);
+            });
         });
     });
 
