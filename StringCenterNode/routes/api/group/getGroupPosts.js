@@ -2,7 +2,6 @@ var express = require('express');
 var Post = require('../../../models/post');
 
 
-//authentication removed for testing
 /**
  * Returns all posts tied with the requested groupName ordered by timestamp
  * @param  {passport}       passport  used for authentication
@@ -13,19 +12,14 @@ var Post = require('../../../models/post');
  */
 function getGroupPosts(passport){
     var router = express.Router();
-
-    router.get('/:groupName', function(req, res, next){
+    router.get('/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
         if(req.params.groupName){
             Post.find({"groupName" : req.params.groupName}, function(error, posts){
-                posts.sort(function(a, b){
-                    return new Date(b.timestamp) - new Date(a.timestamp);
-                });
-
+                posts.sort(function(a, b){return new Date(b.timestamp) - new Date(a.timestamp);});
                 res.json({posts: posts}).status(200);
             });
         }
     });
-
     return router;
 }
 
