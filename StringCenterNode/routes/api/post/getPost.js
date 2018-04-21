@@ -1,5 +1,6 @@
 const express = require('express');
 const Post = require('../../../models/post');
+const Tab = require('../../../models/tabModel');
 
 /**
  * Get all posts created by username or the currently authenticated user
@@ -14,7 +15,7 @@ module.exports.getPostsForUser = function getPost(passport) {
     let router = express.Router();
     const pageSize = 100;
 
-    router.get('/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+    router.get('/current/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
         let page = req.params.page;
         if (!page) {
             page = 1;
@@ -33,11 +34,23 @@ module.exports.getPostsForUser = function getPost(passport) {
                     // sort by most recent dateCreated
                     return new Date(b.dateCreated) - new Date(a.dateCreated);
                 });
-                res.json({posts: posts}).status(200);
+                posts.forEach(function (p, i) {
+                    Tab.findById(p.tabId, function (error, tab) {
+                        if (error) {
+                            return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                        } else if (tab) {
+                            p.tab = tab;
+                        }
+
+                        if (i === posts.length - 1) {
+                            return res.json({posts: posts}).status(200);
+                        }
+                    });
+                });
             });
     });
 
-    router.get('/:username/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+    router.get('/by-name/:username/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
         let page = req.params.page;
         if (!page) {
             page = 1;
@@ -56,7 +69,19 @@ module.exports.getPostsForUser = function getPost(passport) {
                     // sort by most recent dateCreated
                     return new Date(b.dateCreated) - new Date(a.dateCreated);
                 });
-                res.json({posts: posts}).status(200);
+                posts.forEach(function (p, i) {
+                    Tab.findById(p.tabId, function (error, tab) {
+                        if (error) {
+                            return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                        } else if (tab) {
+                            p.tab = tab;
+                        }
+
+                        if (i === posts.length - 1) {
+                            return res.json({posts: posts}).status(200);
+                        }
+                    });
+                });
             });
     });
 
