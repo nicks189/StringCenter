@@ -64,7 +64,7 @@ class _BrowseState extends State<Browse> {
   _getGroupList() async {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-groups";
     try {
-      String responseBody = await getRequest(url);
+      String responseBody = await getRequestAuthorization(url);
       Map groups = json.decode(responseBody);
       print("groups.length (browse) : " +
           groups["groupsByName"].length.toString());

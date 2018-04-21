@@ -191,5 +191,6 @@ class _EditTabState extends State<EditTab> {
             children: generateWidgets(),
           )),
     );
+    return new Scaffold();
   }
 }

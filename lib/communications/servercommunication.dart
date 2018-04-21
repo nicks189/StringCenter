@@ -57,7 +57,7 @@ Future<String> getRequestAuthorization(String url) async {
 //Post request to [url]
 //body is written with [json]
 //returns response from server as Future<String>
-//used by log_in, register, and group_page
+//used by log_in, register, group_page, and createMeasure
 Future<String> postRequestWrite(String url, String json) async {
   HttpClient httpClient = new HttpClient();
   var request = await httpClient.postUrl(Uri.parse(url));

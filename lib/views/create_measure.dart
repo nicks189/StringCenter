@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'dart:io';
 import 'dart:convert';
-
+import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/data/tab.dart';
 import 'package:ss_5/views/home.dart';
 import 'package:ss_5/util/util.dart';
@@ -70,20 +70,13 @@ class _CreateMeasureState extends State<CreateMeasure> {
     var httpClient = new HttpClient();
     String result;
     var js = json.encode(_t);
-    print(js);
     try {
-      var request = await httpClient.postUrl(Uri.parse(url));
-      print(Uri.parse(url));
-      request.headers.contentType = new ContentType("application", "json");
-      request.write(js);
-      var response = await request.close();
-      var responseBody = await response.transform(UTF8.decoder).join();
-      print('BODY: $responseBody');
+      var responseBody = await postRequestWriteAuthorization(url, js);
+      print('BODY createmeasure pushtab: $responseBody');
       Map b = new Map();
       b = json.decode(responseBody);
       Tabb t = new Tabb.fromJson(b);
       print(t); // fields are the same, just no quotes
-      //TODO (if success result = success)
       result = 'success';
       Navigator.of(context).pushAndRemoveUntil(
           new MaterialPageRoute(builder: (BuildContext context) => new Home()),
