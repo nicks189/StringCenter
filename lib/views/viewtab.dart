@@ -24,12 +24,13 @@ class ViewTab extends StatelessWidget {
 
   _deleteTab() async {
     String _username = _t.toJson()["author_username"];
-    String _tabID = _t.toJson()["tabID"];
+    String _tabID = _t.toJson()["_id"];
     Map js = new Map();
     try {
-      String url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/deleteTab//$_username";
-      String resposeBody = await deleteRequestWriteAuthorization(
+      String url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/deleteTab/$_tabID";
+      String responseBody = await deleteRequestWriteAuthorization(
           url, json.encode(js));
+      print('deleteTab on viewtab responsebody: ' + responseBody);
     } catch (exception) {
       print("viewtab deleteTab exception: " + exception.toString());
     }

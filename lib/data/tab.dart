@@ -46,6 +46,7 @@ class Tabb {
     map['measures'] = _measures;
     tabMap['author_username'] = _authorUsername;
     tabMap['tab_name'] = _title;
+    tabMap['_id'] = _id;
     tabMap['tab'] = map;
     return tabMap;
   }
@@ -127,6 +128,8 @@ class Tabb {
   get measureCount => _measures.length;
 
   get title => _title;
+  
+  get measures => _measures;
 }
 
 class Measure {
