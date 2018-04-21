@@ -14,7 +14,7 @@ module.exports.getPostsForUser = function getPost(passport) {
     let router = express.Router();
     const pageSize = 100;
 
-    router.get('/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+    router.get('/current/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
         let page = req.params.page;
         if (!page) {
             page = 1;
@@ -37,7 +37,7 @@ module.exports.getPostsForUser = function getPost(passport) {
             });
     });
 
-    router.get('/:username/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+    router.get('/by-name/:username/:page?', passport.authenticate('jwt', {session: false}), function (req, res, next) {
         let page = req.params.page;
         if (!page) {
             page = 1;
