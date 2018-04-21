@@ -2,7 +2,6 @@ var express = require('express');
 var Group = require('../../../models/group');
 
 
-//authentication removed for testing
 /**
  * Get Group record by groupName
  * @param  {passport}       passport  used for authentication
@@ -14,8 +13,7 @@ var Group = require('../../../models/group');
  */
 function getGroup(passport){
     var router = express.Router();
-
-    router.get('/:groupName', function(req, res, next){
+    router.get('/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
         if(req.params.groupName){
             Group.findOne({groupName : req.params.groupName}, function(err, group){
                 if (err) {
@@ -24,8 +22,7 @@ function getGroup(passport){
                 return (group ? res.json({ group: group }).status(200) : res.json({errors: [{message : 'Group does not exist'}]}));
             });
         }
-    });
-
+    });    
     return router;
 }
 
