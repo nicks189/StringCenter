@@ -30,8 +30,9 @@ class _ViewPostState extends State<ViewPost> {
 
   @override
   void initState() {
-    _getTab();
-    setState(() {});
+    _getTab().then((_){
+      setState(() {});
+      });
   }
 
   _getTab() async {
@@ -56,6 +57,7 @@ class _ViewPostState extends State<ViewPost> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         leading: new Image.asset(
           'images/einstein.jpg',
           fit: BoxFit.scaleDown,
