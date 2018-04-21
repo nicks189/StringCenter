@@ -16,9 +16,7 @@ function getUserGroupAdminStatus(passport){
     router.get('/:username/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
         if(req.params.groupName && req.params.username){
             UserGroup.findOne({'groupName' : req.params.groupName, 'username' : req.params.username}, function(err, userGroup){
-                if(err){
-                    return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
-                }
+                if (err) return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
                 return (userGroup ? res.json({adminStatus : userGroup.admin}) : res.json({errors: [{message : 'User is not a member of this group or the group doesn\'t exist'}]}).status(500));
             });
         }

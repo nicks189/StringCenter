@@ -15,6 +15,7 @@ var UserGroup = require('../../../models/userGroup');
     router.get('/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
         if(req.params.groupName){
             UserGroup.find({"groupName": req.params.groupName}, function(error, userGroup){
+                if (error) return res.json({errors: [{message : 'Something went wrong in finding the userGroup record'}]});
                 let usernames = [];
                 userGroup.forEach(function(e){usernames.push(e.username);});
                 usernames = usernames.sort(function(a, b){return a.toLowerCase().localeCompare(b.toLowerCase());});
