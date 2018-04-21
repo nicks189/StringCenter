@@ -16,30 +16,25 @@ var Group = require('../../../models/group');
  */
 function joinGroup(passport){
     var router = express.Router();
-    router.post('/', function(req, res, next){
-        if(req.body.groupName && req.body.username){
-            console.log(req.body);
+    router.put('/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
+        if(req.params.groupName && req.user.username){
+            Group.findOne({"groupName": req.params.groupName}, function(groupError, group){
+                if(groupError) return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
 
-            Group.findOne({"groupName": req.body.groupName}, function(groupError, group){
-                if(groupError){
-                    return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-                } else if (!group) {
+                if (!group) {
                     return res.json({ errors: [{ message: 'Group does not exist' }] }).status(400);
                 } else{
-                    UserGroup.findOne({"username": req.body.username, "groupName" : req.body.groupName}, function(userGroupError, userGroup){
-                        if (userGroupError) {
-                            return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-                        } else if (userGroup) {
+                    UserGroup.findOne({"username": req.user.username, "groupName" : req.params.groupName}, function(userGroupError, userGroup){
+                        if (userGroupError) return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
+
+                        if (userGroup) {
                             return res.json({ errors: [{ message: 'User is already in the requested group' }] }).status(400);
                         } else{
                             var newUserGroup = new UserGroup();
-                            newUserGroup.username = req.body.username;
-                            //when authorization is implemented the above assignment will be
-                            //newUserGroup.username = req.user.username;
-                            newUserGroup.groupName = req.body.groupName;
-                            if(req.body.admin == "true"){
-                                newUserGroup.admin = req.body.admin;
-                            }
+                            newUserGroup.username = req.user.username;
+                            newUserGroup.groupName = req.params.groupName;
+                            newUserGroup.admin = false;
+                            newUserGroup.moderator = false;
                             newUserGroup.validateAndSave(function(errors, userGroup){
                                 return (!errors ? res.json(userGroup).status(201) : res.json(errors).status(400));
                             });
