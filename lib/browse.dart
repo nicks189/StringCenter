@@ -179,7 +179,7 @@ class _BrowseState extends State<Browse> {
         child: new Center(
             child: new Column(
           children: <Widget>[
-            new Padding(padding: EdgeInsets.all(12.0)),
+            new Padding(padding: new EdgeInsets.all(12.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
