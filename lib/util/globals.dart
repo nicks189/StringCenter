@@ -1,7 +1,7 @@
 library ss_5.globals;
 
 import 'package:flutter/material.dart';
-import 'user.dart';
+import 'package:ss_5/data/user.dart';
 
 ///Globals stores data that is required on a global scope
 /// current User

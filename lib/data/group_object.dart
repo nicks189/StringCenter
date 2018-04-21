@@ -1,4 +1,4 @@
-import 'globals.dart' as globals;
+import 'package:ss_5/util/globals.dart' as globals;
 
 /// Object that stores data for groups
 class Group {

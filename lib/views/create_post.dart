@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'dart:convert';
 
-import 'tab.dart';
+import 'package:ss_5/data/tab.dart';
 import 'selectTab.dart';
-import 'post.dart';
-import 'servercommunication.dart';
-import 'home.dart';
-import 'util.dart';
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/views/home.dart';
+import 'package:ss_5/util/util.dart';
 
 /// CreatePost is a StatefulWidget that allows a user to create a Post which may
 /// or may not contain a Tabb object, and may or may not contain a text field

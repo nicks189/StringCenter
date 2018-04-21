@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:convert';
 
-import 'tab.dart';
-import 'home.dart';
-import 'util.dart';
-import 'globals.dart' as globals;
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/views/home.dart';
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 
 /// CreateMeasure is a StatefulWidget that is the interface for a user to create a measure of a Tabb
 class CreateMeasure extends StatefulWidget {

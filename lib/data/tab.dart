@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'globals.dart' as globals;
+import 'package:ss_5/util/globals.dart' as globals;
 
 ///Tabb defines the data stored in Tabb objects and has various methods for manipulating
 ///the data or putting it into useful formats for displaying, etc.

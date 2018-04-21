@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import "dart:convert";
 import "dart:io";
-import 'tab.dart';
-import 'globals.dart' as globals;
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 import 'edit_tab.dart';
-import 'util.dart';
-import 'servercommunication.dart';
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+
+
+import 'package:ss_5/data/tab.dart';
+
+
 ///ViewTab is a StatelessWidget that displays a tab
 ///takes in a Tabb as a parameter [_t]
 class ViewTab extends StatelessWidget {

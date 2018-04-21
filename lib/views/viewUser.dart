@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'util.dart';
-import 'dart:convert';
-import 'servercommunication.dart';
 import 'dart:async';
-import 'post.dart';
-import 'view_post.dart';
-import 'globals.dart' as globals;
-import 'user.dart';
-import 'following.dart';
+import 'dart:convert';
+
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/views/view_post.dart';
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/data/user.dart';
+import 'package:ss_5/views/following.dart';
+
 ///ViewUser is a StatefulWidget that displays a user's page
 ///Takes in a [_givenUserName] in order to determine which user to display
 class ViewUser extends StatefulWidget {

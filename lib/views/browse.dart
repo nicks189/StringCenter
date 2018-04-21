@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'globals.dart' as globals;
-import 'post.dart';
-import 'servercommunication.dart';
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/communications/servercommunication.dart';
 import 'dart:convert';
-import 'tab.dart';
-import 'group_object.dart';
-import 'user.dart';
-import 'viewtab.dart';
-import 'group_page.dart';
-import 'viewUser.dart';
-import 'home.dart';
-import 'util.dart';
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/data/group_object.dart';
+import 'package:ss_5/data/user.dart';
+import 'package:ss_5/views/viewtab.dart';
+import 'package:ss_5/views/group_page.dart';
+import 'package:ss_5/views/viewUser.dart';
+import 'package:ss_5/views/home.dart';
+import 'package:ss_5/util/util.dart';
 
 /// Browse is a StatefulWidget that allows users to request a list of either Groups, Users, or Tabs
 /// When a group is selected by the user, the app will route to GroupPage
@@ -179,7 +179,7 @@ class _BrowseState extends State<Browse> {
         child: new Center(
             child: new Column(
           children: <Widget>[
-            new Padding(padding: EdgeInsets.all(12.0)),
+            new Padding(padding: new EdgeInsets.all(12.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[

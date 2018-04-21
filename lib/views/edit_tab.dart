@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tab.dart';
+import 'package:ss_5/data/tab.dart';
 class EditTab extends StatefulWidget {
   Tabb _t;
   EditTab(Tabb t){

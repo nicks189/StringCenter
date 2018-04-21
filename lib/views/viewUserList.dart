@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'globals.dart' as globals;
-import 'servercommunication.dart';
 import 'dart:convert';
-import 'group_object.dart';
-import 'create_post.dart';
-import 'util.dart';
-import 'user.dart';
-import 'viewUser.dart';
+
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/data/group_object.dart';
+import 'package:ss_5/views/create_post.dart';
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/data/user.dart';
+import 'package:ss_5/views/viewUser.dart';
 
 ///GroupPage is a StatefulWidget that displays a group's page based on the
 ///groupname supplied as the parameter _givenGroupName to the Widget

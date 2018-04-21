@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
-import 'globals.dart' as globals;
-import 'post.dart';
-import 'user.dart';
-import 'servercommunication.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'util.dart';
-import 'viewUser.dart';
 
-/// Followers is a StatefulWidget that allows a user to see the Followers of a user
-class Followers extends StatefulWidget {
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/data/user.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/views/viewUser.dart';
+import 'package:ss_5/util/util.dart';
+
+///Following is a StatefulWidget that allows a user to see who a user is Following
+class Following extends StatefulWidget {
   String _givenUser;
 
-  Followers(String givenUser) {
+  Following(String givenUser) {
     _givenUser = givenUser;
   }
 
   @override
-  _FollowersState createState() => new _FollowersState(_givenUser);
+  _FollowingState createState() => new _FollowingState(_givenUser);
 }
 
-class _FollowersState extends State<Followers> {
+class _FollowingState extends State<Following> {
   String _user;
   bool _loaded = false;
   List<Widget> _widgetList = new List<Widget>();
   List<User> _userList = new List<User>();
 
-  _FollowersState(String _givenUser) {
+  _FollowingState(String _givenUser) {
     _user = _givenUser;
   }
 
   _getFollowersList() async {
     var url =
-        "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-follower/followers/$_user";
+        "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-follower/following/$_user";
     try {
       String responseBody = await getRequestAuthorization(url);
       Map js = json.decode(responseBody);
@@ -40,9 +41,9 @@ class _FollowersState extends State<Followers> {
       responseBody = await getRequestAuthorization(url);
       Map js2 = json.decode(responseBody);
       print("decoded json map: " + js.toString());
-      print("js['followers'].length: " + js['followers'].length.toString());
-      for (int i = 0; i < js['followers'].length; i++) {
-        String tempU = js['followers'][i];
+      print("js['following'].length: " + js['following'].length.toString());
+      for (int i = 0; i < js['following'].length; i++) {
+        String tempU = js['following'][i];
         String tempU2 = "";
         for (int j = 0; j < js2['users'].length; j++) {
           if (tempU == js2['users'][j]) {
@@ -50,10 +51,10 @@ class _FollowersState extends State<Followers> {
             break;
           }
         }
-        _userList.add(new User(js['followers'][i], tempU));
+        _userList.add(new User(js['following'][i], tempU));
       }
     } catch (exception) {
-      print("exception followers");
+      print("exception following");
     }
   }
 
@@ -77,7 +78,7 @@ class _FollowersState extends State<Followers> {
               context,
               new MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    new ViewUser(_userList[i].username),
+                    new ViewUser(_userList[i].username, _user),
               ));
         },
         child: new Text(_userList[i].username),
@@ -94,7 +95,7 @@ class _FollowersState extends State<Followers> {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("$_user's Followers"),
+        title: new Text("$_user's Following"),
         actions: <Widget>[
           new IconButton(
               icon: new Icon(Icons.home),
