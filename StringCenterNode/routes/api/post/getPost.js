@@ -34,6 +34,7 @@ module.exports.getPostsForUser = function getPost(passport) {
                     // sort by most recent dateCreated
                     return new Date(b.dateCreated) - new Date(a.dateCreated);
                 });
+                let ret = [];
                 posts.forEach(function (p, i) {
                     Tab.findById(p.tabId, function (error, tab) {
                         if (error) {
@@ -41,9 +42,10 @@ module.exports.getPostsForUser = function getPost(passport) {
                         } else if (tab) {
                             p.tab = tab;
                         }
+                        ret.push(p);
 
                         if (i === posts.length - 1) {
-                            return res.json({posts: posts}).status(200);
+                            return res.json({posts: ret}).status(200);
                         }
                     });
                 });
@@ -69,6 +71,7 @@ module.exports.getPostsForUser = function getPost(passport) {
                     // sort by most recent dateCreated
                     return new Date(b.dateCreated) - new Date(a.dateCreated);
                 });
+                let ret = [];
                 posts.forEach(function (p, i) {
                     Tab.findById(p.tabId, function (error, tab) {
                         if (error) {
@@ -76,9 +79,10 @@ module.exports.getPostsForUser = function getPost(passport) {
                         } else if (tab) {
                             p.tab = tab;
                         }
+                        ret.push(p);
 
                         if (i === posts.length - 1) {
-                            return res.json({posts: posts}).status(200);
+                            return res.json({posts: ret}).status(200);
                         }
                     });
                 });
