@@ -25,7 +25,7 @@ class _ProfileState extends State<Profile> {
   List<Post> _postList = new List<Post>();
 
   _getPostList() async {
-    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user/current";
     try {
       String responseBody =
           await getRequestTokenAuthorization(url, globals.token);

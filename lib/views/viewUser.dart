@@ -40,11 +40,12 @@ class _ViewUserState extends State<ViewUser> {
   }
 
   _getPostList() async {
-    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user";
     try {
       //getting postlist
+      var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-post/by-user/by-name/$_userName";
       String responseBody =
           await getRequestTokenAuthorization(url, globals.token);
+      print(responseBody);
       Map posts = json.decode(responseBody);
       //create current user object
       url =
@@ -52,11 +53,17 @@ class _ViewUserState extends State<ViewUser> {
       responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map uInfo = json.decode(responseBody);
       _user = new User(uInfo['username'], uInfo['_id'], uInfo['description']);
-      print("posts.length: " + posts['posts'].length.toString());
-      for (int i = 0; i < posts['posts'].length; i++) {
-        if (posts['posts'][i]["authorUsername"] == _userName)
-          _postList.add(new Post(
-              posts['posts'][i]["content"], posts['posts'][i]["tabId"]));
+      if (posts['posts'] != null) {
+        print("posts.length: " + posts['posts'].length.toString());
+
+        for (int i = 0; i < posts['posts'].length; i++) {
+          if (posts['posts'][i]['tabId'] != null) {
+            _postList.add(new Post(
+                posts['posts'][i]["content"], posts['posts'][i]['tabId']));
+          } else {
+            _postList.add(new Post(posts['posts'][i]["content"]));
+          }
+        }
       }
     } catch (exception) {
       print("profilepage exception: " + exception.toString());
