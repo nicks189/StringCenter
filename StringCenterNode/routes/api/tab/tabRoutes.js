@@ -174,7 +174,7 @@ module.exports.deleteTab = function(passport){
     router.delete('/deleteTab/:tabID', passport.authenticate('jwt', {session: false}), function(req, res, next){
         if(req.params.tabID){
             Tab.remove({"_id" : req.params.tabID, "author_username" : req.user.username}, function(err, tab){
-                if (err) return res.json({ errors: [{ message: 'Something went wrong' }] }).status(400);
+                if (err) return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
                 return (tab.n == 1 ? res.send({message : "Tab deleted"}).status(201) : res.json({ errors: [{ message: 'Tab not found' }] }).status(400));
             });
         }
@@ -192,9 +192,9 @@ module.exports.deleteTab = function(passport){
  * @return {Message}            If an existing tab is found with tabID and newTab is valid, the requested tab will be updated and returned.
  */
 module.exports.updateTab = function(passport){
-    router.put('/updateTab', function(req, res, next){
-        if(req.body.tabID && req.body.author_username && req.body.newTab && validateTab.valid(req.body.newTab)){
-            Tab.findOne({"_id" : req.body.tabID, "author_username" : req.body.author_username}, function(err, tab){
+    router.put('/updateTab', passport.authenticate('jwt', {session: false}), function(req, res, next){
+        if(req.body.tabID && req.user.username && req.body.newTab && validateTab.valid(req.body.newTab)){
+            Tab.findOne({"_id" : req.body.tabID, "author_username" : req.user.username}, function(err, tab){
                 if(!tab){
                     return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
                 }
@@ -202,12 +202,8 @@ module.exports.updateTab = function(passport){
                 if(req.body.newTabName){
                     tab.tab_name = req.body.newTabName;
                 }
-                tab.save(function(saveErr, tab){
-                    if(saveErr){
-                        return res.json({ errors: [{ message: 'Something went wrong in saving the new tab' }] }).status(500);
-                    }
-
-                    return res.json({newTab : tab});
+                tab.save(function(saveErr, newTab){
+                    return (saveErr ? res.json({ errors: [{ message: 'Something went wrong in saving the new tab' }] }).status(500) : res.json({newTab : newTab}));
                 })
             });
         } else if(!req.body.newTab){

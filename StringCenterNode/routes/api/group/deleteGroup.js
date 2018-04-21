@@ -4,8 +4,6 @@ var Group = require('../../../models/group');
 var Post = require('../../../models/post')
 
 
-//authentication removed for testing
-
 /**
  * Deletes group if user who requested delete is a group admin.
  * Deletes all records associated with the group, UserGroup, Post and the Group record itself
@@ -17,14 +15,12 @@ var Post = require('../../../models/post')
  */
 function deleteGroup(passport){
     var router = express.Router();
-
-    router.post('/', function(req, res, next){
-        if(req.body.groupName && req.body.username){
-            UserGroup.findOne({"username" : req.body.username, "groupName" : req.body.groupName}, function(findErr, userGroup){
+    router.delete('/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
+        if(req.params.groupName && req.user.username){
+            UserGroup.findOne({"username" : req.user.username, "groupName" : req.params.groupName}, function(findErr, userGroup){
                 if (findErr) {
                     return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
                 } else if(!userGroup) {
-                    console.log(userGroup);
                     return res.json({errors: [{message: 'This user is not in this group'}]}).status(500);
                 } else if(userGroup && !userGroup.admin){
                     return res.json({errors: [{message: 'User is not an admin'}]}).status(500);
@@ -38,11 +34,7 @@ function deleteGroup(passport){
                                     return res.json({errors: [{message: 'Something went wrong in removal of userGroup'}]}).status(500);
                                 } else {
                                     Post.remove({"groupName" : userGroup.groupName}, function(postRemoveErr){
-                                        if(postRemoveErr){
-                                            return res.json({errors: [{message: 'Something went wrong in removal of posts'}]}).status(500);
-                                        } else{
-                                            return res.json({userGroup : userGroup});
-                                        }
+                                        return (postRemoveErr ? res.json({errors: [{message: 'Something went wrong in removal of posts'}]}).status(500) : res.json({userGroup : userGroup}));
                                     });
                                 }
                             })
@@ -54,7 +46,6 @@ function deleteGroup(passport){
             return res.send("Error in request");
         }
     });
-
     return router;
 }
 
