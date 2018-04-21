@@ -2,7 +2,6 @@ var express = require('express');
 var Group = require('../../../models/group');
 
 
-//authentication removed for testing
 /**
  * Returns all groups in the database, sorted alphabetically by groupName
  * @param  {passport}       passport  used for authentication
@@ -15,7 +14,7 @@ function getGroups(passport){
     var router = express.Router();
     router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next){
         Group.find(function(err, groups){
-            if (err) {return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);}
+            if (err) return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
             let groupNames = [];
             groups.forEach(function(e){groupNames.push(e.groupName);});
             groupNames = groupNames.sort(function(a, b){return a.toLowerCase().localeCompare(b.toLowerCase());});

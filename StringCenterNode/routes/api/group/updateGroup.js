@@ -15,9 +15,8 @@ var UserGroup = require('../../../models/userGroup.js');
  */
 function updateGroup(passport){
     var router = express.Router();
-
-    router.put('/', function(req, res, next){
-        if(req.body.username && req.body.curGroupName && req.body.newGroupName){
+    router.put('/', passport.authenticate('jwt', { session: false }), function(req, res, next){
+        if(req.user.username && req.body.curGroupName && req.body.newGroupName){
             Group.findOne({"groupName" : req.body.curGroupName}, function(err, group){
                 if(err){
                     return res.json({errors: [{message: 'Something went wroung'}]}).status(500);
@@ -30,7 +29,7 @@ function updateGroup(passport){
                 }
 
                 if(group) {
-                    UserGroup.findOne({"admin" : req.body.username, "groupName" : req.body.curGroupName}, function(err, userGroup){
+                    UserGroup.findOne({"admin" : req.user.username, "groupName" : req.body.curGroupName}, function(err, userGroup){
                         if(userGroup && !userGroup.admin){
                             return res.json({errors: [{message: 'User is not an admin of the Group'}]}).status(500);
                         } else{
@@ -40,9 +39,7 @@ function updateGroup(passport){
                             }
 
                             group.validateAndSave(function(errors, newGroup){
-                                if(errors){
-                                    return res.json(errors).status(400);
-                                }
+                                if(errors){return res.json(errors).status(400);}
 
                                 if(newGroup.groupName == req.body.curGroupName){
                                     return res.json({newGroup: newGroup, userGroupUpdateCount : 0}).status(201);
@@ -53,17 +50,13 @@ function updateGroup(passport){
                                         }
 
                                         if(userGroupsToUpdate){
-                                            console.log(userGroupsToUpdate);
                                             userGroupsToUpdate.forEach(function(e){
                                                 e.groupName = req.body.newGroupName;
                                                 e.validateAndSave(function(saveErr, newUserGroups){
-                                                    if(saveErr){
-                                                        return res.json({errors: [{message: 'error updating userGroup records'}]});
-                                                    }
+                                                    if(saveErr){return res.json({errors: [{message: 'error updating userGroup records'}]});}
                                                 });
                                             });
                                         }
-
 
                                         return res.json({newGroup: newGroup, userGroupUpdateCount : userGroupsToUpdate.length}).status(201);
                                     });

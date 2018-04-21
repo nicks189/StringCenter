@@ -144,22 +144,15 @@ module.exports.findTabsByUser = function(passport){
  * @return {Tab}       returns the created tab back to the client (tab obj at top of src file)
  */
 module.exports.createTab = function(passport){
-    router.post('/createTab', function(req, res, next){
+    router.post('/createTab', passport.authenticate('jwt', {session: false}), function(req, res, next){
         if(req.body.tab && validateTab.valid(req.body.tab)){
-            // add tab to database since it is valid
             var tab = req.body.tab;
-            var tabDetail = {author_username: req.body.author_username, tab_name: req.body.tab_name, tab: tab};
+            var tabDetail = {author_username: req.user.username, tab_name: req.body.tab_name, tab: tab};
             var tabModel = new Tab(tabDetail);
+
             tabModel.save(function(err, tab){
-                if(err){
-                    console.log("ERROR" + err);
-                    cb.cb(err, null);
-                    return res.send("Tab Creation Failed");
-                } else{
-                    console.log(tab);
-                    cb.cb(null, tab);
-                    return res.json(tab).status(201);
-                }
+                if (err) return res.send("Tab Creation Failed").status(500);
+                return res.json(tab).status(201);
             });
         } else{
             return res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
@@ -178,13 +171,10 @@ module.exports.createTab = function(passport){
  * @return {Message}       if tab is deleted returns "Tab deleted", if tab is not found "Tab not found"
  */
 module.exports.deleteTab = function(passport){
-    router.delete('/deleteTab/:tabID/:username', function(req, res, next){
-        if(req.params.tabID && req.params.username){
-            Tab.remove({"_id" : req.params.tabID, "author_username" : req.params.username}, function(err, tab){
-                if(err){
-                    return res.json({ errors: [{ message: 'Something went wrong' }] }).status(400);
-                }
-
+    router.delete('/deleteTab/:tabID', passport.authenticate('jwt', {session: false}), function(req, res, next){
+        if(req.params.tabID){
+            Tab.remove({"_id" : req.params.tabID, "author_username" : req.user.username}, function(err, tab){
+                if (err) return res.json({ errors: [{ message: 'Something went wrong' }] }).status(400);
                 return (tab.n == 1 ? res.send({message : "Tab deleted"}).status(201) : res.json({ errors: [{ message: 'Tab not found' }] }).status(400));
             });
         }
@@ -199,7 +189,7 @@ module.exports.deleteTab = function(passport){
  * @param  {HttpPostRequest}    req  url: /api/tab/updateTab (body: tabID, author_username, newTab, newTabName(optional))
  * @param  {HttpResponse}   res
  * @param  {Function}       next
- * @return {Message}            If an existing tab is found with tabID and newTab is valid, the requested tab will be updated and returned. 
+ * @return {Message}            If an existing tab is found with tabID and newTab is valid, the requested tab will be updated and returned.
  */
 module.exports.updateTab = function(passport){
     router.put('/updateTab', function(req, res, next){

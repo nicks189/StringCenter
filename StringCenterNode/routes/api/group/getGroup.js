@@ -16,13 +16,11 @@ function getGroup(passport){
     router.get('/:groupName', passport.authenticate('jwt', { session: false }), function(req, res, next){
         if(req.params.groupName){
             Group.findOne({groupName : req.params.groupName}, function(err, group){
-                if (err) {
-                  return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
-                }
+                if (err) return res.json({ errors: [{ message: 'Something went wrong' }] }).status(500);
                 return (group ? res.json({ group: group }).status(200) : res.json({errors: [{message : 'Group does not exist'}]}));
             });
         }
-    });    
+    });
     return router;
 }
 
