@@ -30,10 +30,6 @@ module.exports.getPostsForUser = function getPost(passport) {
                 } else if (posts.length === 0) {
                     return res.json({errors: [{message: 'No posts found'}]}).status(400);
                 }
-                posts.sort(function (a, b) {
-                    // sort by most recent dateCreated
-                    return new Date(b.dateCreated) - new Date(a.dateCreated);
-                });
                 let ret = [];
                 posts.forEach(function (p, i) {
                     Tab.findById(p.tabId, function (error, tab) {
@@ -45,6 +41,10 @@ module.exports.getPostsForUser = function getPost(passport) {
                         ret.push(p);
 
                         if (i === posts.length - 1) {
+                            ret.sort(function (a, b) {
+                                // sort by most recent dateCreated
+                                return new Date(b.dateCreated) - new Date(a.dateCreated);
+                            });
                             return res.json({posts: ret}).status(200);
                         }
                     });
@@ -67,10 +67,6 @@ module.exports.getPostsForUser = function getPost(passport) {
                 } else if (posts.length === 0) {
                     return res.json({errors: [{message: 'No posts found'}]}).status(400);
                 }
-                posts.sort(function (a, b) {
-                    // sort by most recent dateCreated
-                    return new Date(b.dateCreated) - new Date(a.dateCreated);
-                });
                 let ret = [];
                 posts.forEach(function (p, i) {
                     Tab.findById(p.tabId, function (error, tab) {
@@ -82,6 +78,10 @@ module.exports.getPostsForUser = function getPost(passport) {
                         ret.push(p);
 
                         if (i === posts.length - 1) {
+                            ret.sort(function (a, b) {
+                                // sort by most recent dateCreated
+                                return new Date(b.dateCreated) - new Date(a.dateCreated);
+                            });
                             return res.json({posts: ret}).status(200);
                         }
                     });
