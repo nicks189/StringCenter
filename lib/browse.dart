@@ -142,7 +142,7 @@ class _BrowseState extends State<Browse> {
         onPressed: () {
           Navigator.push(
               context,
-              new MaterialPageRoute(
+                  new MaterialPageRoute(
                   builder: (BuildContext context) =>
                       new ViewUser(_userList[i].username)));
         },

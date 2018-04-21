@@ -7,29 +7,32 @@ import 'post.dart';
 import 'view_post.dart';
 import 'globals.dart' as globals;
 import 'user.dart';
-
+import 'following.dart';
 ///ViewUser is a StatefulWidget that displays a user's page
 ///Takes in a [_givenUserName] in order to determine which user to display
 class ViewUser extends StatefulWidget {
   String _givenUserName;
-
-  ViewUser(String givenUserName) {
+  String _followingUser;
+  ViewUser(String givenUserName, [String followingUser = '']) {
     _givenUserName = givenUserName;
+    _followingUser = followingUser;
   }
 
   @override
-  _ViewUserState createState() => new _ViewUserState(_givenUserName);
+  _ViewUserState createState() => new _ViewUserState(_givenUserName, _followingUser);
 }
 
 class _ViewUserState extends State<ViewUser> {
   String _userName;
+  String _followingUser;
   User _user;
-  bool _isFollowing;
+  bool _isFollowing = false;
   Image i = new Image.asset('einstein.jpg');
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
 
-  _ViewUserState(String givenUserName) {
+  _ViewUserState(String givenUserName, [String followingUser = '']) {
+    _followingUser = followingUser;
     _userName = givenUserName;
   }
 
@@ -171,10 +174,20 @@ class _ViewUserState extends State<ViewUser> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        leading: new Image.asset(
+        leading:
+        new IconButton(icon: new Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          if(_followingUser != '')
+          Navigator.of(context).pushAndRemoveUntil(
+              new MaterialPageRoute(builder: (BuildContext context) => new Following(_followingUser)),
+                  (Route<dynamic> route) => false);
+          else
+            Navigator.of(context).pop();
+        }),
+        /*new Image.asset(
           'images/einstein.jpg',
           fit: BoxFit.scaleDown,
-        ),
+        ),*/
         title: new Text(_userName),
         actions: <Widget>[
           _generateFollowButton(),

@@ -249,6 +249,7 @@ class _SearchState extends State<Search> {
                     ),
                   ],
                 ),
+                new Padding(padding: new EdgeInsets.all(8.0)),
                 new Expanded(
                   child: new ListView(
                       scrollDirection: Axis.vertical, children: _widgetList),
