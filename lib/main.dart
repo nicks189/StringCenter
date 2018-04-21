@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
-import 'create_measure.dart';
-import 'log_in.dart';
-import 'register.dart';
-import 'tab_options.dart';
-import 'profile.dart';
-import 'tab.dart';
-import 'viewtab.dart';
-import 'viewtablist.dart';
-import 'group_page.dart';
-import 'followers.dart';
+import 'package:ss_5/views/home.dart';
+import 'package:ss_5/views/create_measure.dart';
+import 'package:ss_5/views/log_in.dart';
+import 'package:ss_5/views/register.dart';
+import 'package:ss_5/views/tab_options.dart';
+import 'package:ss_5/views/profile.dart';
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/views/viewtab.dart';
+import 'package:ss_5/views/viewtablist.dart';
+import 'package:ss_5/views/group_page.dart';
+import 'package:ss_5/views/followers.dart';
 
 void main() {
   runApp(new StringCenter());

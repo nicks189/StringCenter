@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'viewtablist.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
-import 'log_in.dart';
-import 'servercommunication.dart';
-import 'followers.dart';
-import 'profile.dart';
-import 'create_group.dart';
-import 'globals.dart' as globals;
-import 'user.dart';
-import 'browse.dart';
-import 'following.dart';
-import 'util.dart';
-import 'fileIO.dart';
-import 'search.dart';
+
+import 'package:ss_5/views/log_in.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/views/viewtablist.dart';
+import 'package:ss_5/views/followers.dart';
+import 'package:ss_5/views/profile.dart';
+import 'package:ss_5/views/create_group.dart';
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/data/user.dart';
+import 'package:ss_5/views/browse.dart';
+import 'package:ss_5/views/following.dart';
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/communications//fileIO.dart';
+import 'package:ss_5/views/search.dart';
 
 ///Home is a StatefulWidget that is the home screen of the app. This screen isn't accessible if
 ///a user is not logged in. This Widget checks if a user is logged in every time it is opened.

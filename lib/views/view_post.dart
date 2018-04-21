@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'servercommunication.dart';
-import 'dart:async';
-import 'tab.dart';
-import 'post.dart';
-
-import 'globals.dart' as globals;
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 
 ///ViewPost is a StatefulWidget that displays Post's
 class ViewPost extends StatefulWidget {

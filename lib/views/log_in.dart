@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
 import "dart:convert";
 import "dart:io";
-import 'logindata.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:async';
-import 'globals.dart' as globals;
-import 'servercommunication.dart';
-import 'fileIO.dart';
+
+import 'package:ss_5/data/logindata.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/communications/fileIO.dart';
 
 ///Login is a StatelessWidget that is the login screen for the app.
 ///The app will route to this Widget if no user is currently logged in.

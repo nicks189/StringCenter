@@ -1,37 +1,19 @@
 import 'package:flutter/material.dart';
 import "dart:convert";
 import "dart:io";
-import 'tab.dart';
-import 'create_post.dart';
-import 'viewtab.dart';
-import 'globals.dart' as globals;
-import 'servercommunication.dart';
-import 'util.dart';
 
-///SelectTab is a StatefulWidget that is routed to from CreatePost.
-///In this Widget a list of tabs are fetched and the user selects one to
-///attach to a Post they are creating.
-class SelectTab extends StatefulWidget {
-  String _s;
-  String _groupName;
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/views/viewtab.dart';
+import 'package:ss_5/util/globals.dart' as globals;
+import 'package:ss_5/communications/servercommunication.dart';
 
-  SelectTab(String s, [String groupName = '']) {
-    _s = s;
-  }
-
+///ViewTabList is a StatefulWidget that lists all tabs for a user to select to view or edit
+class ViewTabList extends StatefulWidget {
   @override
-  _SelectTabState createState() => new _SelectTabState(_s,_groupName);
+  _ViewTabListState createState() => new _ViewTabListState();
 }
 
-class _SelectTabState extends State<SelectTab> {
-  String _s;
-  String _groupName;
-
-  _SelectTabState(String s,[String groupName = '']) {
-    _s = s;
-    _groupName = groupName;
-  }
-
+class _ViewTabListState extends State<ViewTabList> {
   bool _loaded = false;
   List<Tabb> _tabs = new List<Tabb>();
   List<Widget> _wl = new List<Widget>();
@@ -73,8 +55,7 @@ class _SelectTabState extends State<SelectTab> {
           Navigator.push(
               context,
               new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new CreatePost(_tabs[i], _s, )));
+                  builder: (BuildContext context) => new ViewTab(_tabs[i])));
         },
         child: new Text(_tabs[i].title),
       ));
@@ -92,13 +73,6 @@ class _SelectTabState extends State<SelectTab> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('View Tab List'),
-        actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.home),
-              onPressed: () {
-                goHome(context);
-              }),
-        ],
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),

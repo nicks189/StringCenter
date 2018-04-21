@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'home.dart';
-import 'fileIO.dart';
-import 'globals.dart' as globals;
+import 'package:ss_5/views/home.dart';
+import 'package:ss_5/communications/fileIO.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 
 ///util contains helpful methods that are needed by many Widgets
 goHome(BuildContext context) {
