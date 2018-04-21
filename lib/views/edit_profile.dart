@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'servercommunication.dart';
 import 'dart:async';
-import 'tab.dart';
-import 'profile.dart';
-import 'post.dart';
-import 'util.dart';
 
-import 'globals.dart' as globals;
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/data/tab.dart';
+import 'package:ss_5/views/profile.dart';
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 
 /// EditProfile is a StatefulWidget that allows a user to edit the state of their profile
 class EditProfile extends StatefulWidget {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter/services.dart';
-import 'registerdata.dart';
-import 'servercommunication.dart';
-import 'logindata.dart';
-import 'fileIO.dart';
-import 'package:path_provider/path_provider.dart';
+
+import 'package:ss_5/data/registerdata.dart';
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/data/logindata.dart';
+import 'package:ss_5/communications/fileIO.dart';
 
 ///Register is a StatelessWidget that allows a user to register for an account
 ///for StringCenter. A user must enter firstName, lastName, username, password,

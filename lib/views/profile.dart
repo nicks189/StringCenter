@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'servercommunication.dart';
-import 'post.dart';
-import 'util.dart';
-import 'followers.dart';
-import 'following.dart';
-import 'home.dart';
-import 'create_post.dart';
-import 'edit_profile.dart';
-import 'view_post.dart';
-import 'globals.dart' as globals;
-import 'util.dart';
+
+import 'package:ss_5/communications/servercommunication.dart';
+import 'package:ss_5/data/post.dart';
+import 'package:ss_5/util/util.dart';
+import 'package:ss_5/views/followers.dart';
+import 'package:ss_5/views/following.dart';
+import 'package:ss_5/views/home.dart';
+import 'package:ss_5/views/create_post.dart';
+import 'package:ss_5/views/edit_profile.dart';
+import 'package:ss_5/views/view_post.dart';
+import 'package:ss_5/util/globals.dart' as globals;
 
 ///Profile is a StatefulWidget that is the profile page for the user
 ///that is currently logged in.

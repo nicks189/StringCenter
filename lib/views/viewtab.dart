@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import "dart:convert";
 import "dart:io";
-import 'tab.dart';
+
+import 'package:ss_5/data/tab.dart';
 
 ///ViewTab is a StatelessWidget that displays a tab
 ///takes in a Tabb as a parameter [_t]
