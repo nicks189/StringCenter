@@ -12,7 +12,8 @@ class Tabb {
   num _stringCount;
   List<Measure> _measures;
 
-  Tabb(String title, String info, String tuning) {
+  Tabb(String author, String title, String info, String tuning) {
+    _authorUsername = author;
     _title = title;
     _info = info;
     _measures = [];

@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'tab.dart';
 import 'home.dart';
 import 'util.dart';
+import 'globals.dart' as globals;
 
 /// CreateMeasure is a StatefulWidget that is the interface for a user to create a measure of a Tabb
 class CreateMeasure extends StatefulWidget {
@@ -20,7 +21,7 @@ class CreateMeasure extends StatefulWidget {
   }
 
   _CreateMeasureState createState() =>
-      new _CreateMeasureState(_title, _info, _tuning);
+      new _CreateMeasureState(globals.user.username, _title, _info, _tuning);
 }
 
 //State for CreateMeasure
@@ -33,8 +34,8 @@ class _CreateMeasureState extends State<CreateMeasure> {
   FocusNode _noteFocus = new FocusNode();
   FocusNode _symbolFocus = new FocusNode();
 
-  _CreateMeasureState(String title, String info, String tuning) {
-    _t = new Tabb(title, info, tuning);
+  _CreateMeasureState(String username, String title, String info, String tuning) {
+    _t = new Tabb(username, title, info, tuning);
     _m = new Measure('stuff', _t.tuning.length, 0, _t.tuning);
     _noteCount = 0;
   }
