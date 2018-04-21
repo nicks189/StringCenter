@@ -43,7 +43,7 @@ function joinGroup(passport){
                 }
             });
         } else {
-                return res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
+            return res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
         }
     });
     return router;
