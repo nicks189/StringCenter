@@ -6,6 +6,7 @@ import 'package:ss_5/util/util.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/data/post.dart';
 import 'package:ss_5/views/view_post.dart';
+import 'package:ss_5/views/followers.dart';
 import 'package:ss_5/util/globals.dart' as globals;
 import 'package:ss_5/data/user.dart';
 import 'package:ss_5/views/following.dart';
@@ -77,10 +78,36 @@ class _ViewUserState extends State<ViewUser> {
 
   List<Widget> _generateWidgets() {
     List<Widget> widgetList = new List<Widget>();
-    widgetList.add(new Text(
-      'About:',
-      textAlign: TextAlign.left,
-      style: new TextStyle(fontSize: 20.0),
+    widgetList.add(new Row(
+        children: <Widget>[
+          new Text(
+            'About:',
+            textAlign: TextAlign.left,
+            style: new TextStyle(fontSize: 20.0),
+          ),
+          new Padding(padding: new EdgeInsets.only(right: 25.0)),
+          new RaisedButton(
+            color: globals.themeColor,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new Followers(_userName)));
+            },
+            child: new Text('Followers'), textColor: Colors.white,),
+          new Padding(padding: new EdgeInsets.only(right: 15.0)),
+          new RaisedButton(
+            color: globals.themeColor,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new Following(_userName)));
+            },
+            child: new Text('Following'), textColor: Colors.white,),
+        ]
     ));
     widgetList.add(
       new Container(
