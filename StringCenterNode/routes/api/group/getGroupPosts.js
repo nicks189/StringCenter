@@ -16,26 +16,10 @@ function getGroupPosts(passport){
         if(req.params.groupName){
             Post.find({"groupName" : req.params.groupName}, function(error, posts){
                 if (error) return res.json({ errors: [{ message: 'Something went wrong in finding a post' }] }).status(500);
-                //console.log(posts);
                 if (posts.length == 0) return res.json("No posts");
-                posts.forEach(function(p, i){
-                    if(p.tabId){
-                        Tab.findOne({"_id" : p.tabId}, function(err, tab){
-                            if (err) return res.json({ errors: [{ message: 'Something went wrong in finding a tab' }] }).status(500);
-                            console.log(tab);
-
-                            if(tab){
-                                p.tab = tab;
-                                if(i == posts.length - 1){
-                                    posts.sort(function(a, b){return new Date(b.dateCreated) - new Date(a.dateCreated);});
-                                    return res.json({posts : posts}).status(200);
-                                }
-                            }
-                        });
-                    } else if(i == posts.length - 1){
-                        posts.sort(function(a, b){return new Date(b.dateCreated) - new Date(a.dateCreated);});
-                        return res.json({posts : posts}).status(200);
-                    }
+                Post.buildPostList(posts, function (error, ret) {
+                    if (error) return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                    return res.json({ posts: ret }).status(200);
                 });
             });
         }
