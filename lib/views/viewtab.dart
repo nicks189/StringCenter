@@ -69,10 +69,14 @@ class ViewTab extends StatelessWidget {
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
-        child: new Text(
+        child: new ListView(
+          children: <Widget>[
+            new Text(
             _t.render(),
-            style: new TextStyle(fontSize: 22.0, fontFamily: 'monospace')
-        ),
+              style: new TextStyle(fontSize: 22.0, fontFamily: 'monospace')
+            )
+          ]
+        )
       ),
     );
   }
