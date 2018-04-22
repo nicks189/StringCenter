@@ -210,6 +210,7 @@ class _ViewUserState extends State<ViewUser> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         leading:
         new IconButton(icon: new Icon(Icons.arrow_back_ios),
         onPressed: () {

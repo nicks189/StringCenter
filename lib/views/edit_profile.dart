@@ -56,6 +56,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         leading: new Image.asset(
           'images/einstein.jpg',
           fit: BoxFit.scaleDown,
