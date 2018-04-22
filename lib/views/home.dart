@@ -7,6 +7,8 @@ import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/views/viewtablist.dart';
 import 'package:ss_5/views/followers.dart';
 import 'package:ss_5/views/profile.dart';
+import 'imagepick.dart';
+import 'dart:io';
 import 'package:ss_5/views/create_group.dart';
 import 'package:ss_5/util/globals.dart' as globals;
 import 'package:ss_5/data/user.dart';
@@ -64,7 +66,7 @@ class _HomeState extends State<Home> {
       } else {
         globals.isLoggedIn = true;
         Map m = json.decode(responseBody);
-        User u = new User(m['username'], m['_id'], m['description'], m['adminStatus']);
+        User u = new User(m['username'], m['profilePic'], m['_id'], m['description'], m['adminStatus']);
         globals.user = u;
         globals.token = token;
         setState((){
@@ -197,6 +199,18 @@ class _HomeState extends State<Home> {
                           new MaterialPageRoute(
                               builder: (
                                   BuildContext context) => new CreateGroup()));
+                    },
+                  ),
+                  new Padding(padding: new EdgeInsets.all(16.0)),
+                  new RaisedButton(
+                    color: globals.themeColor,
+                    child: new Text("imagepick", style: buttonStyle,),
+                    onPressed: () async{
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (
+                                  BuildContext context) => new MyHomePage()));
                     },
                   ),
                 ],
