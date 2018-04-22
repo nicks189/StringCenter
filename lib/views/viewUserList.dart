@@ -42,7 +42,7 @@ class _ViewUserListState extends State<ViewUserList> {
       Map users = json.decode(responseBody);
       //store group as group_object
       for (int i = 0; i < users['usernames'].length; i++) {
-          _userList.add(new User(users['usernames'][i]));
+          _userList.add(new User(users['usernames'][i], users['profilePic'][i]));
       }
     } catch (exception) {
       print("viewUserList exception: " + exception.toString());

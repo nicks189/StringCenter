@@ -89,9 +89,11 @@ class _EditTabState extends State<EditTab> {
     var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/tab/updateTab";
     var httpClient = new HttpClient();
     String result;
+    Map tm = new Map();
+    tm = _t.toJson();
     Map m = new Map();
     m['tabID'] = _t.id;
-    m['newTab'] = _t;
+    m['newTab'] = tm['tab'];
     var js = json.encode(m);
     print('test json'+js);
     try {

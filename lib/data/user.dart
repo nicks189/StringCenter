@@ -6,7 +6,9 @@ class User {
   String _userID;
   String _description;
   bool _isAdmin;
-  User(String username, [String userID = '', String description = '', bool isAdmin = false]) {
+  String _profilePic;
+  User(String username, String profilePic, [String userID = '', String description = '', bool isAdmin = false]) {
+    _profilePic = profilePic;
     _username = username;
     _userID = userID;
     _description = description;
@@ -17,11 +19,10 @@ class User {
     _description = s;
   }
 
+
+  get profilePic => _profilePic;
   get username => _username;
-
   get userID => _userID;
-
   get description => _description;
-
   get isAdmin => _isAdmin;
 }
