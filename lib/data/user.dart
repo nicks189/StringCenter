@@ -19,6 +19,9 @@ class User {
     _description = s;
   }
 
+  void set profilePic(String s) {
+    _profilePic = s;
+  }
 
   get profilePic => _profilePic;
   get username => _username;
