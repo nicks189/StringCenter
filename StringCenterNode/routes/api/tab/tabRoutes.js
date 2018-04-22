@@ -193,23 +193,18 @@ module.exports.deleteTab = function(passport){
  */
 module.exports.updateTab = function(passport){
     router.put('/updateTab', passport.authenticate('jwt', {session: false}), function(req, res, next){
-        if(req.body.tabID && req.user.username && req.body.newTab && validateTab.valid(req.body.newTab)){
+        if(req.body.tabID && req.user.username && (req.body.newTab || req.body.newTabName)){
             Tab.findOne({"_id" : req.body.tabID, "author_username" : req.user.username}, function(err, tab){
-                if(!tab){
-                    return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
-                }
-                tab.tab = req.body.newTab;
-                if(req.body.newTabName){
-                    tab.tab_name = req.body.newTabName;
-                }
+                if(!tab) return res.json({ errors: [{ message: 'Tab not found' }] }).status(400);
+                if (req.body.newTab) tab.tab = req.body.newTab;
+                if (req.body.newTabName) tab.tab_name = req.body.newTabName;
+
                 tab.save(function(saveErr, newTab){
                     return (saveErr ? res.json({ errors: [{ message: 'Something went wrong in saving the new tab' }] }).status(500) : res.json({newTab : newTab}));
-                })
+                });
             });
-        } else if(!req.body.newTab){
-            return res.json({ errors: [{ message: 'No newTab sent' }] }).status(400);
         } else{
-            return res.json({ errors: [{ message: 'Invalid request' }] }).status(400);
+            return res.json({ errors: [{ message: 'No change' }] }).status(400);
         }
     });
     return router;

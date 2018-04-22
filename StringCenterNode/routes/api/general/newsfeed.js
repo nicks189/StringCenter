@@ -21,8 +21,10 @@ function newsfeed(passport){
             follows.forEach(function(f, i){
                 Post.find({"authorUsername" : f.followsUsername}, function(err, fPosts){
                     fPosts.forEach(function(fp){followsPosts.push(fp);});
-                    followsPosts.sort(function(a, b){return new Date(b.dateCreated) - new Date(a.dateCreated);});
-                    if (i == follows.length - 1) return (followsPosts.length > 0 ? res.json({posts: followsPosts}).status(200) : res.json({errors: [{message: 'Newsfeed empty'}]}).status(201));
+                    if (i == follows.length - 1){
+                        followsPosts.sort(function(a, b){return new Date(b.dateCreated) - new Date(a.dateCreated);});
+                        return (followsPosts.length > 0 ? res.json({posts: followsPosts}).status(200) : res.json({errors: [{message: 'Newsfeed empty'}]}).status(201));
+                    }
                 });
             });
         });
