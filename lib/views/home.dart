@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
       print("globals.isLoggedin (Home): " + globals.isLoggedIn.toString());
     } catch (exception) {
       resetAuth();
-      print("requestuser exception: " + exception.toString());
+      print("requestuser (home) exception: " + exception.toString());
       setState(() {
         _loaded = true;
       });

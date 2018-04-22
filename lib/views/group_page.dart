@@ -99,7 +99,9 @@ class _GroupPageState extends State<GroupPage> {
                   new Container(
                    constraints: new BoxConstraints(),
                     padding: new EdgeInsets.fromLTRB(0.0,0.0,12.0,0.0),
-                    child: new Text(_postList[i].content,style: new TextStyle(fontSize: 12.0))),
+                    child: new Text(_postList[i].content,
+                        style: new TextStyle(fontSize: 12.0),
+                    softWrap: true,)),
                   new Text(_postList[i].tabRender()),
                   /*new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)*/
                 ],
