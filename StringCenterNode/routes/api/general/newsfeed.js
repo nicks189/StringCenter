@@ -1,6 +1,7 @@
 var express = require('express');
 var Post = require('../../../models/post.js');
 var UserFollows = require('../../../models/userFollows.js');
+var UserGroup = require('../../../models/userGroup.js');
 
 
 /**
@@ -14,16 +15,38 @@ var UserFollows = require('../../../models/userFollows.js');
 function newsfeed(passport){
     var router = express.Router();
     router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next){
-        UserFollows.find({"username" : req.user.username}, function(err, follows){
-            if (err) return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
-
+        UserFollows.find({"username" : req.user.username}, function(uferr, follows){
+            if (uferr) return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
             var followsPosts = [];
             follows.forEach(function(f, i){
-                Post.find({"authorUsername" : f.followsUsername}, function(err, fPosts){
+                Post.find({"authorUsername" : f.followsUsername}, function(perr, fPosts){
+                    if (perr) return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
                     fPosts.forEach(function(fp){followsPosts.push(fp);});
                     if (i == follows.length - 1){
-                        followsPosts.sort(function(a, b){return new Date(b.dateCreated) - new Date(a.dateCreated);});
-                        return (followsPosts.length > 0 ? res.json({posts: followsPosts}).status(200) : res.json({errors: [{message: 'Newsfeed empty'}]}).status(201));
+                        UserGroup.find({"username" : req.user.username}, function(ugerr, ug){
+                            if (ugerr) return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
+                            ug.forEach(function(ugs, j){
+                                Post.find({"groupName" : ugs.groupName}, function(pugerr, gPosts){
+                                    if (pugerr) return res.json({errors: [{message: 'Something went wrong in finding'}]}).status(500);
+                                    gPosts.forEach(function(gp){followsPosts.push(gp);});
+                                    if(j == ug.length - 1){
+                                        let uniqueIDs = [];
+                                        let uniquePosts = [];
+                                        followsPosts.forEach(function(fp){
+                                            if(uniqueIDs.indexOf(String(fp._id)) == -1){
+                                                uniqueIDs.push(String(fp._id));
+                                                uniquePosts.push(fp);
+                                            }
+                                        });
+
+                                        Post.buildPostList(uniquePosts, function (error, ret) {
+                                            if (error) return res.json({errors: [{message: 'Something went wrong building the post list'}]}).status(500);
+                                            return res.json({posts : ret}).status(200);
+                                        });
+                                    }
+                                });
+                            });
+                        });
                     }
                 });
             });
