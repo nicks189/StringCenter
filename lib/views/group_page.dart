@@ -97,12 +97,15 @@ class _GroupPageState extends State<GroupPage> {
               child: new Row(
                 children: <Widget>[
                   new Text(_postList[i].tabRender()),
-                  new Container(
+          new Text(_postList[i].content,
+            style: new TextStyle(fontSize: 12.0),
+            softWrap: true,),
+                  /*new Container(
                       constraints: new BoxConstraints(),
                       padding: new EdgeInsets.fromLTRB(0.0,0.0,12.0,0.0),
                       child: new Text(_postList[i].content,
                         style: new TextStyle(fontSize: 12.0),
-                        softWrap: true,)),
+                        softWrap: true,)),*/
                   /*new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)*/
                 ],
               )

@@ -143,4 +143,14 @@ Upload(File imageFile) async {
   response.stream.transform(utf8.decoder).listen((value) {
     print(value);
   });
+  try {
+    var url =
+        "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info";
+    String responseBody = await getRequestAuthorization(url);
+    Map users = json.decode(responseBody);
+    globals.user.p(users['profilePic']);
+  } catch (exception) {
+    print("viewUserList exception: " + exception.toString());
+  }
+
 }

@@ -19,7 +19,7 @@ class User {
     _description = s;
   }
 
-  void set profilePic(String s) {
+  void p(String s) {
     _profilePic = s;
   }
 
