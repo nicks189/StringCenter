@@ -2,6 +2,9 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'package:http_parser/http_parser.dart';
 import 'dart:async';
 import 'package:ss_5/util/globals.dart' as globals;
 
@@ -116,4 +119,28 @@ Future<String> deleteRequestWriteAuthorization(String url, String json) async {
   var response = await request.close();
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
+}
+
+Upload(File imageFile) async {
+  var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+  var length = await imageFile.length();
+
+  var uri = Uri.parse('http://proj-309-ss-5.cs.iastate.edu:3000/api/set-profile-pic');
+
+  var request = new http.MultipartRequest("POST", uri,);
+  request.headers['authorization'] = 'bearer ${globals.token}';
+  request.headers['Content-Type'] = 'multipart/form-data';
+  var multipartFile = new http.MultipartFile('profilePic', stream, length,
+      filename: basename(imageFile.path));
+      contentType: new MediaType('image', 'jpg');
+  request.files.add(multipartFile);
+
+  print(multipartFile.field);
+  print(request.fields);
+  print(request.files);
+  var response = await request.send();
+  print(response.statusCode);
+  response.stream.transform(utf8.decoder).listen((value) {
+    print(value);
+  });
 }
