@@ -80,7 +80,7 @@ class Tabb {
   String render() {
     String t = "";
     t = t + 'Name: ' + _title + '\n';
-    t = t + 'Info: ' + _info + '\n';
+    t = t + "Info: " + _info + '\n';
     t = t + 'Author: ' + _authorUsername + '\n';
     String temp = "";
     // for (Measure measure in _measures) {

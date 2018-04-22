@@ -25,7 +25,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String _message;
   bool _loaded = false;
-  TextStyle buttonStyle = new TextStyle(color: Colors.white, fontFamily: 'times');
+  TextStyle buttonStyle = new TextStyle(color: Colors.white, fontFamily: 'times',fontSize: 24.0);
   Widget _page = new Container();
 
   _HomeState() {
@@ -109,6 +109,65 @@ class _HomeState extends State<Home> {
                         'Home', (Route<dynamic> route) => false);
                   })
             ],
+          ),
+          drawer: new Drawer(
+            child: new Container(
+              color: globals.themeColor,
+            child: new ListView(
+              children: <Widget>[
+                new ListTile(
+                  title: new Text("Profile", style: buttonStyle,),
+                  onTap:(){
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (
+                              BuildContext context) => new Profile(),
+                        ));
+                  },
+                ),
+                new ListTile(
+                  title: new Text("Your Tabs", style: buttonStyle),
+                  onTap:(){
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (
+                              BuildContext context) => new ViewTabList(),
+                        ));
+                  },
+                ),
+                new ListTile(
+                  title: new Text("Create Tab", style: buttonStyle),
+                  onTap:(){
+                    Navigator.of(context).pushNamed('TabOptions');
+                  },
+                ),
+                new ListTile(
+                  title: new Text("Search", style: buttonStyle),
+                  onTap:(){
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (
+                              BuildContext context) => new Search(),
+                        ));
+                  },
+                ),
+                new ListTile(
+                  title: new Text("Browse", style: buttonStyle),
+                  onTap:(){
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (
+                              BuildContext context) => new Browse(),
+                        ));
+                  },
+                ),
+              ],
+            ),
+           ),
           ),
           body: new Container(
             decoration: new BoxDecoration(

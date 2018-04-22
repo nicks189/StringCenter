@@ -96,9 +96,12 @@ class _GroupPageState extends State<GroupPage> {
               },
               child: new Row(
                 children: <Widget>[
-                  new Text(_postList[i].content),
-                  //TODO add render to post, put here
-                  new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)
+                  new Container(
+                   constraints: new BoxConstraints(),
+                    padding: new EdgeInsets.fromLTRB(0.0,0.0,12.0,0.0),
+                    child: new Text(_postList[i].content,style: new TextStyle(fontSize: 12.0))),
+                  new Text(_postList[i].tabRender()),
+                  /*new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)*/
                 ],
               )
 
@@ -190,7 +193,7 @@ class _GroupPageState extends State<GroupPage> {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
-                                builder: (BuildContext context) => new CreatePost(null, '', _groupName)));
+                                builder: (BuildContext context) => new CreatePost('', _groupName, null)));
                       }),
                   margin: new EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
                   decoration: new BoxDecoration(

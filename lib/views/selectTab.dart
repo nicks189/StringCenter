@@ -76,7 +76,7 @@ class _SelectTabState extends State<SelectTab> {
               context,
               new MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      new CreatePost(_tabs[i], _s, _groupName)));
+                      new CreatePost(_s, _groupName, _tabs[i])));
         },
         child: new Text(_tabs[i].title),
       ));
@@ -93,7 +93,7 @@ class _SelectTabState extends State<SelectTab> {
     print("widgets: " + _wl.toString());
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('View Tab List'),
+        title: new Text('Select a Tab'),
         actions: <Widget>[
           new IconButton(
               icon: new Icon(Icons.home),
