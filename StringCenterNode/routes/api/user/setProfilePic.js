@@ -17,10 +17,10 @@ const upload = require('multer')(multerOptions).single('profilePic');
 function setPofilePic(passport) {
     let router = express.Router();
 
-    router.put('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+    router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
         upload(req, res, function(error) {
             if (error) {
-               return res.json({ message: error.message });
+               return res.json({ message: error.message }).status(400);
             }
             User.findOne({ username: req.user.username }, function (error, user) {
                 if (error) {
