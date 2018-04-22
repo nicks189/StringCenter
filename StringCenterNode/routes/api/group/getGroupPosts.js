@@ -18,8 +18,8 @@ function getGroupPosts(passport){
                 if (error) return res.json({ errors: [{ message: 'Something went wrong in finding a post' }] }).status(500);
                 if (posts.length == 0) return res.json("No posts");
                 Post.buildPostList(posts, function (error, ret) {
-                    if (error) return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-                    return res.json({ posts: ret }).status(200);
+                    if (error) return res.json({errors: [{message: 'Something went wrong building the post list'}]}).status(500);
+                    return res.json({posts : ret}).status(200);
                 });
             });
         }
