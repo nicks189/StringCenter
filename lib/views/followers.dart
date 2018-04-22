@@ -95,6 +95,7 @@ class _FollowersState extends State<Followers> {
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text("$_user's Followers"),
         actions: <Widget>[
           new IconButton(
