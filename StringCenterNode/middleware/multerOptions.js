@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
 
 const filter = function(req, file, callback) {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'
-        || file.mimetype === 'image/jpg') {
+        || file.mimetype === 'image/jpg' || file.mimetype === 'application/octet-stream') {
         callback(null, true);
     } else {
         callback(new Error('Incorrect file type'), false);
