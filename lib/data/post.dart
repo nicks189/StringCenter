@@ -27,6 +27,30 @@ class Post {
     return map;
   }
 
+  String tabRender() {
+    String t = '';
+    if (_tabID == '') return t;
+    else
+      {
+        t = t + 'Name: ' + _tab.title + '\n';
+        t = t + 'Author: ' + _authorUsername + '\n';
+        String temp = "";
+        // for (Measure measure in _measures) {
+
+          Measure measure = _tab.measures[0];
+          t = t + '\n';
+          for (int i = measure.stringCount - 1; i >= 0; i--) {
+            temp += measure.strings[i].tuning + ' ';
+            for (String note in measure.strings[i].notes) {
+              temp += note + ' ';
+            }
+            t = t + temp + '\n';
+            temp = "";
+          }
+        }
+        return t;
+      }
+
   get tab => _tab;
 
   get tabID => _tabID;

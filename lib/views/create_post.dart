@@ -8,7 +8,7 @@ import 'package:ss_5/data/post.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/views/home.dart';
 import 'package:ss_5/util/util.dart';
-
+import 'package:ss_5/util/globals.dart' as globals;
 /// CreatePost is a StatefulWidget that allows a user to create a Post which may
 /// or may not contain a Tabb object, and may or may not contain a text field
 class CreatePost extends StatefulWidget {
@@ -16,14 +16,14 @@ class CreatePost extends StatefulWidget {
   String _s;
   String _groupName;
 
-  CreatePost([Tabb t, String s, String groupName]) {
+  CreatePost([String s, String groupName, Tabb t]) {
     _t = t;
     _s = s;
     _groupName = groupName;
   }
 
   @override
-  _CreatePostState createState() => new _CreatePostState(_t, _s, _groupName);
+  _CreatePostState createState() => new _CreatePostState(_s, _groupName, _t);
 }
 
 // State for CreatePost
@@ -31,19 +31,25 @@ class _CreatePostState extends State<CreatePost> {
   Tabb _t;
   String _s;
   String _groupName;
+  String _tabHintText;
   TextEditingController _ptc = new TextEditingController();
 
-  _CreatePostState([Tabb t, String s = '', String groupName = '']) {
+  _CreatePostState([String s = '', String groupName = '', Tabb t]) {
     _t = t;
     _s = s;
     _ptc.text = s;
     _groupName = groupName;
+
+    if(_t == null) {
+      _tabHintText = "No tab selected";
+    }
+    else _tabHintText = _t.title;
   }
 
   _finalizePost() async {
     Post p;
     if (_t != null) {
-      p = new Post(_ptc.text, _t.id, _groupName);
+      p = new Post(_ptc.text, _t.id, _groupName,_t);
     } else {
       p = new Post(_ptc.text,'',_groupName);
     }
@@ -70,6 +76,7 @@ class _CreatePostState extends State<CreatePost> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text('Create Post'),
         actions: <Widget>[
           new IconButton(
@@ -85,6 +92,12 @@ class _CreatePostState extends State<CreatePost> {
           child: new Column(
             children: <Widget>[
               new TextField(
+                maxLines: 10,
+                decoration: new InputDecoration(
+                  hintText: "Enter the content of your post...",
+                    border: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.all(new Radius.circular(1.0)),
+                        borderSide: new BorderSide(color: globals.themeColor))),
                 controller: _ptc,
               ),
               new Padding(padding: new EdgeInsets.all(8.0)),
@@ -96,6 +109,18 @@ class _CreatePostState extends State<CreatePost> {
               new RaisedButton(
                 onPressed: _finalizePost,
                 child: new Text('Post'),
+              ),
+              new Padding(padding: new EdgeInsets.all(12.0),),
+              new Container(
+                margin: new EdgeInsets.all(10.0),
+                padding: new EdgeInsets.all(12.0),
+                child: new Text(_tabHintText),
+                decoration: new BoxDecoration(
+                  borderRadius: new BorderRadius.all(new Radius.circular(1.0)),
+                  border: new Border.all(
+                    color: new Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
               ),
             ],
           ),
