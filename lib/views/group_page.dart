@@ -82,7 +82,7 @@ class _GroupPageState extends State<GroupPage> {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _postList.length; i++) {
       widgetList.add(new Container(
-        margin: EdgeInsets.all(12.0),
+        margin: new EdgeInsets.all(12.0),
           decoration: new BoxDecoration(
               border: Border.all(color: globals.themeColor)
           ),
