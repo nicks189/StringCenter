@@ -29,6 +29,10 @@ let PostSchema = mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    tab: {
+        type: Object,
+        default: null
     }
 });
 
@@ -62,6 +66,30 @@ PostSchema.statics.search = function(regex, callback) {
             return callback(error);
         }
         return callback(null, posts);
+    });
+};
+
+PostSchema.statics.buildPostList = function(posts, callback) {
+    let ret = [];
+    let i = 0;
+    posts.forEach(function (p) {
+        Tab.findById(p.tabId, function (error, tab) {
+            if (error) {
+                return callback(new Error('Something went wrong.'), null);
+            } else if (tab) {
+                p.tab = tab;
+            }
+            ret.push(p);
+            i++;
+
+            if (i === posts.length) {
+                ret.sort(function (a, b) {
+                    // sort by most recent dateCreated
+                    return new Date(b.dateCreated) - new Date(a.dateCreated);
+                });
+                return callback(null, ret);
+            }
+        });
     });
 };
 

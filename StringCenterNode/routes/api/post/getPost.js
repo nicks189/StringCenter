@@ -30,22 +30,11 @@ module.exports.getPostsForUser = function getPost(passport) {
                 } else if (posts.length === 0) {
                     return res.json({errors: [{message: 'No posts found'}]}).status(400);
                 }
-                posts.sort(function (a, b) {
-                    // sort by most recent dateCreated
-                    return new Date(b.dateCreated) - new Date(a.dateCreated);
-                });
-                posts.forEach(function (p, i) {
-                    Tab.findById(p.tabId, function (error, tab) {
-                        if (error) {
-                            return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-                        } else if (tab) {
-                            p.tab = tab;
-                        }
-
-                        if (i === posts.length - 1) {
-                            return res.json({posts: posts}).status(200);
-                        }
-                    });
+                Post.buildPostList(posts, function (error, ret) {
+                    if (error) {
+                        return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                    }
+                    res.json({ posts: ret }).status(200);
                 });
             });
     });
@@ -65,22 +54,11 @@ module.exports.getPostsForUser = function getPost(passport) {
                 } else if (posts.length === 0) {
                     return res.json({errors: [{message: 'No posts found'}]}).status(400);
                 }
-                posts.sort(function (a, b) {
-                    // sort by most recent dateCreated
-                    return new Date(b.dateCreated) - new Date(a.dateCreated);
-                });
-                posts.forEach(function (p, i) {
-                    Tab.findById(p.tabId, function (error, tab) {
-                        if (error) {
-                            return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-                        } else if (tab) {
-                            p.tab = tab;
-                        }
-
-                        if (i === posts.length - 1) {
-                            return res.json({posts: posts}).status(200);
-                        }
-                    });
+                Post.buildPostList(posts, function (error, ret) {
+                    if (error) {
+                        return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                    }
+                    res.json({ posts: ret }).status(200);
                 });
             });
     });
@@ -106,7 +84,14 @@ module.exports.getPostById = function(passport) {
             } else if (!post) {
                 return res.json({ errors: [{ message: 'Post not found' }] }).status(400);
             }
-            res.json(post).status(200);
+            Tab.findById(post.tabId, function (error, tab) {
+                if (error) {
+                    return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                } else if (tab) {
+                    post.tab = tab;
+                }
+                res.json(post).status(200);
+            });
         });
     });
 
