@@ -30,24 +30,11 @@ module.exports.getPostsForUser = function getPost(passport) {
                 } else if (posts.length === 0) {
                     return res.json({errors: [{message: 'No posts found'}]}).status(400);
                 }
-                let ret = [];
-                posts.forEach(function (p, i) {
-                    Tab.findById(p.tabId, function (error, tab) {
-                        if (error) {
-                            return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-                        } else if (tab) {
-                            p.tab = tab;
-                        }
-                        ret.push(p);
-
-                        if (i === posts.length - 1) {
-                            ret.sort(function (a, b) {
-                                // sort by most recent dateCreated
-                                return new Date(b.dateCreated) - new Date(a.dateCreated);
-                            });
-                            return res.json({posts: ret}).status(200);
-                        }
-                    });
+                Post.buildPostList(posts, function (error, ret) {
+                    if (error) {
+                        return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                    }
+                    res.json({ posts: ret }).status(200);
                 });
             });
     });
@@ -67,24 +54,11 @@ module.exports.getPostsForUser = function getPost(passport) {
                 } else if (posts.length === 0) {
                     return res.json({errors: [{message: 'No posts found'}]}).status(400);
                 }
-                let ret = [];
-                posts.forEach(function (p, i) {
-                    Tab.findById(p.tabId, function (error, tab) {
-                        if (error) {
-                            return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
-                        } else if (tab) {
-                            p.tab = tab;
-                        }
-                        ret.push(p);
-
-                        if (i === posts.length - 1) {
-                            ret.sort(function (a, b) {
-                                // sort by most recent dateCreated
-                                return new Date(b.dateCreated) - new Date(a.dateCreated);
-                            });
-                            return res.json({posts: ret}).status(200);
-                        }
-                    });
+                Post.buildPostList(posts, function (error, ret) {
+                    if (error) {
+                        return res.json({errors: [{message: 'Something went wrong'}]}).status(500);
+                    }
+                    res.json({ posts: ret }).status(200);
                 });
             });
     });
