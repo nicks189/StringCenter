@@ -21,13 +21,16 @@ function newsfeed(passport){
                 if(ugerr) return res.json({errors: [{message: 'Something went wrong finding userGroup records'}]}).status(500);
                 var follows = uf.concat(ug);
                 var followsPosts = [];
-                follows.forEach(function(f, i){
+                var count = 0;
+                follows.forEach(function(f){
                     Post.find({$or: [{"authorUsername" : f.followsUsername}, {"groupName" : f.groupName}]}, function(perr, posts){
                         if(perr) return res.json({errors: [{message: 'Something went wrong building the post list'}]}).status(500);
                         posts.forEach(function(p){
                             followsPosts.push(p);
                         });
-                        if(i == follows.length - 1){
+
+                        count++;
+                        if(count == follows.length - 1){
                             let uniqueIDs = [];
                             let uniquePosts = [];
                             followsPosts.forEach(function(fp){
