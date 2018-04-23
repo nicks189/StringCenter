@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'dart:async';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/data/tab.dart';
 import 'package:ss_5/views/profile.dart';
@@ -18,6 +19,8 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   TextEditingController _aboutMe = new TextEditingController();
+  File _image;
+
 
   _EditProfileState() {
     _aboutMe.text = globals.user.description;
@@ -35,6 +38,15 @@ class _EditProfileState extends State<EditProfile> {
     Navigator.of(context).pushAndRemoveUntil(
         new MaterialPageRoute(builder: (BuildContext context) => new Profile()),
         (Route<dynamic> route) => false);
+  }
+
+  _changePicture() async{
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() async {
+      _image = image;
+      await Upload(_image);
+    });
   }
 
   _deleteAccount() async {
@@ -71,6 +83,11 @@ class _EditProfileState extends State<EditProfile> {
             new Text('About me'),
             new TextField(
               controller: _aboutMe,
+            ),
+            new Padding(padding: new EdgeInsets.all(20.0)),
+            new RaisedButton(
+              onPressed: _changePicture,
+              child: new Text('Change Profile Picture'),
             ),
             new Padding(padding: new EdgeInsets.all(20.0)),
             new ButtonBar(
