@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:async';
-
+import 'package:ss_5/data/user.dart';
 import 'package:flutter/services.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/data/tab.dart';
@@ -23,6 +23,7 @@ class ViewPost extends StatefulWidget {
 class _ViewPostState extends State<ViewPost> {
   Post _post;
   Tabb _t;
+  User u;
 
   _ViewPostState(Post givenPost) {
     _post = givenPost;
@@ -31,8 +32,22 @@ class _ViewPostState extends State<ViewPost> {
   @override
   void initState() {
     _getTab().then((_){
-      setState(() {});
+      _getUser().then((_) {
+        setState(() {});
       });
+      });
+  }
+
+  _getUser() async {
+    try {
+      String response = await getRequestAuthorization(
+          "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/${_post.authorUsername}");
+      Map m = json.decode(response);
+      print(m);
+      u = new User(m['username'], m['profilePic']);
+    } catch (exception) {
+      print('view post get user exception' + exception.toString());
+    }
   }
 
   _getTab() async {
@@ -56,12 +71,15 @@ class _ViewPostState extends State<ViewPost> {
 
   @override
   Widget build(BuildContext context) {
+    if(u == null){
+      return new Container();
+    }else
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: globals.themeColor,
         leading: new Image.network(
-          'http://proj-309-ss-5.cs.iastate.edu:3000/${globals.user.profilePic}',
-          fit: BoxFit.scaleDown,
+          'http://proj-309-ss-5.cs.iastate.edu:3000/${u.profilePic}',
+          fit: BoxFit.fill,
         ),
         title: new Text(_post.authorUsername),
       ),

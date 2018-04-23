@@ -201,7 +201,7 @@ class _ProfileState extends State<Profile> {
         backgroundColor: globals.themeColor,
         leading: new Image.network(
           'http://proj-309-ss-5.cs.iastate.edu:3000/${globals.user.profilePic}',
-          fit: BoxFit.scaleDown,
+          fit: BoxFit.fill,
         ),
         title: new Text(globals.user.username),
         actions: <Widget>[
