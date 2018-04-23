@@ -10,7 +10,7 @@ import 'package:ss_5/views/followers.dart';
 import 'package:ss_5/util/globals.dart' as globals;
 import 'package:ss_5/data/user.dart';
 import 'package:ss_5/views/following.dart';
-
+import 'package:ss_5/data/tab.dart';
 ///ViewUser is a StatefulWidget that displays a user's page
 ///Takes in a [_givenUserName] in order to determine which user to display
 class ViewUser extends StatefulWidget {
@@ -39,6 +39,11 @@ class _ViewUserState extends State<ViewUser> {
     _userName = givenUserName;
   }
 
+  double _textBoxWidth(bool hasTab) {
+    if (hasTab) return 128.0;
+    else return 312.0;
+  }
+
   _getPostList() async {
     try {
       //getting postlist
@@ -59,9 +64,13 @@ class _ViewUserState extends State<ViewUser> {
         for (int i = 0; i < posts['posts'].length; i++) {
           if (posts['posts'][i]['tabId'] != null) {
             _postList.add(new Post(posts['posts'][i]['authorUsername'],
-                posts['posts'][i]["content"], posts['posts'][i]['tabId']));
+                posts['posts'][i]["content"],
+                posts['posts'][i]['tabId'],
+                posts['posts'][i]['groupName'],
+                Tabb.fromJson(posts['posts'][i]['tab'])));
           } else {
-            _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"]));
+            _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"], '',
+                posts['posts'][i]['groupName']));
           }
         }
       }
@@ -127,16 +136,53 @@ class _ViewUserState extends State<ViewUser> {
           child: new Text(_user.description)),
     );
     for (int i = 0; i < _postList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                builder: (BuildContext context) => new ViewPost(_postList[i]),
-              ));
-        },
-        child: new Text(_postList[i].content),
-      ));
+      widgetList.add(new Container(
+        margin: new EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+        decoration:
+        new BoxDecoration(border: Border.all(color: globals.themeColor)),
+        constraints: new BoxConstraints(maxWidth: 128.0, maxHeight: 168.0),
+        child: new MaterialButton(
+          padding: new EdgeInsets.all(0.0),
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new ViewPost(_postList[i])));
+          },
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Container(
+                    constraints: new BoxConstraints(maxWidth: 100.0, maxHeight: 32.0),
+                    padding: new EdgeInsets.all(6.0),
+                    margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
+                    child: new Text(_postList[i].authorUsername),
+                    decoration: new BoxDecoration(
+                      border: new Border.all(
+                          color: globals.themeColor, width: 2.0),
+                    ),
+                  ),
+                  new Container(
+                    constraints: new BoxConstraints(maxWidth: _textBoxWidth(_postList[i].hasTab), maxHeight: 196.0),
+                    margin: new EdgeInsets.fromLTRB(12.0, 2.0, 18.0, 6.0),
+                    padding: new EdgeInsets.all(4.0),
+                    child: new Text(_postList[i].content, maxLines: 6),
+                    decoration: new BoxDecoration(
+                      border: new Border.all(color: globals.themeColor),
+                    ),
+                  ),
+                ],
+              ),
+              new Text(_postList[i].tabRender()),
+            ],
+          ),
+        ),
+      ),
+      );
     }
     return widgetList;
   }

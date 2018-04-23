@@ -51,18 +51,19 @@ class _ViewTabListState extends State<ViewTabList> {
     print("_tabs.length: " + _tabs.length.toString());
     for (int i = 0; i < _tabs.length; i++) {
       wl.add(new Container(
-          decoration: new BoxDecoration(
-              border: Border.all(color: globals.themeColor)
-          ),
+          decoration:
+              new BoxDecoration(border: Border.all(color: globals.themeColor)),
           child: new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) => new ViewTab(_tabs[i])));
-        },
-        child: new Text(_tabs[i].title, softWrap: true),
-      )));
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new ViewTab(_tabs[i])));
+            },
+            child: new Text(_tabs[i].title, softWrap: true),
+          ),
+      ));
       wl.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return wl;
