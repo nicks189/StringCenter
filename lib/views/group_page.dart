@@ -30,6 +30,7 @@ class _GroupPageState extends State<GroupPage> {
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
   double textBoxWidth = 128.0;
+  bool _isInGroup;
   _GroupPageState(_givenGroupName) {
     _groupName = _givenGroupName;
   }
@@ -76,6 +77,33 @@ class _GroupPageState extends State<GroupPage> {
     } catch (exception) {
       print("grouppage exception: " + exception.toString());
     }
+  }
+
+  _joinGroup() async {
+    Map m = new Map();
+    try {
+      putRequestAuthorization(
+          'http://proj-309-ss-5.cs.iastate.edu:3000/api/join-group/$_groupName');
+    } catch (exception) {
+      print('follow error' + exception.toString());
+    }
+    setState(() {
+      _isInGroup = true;
+    });
+  }
+
+  _leaveGroup() async {
+    Map m = new Map();
+    try {
+      deleteRequestWriteAuthorization(
+          'http://proj-309-ss-5.cs.iastate.edu:3000/api/leave-group/$_groupName',
+          json.encode(m));
+    } catch (exception) {
+      print('follow error' + exception.toString());
+    }
+    setState(() {
+      _isInGroup = false;
+    });
   }
 
   @override
