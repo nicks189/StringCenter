@@ -49,9 +49,9 @@ class _CreatePostState extends State<CreatePost> {
   _finalizePost() async {
     Post p;
     if (_t != null) {
-      p = new Post(_ptc.text, _t.id, _groupName,_t);
+      p = new Post(globals.user.username, _ptc.text, _t.id, _groupName,_t);
     } else {
-      p = new Post(_ptc.text,'',_groupName);
+      p = new Post(globals.user.username, _ptc.text,'',_groupName);
     }
     try {
       String responseBody = await postRequestWriteAuthorization(

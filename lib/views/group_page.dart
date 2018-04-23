@@ -63,13 +63,13 @@ class _GroupPageState extends State<GroupPage> {
       print("posts.length: " + posts['posts'].length.toString());
       for (int i = 0; i < posts['posts'].length; i++) {
         if (posts['posts'][i]['tabId'] != null) {
-          _postList.add(new Post(
+          _postList.add(new Post(posts['posts'][i]['authorUsername'],
               posts['posts'][i]["content"],
               posts['posts'][i]['tabId'],
               posts['posts'][i]['groupName'],
               Tabb.fromJson(posts['posts'][i]['tab'])));
         } else {
-          _postList.add(new Post(posts['posts'][i]["content"], '',
+          _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"], '',
               posts['posts'][i]['groupName']));
         }
       }

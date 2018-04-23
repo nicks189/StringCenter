@@ -9,9 +9,9 @@ class Post {
   Tabb _tab;
   bool _hasTab;
 
-  Post(String content, [tabID = '', groupName = '', Tabb tab]) {
+  Post(String username, String content, [tabID = '', groupName = '', Tabb tab]) {
     _content = content;
-    _authorUsername = globals.user.username;
+    _authorUsername = username;
     _tabID = tabID;
     _groupName = groupName;
     _tab = tab;

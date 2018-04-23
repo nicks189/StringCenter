@@ -70,10 +70,10 @@ class _SearchState extends State<Search> {
       }
       for (int i = 0; i < m['posts'].length;i++) {
         if (m['posts'][i]['tabId'] != null) {
-          _postList.add(new Post(
+          _postList.add(new Post(m['posts'][i]['authorUsername'],
               m['posts'][i]["content"], m['posts'][i]['tabId']));
         } else {
-          _postList.add(new Post(m['posts'][i]["content"]));
+          _postList.add(new Post(m['posts'][i]['authorUsername'], m['posts'][i]["content"]));
         }
       }
       for (int i = 0; i < m['tabs'].length;i++) {

@@ -36,10 +36,10 @@ class _ProfileState extends State<Profile> {
 
         for (int i = 0; i < posts['posts'].length; i++) {
           if (posts['posts'][i]['tabId'] != null) {
-            _postList.add(new Post(
+            _postList.add(new Post(posts['posts'][i]['authorUsername'],
                 posts['posts'][i]["content"], posts['posts'][i]['tabId']));
           } else {
-            _postList.add(new Post(posts['posts'][i]["content"]));
+            _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"]));
           }
         }
       }
