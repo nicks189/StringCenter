@@ -61,7 +61,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
   void _nextMeasure() {
     setState(() {
       _t.addMeasure(_m);
-      _m = new Measure('', _t.tuning.length, _noteCount, _t.tuning);
+      _m = new Measure(_t.measures.length.toString(), _t.tuning.length, _noteCount, _t.tuning);
     });
   }
 
@@ -140,7 +140,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
           //adds column labels
         } else if (j == 1) {
           wlist.add(new Text(
-            i.toString(),
+              (i+1).toString(),
             textAlign: TextAlign.center,
           ));
           //adds note buttons
@@ -163,6 +163,7 @@ class _CreateMeasureState extends State<CreateMeasure> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text(
           'Create Measure',
           textAlign: TextAlign.center,
