@@ -144,9 +144,10 @@ class _GroupPageState extends State<GroupPage> {
                         padding: new EdgeInsets.all(6.0),
                         margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
                         child: new Text(_postList[i].authorUsername),
-                        decoration: new BoxDecoration(
-                          border: new Border.all(
-                              color: globals.themeColor, width: 2.0),
+                        decoration: new BoxDecoration(border: new Border(
+                          right: new BorderSide(color: globals.themeColor),
+                          bottom: new BorderSide(color: globals.themeColor),
+                        ),
                         ),
                       ),
                       new Container(

@@ -137,11 +137,7 @@ class _ProfileState extends State<Profile> {
       widgetList.add(new Container(
         margin: new EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
         decoration:
-        new BoxDecoration(border: new Border(
-          right: new BorderSide(color: globals.themeColor),
-          bottom: new BorderSide(color: globals.themeColor),
-        ),
-        ),
+        new BoxDecoration(border: Border.all(color: globals.themeColor)),
         constraints: new BoxConstraints(maxWidth: 128.0, maxHeight: 168.0),
         child: new MaterialButton(
           padding: new EdgeInsets.all(0.0),
@@ -163,9 +159,10 @@ class _ProfileState extends State<Profile> {
                     padding: new EdgeInsets.all(6.0),
                     margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
                     child: new Text(_postList[i].authorUsername),
-                    decoration: new BoxDecoration(
-                      border: new Border.all(
-                          color: globals.themeColor, width: 2.0),
+                    decoration: new BoxDecoration(border: new Border(
+                      right: new BorderSide(color: globals.themeColor),
+                      bottom: new BorderSide(color: globals.themeColor),
+                    ),
                     ),
                   ),
                   new Container(
