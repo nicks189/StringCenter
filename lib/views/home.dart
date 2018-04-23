@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
-
+import 'package:ss_5/data/post.dart';
 import 'package:ss_5/views/log_in.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/views/viewtablist.dart';
 import 'package:ss_5/views/followers.dart';
 import 'package:ss_5/views/profile.dart';
-import 'imagepick.dart';
-import 'dart:io';
+import 'view_post.dart';
+import 'package:ss_5/data/tab.dart';
 import 'my_groups.dart';
 import 'package:ss_5/views/create_group.dart';
 import 'package:ss_5/util/globals.dart' as globals;
@@ -27,12 +27,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _message;
+  List<Widget> _widgetList = new List<Widget>();
+  List<Post> _postList = new List<Post>();
   bool _loaded = false;
   TextStyle buttonStyle = new TextStyle(color: Colors.white, fontFamily: 'times',fontSize: 24.0);
+  TextStyle tstyle = new TextStyle(color: Colors.black);
   Widget _page = new Container();
+  double _textBoxWidth(bool hasTab) {
+    if (hasTab) return 128.0;
+    else return 312.0;
+  }
 
   _HomeState() {
     _message = '';
+
   }
 
   _HomeState.withMessage(String message) {
@@ -42,11 +50,113 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
      _requestUser().then((_loaded){
+       _getPostList().then((widgetList) {
+         widgetList = _generateWidgets();
+         setState(() {
+           _widgetList = widgetList;
+         });
+       });
        setState(() {
          _loaded = true;
        });
      });
+  }
 
+  void _refresh(){
+    _postList = new List<Post>();
+      _getPostList().then((widgetList) {
+        widgetList = _generateWidgets();
+        setState(() {
+          _widgetList = widgetList;
+        });
+      setState(() {
+        _loaded = true;
+      });
+    });
+  }
+
+  _getPostList() async {
+    var url = "http://proj-309-ss-5.cs.iastate.edu:3000/api/newsfeed";
+    try {
+      String responseBody =
+      await getRequestAuthorization(url);
+      print(responseBody);
+      Map posts = json.decode(responseBody);
+
+      if (posts['posts'] != null) {
+        print("posts.length: " + posts['posts'].length.toString());
+
+        for (int i = 0; i < posts['posts'].length; i++) {
+          if (posts['posts'][i]['tab'] != null) {
+            _postList.add(new Post(posts['posts'][i]['authorUsername'],
+                posts['posts'][i]["content"],
+                posts['posts'][i]['tabId'],
+                posts['posts'][i]['groupName'],
+                Tabb.fromJson(posts['posts'][i]['tab'])));
+          } else {
+            _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"], '',
+                posts['posts'][i]['groupName']));
+          }
+        }
+      }
+    } catch (exception) {
+      print("newsfeed exception: " + exception.toString());
+    }
+  }
+
+  List<Widget> _generateWidgets() {
+    List<Widget> widgetList = new List<Widget>();
+    for (int i = 0; i < _postList.length; i++) {
+      widgetList.add(new Container(
+        margin: new EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+        decoration:
+        new BoxDecoration(color: new Color.fromARGB(230, 255, 255, 255),border: Border.all(color: globals.themeColor)),
+        constraints: new BoxConstraints(maxWidth: 128.0, maxHeight: 168.0),
+        child: new MaterialButton(
+          padding: new EdgeInsets.all(0.0),
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new ViewPost(_postList[i])));
+          },
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Container(
+                    constraints: new BoxConstraints(maxWidth: 100.0, maxHeight: 32.0),
+                    padding: new EdgeInsets.all(6.0),
+                    margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
+                    child: new Text(_postList[i].authorUsername, style: tstyle,),
+                    decoration: new BoxDecoration(border: new Border(
+                      right: new BorderSide(color: globals.themeColor),
+                      bottom: new BorderSide(color: globals.themeColor),
+                    ),
+                    ),
+                  ),
+                  new Container(
+                    constraints: new BoxConstraints(maxWidth: _textBoxWidth(_postList[i].hasTab), maxHeight: 196.0),
+                    margin: new EdgeInsets.fromLTRB(12.0, 2.0, 18.0, 6.0),
+                    padding: new EdgeInsets.all(4.0),
+                    child: new Text(_postList[i].content, maxLines: 6, style: tstyle,),
+                    decoration: new BoxDecoration(
+                      border: new Border.all(color: globals.themeColor),
+                    ),
+                  ),
+                ],
+              ),
+              new Text(_postList[i].tabRender(), style: tstyle,),
+            ],
+          ),
+        ),
+      ),
+      );
+    }
+    return widgetList;
   }
 
   _requestUser() async {
@@ -98,8 +208,11 @@ class _HomeState extends State<Home> {
         return new Scaffold(
           appBar: new AppBar(
             backgroundColor: globals.themeColor,
-            title: new Text('Home'),
+            title: new Text('Newsfeed'),
             actions: <Widget>[
+              new IconButton(
+                  icon: new Icon(Icons.refresh),
+                  onPressed:  _refresh),
               new IconButton(
                   icon: new Icon(Icons.exit_to_app),
                   onPressed: () async {
@@ -196,108 +309,15 @@ class _HomeState extends State<Home> {
           body: new Container(
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("images/guitar.jpg"),
                 fit: BoxFit.cover,
-              ),
-
+                  image: new AssetImage("images/guitar.jpg")),
             ),
-            padding: new EdgeInsets.all(32.0),
-            child: new Center(
-              child: new ListView(
-                itemExtent: 30.0,
-                children: <Widget>[
-//              new RaisedButton(
-//                child: new Text("Login"),
-//                onPressed: () {
-//                  Navigator.of(context).pushNamed('Login');
-//                },
-//             ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text(
-                      "View Tabs",
-                      style: buttonStyle,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                            builder: (
-                                BuildContext context) => new ViewTabList(),
-                          ));
-                    },
-                  ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text("Create Tab", style: buttonStyle,),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('TabOptions');
-                    },
-                  ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text("Profile", style: buttonStyle,),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (
-                                  BuildContext context) => new Profile()));
-                    },
-                  ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text("Browse", style: buttonStyle,),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (BuildContext context) => new Browse()));
-                    },
-                  ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text("Search", style: buttonStyle,),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (BuildContext context) => new Search()));
-                    },
-                  ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text("CreateGroup", style: buttonStyle,),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (
-                                  BuildContext context) => new CreateGroup()));
-                    },
-                  ),
-                  new Padding(padding: new EdgeInsets.all(16.0)),
-                  new RaisedButton(
-                    color: globals.themeColor,
-                    child: new Text("My Groups", style: buttonStyle,),
-                    onPressed: () async{
-                      Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (
-                                  BuildContext context) => new MyGroups()));
-                    },
-                  ),
-                ],
-              ),
-            ),
+          alignment: Alignment.center,
+          padding: new EdgeInsets.all(20.0),
+          child: new ListView(
+            children: _widgetList,
           ),
+        ),
         );
     }
   }// end build

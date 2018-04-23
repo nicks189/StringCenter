@@ -265,8 +265,9 @@ class _ViewUserState extends State<ViewUser> {
         appBar: new AppBar(
           backgroundColor: globals.themeColor,
           leading: new Image.network(
+
             'http://proj-309-ss-5.cs.iastate.edu:3000/${_user.profilePic}',
-            fit: BoxFit.scaleDown,
+            fit: BoxFit.fill,
           ),
           title: new Text(_userName),
           actions: <Widget>[
