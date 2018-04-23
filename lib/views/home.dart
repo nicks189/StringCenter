@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
                   },
                 ),
                 new ListTile(
-                  title: new Text("Your Tabs", style: buttonStyle),
+                  title: new Text("My Tabs", style: buttonStyle),
                   onTap:(){
                     Navigator.push(
                         context,
