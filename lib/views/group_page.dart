@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:ss_5/util/globals.dart' as globals;
 import 'package:ss_5/data/post.dart';
@@ -79,6 +80,29 @@ class _GroupPageState extends State<GroupPage> {
     }
   }
 
+  Future<List> _getGroupMembers() async {
+    List<String> userList = new List<String>();
+    var url =
+        "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-members/$_groupName";
+    try {
+      String responseBody = await getRequestAuthorization(url);
+      Map js = json.decode(responseBody);
+      print("decoded json map: " + js.toString());
+      print("js['usernames'].length: " + js['usernames'].length.toString());
+      for (int i = 0; i < js['usernames'].length; i++) {
+        userList.add(js['usernames'][i]);
+      }
+    } catch (exception) {
+      print("exception getGroupMembers" + exception.toString());
+    }
+    return userList;
+  }
+
+  Future<bool>_checkIsInGroup() async {
+    List<String> userList = await _getGroupMembers();
+    return userList.contains(globals.user.username);
+  }
+
   _joinGroup() async {
     Map m = new Map();
     try {
@@ -110,10 +134,27 @@ class _GroupPageState extends State<GroupPage> {
   void initState() {
     _getPostList().then((widgetList) {
       widgetList = _generateWidgets();
-      setState(() {
-        _widgetList = widgetList;
+      _checkIsInGroup().then((isInGroup) {
+        setState(() {
+          _isInGroup = isInGroup;
+          _widgetList = widgetList;
+        });
       });
     });
+  }
+
+  RaisedButton _generateJoinButton() {
+    if (_isInGroup) {
+      return new RaisedButton(
+        onPressed: _leaveGroup,
+        child: new Text('Leave'),
+      );
+    } else {
+      return new RaisedButton(
+        onPressed: _joinGroup,
+        child: new Text('Join'),
+      );
+    }
   }
 
   List<Widget> _generateWidgets() {
@@ -173,11 +214,8 @@ class _GroupPageState extends State<GroupPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_widgetList == null) {
-      return new Container(
-          child: new Column(children: [
-        new Text("Loading..."),
-      ]));
+    if (_widgetList == null || _isInGroup == null) {
+      return new Container();
     }
     var spacer = new SizedBox(height: 32.0);
     return new Scaffold(
@@ -185,6 +223,7 @@ class _GroupPageState extends State<GroupPage> {
         backgroundColor: globals.themeColor,
         title: new Text(_groupName),
         actions: <Widget>[
+          _generateJoinButton(),
           new IconButton(
               icon: new Icon(Icons.settings),
               onPressed: () {
