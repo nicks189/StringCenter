@@ -92,10 +92,11 @@ class _HomeState extends State<Home> {
                 posts['posts'][i]["content"],
                 posts['posts'][i]['tabId'],
                 posts['posts'][i]['groupName'],
-                Tabb.fromJson(posts['posts'][i]['tab'])));
+                Tabb.fromJson(posts['posts'][i]['tab']),
+                new User(posts['posts'][i]['user']['username'], posts['posts'][i]['user']['profilePic'])));
           } else {
             _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"], '',
-                posts['posts'][i]['groupName']));
+                posts['posts'][i]['groupName'], null, new User(posts['posts'][i]['user']['username'], posts['posts'][i]['user']['profilePic'])));
           }
         }
       }
@@ -128,10 +129,17 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Container(
-                    constraints: new BoxConstraints(maxWidth: 100.0, maxHeight: 32.0),
+                    constraints: new BoxConstraints(maxWidth: 120.0, maxHeight: 32.0),
                     padding: new EdgeInsets.all(6.0),
                     margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
-                    child: new Text(_postList[i].authorUsername, style: tstyle,),
+                    child: new Row(
+                      children: <Widget>[
+                        new Image.network("http://proj-309-ss-5.cs.iastate.edu:3000/${_postList[i].user.profilePic}", fit: BoxFit.fill,),
+                        new Padding(padding: new EdgeInsets.only(right: 10.0)),
+                        new Text(_postList[i].authorUsername, style: tstyle,),
+                      ],
+                    ),
+
                     decoration: new BoxDecoration(border: new Border(
                       right: new BorderSide(color: globals.themeColor),
                       bottom: new BorderSide(color: globals.themeColor),
