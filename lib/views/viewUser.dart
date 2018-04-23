@@ -52,7 +52,7 @@ class _ViewUserState extends State<ViewUser> {
           "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-user/info/$_userName";
       responseBody = await getRequestTokenAuthorization(url, globals.token);
       Map uInfo = json.decode(responseBody);
-      _user = new User(uInfo['username'], uInfo['_id'], uInfo['description']);
+      _user = new User(uInfo['username'], uInfo['profilePic'], uInfo['_id'], uInfo['description']);
       if (posts['posts'] != null) {
         print("posts.length: " + posts['posts'].length.toString());
 
@@ -211,20 +211,10 @@ class _ViewUserState extends State<ViewUser> {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: globals.themeColor,
-        leading:
-        new IconButton(icon: new Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          if(_followingUser != '')
-          Navigator.of(context).pushAndRemoveUntil(
-              new MaterialPageRoute(builder: (BuildContext context) => new Following(_followingUser)),
-                  (Route<dynamic> route) => false);
-          else
-            Navigator.of(context).pop();
-        }),
-        /*new Image.asset(
-          'images/einstein.jpg',
+        leading: new Image.network(
+          'http://proj-309-ss-5.cs.iastate.edu:3000/${_user.profilePic}',
           fit: BoxFit.scaleDown,
-        ),*/
+        ),
         title: new Text(_userName),
         actions: <Widget>[
           _generateFollowButton(),
