@@ -101,9 +101,25 @@ class _CreatePostState extends State<CreatePost> {
                 controller: _ptc,
               ),
               new Padding(padding: new EdgeInsets.all(8.0)),
-              new RaisedButton(
-                onPressed: _selectTab,
-                child: new Text('Select Tab'),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                    onPressed: _selectTab,
+                    child: new Text('Select Tab'),
+                  ),
+                  new Container(
+                    margin: new EdgeInsets.all(10.0),
+                    padding: new EdgeInsets.all(12.0),
+                    child: new Text(_tabHintText),
+                    decoration: new BoxDecoration(
+                      borderRadius: new BorderRadius.all(new Radius.circular(1.0)),
+                      border: new Border.all(
+                        color: new Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               new Padding(padding: new EdgeInsets.all(8.0)),
               new RaisedButton(
@@ -111,17 +127,6 @@ class _CreatePostState extends State<CreatePost> {
                 child: new Text('Post'),
               ),
               new Padding(padding: new EdgeInsets.all(12.0),),
-              new Container(
-                margin: new EdgeInsets.all(10.0),
-                padding: new EdgeInsets.all(12.0),
-                child: new Text(_tabHintText),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.all(new Radius.circular(1.0)),
-                  border: new Border.all(
-                    color: new Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

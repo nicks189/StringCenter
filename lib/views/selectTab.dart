@@ -93,6 +93,7 @@ class _SelectTabState extends State<SelectTab> {
     print("widgets: " + _wl.toString());
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text('Select a Tab'),
         actions: <Widget>[
           new IconButton(
