@@ -57,8 +57,8 @@ class _EditProfileState extends State<EditProfile> {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: globals.themeColor,
-        leading: new Image.asset(
-          'images/einstein.jpg',
+        leading: new Image.network(
+          'http://proj-309-ss-5.cs.iastate.edu:3000/${globals.user.profilePic}',
           fit: BoxFit.scaleDown,
         ),
         title: new Text('Edit Profile'),
