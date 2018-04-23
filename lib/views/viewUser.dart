@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
-
+import 'profile.dart';
 import 'package:ss_5/util/util.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/data/post.dart';
@@ -256,6 +256,8 @@ class _ViewUserState extends State<ViewUser> {
   Widget build(BuildContext context) {
     if (_widgetList == null || _user == null) {
       return new Container();
+    }else if(_userName == globals.user.username){
+      return new Profile();
     } else {
       return new Scaffold(
         appBar: new AppBar(
