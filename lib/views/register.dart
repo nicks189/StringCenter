@@ -8,7 +8,7 @@ import 'package:ss_5/data/registerdata.dart';
 import 'package:ss_5/communications/servercommunication.dart';
 import 'package:ss_5/data/logindata.dart';
 import 'package:ss_5/communications/fileIO.dart';
-
+import 'package:ss_5/util/globals.dart' as globals;
 ///Register is a StatelessWidget that allows a user to register for an account
 ///for StringCenter. A user must enter firstName, lastName, username, password,
 ///and confirmpassword.
@@ -70,6 +70,7 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: globals.themeColor,
         title: new Text('Register'),
       ),
       body: new Container(

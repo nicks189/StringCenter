@@ -51,19 +51,28 @@ class _ViewTabListState extends State<ViewTabList> {
     print("_tabs.length: " + _tabs.length.toString());
     for (int i = 0; i < _tabs.length; i++) {
       wl.add(new Container(
-          decoration:
-              new BoxDecoration(border: Border.all(color: globals.themeColor)),
-          child: new MaterialButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new ViewTab(_tabs[i])));
-            },
-            child: new Text(_tabs[i].title, softWrap: true),
+        padding: new EdgeInsets.all(12.0),
+        margin: new EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+        decoration:
+        new BoxDecoration(border: Border.all(color: globals.themeColor)),
+        constraints: new BoxConstraints(maxWidth: 128.0, maxHeight: 196.0),
+        child: new MaterialButton(
+          padding: new EdgeInsets.all(0.0),
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new ViewTab(_tabs[i])));
+          },
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Text(_tabs[i].render()),
+            ],
           ),
-      ));
+        ),
+      ),);
       wl.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return wl;
@@ -82,7 +91,7 @@ class _ViewTabListState extends State<ViewTabList> {
         title: new Text('View Tab List'),
       ),
       body: new Container(
-        padding: new EdgeInsets.all(32.0),
+        padding: new EdgeInsets.all(28.0),
         child: new Center(
           child: new ListView(children: _wl),
         ),

@@ -224,7 +224,7 @@ class _GroupPageState extends State<GroupPage> {
         title: new Text(_groupName),
         actions: <Widget>[
           _generateJoinButton(),
-          new IconButton(
+          /*new IconButton(
               icon: new Icon(Icons.settings),
               onPressed: () {
                 Navigator.push(
@@ -234,7 +234,7 @@ class _GroupPageState extends State<GroupPage> {
                               //TODO goto settings screen
                               body: new Text("settings screen stub"),
                             )));
-              }),
+              }),*/
           new IconButton(
               icon: new Icon(Icons.home),
               onPressed: () {

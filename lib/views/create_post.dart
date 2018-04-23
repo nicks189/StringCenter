@@ -88,7 +88,11 @@ class _CreatePostState extends State<CreatePost> {
       ),
       body: new Container(
         padding: new EdgeInsets.all(20.0),
-        child: new Center(
+        child: new MaterialButton(
+          onPressed: (){FocusScope.of(context).requestFocus(new FocusNode());},
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          child: new Center(
           child: new Column(
             children: <Widget>[
               new TextField(
@@ -130,6 +134,7 @@ class _CreatePostState extends State<CreatePost> {
             ],
           ),
         ),
+       ),
       ),
     );
   }
