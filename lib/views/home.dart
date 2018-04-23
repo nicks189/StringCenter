@@ -146,6 +146,16 @@ class _HomeState extends State<Home> {
                   },
                 ),
                 new ListTile(
+                  title: new Text("Create Group", style: buttonStyle),
+                  onTap:(){
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (
+                                BuildContext context) => new CreateGroup()));
+                  },
+                ),
+                new ListTile(
                   title: new Text("Search", style: buttonStyle),
                   onTap:(){
                     Navigator.push(
