@@ -7,7 +7,7 @@ class User {
   String _description;
   bool _isAdmin;
   String _profilePic;
-  User(String username, String profilePic, [String userID = '', String description = '', bool isAdmin = false]) {
+  User(String username, [String profilePic = '', String userID = '', String description = '', bool isAdmin = false]) {
     _profilePic = profilePic;
     _username = username;
     _userID = userID;
