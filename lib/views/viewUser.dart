@@ -29,7 +29,7 @@ class _ViewUserState extends State<ViewUser> {
   String _userName;
   String _followingUser;
   User _user;
-  bool _isFollowing = false;
+  bool _isFollowing;
   Image i = new Image.asset('einstein.jpg');
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
@@ -256,9 +256,9 @@ class _ViewUserState extends State<ViewUser> {
 
   @override
   Widget build(BuildContext context) {
-    if (_widgetList == null || _user == null) {
+    if (_widgetList == null || _user == null || _isFollowing == null) {
       return new Container();
-    }else if(_userName == globals.user.username){
+    } else if(_userName == globals.user.username){
       return new Profile();
     } else {
       return new Scaffold(
