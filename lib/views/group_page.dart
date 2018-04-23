@@ -15,6 +15,7 @@ import 'package:ss_5/data/tab.dart';
 ///groupname supplied as the parameter _givenGroupName to the Widget
 class GroupPage extends StatefulWidget {
   String _givenGroupName;
+
   GroupPage(givenGroupName) {
     _givenGroupName = givenGroupName;
   }
@@ -24,15 +25,20 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-  Group _group = new Group('','');
+  Group _group = new Group('', '');
   String _groupName;
   List<Widget> _widgetList = new List<Widget>();
   List<Post> _postList = new List<Post>();
-
+  double textBoxWidth = 128.0;
   _GroupPageState(_givenGroupName) {
     _groupName = _givenGroupName;
   }
 
+  double _textBoxWidth(bool hasTab) {
+    if (hasTab) return 128.0;
+    else return 312.0;
+  }
+  
   _getPostList() async {
     var url =
         "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts/$_groupName";
@@ -41,7 +47,7 @@ class _GroupPageState extends State<GroupPage> {
       Map m = {"groupName": "$_groupName"};
       String js = json.encode(m);
       String responseBody = await getRequestAuthorization(url);
-      print ("group_page responsebody getpostlist: " + responseBody.toString());
+      print("group_page responsebody getpostlist: " + responseBody.toString());
       Map posts = json.decode(responseBody);
       //store group as group_object
       url =
@@ -58,9 +64,13 @@ class _GroupPageState extends State<GroupPage> {
       for (int i = 0; i < posts['posts'].length; i++) {
         if (posts['posts'][i]['tabId'] != null) {
           _postList.add(new Post(
-              posts['posts'][i]["content"], posts['posts'][i]['tabId'], posts['posts'][i]['groupName'], Tabb.fromJson(posts['posts'][i]['tab'])));
+              posts['posts'][i]["content"],
+              posts['posts'][i]['tabId'],
+              posts['posts'][i]['groupName'],
+              Tabb.fromJson(posts['posts'][i]['tab'])));
         } else {
-          _postList.add(new Post(posts['posts'][i]["content"],'',posts['posts'][i]['groupName']));
+          _postList.add(new Post(posts['posts'][i]["content"], '',
+              posts['posts'][i]['groupName']));
         }
       }
     } catch (exception) {
@@ -82,36 +92,52 @@ class _GroupPageState extends State<GroupPage> {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _postList.length; i++) {
       widgetList.add(new Container(
-        margin: new EdgeInsets.all(12.0),
-          decoration: new BoxDecoration(
-              border: Border.all(color: globals.themeColor)
-          ),
+        margin: new EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+          decoration:
+              new BoxDecoration(border: Border.all(color: globals.themeColor)),
+          constraints: new BoxConstraints(maxWidth: 128.0, maxHeight: 168.0),
           child: new MaterialButton(
+            padding: new EdgeInsets.all(0.0),
               onPressed: () {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
                         builder: (BuildContext context) =>
-                        new ViewPost(_postList[i])));
+                            new ViewPost(_postList[i])));
               },
               child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Container(
+                        constraints: new BoxConstraints(maxWidth: 100.0, maxHeight: 32.0),
+                        padding: new EdgeInsets.all(6.0),
+                        margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
+                        child: new Text(_postList[i].authorUsername),
+                        decoration: new BoxDecoration(
+                          border: new Border.all(
+                              color: globals.themeColor, width: 2.0),
+                        ),
+                      ),
+                      new Container(
+                        constraints: new BoxConstraints(maxWidth: _textBoxWidth(_postList[i].hasTab), maxHeight: 196.0),
+                        margin: new EdgeInsets.fromLTRB(12.0, 2.0, 18.0, 6.0),
+                        padding: new EdgeInsets.all(4.0),
+                        child: new Text(_postList[i].content, maxLines: 6),
+                        decoration: new BoxDecoration(
+                          border: new Border.all(color: globals.themeColor),
+                        ),
+                      ),
+                    ],
+                  ),
                   new Text(_postList[i].tabRender()),
-          new Text(_postList[i].content,
-            style: new TextStyle(fontSize: 12.0),
-            softWrap: true,),
-                  /*new Container(
-                      constraints: new BoxConstraints(),
-                      padding: new EdgeInsets.fromLTRB(0.0,0.0,12.0,0.0),
-                      child: new Text(_postList[i].content,
-                        style: new TextStyle(fontSize: 12.0),
-                        softWrap: true,)),*/
-                  /*new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)*/
                 ],
-              )
-
-          )
-      ));
+              ),
+          ),
+      ),
+      );
     }
     return widgetList;
   } //_generateWidgets
@@ -157,59 +183,66 @@ class _GroupPageState extends State<GroupPage> {
                   padding: new EdgeInsets.all(10.0),
                   width: 400.0,
                   decoration: new BoxDecoration(
-                    border: new Border.all(color: globals.themeColor, width: 2.0),
-                    borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+                    border:
+                        new Border.all(color: globals.themeColor, width: 2.0),
+                    borderRadius:
+                        new BorderRadius.all(new Radius.circular(6.0)),
                   ),
-                  child: new Text(_group.description)
-              ),
+                  child: new Text(_group.description)),
               new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                new Container(
-                  child: new MaterialButton(
-                      minWidth: 128.0,
-                      height: 32.0,
-                      child: new Text(
-                        "Group Members",
-                        style: new TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (BuildContext context) => new ViewUserList(_groupName)));
-                      }),
-                  margin: new EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
-                  decoration: new BoxDecoration(
-                    border: new Border.all(color: globals.themeColor),
-                    borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-                    color: globals.themeColor,
+                  new Container(
+                    child: new MaterialButton(
+                        minWidth: 128.0,
+                        height: 32.0,
+                        child: new Text(
+                          "Group Members",
+                          style: new TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      new ViewUserList(_groupName)));
+                        }),
+                    margin: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                    decoration: new BoxDecoration(
+                      border: new Border.all(color: globals.themeColor),
+                      borderRadius:
+                          new BorderRadius.all(new Radius.circular(6.0)),
+                      color: globals.themeColor,
+                    ),
                   ),
-                ),
-                new Container(
-                  child: new MaterialButton(
-                      minWidth: 128.0,
-                      height: 32.0,
-                      child: new Text(
-                        "Create Post",
-                        style: new TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (BuildContext context) => new CreatePost('', _groupName, null)));
-                      }),
-                  margin: new EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
-                  decoration: new BoxDecoration(
-                    border: new Border.all(color: globals.themeColor),
-                    borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-                    color: globals.themeColor,
+                  new Container(
+                    child: new MaterialButton(
+                        minWidth: 128.0,
+                        height: 32.0,
+                        child: new Text(
+                          "Create Post",
+                          style: new TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      new CreatePost('', _groupName, null)));
+                        }),
+                    margin: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                    decoration: new BoxDecoration(
+                      border: new Border.all(color: globals.themeColor),
+                      borderRadius:
+                          new BorderRadius.all(new Radius.circular(6.0)),
+                      color: globals.themeColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
               ),
-              new Expanded(child: new ListView(scrollDirection: Axis.vertical, children: _widgetList),
+              new Expanded(
+                child: new ListView(
+                    scrollDirection: Axis.vertical, children: _widgetList),
               ),
             ],
           ),

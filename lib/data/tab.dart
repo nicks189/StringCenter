@@ -22,7 +22,6 @@ class Tabb {
   }
 
   Tabb.fromJson(Map json) {
-    print('Entered tabb.fromJson');
     Map t = json['tab'];
     _title = json['tab_name'];
     _id = json['_id'];

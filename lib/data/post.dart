@@ -7,6 +7,7 @@ class Post {
   String _groupName;
   String _authorUsername;
   Tabb _tab;
+  bool _hasTab;
 
   Post(String content, [tabID = '', groupName = '', Tabb tab]) {
     _content = content;
@@ -14,6 +15,9 @@ class Post {
     _tabID = tabID;
     _groupName = groupName;
     _tab = tab;
+    if (tabID == '') _hasTab = false;
+      else _hasTab = true;
+
   }
 
   Map toJson() {
@@ -58,4 +62,6 @@ class Post {
   get content => _content;
 
   get authorUsername => _authorUsername;
+
+  get hasTab => _hasTab;
 }
