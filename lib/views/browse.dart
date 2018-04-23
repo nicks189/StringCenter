@@ -100,15 +100,20 @@ class _BrowseState extends State<Browse> {
   List<Widget> _genTabWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _tabList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) => new ViewTab(_tabList[i])));
-        },
-        child: new Text(_tabList[i].title),
-      ));
+      widgetList.add(new Container(
+        decoration: new BoxDecoration(
+          border: Border.all(color: globals.themeColor)
+        ),
+        child: new MaterialButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => new ViewTab(_tabList[i])));
+          },
+        child: new Text(_tabList[i].title, softWrap: true)
+      )));
+      widgetList.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return widgetList;
   }
@@ -119,16 +124,21 @@ class _BrowseState extends State<Browse> {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _groupList.length; i++) {
       print(_groupList[i].groupName);
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new GroupPage(_groupList[i].groupName)));
-        },
-        child: new Text(_groupList[i].groupName),
-      ));
+      widgetList.add(new Container(
+          decoration: new BoxDecoration(
+              border: Border.all(color: globals.themeColor)
+          ),
+          child: new MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            new GroupPage(_groupList[i].groupName)));
+              },
+              child: new Text(_groupList[i].groupName, softWrap: true)
+          )));
+      widgetList.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return widgetList;
   }
@@ -138,16 +148,21 @@ class _BrowseState extends State<Browse> {
   List<Widget> _genUserWidgets() {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _userList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-                  new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new ViewUser(_userList[i].username)));
-        },
-        child: new Text(_userList[i].username),
-      ));
+      widgetList.add(new Container(
+          decoration: new BoxDecoration(
+              border: Border.all(color: globals.themeColor)
+          ),
+          child: new MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            new ViewUser(_userList[i].username)));
+              },
+              child: new Text(_userList[i].username, softWrap: true)
+          )));
+      widgetList.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return widgetList;
   }
@@ -176,6 +191,7 @@ class _BrowseState extends State<Browse> {
         ],
       ),
       body: new Container(
+        padding: new EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 0.0),
         child: new Center(
             child: new Column(
           children: <Widget>[
@@ -220,6 +236,9 @@ class _BrowseState extends State<Browse> {
                   },
                 ),
               ],
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(10.0)
             ),
             new Expanded(
               child: new ListView(

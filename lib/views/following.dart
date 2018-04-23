@@ -72,17 +72,20 @@ class _FollowingState extends State<Following> {
     List<Widget> widgetList = new List<Widget>();
 
     for (int i = 0; i < _userList.length; i++) {
-      widgetList.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    new ViewUser(_userList[i].username, _user),
-              ));
-        },
-        child: new Text(_userList[i].username),
-      ));
+      widgetList.add(new Container(
+          decoration: new BoxDecoration(
+              border: Border.all(color: globals.themeColor)
+          ),
+          child: new MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) => new ViewUser(_userList[i].username)));
+              },
+              child: new Text(_userList[i].username, softWrap: true)
+      )));
+      widgetList.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return widgetList;
   } //_generateWidgets
@@ -112,6 +115,7 @@ class _FollowingState extends State<Following> {
         ],
       ),
       body: new Container(
+        padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new ListView(
               scrollDirection: Axis.vertical, children: _widgetList),
