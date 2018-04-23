@@ -9,6 +9,7 @@ import 'package:ss_5/views/followers.dart';
 import 'package:ss_5/views/profile.dart';
 import 'imagepick.dart';
 import 'dart:io';
+import 'my_groups.dart';
 import 'package:ss_5/views/create_group.dart';
 import 'package:ss_5/util/globals.dart' as globals;
 import 'package:ss_5/data/user.dart';
@@ -136,6 +137,17 @@ class _HomeState extends State<Home> {
                         new MaterialPageRoute(
                           builder: (
                               BuildContext context) => new ViewTabList(),
+                        ));
+                  },
+                ),
+                new ListTile(
+                  title: new Text("My Groups", style: buttonStyle),
+                  onTap:(){
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (
+                              BuildContext context) => new MyGroups(),
                         ));
                   },
                 ),
@@ -273,13 +285,13 @@ class _HomeState extends State<Home> {
                   new Padding(padding: new EdgeInsets.all(16.0)),
                   new RaisedButton(
                     color: globals.themeColor,
-                    child: new Text("imagepick", style: buttonStyle,),
+                    child: new Text("My Groups", style: buttonStyle,),
                     onPressed: () async{
                       Navigator.push(
                           context,
                           new MaterialPageRoute(
                               builder: (
-                                  BuildContext context) => new MyHomePage()));
+                                  BuildContext context) => new MyGroups()));
                     },
                   ),
                 ],
