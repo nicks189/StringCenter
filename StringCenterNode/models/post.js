@@ -33,6 +33,10 @@ let PostSchema = mongoose.Schema({
     tab: {
         type: Object,
         default: null
+    },
+    user: {
+        type: Object,
+        default: null
     }
 });
 
@@ -79,16 +83,23 @@ PostSchema.statics.buildPostList = function(posts, callback) {
             } else if (tab) {
                 p.tab = tab;
             }
-            ret.push(p);
-            i++;
 
-            if (i === posts.length) {
-                ret.sort(function (a, b) {
-                    // sort by most recent dateCreated
-                    return new Date(b.dateCreated) - new Date(a.dateCreated);
-                });
-                return callback(null, ret);
-            }
+            User.findOne({ username: p.authorUsername}, { password: 0 }, function(err, user) {
+                if (err) {
+                    return callback(new Error('Something went wrong.'), null);
+                }
+                p.user = user;
+
+                ret.push(p);
+                i++;
+                if (i === posts.length) {
+                    ret.sort(function (a, b) {
+                        // sort by most recent dateCreated
+                        return new Date(b.dateCreated) - new Date(a.dateCreated);
+                    });
+                    return callback(null, ret);
+                }
+            });
         });
     });
 };

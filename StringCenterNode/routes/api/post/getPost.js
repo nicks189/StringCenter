@@ -1,6 +1,7 @@
 const express = require('express');
 const Post = require('../../../models/post');
 const Tab = require('../../../models/tabModel');
+const User = require('../../../models/user');
 
 /**
  * Get all posts created by username or the currently authenticated user
@@ -90,7 +91,13 @@ module.exports.getPostById = function(passport) {
                 } else if (tab) {
                     post.tab = tab;
                 }
-                res.json(post).status(200);
+                User.findOne({ username: post.authorUsername}, { password: 0 }, function(err, user) {
+                    if (err) {
+                        return callback(new Error('Something went wrong.'), null);
+                    }
+                    post.user = user;
+                    res.json(post).status(200);
+                });
             });
         });
     });

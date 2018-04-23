@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
-const Post = require('./post');
+// const Post = require('./post');
 const UserGroup = require('./userGroup');
 const UserFollows = require('./userFollows');
 const util = require('../middleware/util');
