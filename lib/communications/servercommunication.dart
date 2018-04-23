@@ -104,7 +104,16 @@ Future<String> putRequestWriteAuthorization(String url, String json) async {
   String responseBody = await response.transform(utf8.decoder).join();
   return responseBody;
 }
-
+Future<String> putRequestAuthorization(String url) async {
+  HttpClient httpClient = new HttpClient();
+  var request = await httpClient.putUrl(Uri.parse(url));
+  request.headers.contentType =
+  new ContentType("application", "json", charset: "utf-8");
+  request.headers.add("authorization", "bearer ${globals.token}");
+  var response = await request.close();
+  String responseBody = await response.transform(utf8.decoder).join();
+  return responseBody;
+}
 //Delete request to [url] with body [json]
 //contains header application/json
 //contains header authorization/bearer token

@@ -101,8 +101,10 @@ class _BrowseState extends State<Browse> {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _tabList.length; i++) {
       widgetList.add(new Container(
-        decoration: new BoxDecoration(
-          border: Border.all(color: globals.themeColor)
+        decoration: new BoxDecoration(border: new Border(
+          right: new BorderSide(color: globals.themeColor),
+          bottom: new BorderSide(color: globals.themeColor),
+        ),
         ),
         child: new MaterialButton(
           onPressed: () {
@@ -125,8 +127,10 @@ class _BrowseState extends State<Browse> {
     for (int i = 0; i < _groupList.length; i++) {
       print(_groupList[i].groupName);
       widgetList.add(new Container(
-          decoration: new BoxDecoration(
-              border: Border.all(color: globals.themeColor)
+          decoration: new BoxDecoration(border: new Border(
+            right: new BorderSide(color: globals.themeColor),
+            bottom: new BorderSide(color: globals.themeColor),
+          ),
           ),
           child: new MaterialButton(
               onPressed: () {
@@ -149,8 +153,10 @@ class _BrowseState extends State<Browse> {
     List<Widget> widgetList = new List<Widget>();
     for (int i = 0; i < _userList.length; i++) {
       widgetList.add(new Container(
-          decoration: new BoxDecoration(
-              border: Border.all(color: globals.themeColor)
+          decoration: new BoxDecoration(border: new Border(
+            right: new BorderSide(color: globals.themeColor),
+            bottom: new BorderSide(color: globals.themeColor),
+          ),
           ),
           child: new MaterialButton(
               onPressed: () {
