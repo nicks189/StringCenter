@@ -208,30 +208,34 @@ class _ViewUserState extends State<ViewUser> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        backgroundColor: globals.themeColor,
-        leading: new Image.network(
-          'http://proj-309-ss-5.cs.iastate.edu:3000/${_user.profilePic}',
-          fit: BoxFit.scaleDown,
+    if (_widgetList == null || _user == null) {
+      return new Container();
+    } else {
+      return new Scaffold(
+        appBar: new AppBar(
+          backgroundColor: globals.themeColor,
+          leading: new Image.network(
+            'http://proj-309-ss-5.cs.iastate.edu:3000/${_user.profilePic}',
+            fit: BoxFit.scaleDown,
+          ),
+          title: new Text(_userName),
+          actions: <Widget>[
+            _generateFollowButton(),
+            new IconButton(
+                icon: new Icon(Icons.home),
+                onPressed: () {
+                  goHome(context);
+                }),
+          ],
         ),
-        title: new Text(_userName),
-        actions: <Widget>[
-          _generateFollowButton(),
-          new IconButton(
-              icon: new Icon(Icons.home),
-              onPressed: () {
-                goHome(context);
-              }),
-        ],
-      ),
-      body: new Container(
-        alignment: Alignment.center,
-        padding: new EdgeInsets.all(20.0),
-        child: new ListView(
-          children: _widgetList,
+        body: new Container(
+          alignment: Alignment.center,
+          padding: new EdgeInsets.all(20.0),
+          child: new ListView(
+            children: _widgetList,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
