@@ -99,9 +99,9 @@ class _ViewUserListState extends State<ViewUserList> {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: globals.themeColor,
-        title: new Text(_groupName),
+        title: new Text("$_groupName's Group Members"),
         actions: <Widget>[
-          new IconButton(
+          /*new IconButton(
               icon: new Icon(Icons.settings),
               onPressed: () {
                 Navigator.push(
@@ -111,7 +111,7 @@ class _ViewUserListState extends State<ViewUserList> {
                           //TODO goto settings screen
                           body: new Text("settings screen stub"),
                         )));
-              }),
+              }),*/
           new IconButton(
               icon: new Icon(Icons.home),
               onPressed: () {
