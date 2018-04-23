@@ -1,5 +1,6 @@
 import 'package:ss_5/util/globals.dart' as globals;
 import 'tab.dart';
+import 'user.dart';
 ///Posts are objects that store the data for Posts (user and group posts)
 class Post {
   String _content;
@@ -8,9 +9,11 @@ class Post {
   String _authorUsername;
   Tabb _tab;
   bool _hasTab;
+  User _user;
 
-  Post(String username, String content, [tabID = '', groupName = '', Tabb tab]) {
+  Post(String username, String content, [tabID = '', groupName = '', Tabb tab, User user]) {
     _content = content;
+    _user = user;
     _authorUsername = username;
     _tabID = tabID;
     _groupName = groupName;
@@ -56,12 +59,9 @@ class Post {
       }
 
   get tab => _tab;
-
   get tabID => _tabID;
-
   get content => _content;
-
   get authorUsername => _authorUsername;
-
   get hasTab => _hasTab;
+  get user => _user;
 }
