@@ -164,7 +164,7 @@ class _EditTabState extends State<EditTab> {
           //adds column labels
         } else if (j == 1) {
           wlist.add(new Text(
-            i.toString(),
+              (i+1).toString(),
             textAlign: TextAlign.center,
           ));
           //adds note buttons
