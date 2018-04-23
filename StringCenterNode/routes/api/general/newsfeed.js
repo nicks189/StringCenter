@@ -30,7 +30,7 @@ function newsfeed(passport){
                         });
 
                         count++;
-                        if(count == follows.length - 1){
+                        if(count == follows.length){
                             let uniqueIDs = [];
                             let uniquePosts = [];
                             followsPosts.forEach(function(fp){
