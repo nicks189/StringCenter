@@ -71,18 +71,18 @@ class _ViewUserListState extends State<ViewUserList> {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (BuildContext context) => //TODO route to profile if user is self?
+                        builder: (BuildContext context) =>
                         new ViewUser(_userList[i].username)));
               },
               child: new Row(
                 children: <Widget>[
                   new Text(_userList[i].username),
-                  new IconButton(icon: new Icon(Icons.zoom_in), onPressed: null)
                 ],
               )
 
           )
       ));
+      widgetList.add(new Padding(padding: new EdgeInsets.all(5.0)));
     }
     return widgetList;
   } //_generateWidgets
@@ -120,6 +120,7 @@ class _ViewUserListState extends State<ViewUserList> {
         ],
       ),
       body: new Container(
+        padding: new EdgeInsets.all(12.0),
         child: new Center(
           child: new ListView(scrollDirection: Axis.vertical, children: _widgetList),
         ),
