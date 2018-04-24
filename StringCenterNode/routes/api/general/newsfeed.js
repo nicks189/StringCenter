@@ -47,6 +47,7 @@ function newsfeed(passport){
                         }
                     });
                 });
+                return res.json({errors: [{message: "User doesn\'t follow anyone"}]}).status(200);
             });
         });
     });
