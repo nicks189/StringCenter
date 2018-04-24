@@ -46,33 +46,35 @@ class _GroupPageState extends State<GroupPage> {
         "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group-posts/$_groupName";
     try {
       //get postlist from group $groupName
-      Map m = {"groupName": "$_groupName"};
-      String js = json.encode(m);
       String responseBody = await getRequestAuthorization(url);
       print("group_page responsebody getpostlist: " + responseBody.toString());
       Map posts = json.decode(responseBody);
       //store group as group_object
       url =
           "http://proj-309-ss-5.cs.iastate.edu:3000/api/get-group/$_groupName";
-      responseBody = await getRequestAuthorization(url);
-      Map m2 = json.decode(responseBody);
-      print("group page get group: " + responseBody);
+      var responseBody2 = await getRequestAuthorization(url);
+      print(responseBody2.toString());
+      Map m2 = json.decode(responseBody2);
+      print("group page get group: " + responseBody2.toString());
       if (m2['group']['description'] != null) {
         _group = new Group(_groupName, m2['group']['description']);
       } else {
         _group = new Group(_groupName);
       }
-      print("posts.length: " + posts['posts'].length.toString());
-      for (int i = 0; i < posts['posts'].length; i++) {
-        if (posts['posts'][i]['tabId'] != null) {
-          _postList.add(new Post(posts['posts'][i]['authorUsername'],
-              posts['posts'][i]["content"],
-              posts['posts'][i]['tabId'],
-              posts['posts'][i]['groupName'],
-              Tabb.fromJson(posts['posts'][i]['tab'])));
-        } else {
-          _postList.add(new Post(posts['posts'][i]['authorUsername'], posts['posts'][i]["content"], '',
-              posts['posts'][i]['groupName']));
+      print ("group desc after instantiation: " + _group.description);
+      if(posts['posts'] != null) {
+        for (int i = 0; i < posts['posts'].length; i++) {
+          if (posts['posts'][i]['tabId'] != null) {
+            _postList.add(new Post(posts['posts'][i]['authorUsername'],
+                posts['posts'][i]["content"],
+                posts['posts'][i]['tabId'],
+                posts['posts'][i]['groupName'],
+                Tabb.fromJson(posts['posts'][i]['tab'])));
+          } else {
+            _postList.add(new Post(posts['posts'][i]['authorUsername'],
+                posts['posts'][i]["content"], '',
+                posts['posts'][i]['groupName']));
+          }
         }
       }
     } catch (exception) {

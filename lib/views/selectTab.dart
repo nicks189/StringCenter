@@ -70,16 +70,30 @@ class _SelectTabState extends State<SelectTab> {
     List<Widget> wl = new List<Widget>();
     print("_tabs.length: " + _tabs.length.toString());
     for (int i = 0; i < _tabs.length; i++) {
-      wl.add(new MaterialButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new CreatePost(_s, _groupName, _tabs[i])));
-        },
-        child: new Text(_tabs[i].title),
-      ));
+      wl.add(new Container(
+        padding: new EdgeInsets.all(12.0),
+        margin: new EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
+        decoration:
+        new BoxDecoration(border: Border.all(color: globals.themeColor)),
+        constraints: new BoxConstraints(maxWidth: 128.0, maxHeight: 196.0),
+        child: new MaterialButton(
+          padding: new EdgeInsets.all(0.0),
+          onPressed: () {
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    new CreatePost(_s, _groupName, _tabs[i])));
+          },
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Text(_tabs[i].render()),
+            ],
+          ),
+        ),
+      ),);
+      wl.add(new Padding(padding: new EdgeInsets.all(10.0)));
     }
     return wl;
   }
