@@ -18,7 +18,7 @@ import 'package:ss_5/views/following.dart';
 import 'package:ss_5/util/util.dart';
 import 'package:ss_5/communications//fileIO.dart';
 import 'package:ss_5/views/search.dart';
-
+import 'package:ss_5/util/util.dart';
 ///Home is a StatefulWidget that is the home screen of the app. This screen isn't accessible if
 ///a user is not logged in. This Widget checks if a user is logged in every time it is opened.
 class Home extends StatefulWidget {
@@ -224,11 +224,7 @@ class _HomeState extends State<Home> {
               new IconButton(
                   icon: new Icon(Icons.exit_to_app),
                   onPressed: () async {
-                    String dir = (await getApplicationDocumentsDirectory())
-                        .path;
-                    deleteFile("token.txt", dir);
-                    globals.isLoggedIn = false;
-                    globals.user = null;
+                    await resetAuth();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'Home', (Route<dynamic> route) => false);
                   })
