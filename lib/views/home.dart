@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
                     margin: new EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 4.0),
                     child: new Row(
                       children: <Widget>[
-                        new Image.network("http://proj-309-ss-5.cs.iastate.edu:3000/${_postList[i].user.profilePic}", fit: BoxFit.fill,),
+                        new Image.network("http://proj-309-ss-5.cs.iastate.edu:3000/${_postList[i].user.profilePic}", fit: BoxFit.scaleDown,),
                         new Padding(padding: new EdgeInsets.only(right: 10.0)),
                         new Text(_postList[i].authorUsername, style: tstyle,),
                       ],
