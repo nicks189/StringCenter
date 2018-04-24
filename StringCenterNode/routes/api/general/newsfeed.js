@@ -22,6 +22,11 @@ function newsfeed(passport){
                 var follows = uf.concat(ug);
                 var followsPosts = [];
                 var count = 0;
+
+                if(follows.length == 0){
+                    return res.json({errors: [{message: "User doesn\'t follow anyone"}]}).status(200);
+                }
+
                 follows.forEach(function(f){
                     Post.find({$or: [{"authorUsername" : f.followsUsername}, {"groupName" : f.groupName}]}, function(perr, posts){
                         if(perr) return res.json({errors: [{message: 'Something went wrong building the post list'}]}).status(500);
@@ -47,7 +52,6 @@ function newsfeed(passport){
                         }
                     });
                 });
-                return res.json({errors: [{message: "User doesn\'t follow anyone"}]}).status(200);
             });
         });
     });
