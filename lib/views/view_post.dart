@@ -79,7 +79,7 @@ class _ViewPostState extends State<ViewPost> {
         backgroundColor: globals.themeColor,
         leading: new Image.network(
           'http://proj-309-ss-5.cs.iastate.edu:3000/${u.profilePic}',
-          fit: BoxFit.fill,
+          fit: BoxFit.contain,
         ),
         title: new Text(_post.authorUsername),
       ),
