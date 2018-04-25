@@ -267,7 +267,7 @@ class _ViewUserState extends State<ViewUser> {
           leading: new Image.network(
 
             'http://proj-309-ss-5.cs.iastate.edu:3000/${_user.profilePic}',
-            fit: BoxFit.fill,
+            fit: BoxFit.contain,
           ),
           title: new Text(_userName),
           actions: <Widget>[
