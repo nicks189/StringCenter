@@ -68,7 +68,7 @@ class _ViewTabListState extends State<ViewTabList> {
           child: new Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new Text(_tabs[i].render()),
+              new Text(_tabs[i].render(), style: new TextStyle(fontFamily: 'monospace')),
             ],
           ),
         ),
@@ -88,7 +88,7 @@ class _ViewTabListState extends State<ViewTabList> {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: globals.themeColor,
-        title: new Text('View Tab List'),
+        title: new Text('My Tabs'),
       ),
       body: new Container(
         padding: new EdgeInsets.all(28.0),

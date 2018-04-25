@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   List<Post> _postList = new List<Post>();
   bool _loaded = false;
   TextStyle buttonStyle = new TextStyle(color: Colors.white, fontFamily: 'times',fontSize: 24.0);
-  TextStyle tstyle = new TextStyle(color: Colors.black);
+  TextStyle tstyle = new TextStyle(color: Colors.black,fontFamily: 'monospace');
   Widget _page = new Container();
   double _textBoxWidth(bool hasTab) {
     if (hasTab) return 128.0;
