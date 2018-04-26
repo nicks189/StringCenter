@@ -37,3 +37,5 @@ ss_5_android.iml
 string_center.iml
 android/*
 ios/*
+tabdb/*
+StringCenterNode/tests/demo/tabdb/*
