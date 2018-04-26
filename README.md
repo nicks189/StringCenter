@@ -1,6 +1,6 @@
 # StringCenter
 
-StringCenter is a social media application that is centered around 
+* StringCenter is a social media application that is centered around 
 music, specifically guitars. StringCenter also allows users to do 
 all of the expected social media activities, post to their page, 
 create a public page or group, post to a group, follow others, 
@@ -13,12 +13,12 @@ allowing users to search up a song they want to learn and have the
 tab for it at their fingertips. 
 
 
-The community aspect of StringCenter is a huge focus, hoping to 
+* The community aspect of StringCenter is a huge focus, hoping to 
 give users a chance to follow topics they are interested in. Right 
 when the user logs in they will see their newsfeed, with the latest 
 posts from both the users and the groups that they follow. 
     
-In turn, they can also direct posts to a group, spreading their 
+* In turn, they can also direct posts to a group, spreading their 
 post, and potentially their tab, to everyone in the group. 
 For the implementation of the application we decided to use 
 Dart with it’s Flutter framework on the frontend, providing us 
