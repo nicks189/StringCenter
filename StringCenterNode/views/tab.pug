@@ -7,10 +7,14 @@ block content
             script(src="/javascripts/tab.js")
             link(rel='stylesheet', href='/stylesheets/tab.css', type='text/css' )
             
-        body(style='margin-bottom:10px')
-            h1#title Tabs
-            table#tabTable.tab-table(ng-repeat='tab in tabs')
-                th.tab-head {{tab.tab_name}}
-                tr.tab-head(ng-repeat='m in tab.measures track by $index') {{m.info}}
-                    td.tab-elem(ng-repeat='s in m.strings')  {{s}}
+        body(style='margin-bottom:30px')
+            div#tabs.container-fluid
+                h1#title(align='center') Tabs
+                div#tab.tab(ng-repeat='tab in tabs')
+                    p.tab-head {{tab.tab_name}}
+                    p.author Author: {{tab.author_username}}
+                    div(ng-repeat='m in tab.measures track by $index')
+                        p.measure-info {{m.info}}
+                        div(ng-repeat='s in m.strings') 
+                            p.tab-elem {{s}}
                     

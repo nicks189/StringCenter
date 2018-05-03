@@ -1,14 +1,33 @@
 .tab-head{
     background-color : #d6a012;
+    font-weight: bold;
+    text-align: center;
 }
 
-.tab-table{
+.tab{
     border: 3px solid black;
     margin: 5px;
-    width: 200px;
-    hover: gray;
+    width: 15%;
+    max-width: 500px;
+    min-height: 170px;
+    float:left;
+    position: relative;
+    text-align: left;
 }
 
 .tab-elem{
     font-family: monospace;
+    margin-bottom:0px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.measure-info{
+    background-color: #d8d6d4;
+    margin-bottom:0px;
+}
+
+.author{
+    background-color: #E3DFC6;
 }

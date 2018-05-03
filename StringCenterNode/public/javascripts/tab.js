@@ -1,5 +1,9 @@
 var app = angular.module('tab', []);
 
+app.config(['$httpProvider', function($httpProvider) {
+    delete $httpProvider.defaults.headers.common["X-Requested-With"]
+}]);
+
 app.controller('tabCtrl', function($scope, $http){
     $scope.title = "Tabs";
     var signInReq = {
@@ -23,9 +27,6 @@ app.controller('tabCtrl', function($scope, $http){
             $scope.tabs = formatTabsForDisplay(res);
         });
     });
-
-
-
 });
 
 
@@ -41,7 +42,7 @@ function getTabMeasures(tab){
     var measures = [];
     for(var i = 0; i < tab.measureCount; i++){
         var measure = {info : "", strings : []};
-        measure.info = "Measure " + i + ": " + tab.measures[i].info;
+        measure.info = "Measure " + (i+1) + ": " + tab.measures[i].info;
         for(var j = 0; j < tab.measures[0].stringCount; j++){
             var instStringToBePrinted = tab.measures[i].strings[j].tuning + " ";
             for(var k = 0; k < tab.measures[0].strings[0].notes.length; k++){
@@ -53,9 +54,3 @@ function getTabMeasures(tab){
     }
     return measures;
 }
-
-
-
-app.config(['$httpProvider', function($httpProvider) {
-    delete $httpProvider.defaults.headers.common["X-Requested-With"]
-}]);
