@@ -1,0 +1,16 @@
+extends layout
+block content
+    html(ng-app="tab" ng-controller="tabCtrl")
+        head
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+            script(src="/javascripts/tab.js")
+            link(rel='stylesheet', href='/stylesheets/tab.css', type='text/css' )
+            
+        body(style='margin-bottom:10px')
+            h1#title Tabs
+            table#tabTable.tab-table(ng-repeat='tab in tabs')
+                th.tab-head {{tab.tab_name}}
+                tr.tab-head(ng-repeat='m in tab.measures track by $index') {{m.info}}
+                    td.tab-elem(ng-repeat='s in m.strings')  {{s}}
+                    

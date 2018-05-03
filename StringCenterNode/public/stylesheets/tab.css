@@ -1,0 +1,14 @@
+.tab-head{
+    background-color : #d6a012;
+}
+
+.tab-table{
+    border: 3px solid black;
+    margin: 5px;
+    width: 200px;
+    hover: gray;
+}
+
+.tab-elem{
+    font-family: monospace;
+}
