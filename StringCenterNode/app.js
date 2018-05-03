@@ -79,7 +79,8 @@ let findTabsByUser = require('./routes/api/tab/tabRoutes').findTabsByUser(passpo
 let createTab = require('./routes/api/tab/tabRoutes').createTab(passport);
 let deleteTab = require('./routes/api/tab/tabRoutes').deleteTab(passport);
 let updateTab = require('./routes/api/tab/tabRoutes').updateTab(passport);
-let webTab = require('./routes/api/tab/webtab');
+let webAllTabs = require('./routes/api/tab/webAllTabs');
+let webCreateTab = require('./routes/api/tab/webCreateTab');
 
 
 // post
@@ -141,7 +142,8 @@ app.use('/api/tab/findTabsByUser', findTabsByUser);
 app.use('/api/tab/createTab', createTab);
 app.use('/api/tab/deleteTab', deleteTab);
 app.use('/api/tab/updateTab', updateTab);
-app.use('/api/web/tab', webTab);
+app.use('/api/web/all-tabs', webAllTabs);
+app.use('/api/web/create-tab', webCreateTab);
 
 // post
 app.use('/api/create-post', createPost);

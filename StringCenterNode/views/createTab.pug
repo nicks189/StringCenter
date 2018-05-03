@@ -1,0 +1,16 @@
+extends layout
+block content
+    html(ng-app="createTab" ng-controller="createTabCtrl")
+        head
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+            script(src="/javascripts/createTab.js")
+            link(rel='stylesheet', href='/stylesheets/tab.css', type='text/css' )
+        
+        body
+            h1#title(align='center') Create Tab
+            div
+                input#tabName.tab-input(type='text' placeholder='Tab name')
+                input#tuning.tab-input(type='text' placeholder='Tuning (ex: EADG)')
+                input#noteCount.tab-input(type='text' placeholder='Number of notes per measure')
+                button#submit.btn-success(value='Start') Start
