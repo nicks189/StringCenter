@@ -1,10 +1,22 @@
-var app = angular.module('tab', []);
+var app = angular.module('tab', ["ngRoute"]);
 
 app.config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common["X-Requested-With"]
 }]);
 
-app.controller('tabCtrl', function($scope, $http){
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "/all-tabs",
+        controller : "allTabsCtrl"
+    })
+    .when('/view-tab',{
+        templateUrl : "/view-tab",
+        controller : "viewTabCtrl"
+    });
+});
+
+app.controller('allTabsCtrl', function($scope, $http){
     $scope.title = "Tabs";
     var signInReq = {
         method : 'POST',
@@ -13,7 +25,6 @@ app.controller('tabCtrl', function($scope, $http){
     }
 
     $http(signInReq).then(function(res){
-        console.log(res.data);
         var getTabsReq = {
             method : 'GET',
             headers : {
@@ -21,20 +32,26 @@ app.controller('tabCtrl', function($scope, $http){
             },
             url : 'http://localhost:3000/api/tab'
         }
-        $scope.strings = [];
 
         $http(getTabsReq).then(function(res){
-            $scope.tabs = formatTabsForDisplay(res);
+            $scope.tabs = formatTabsForDisplay(res.data.tabs);
         });
     });
+
+    $scope.view = function(index){
+        localStorage.setItem('viewedTab', JSON.stringify($scope.tabs[index]));
+    }
 });
 
+app.controller('viewTabCtrl', function($scope){
+    $scope.tab = JSON.parse(localStorage.getItem('viewedTab'));
+});
 
-function formatTabsForDisplay(res){
-    for(var i = 0; i < res.data.tabs.length; i++){
-        res.data.tabs[i].measures = getTabMeasures(res.data.tabs[i].tab);
+function formatTabsForDisplay(tabs){
+    for(var i = 0; i < tabs.length; i++){
+        tabs[i].formattedMeasures = getTabMeasures(tabs[i].tab);
     }
-    return res.data.tabs;
+    return tabs;
 }
 
 

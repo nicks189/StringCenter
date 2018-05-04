@@ -5,14 +5,21 @@
 }
 
 .tab{
-    border: 3px solid black;
+    border: 1px solid black;
     margin: 5px;
     width: 15%;
+    height:210px;
     max-width: 500px;
-    min-height: 170px;
-    float:left;
+    float: left;
     position: relative;
+    left: 2.7%;
     text-align: left;
+    overflow: auto;
+}
+
+.tabs{
+    float: none;
+    margin: auto;
 }
 
 .tab-elem{
@@ -32,6 +39,14 @@
     background-color: #E3DFC6;
 }
 
+.view-tab{
+    border: 3px solid black;
+    width: 30%;
+    margin:auto;
+    text-align: left;
+}
+
 .tab-input{
-    width:30%;
+    width:20%;
+    float: right;
 }

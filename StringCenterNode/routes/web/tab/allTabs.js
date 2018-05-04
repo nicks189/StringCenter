@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next){
-    res.render('allTabs', {title: 'Tab', nav: 'index' });
+    res.render('tab/allTabs', {title: 'Tab', nav: 'index' });
     return router;
 });
 
