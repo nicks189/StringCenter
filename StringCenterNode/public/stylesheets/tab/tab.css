@@ -49,4 +49,23 @@
 .tab-input{
     width:20%;
     margin-left: 40%;
+    font-family: monospace;
+}
+
+.string{
+    margin-left: 40%;
+    width:60%;
+    font-family: monospace;
+    font-size: 15px;
+}
+
+.note-input{
+    font-family:monospace;
+    width: 20px;
+    height: 20px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin:2px;
+    font-size: 15px;
 }

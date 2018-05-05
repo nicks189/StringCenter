@@ -5,6 +5,7 @@ block content
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
             script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+            script(src='/javascripts/tab/tab.js')
             script(src="/javascripts/tab/createTab.js")
             link(rel='stylesheet', href='/stylesheets/tab/tab.css', type='text/css' )
         
@@ -19,7 +20,12 @@ block content
                 div
                     input#noteCount.tab-input(type='text' placeholder='Number of notes per measure' ng-model='input.noteCount')
                 div
-                    a#submit.btn-success(role='button' style='width:20%; margin-left:40%' ng-click='start()' ng-href='#!create-measure') Start first measure
+                    a#submit.btn-success(role='button' style='width:20%; margin-left:40%' ng-click='start()') Start first measure
             script(type='text/ng-template' id='/create-measure')
-                h1 Create Measure
-                        
+                h1#title(align='center') Create Measure
+                div
+                    input.tab-input(type='text' id='{{"measureInfo" + $index}}' ng-repeat='measure in tab.measures track by $index' placeholder='Measure Info' ng-model='curMeasureInfo')                        
+                div(id='{{"measure" + $index}}' ng-repeat='measure in tab.measures track by $index')
+                    div.string(id='{{"measure" + $parent.$index + "string" + $index}}' ng-repeat='string in measure.strings track by $index') {{string.tuning}}                        
+                        input.note-input(value='-' type='text' id="{{'measure' + $parent.$parent.$index + 'string' + $parent.$index + 'note' + $index}}" placeholder='{{note}}' ng-repeat='note in string.notes track by $index') 
+                        a.btn-success(id='{{"measureButton" + $index}}' role='button' style='width:20%; margin-left:40%;' ng-click='addMeasure()') Add Measure
