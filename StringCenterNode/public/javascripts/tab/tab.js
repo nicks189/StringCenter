@@ -30,6 +30,7 @@ Tab.prototype.initTab = function(info, stringCount, tuning, noteCount){
 Tab.prototype.addMeasure = function(measure, info, stringCount, tuning, noteCount){
     if(checkMeasure(measure)){
         this.measures.push(measure);
+        this.measureCount = this.measures.length;
     } else {
         this.measures.push(new Measure(info, stringCount, tuning));
         this.measures[this.measures.length - 1].initMeasure(noteCount);

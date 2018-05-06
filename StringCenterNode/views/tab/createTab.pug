@@ -2,9 +2,9 @@ extends ../layout
 block content
     html(ng-app="createTab")
         head
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
             script(src='/javascripts/tab/tab.js')
             script(src="/javascripts/tab/createTab.js")
             link(rel='stylesheet', href='/stylesheets/tab/tab.css', type='text/css' )
@@ -20,12 +20,24 @@ block content
                 div
                     input#noteCount.tab-input(type='text' placeholder='Number of notes per measure' ng-model='input.noteCount')
                 div
-                    a#submit.btn-success(role='button' style='width:20%; margin-left:40%' ng-click='start()') Start first measure
-            script(type='text/ng-template' id='/create-measure')
-                h1#title(align='center') Create Measure
+                    a#submit.btn(role='button' style='width:20%; margin-left:40%' ng-click='start()') Start first measure
+            script(type='text/ng-template' id='/create-measures')
+                h1#title(align='center') Create Measures
+                div(align='center')
+                    a.btn(id='view' ng-click='view()' href='#!view-tab') Preview tab
+                    a.btn(id="addMeasureButton" role='button' ng-click='addMeasure()') Add Measure
+                    a.btn(id='finish' role='button' ng-click='finsih()') Finish
+                
                 div
-                    input.tab-input(type='text' id='{{"measureInfo" + $index}}' ng-repeat='measure in tab.measures track by $index' placeholder='Measure Info' ng-model='curMeasureInfo')                        
-                div(id='{{"measure" + $index}}' ng-repeat='measure in tab.measures track by $index')
-                    div.string(id='{{"measure" + $parent.$index + "string" + $index}}' ng-repeat='string in measure.strings track by $index') {{string.tuning}}                        
-                        input.note-input(value='-' type='text' id="{{'measure' + $parent.$parent.$index + 'string' + $parent.$index + 'note' + $index}}" placeholder='{{note}}' ng-repeat='note in string.notes track by $index') 
-                        a.btn-success(id='{{"measureButton" + $index}}' role='button' style='width:20%; margin-left:40%;' ng-click='addMeasure()') Add Measure
+                    div(ng-repeat='measure in tab.measures track by $index')
+                        input.tab-input(type='text' id='{{"measureInfo" + $parent.$index}}'  placeholder='Measure Info' ng-model='curMeasureInfo')                        
+                        div.string(id='{{"measure" + $parent.$index + "string" + $index}}' ng-repeat='string in measure.strings track by $index') {{string.tuning}}                        
+                            input.note-input(maxlength='1' value='{{note}}' type='text' id="{{'measure' + $parent.$parent.$index + 'string' + $parent.$index + 'note' + $index}}" ng-repeat='note in string.notes track by $index') 
+            script(type='text/ng-template' id='/view-tab')
+                div#tab.view-tab
+                    p.tab-head {{viewedTab.tab_name}}
+                    p.author Author: {{viewedTab.author_username}}
+                    div(ng-repeat='m in viewedTab.formattedMeasures track by $index') 
+                        p.measure-info {{m.info}}
+                        div(ng-repeat='s in m.strings') 
+                            p.tab-elem {{s}}

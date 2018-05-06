@@ -52,6 +52,10 @@
     font-family: monospace;
 }
 
+.btn{
+    padding : 5px;
+}
+
 .string{
     margin-left: 40%;
     width:60%;
