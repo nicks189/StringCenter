@@ -75,7 +75,7 @@ Tab.prototype.getTuning = function(){
 
 Measure.prototype.initMeasure = function(noteCount){
   for(var i = 0; i < this.stringCount; i++){
-    this.strings.push(new InstString(this.tuning[(this.tuning.length - 1) - i], noteCount));
+    this.strings.push(new InstString(this.tuning[i], noteCount));
     this.strings[i].initString(noteCount);
   }
 }

@@ -90,6 +90,8 @@ app.controller('createTabInfoCtrl', function($scope, $location, tabService){
      * @return {[type]} [description]
      */
     $scope.start = function(){
+
+        //var tuning = $scope.input.tuning.split("");
         var tabInfo = {
             name : $scope.input.tabName,
             tuning : $scope.input.tuning,
@@ -107,7 +109,7 @@ app.controller('createTabInfoCtrl', function($scope, $location, tabService){
     };
 });
 
-app.controller('createMeasuresCtrl', function($scope, tabService){
+app.controller('createMeasuresCtrl', function($scope, $http, tabService){
     $scope.tabInfo = tabService.getTabInfo();
     var tab = tabService.getTab();
     if(tab){
@@ -191,9 +193,40 @@ app.controller('createMeasuresCtrl', function($scope, tabService){
         viewedTab.formattedMeasures = getTabMeasures(viewedTab);
         tabService.setViewedTab(viewedTab);
     }
+
+    $scope.finish = function(){
+        //signIn will be removed once cookie with token is added
+        var signInReq = {
+            method : 'POST',
+            url : "http://localhost:3000/api/sign-in",
+            data: JSON.stringify({username : "zoomba", password : "topsecret"})
+        }
+
+        $http(signInReq).then(function(res){
+            $scope.tab = tabService.getTab();
+            var measureInput = $scope.getMeasureInput();
+            $scope.updateMeasure(measureInput, tabService.getCurMeasureNum());
+            tabService.setTab($scope.tab);
+
+            var createdTab = {tab_name : tabService.getTabInfo().name, tab : tabService.getTab()};
+            var createTabReq = {
+                method : 'POST',
+                headers : {
+                    authorization : "bearer " + res.data.token
+                },
+                url : 'http://localhost:3000/api/tab/createTab',
+                data : createdTab
+            }
+
+            $http(createTabReq).then(function(r){
+                console.log(r);
+            });
+        });
+    }
 });
 
 app.controller('viewTabCtrl', function($scope, tabService){
+    //TODO error in displaying all measures 
     $scope.viewedTab = tabService.getViewedTab();
 });
 
