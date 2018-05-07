@@ -40,10 +40,10 @@ function validateTab(tab){
  * @return {boolean}                        true if tabOrMeasure contains an info, false otherwise
  */
 function checkInfo(tabOrMeasure){
-    if(tabOrMeasure && tabOrMeasure.info && tabOrMeasure.info.length < 1000){
+    if(tabOrMeasure && tabOrMeasure.info  != null && tabOrMeasure != undefined && tabOrMeasure.info.length < 1000){
         return true;
     } else{
-        console.log(tabOrMeasure + "info is wrong");
+        console.log("info is wrong");
         return false;
     }
 }

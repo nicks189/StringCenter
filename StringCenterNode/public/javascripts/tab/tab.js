@@ -20,11 +20,11 @@ function InstString(tuning, noteCount){
 }
 
 Tab.prototype.validTabInfo = function(i){
-    return (i.name && i.name.length < 100 && i.tuning && i.tuning.length >= 4 && i.noteCount && parseInt(i.noteCount) < 32);
+    return (i.name && i.name.length < 100 && i.tuning && i.tuning.length >= 4 && i.noteCount && parseInt(i.noteCount) <= 32);
 }
 
 Tab.prototype.initTab = function(info, stringCount, tuning, noteCount){
-  this.addMeasure(undefined, info, stringCount, tuning, noteCount);
+  this.addMeasure(undefined, new String(), stringCount, tuning, noteCount);
 }
 
 Tab.prototype.addMeasure = function(measure, info, stringCount, tuning, noteCount){

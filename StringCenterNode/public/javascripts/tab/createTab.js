@@ -45,7 +45,7 @@ app.service('tabService', function(){
     }
 
     function validTabInfo(i){
-        return (i.name && i.name.length < 100 && i.tuning && i.tuning.length >= 4 && i.noteCount && parseInt(i.noteCount) < 32);
+        return (i.name && i.name.length < 100 && i.tuning && i.tuning.length >= 4 && i.noteCount && parseInt(i.noteCount) <= 32);
     }
 
     var setCurMeasureNum = function(num){
@@ -90,8 +90,6 @@ app.controller('createTabInfoCtrl', function($scope, $location, tabService){
      * @return {[type]} [description]
      */
     $scope.start = function(){
-
-        //var tuning = $scope.input.tuning.split("");
         var tabInfo = {
             name : $scope.input.tabName,
             tuning : $scope.input.tuning,
@@ -142,8 +140,9 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
         var infoID = "#measureInfo" + tabService.getCurMeasureNum() + "";
         var measureInfoInput = angular.element(infoID).val();
         if(!measureInfoInput){
-            measureInfoInput = " ";
+            measureInfoInput = new String();
         }
+
         var measureInput = new Measure(measureInfoInput, $scope.tab.measures[tabService.getCurMeasureNum()].stringCount, $scope.tab.measures[tabService.getCurMeasureNum()].tuning);
         measureInput.initMeasure($scope.tab.measures[tabService.getCurMeasureNum()].strings[0].noteCount);
 
@@ -169,11 +168,13 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
 
         $scope.updateMeasure(measureInput, curMeasureNum);
         curMeasureNum++;
+        console.log(curMeasureNum);
         $scope.curMeasureNum = curMeasureNum;
         tabService.setCurMeasureNum($scope.curMeasureNum);
 
-        var measure = new Measure(" ", $scope.tab.measures[curMeasureNum - 1].stringCount, $scope.tab.measures[curMeasureNum - 1].tuning);
+        var measure = new Measure(new String(), $scope.tab.measures[curMeasureNum - 1].stringCount, $scope.tab.measures[curMeasureNum - 1].tuning);
         measure.initMeasure($scope.tab.measures[0].strings[0].noteCount);
+
         $scope.tab.addMeasure(measure);
         tabService.setTab($scope.tab);
         console.log($scope.tab);
@@ -188,6 +189,9 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
         var measureInput = $scope.getMeasureInput();
         $scope.updateMeasure(measureInput, tabService.getCurMeasureNum());
         tabService.setTab($scope.tab);
+        $scope.tabInfo = tabService.getTabInfo();
+
+
 
         var viewedTab = tabService.getTab();
         viewedTab.formattedMeasures = getTabMeasures(viewedTab);
@@ -226,7 +230,6 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
 });
 
 app.controller('viewTabCtrl', function($scope, tabService){
-    //TODO error in displaying all measures 
     $scope.viewedTab = tabService.getViewedTab();
 });
 
