@@ -29,7 +29,7 @@ block content
                     a.btn(id='finish' role='button' ng-click='finish()') Finish
                 
                 div
-                    div(align='center' ng-repeat='measure in tab.measures track by $index')
+                    div( ng-repeat='measure in tab.measures track by $index')
                         input.tab-input(type='text' id='{{"measureInfo" + $index}}'  placeholder='Measure Info' ng-model='tab.measures[$index].info')                        
                         div.string(id='{{"measure" + $parent.$index + "string" + $index}}' ng-repeat='string in measure.strings track by $index') {{string.tuning}}                        
                             input.note-input(maxlength='1' value='{{note}}' type='text' id="{{'measure' + $parent.$parent.$index + 'string' + $parent.$index + 'note' + $index}}" ng-repeat='note in string.notes track by $index') 

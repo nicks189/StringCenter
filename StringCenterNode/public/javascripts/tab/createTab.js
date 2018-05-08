@@ -22,11 +22,10 @@ app.config(function($routeProvider) {
 
 /**
  * Util service for createTab allowing data sharing between controllers, returning various util functions.
- * @return {function} {getTabInfo, setTabInfo, setCurMeasureNum, getCurMeasureNum}
+ * @return {function} {getTabInfo, setTabInfo}
  */
 app.service('tabService', function(){
     var info = {name : "", tuning : "", noteCount : 0, valid : false};
-    var curMeasureNum = 0;
     var tab = null;
     var viewedTab = null;
 
@@ -48,14 +47,6 @@ app.service('tabService', function(){
         return (i.name && i.name.length < 100 && i.tuning && i.tuning.length >= 4 && i.noteCount && parseInt(i.noteCount) <= 32);
     }
 
-    var setCurMeasureNum = function(num){
-        curMeasureNum = num;
-    }
-
-    var getCurMeasureNum = function(){
-        return curMeasureNum;
-    }
-
     var setTab = function(t){
         tab = t;
     }
@@ -75,8 +66,6 @@ app.service('tabService', function(){
     return {
         getTabInfo : getTabInfo,
         setTabInfo : setTabInfo,
-        setCurMeasureNum : setCurMeasureNum,
-        getCurMeasureNum : getCurMeasureNum,
         setTab : setTab,
         getTab : getTab,
         setViewedTab : setViewedTab,
@@ -117,8 +106,6 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
         tabService.setTab($scope.tab);
     }
 
-    $scope.curMeasureNum = tabService.getCurMeasureNum();
-
     /**
      * update measure with index ameasureNum with the given measure
      * @param  {Measure} measure    new Measure object to replace measure at measureNum
@@ -132,23 +119,31 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
         }
     }
 
+    $scope.updateTab = function(){
+        $scope.tab = tabService.getTab();
+        for(var i = 0; i < $scope.tab.measures.length; i++){
+            var measureInput = $scope.getMeasureInput(i);
+            $scope.updateMeasure(measureInput, i);
+        }
+    }
+
     /**
      * Pull input from form for the current measure
      * @return {Measure} returns measure object filled with the information from the form for the current measure
      */
-    $scope.getMeasureInput = function(){
-        var infoID = "#measureInfo" + tabService.getCurMeasureNum() + "";
+    $scope.getMeasureInput = function(measureNum){
+        var infoID = "#measureInfo" + measureNum + "";
         var measureInfoInput = angular.element(infoID).val();
         if(!measureInfoInput){
             measureInfoInput = new String();
         }
 
-        var measureInput = new Measure(measureInfoInput, $scope.tab.measures[tabService.getCurMeasureNum()].stringCount, $scope.tab.measures[tabService.getCurMeasureNum()].tuning);
-        measureInput.initMeasure($scope.tab.measures[tabService.getCurMeasureNum()].strings[0].noteCount);
+        var measureInput = new Measure(measureInfoInput, $scope.tab.measures[measureNum].stringCount, $scope.tab.measures[measureNum].tuning);
+        measureInput.initMeasure($scope.tab.measures[measureNum].strings[0].noteCount);
 
-        for(var s = 0; s < $scope.tab.measures[tabService.getCurMeasureNum()].stringCount; s++){
-            for(var n = 0; n < $scope.tab.measures[tabService.getCurMeasureNum()].strings[s].noteCount; n++){
-                var noteInputID = "#measure" + tabService.getCurMeasureNum() + "string" + s + "note" + n;
+        for(var s = 0; s < $scope.tab.measures[measureNum].stringCount; s++){
+            for(var n = 0; n < $scope.tab.measures[measureNum].strings[s].noteCount; n++){
+                var noteInputID = "#measure" + measureNum + "string" + s + "note" + n;
                 measureInput.strings[s].notes[n] = angular.element(noteInputID).val();
             }
         }
@@ -162,19 +157,9 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
      * @return {}
      */
     $scope.addMeasure = function(){
-        $scope.tab = tabService.getTab();
-        var measureInput = $scope.getMeasureInput();
-        var curMeasureNum = tabService.getCurMeasureNum();
-
-        $scope.updateMeasure(measureInput, curMeasureNum);
-        curMeasureNum++;
-        console.log(curMeasureNum);
-        $scope.curMeasureNum = curMeasureNum;
-        tabService.setCurMeasureNum($scope.curMeasureNum);
-
-        var measure = new Measure(new String(), $scope.tab.measures[curMeasureNum - 1].stringCount, $scope.tab.measures[curMeasureNum - 1].tuning);
+        $scope.updateTab();
+        var measure = new Measure(new String(), $scope.tab.measures[$scope.tab.measures.length - 1].stringCount, $scope.tab.measures[$scope.tab.measures.length - 1].tuning);
         measure.initMeasure($scope.tab.measures[0].strings[0].noteCount);
-
         $scope.tab.addMeasure(measure);
         tabService.setTab($scope.tab);
         console.log($scope.tab);
@@ -185,15 +170,11 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
      * @return {}
      */
     $scope.view = function(){
-        $scope.tab = tabService.getTab();
-        var measureInput = $scope.getMeasureInput();
-        $scope.updateMeasure(measureInput, tabService.getCurMeasureNum());
+        $scope.updateTab();
         tabService.setTab($scope.tab);
         $scope.tabInfo = tabService.getTabInfo();
 
-
-
-        var viewedTab = tabService.getTab();
+        var viewedTab = $scope.tab;
         viewedTab.formattedMeasures = getTabMeasures(viewedTab);
         tabService.setViewedTab(viewedTab);
     }
@@ -207,10 +188,9 @@ app.controller('createMeasuresCtrl', function($scope, $http, tabService){
         }
 
         $http(signInReq).then(function(res){
-            $scope.tab = tabService.getTab();
-            var measureInput = $scope.getMeasureInput();
-            $scope.updateMeasure(measureInput, tabService.getCurMeasureNum());
+            $scope.updateTab();
             tabService.setTab($scope.tab);
+            $scope.tabInfo = tabService.getTabInfo();
 
             var createdTab = {tab_name : tabService.getTabInfo().name, tab : tabService.getTab()};
             var createTabReq = {
