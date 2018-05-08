@@ -1,0 +1,26 @@
+extends layout
+block content
+    html(ng-app="home")
+        head
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
+            script(src='/javascripts/home.js')
+            link(rel='stylesheet' href='/stylesheets/home.css', type='text/css')
+
+        body
+            div.wrapper
+                nav#sidebar.active.nv         
+                    ul.list-unstyled.components.nv
+                        li.active(style='color:white' href='#') Home
+                        li
+                            a.txt(style='color:white' href='#') About                            
+                    
+                div#content
+                    button#sidebarCollapse.navbar-toggle.nv(type='button' style='margin:0')
+                        span.icon-bar(style='background-color:white')
+                        span.icon-bar(style='background-color:white')
+                        span.icon-bar(style='background-color:white')
+                        span.icon-bar(style='background-color:white')
+                            
+                    

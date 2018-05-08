@@ -113,7 +113,7 @@ let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
 // general
 let search = require('./routes/api/general/search')(passport);
 let newsfeed = require('./routes/api/general/newsfeed')(passport);
-
+let webHome = require('./routes/web/home');
 
 // demo routes
 app.use('/', index);
@@ -175,6 +175,7 @@ app.use('/api/unfollow-user', unfollowUser);
 // general
 app.use('/api/search', search);
 app.use('/api/newsfeed', newsfeed);
+app.use('/web/home', webHome);
 
 // const userTests = require('./tests/userTests');
 // userTests.testCompare();
