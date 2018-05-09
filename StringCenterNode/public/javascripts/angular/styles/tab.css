@@ -1,0 +1,75 @@
+.tab-head{
+    background-color : #d6a012;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tab{
+    border: 1px solid black;
+    margin: 5px;
+    width: 15%;
+    height:210px;
+    max-width: 500px;
+    float: left;
+    position: relative;
+    left: 2.7%;
+    text-align: left;
+    overflow: auto;
+}
+
+.tabs{
+    float: none;
+    margin: auto;
+}
+
+.tab-elem{
+    font-family: monospace;
+    margin-bottom:0px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.measure-info{
+    background-color: #d8d6d4;
+    margin-bottom:0px;
+}
+
+.author{
+    background-color: #E3DFC6;
+}
+
+.view-tab{
+    border: 3px solid black;
+    width: 30%;
+    margin:auto;
+    text-align: left;
+}
+
+.tab-input{
+    width:20%;
+    margin-left: 40%;
+    font-family: monospace;
+}
+
+.btn{
+    padding : 5px;
+}
+
+.string{
+    margin-left : 40%;
+    width:60%;
+    font-family: monospace;
+    font-size: 15px;
+}
+
+.note-input{
+    font-family:monospace;
+    width: 20px;
+    height: 20px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin:2px;
+    font-size: 15px;
+}
