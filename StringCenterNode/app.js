@@ -53,12 +53,14 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // demo routes
-let index = require('./routes/demo/index')(passport);
-let about = require('./routes/demo/about')(passport);
-let signIn = require('./routes/demo/signIn')(passport);
-let signOut = require('./routes/demo/signOut')(passport);
-let register = require('./routes/demo/register')(passport);
-let editAccount = require('./routes/demo/editAccount')(passport);
+// let index = require('./routes/demo/index')(passport);
+// let about = require('./routes/demo/about')(passport);
+// let signIn = require('./routes/demo/signIn')(passport);
+// let signOut = require('./routes/demo/signOut')(passport);
+// let register = require('./routes/demo/register')(passport);
+// let editAccount = require('./routes/demo/editAccount')(passport);
+
+// module documentation
 let docs = require('./routes/demo/documentation')(passport);
 
 // api routes
@@ -79,9 +81,6 @@ let findTabsByUser = require('./routes/api/tab/tabRoutes').findTabsByUser(passpo
 let createTab = require('./routes/api/tab/tabRoutes').createTab(passport);
 let deleteTab = require('./routes/api/tab/tabRoutes').deleteTab(passport);
 let updateTab = require('./routes/api/tab/tabRoutes').updateTab(passport);
-let webAllTabs = require('./routes/web/tab/allTabs');
-let webCreateTab = require('./routes/web/tab/createTab');
-
 
 // post
 let createPost = require('./routes/api/post/createPost')(passport);
@@ -113,15 +112,21 @@ let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
 // general
 let search = require('./routes/api/general/search')(passport);
 let newsfeed = require('./routes/api/general/newsfeed')(passport);
-let webHome = require('./routes/web/home');
 
-// demo routes
-app.use('/', index);
-app.use('/about', about);
-app.use('/sign-in', signIn);
-app.use('/sign-out', signOut);
-app.use('/register', register);
-app.use('/edit-account', editAccount);
+// web
+let webHome = require('./routes/web/home');
+let webAllTabs = require('./routes/web/tab/allTabs');
+let webCreateTab = require('./routes/web/tab/createTab');
+
+// demo routes -- currently not being used
+// app.use('/', index);
+// app.use('/about', about);
+// app.use('/sign-in', signIn);
+// app.use('/sign-out', signOut);
+// app.use('/register', register);
+// app.use('/edit-account', editAccount);
+
+// module documentation
 app.use('/documentation', docs);
 
 // api routes
@@ -142,8 +147,6 @@ app.use('/api/tab/findTabsByUser', findTabsByUser);
 app.use('/api/tab/createTab', createTab);
 app.use('/api/tab/deleteTab', deleteTab);
 app.use('/api/tab/updateTab', updateTab);
-app.use('/web/all-tabs', webAllTabs);
-app.use('/web/create-tab', webCreateTab);
 
 // post
 app.use('/api/create-post', createPost);
@@ -175,7 +178,11 @@ app.use('/api/unfollow-user', unfollowUser);
 // general
 app.use('/api/search', search);
 app.use('/api/newsfeed', newsfeed);
+
+// web
 app.use('/web/home', webHome);
+app.use('/web/all-tabs', webAllTabs);
+app.use('/web/create-tab', webCreateTab);
 
 // const userTests = require('./tests/userTests');
 // userTests.testCompare();

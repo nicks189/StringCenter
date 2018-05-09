@@ -4,34 +4,22 @@ append head
 append body
     block nav
         +navbar("StringCenter","dropdown_menu", "inverse")
-            if nav === "index"
-                +nav_item("/", "active") Home
+            if nav === "home"
+                +nav_item("/web/home", "active") Home
             else
-                +nav_item("/") Home
-            if nav === "about"
-                +nav_item("/about", "active") About
+                +nav_item("/web/home") Home
+            if nav === "all-tabs"
+                +nav_item("/web/all-tabs", "active") All Tabs
             else
-                +nav_item("/about") About
+                +nav_item("/web/all-tabs") All Tabs
+            if nav === "create-tab"
+                +nav_item("/web/create-tab", "active") Create Tab
+            else
+                +nav_item("/web/create-tab") Create Tab
             if nav === "docs"
                 +nav_item("/documentation", "active") Documentation
             else
                 +nav_item("/documentation") Documentation
-            if nav === "sign-in" || nav === "sign-out" || nav === "register" || nav === "edit-account"
-                +nav_item_dropdown("#", "active")(label="Account")
-                    +nav_item("sign-in") Sign in
-                    +nav_item("sign-out") Sign out
-                    +nav_item("register") Register
-                    +nav_divider
-                    +nav_header Preferences
-                    +nav_item("edit-account") Edit account
-            else
-                +nav_item_dropdown("#")(label="Account")
-                    +nav_item("sign-in") Sign in
-                    +nav_item("sign-out") Sign out
-                    +nav_item("register") Register
-                    +nav_divider
-                    +nav_header Preferences
-                    +nav_item("edit-account") Edit account
     block content
     block footer
     .footer.navbar-fixed-bottom.text-center

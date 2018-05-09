@@ -6,7 +6,7 @@ module.exports = function(passport) {
 
     /* GET users listing. */
     router.get('/', User.isAuthenticated, function(req, res, next) {
-        res.render('edit-account', { title: 'Edit Account', nav: 'edit-account' });
+        res.render('demo/edit-account', { title: 'Edit Account', nav: 'edit-account' });
     });
 
     return router;

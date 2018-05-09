@@ -8,7 +8,7 @@ module.exports = function(passport) {
         if (req.isAuthenticated()) {
             res.redirect('/');
         }
-        res.render('sign-in', { title: 'Sign in', nav: 'sign-in', errorMessage: req.flash('errorMessage') });
+        res.render('demo/sign-in', { title: 'Sign in', nav: 'sign-in', errorMessage: req.flash('errorMessage') });
     });
 
     /*
