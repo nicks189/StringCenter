@@ -1,36 +1,53 @@
-.wrapper {
-    display: flex;
-    align-items: stretch;
+#sidenav a{
+    position: absolute; /* Position them relative to the browser window */
+    left: -80px; /* Position them outside of the screen */
+    transition: 0.6s; /* Add transition on hover */
+    padding: 15px;
+    width: 100px;
+    text-decoration: none; /* Remove underline */
+    font-size: 20px; /* Increase font size */
+    color: white; /* White text color */
+    border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
 }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
+#sidenav a:hover{
+    left: 0;
 }
 
-#sidebar.active {
-    margin-left: -250px;
+#tabs{
+    top:70px;
+    background-color: black;
 }
 
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content: '\e259';
-    display: block;
-    position: absolute;
-    right: 20px;
-    font-family: 'Glyphicons Halflings';
-    font-size: 0.6em;
-}
-
-a[aria-expanded="true"]::before {
-    content: '\e260';
+#profile{
+    top:130px;
+    background-color: black;
 }
 
 .nv{
     background-color: black;
-    float:left;
+}
+
+.post{
+    border: 1px solid black;
+    margin: auto;
+    margin-left:15%;
+    margin-right:15%;
+    margin-top: 5px;
+}
+
+.author{
+    background-color: #E3DFC6;
+}
+
+.groupName{
+    background-color: #d8d6d4;
+}
+
+.content{
+
+}
+
+.date{
+    background-color: #d8d6d4;
 }

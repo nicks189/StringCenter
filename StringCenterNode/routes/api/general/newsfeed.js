@@ -17,6 +17,9 @@ function newsfeed(passport){
     router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next){
         UserFollows.find({"username" : req.user.username}, function(uferr, uf){
             if(uferr) return res.json({errors: [{message: 'Something went wrong finding followers'}]}).status(500);
+            if(uf.length == 0){
+                return res.json({errors: [{message: "User doesn\'t follow anyone"}]}).status(200);
+            }
             UserGroup.find({"username" : req.user.username}, function(ugerr, ug){
                 if(ugerr) return res.json({errors: [{message: 'Something went wrong finding userGroup records'}]}).status(500);
                 var follows = uf.concat(ug);
@@ -30,6 +33,7 @@ function newsfeed(passport){
                 follows.forEach(function(f){
                     Post.find({$or: [{"authorUsername" : f.followsUsername}, {"groupName" : f.groupName}]}, function(perr, posts){
                         if(perr) return res.json({errors: [{message: 'Something went wrong building the post list'}]}).status(500);
+
                         posts.forEach(function(p){
                             followsPosts.push(p);
                         });

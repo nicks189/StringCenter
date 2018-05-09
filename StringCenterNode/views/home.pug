@@ -9,26 +9,20 @@ block content
             link(rel='stylesheet' href='/stylesheets/home.css', type='text/css')
 
         body
-            div.wrapper
-                nav#sidebar.active.nv         
-                    ul.list-unstyled.components.nv
-                        li
-                            a(style='color:white' href='#') Tabs
-                        li
-                            a(style='color:white' href='#') Profile                      
-                    
-                div#content
-                    button#sidebarCollapse.navbar-toggle.nv(type='button' style='margin:0')
-                        span.icon-bar(style='background-color:white')
-                        span.icon-bar(style='background-color:white')
-                        span.icon-bar(style='background-color:white')
-                        span.icon-bar(style='background-color:white')
-                    div(ng-view)
-                    script(type='text/ng-template' id='/home')
-                        
-                    script(type='text/ng-template' id='/tabs')
-                    
-                    script(type='text/ng-template' id='/profile')
+            h1(align='center') StringCenter
+            div#sidenav.sidenav
+                a#tabs(href="#") Tabs
+                a#profile(href="#") Profile 
+            div#page
+                div(ng-view)                
                 
-                        
-            
+                script(type='text/ng-template' id='/home')
+                    div(ng-repeat='p in posts')
+                        div.post
+                            p.author Author: {{p.authorUsername}}
+                            p.groupName Group: {{p.groupName}}
+                            p.content {{p.content}}
+                            p.date {{p.date}}                            
+                script(type='text/ng-template' id='/tabs')
+                script(type='text/ng-template' id='/profile')
+                
