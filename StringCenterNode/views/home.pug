@@ -7,7 +7,8 @@ block content
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
             script(src='/javascripts/home.js')
             link(rel='stylesheet' href='/stylesheets/home.css', type='text/css')
-
+            
+            
         body
             h1(align='center') StringCenter
             div#sidenav.sidenav
@@ -17,12 +18,30 @@ block content
                 div(ng-view)                
                 
                 script(type='text/ng-template' id='/home')
-                    div(ng-repeat='p in posts')
+                    h3(align='center') Newsfeed
+                    div(ng-repeat='p in formattedPosts')
                         div.post
                             p.author Author: {{p.authorUsername}}
-                            p.groupName Group: {{p.groupName}}
-                            p.content {{p.content}}
                             p.date {{p.date}}                            
+                            p.groupName(ng-repeat='g in p.groupName') Group: {{p.groupName[$index]}}
+                            p.content {{p.content}}
+                            div.tab(align='center' id='$index' ng-repeat='tab in p.tab')
+                                a#viewTab.btn-default.btn-xs(align='right' ng-click='viewTab($parent.$index)' href='#!view-tab') View 
+                                p.tab-head {{tab.tab_name}}
+                                p.author Author: {{tab.author_username}}
+                                div(ng-repeat='m in tab.formattedMeasures track by $index') 
+                                    p.measure-info {{m.info}}
+                                    div(ng-repeat='s in m.strings') 
+                                        p.tab-elem {{s}}
                 script(type='text/ng-template' id='/tabs')
                 script(type='text/ng-template' id='/profile')
+                script(type='text/ng-template' id='/view-tab')
+                    div#tab.view-tab
+                        p.tab-head {{tab.tab_name}}
+                        p.author Author: {{tab.author_username}}
+                        div(ng-repeat='m in tab.formattedMeasures track by $index') 
+                            p.measure-info {{m.info}}
+                            div(ng-repeat='s in m.strings') 
+                                p.tab-elem {{s}}
+                
                 
