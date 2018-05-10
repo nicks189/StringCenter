@@ -1,5 +1,5 @@
-var app = angular.module('stringCenterApp', ["ngRoute", "stringCenter"]);
-angular.module('stringCenter');
+var app = angular.module('stringCenterApp', ["ngRoute"]);
+//angular.module('stringCenter');
 
 app.config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common["X-Requested-With"]

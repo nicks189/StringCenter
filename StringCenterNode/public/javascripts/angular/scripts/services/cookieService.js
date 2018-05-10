@@ -1,4 +1,4 @@
-angular.module('stringCenter').service('cookieService', function(){
+angular.module('stringCenterApp').service('cookieService', function(){
     var setCookie = function(cname, data, expireDays){
         var d = new Date();
        d.setTime(d.getTime() + (expireDays*24*60*60*1000));
@@ -26,4 +26,4 @@ angular.module('stringCenter').service('cookieService', function(){
         setCookie : setCookie,
         getCookie : getCookie
     };
-}
+});

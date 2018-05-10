@@ -1,4 +1,4 @@
-angular.module('stringCenter').controller('homeCtrl', function($scope, signInService, newsfeedService, viewTabService){
+angular.module('stringCenterApp').controller('homeCtrl', function($scope, signInService, newsfeedService, viewTabService){
     //will be removed once sign in is implemented
     signInService.signIn();
 

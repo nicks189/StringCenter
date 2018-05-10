@@ -30,7 +30,8 @@
     margin-left:15%;
     margin-right:15%;
     margin-bottom: 20px;
-    overflow-x: hidden;
+    min-width: 510px;
+
 }
 
 .post-author{
@@ -49,6 +50,7 @@
 .post-content{
     padding: 4px;
     font-familiy: monospace;
+    overflow-x: auto;
 }
 
 .post-date{

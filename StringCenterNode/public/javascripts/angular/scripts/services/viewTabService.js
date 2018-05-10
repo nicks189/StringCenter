@@ -1,4 +1,4 @@
-angular.module('stringCenter').service('viewTabService', function(){
+angular.module('stringCenterApp').service('viewTabService', function(){
     var viewedTab;
     var setViewedTab = function(vt){
         viewedTab = vt;

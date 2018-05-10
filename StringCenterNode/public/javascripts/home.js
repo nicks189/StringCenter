@@ -159,7 +159,7 @@ function getTabMeasures(tab){
     for(var i = 0; i < tab.measureCount; i++){
         var measure = {info : "", strings : []};
         measure.info = "Measure " + (i+1) + ": " + tab.measures[i].info;
-        for(var j = 0; j < tab.measures[0].stringCount; j++){
+        for(var j = tab.measures[0].stringCount - 1; j >= 0; j--){
             var instStringToBePrinted = tab.measures[i].strings[j].tuning + " ";
             for(var k = 0; k < tab.measures[0].strings[0].notes.length; k++){
                 instStringToBePrinted += tab.measures[i].strings[j].notes[k];

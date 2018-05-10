@@ -1,3 +1,3 @@
-angular.module('stringCenter').controller('profileCtrl', function($scope){
+angular.module('stringCenterApp').controller('profileCtrl', function($scope){
 
 });

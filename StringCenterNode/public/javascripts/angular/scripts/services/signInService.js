@@ -1,4 +1,4 @@
-angular.module('stringCenter').service('signInService', function($http){
+angular.module('stringCenterApp').service('signInService', function($http, cookieService){
     //signIn will be removed once cookie with token is added
     var signIn = function(){
         var signInReq = {
@@ -8,7 +8,7 @@ angular.module('stringCenter').service('signInService', function($http){
         }
 
         $http(signInReq).then(function(res){
-            setCookie("token", res.data.token, .1);
+            cookieService.setCookie("token", res.data.token, .1);
         });
     }
 

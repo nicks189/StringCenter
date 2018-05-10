@@ -1,4 +1,4 @@
-angular.module('stringCenter').service('newsfeedService', function($http){
+angular.module('stringCenterApp').service('newsfeedService', function($http, utilService){
     var posts = [];
     var formattedPosts = [];
 
@@ -48,7 +48,7 @@ angular.module('stringCenter').service('newsfeedService', function($http){
                 formattedPost.groupName.push(p[i].groupName);
             }
             if(p[i].tab){
-                p[i].tab.formattedMeasures = getTabMeasures(p[i].tab.tab);
+                p[i].tab.formattedMeasures = utilService.getTabMeasures(p[i].tab.tab);
                 formattedPost.tab.push(p[i].tab);
             }
             formattedPost.authorUsername = p[i].authorUsername;

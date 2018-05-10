@@ -1,3 +1,3 @@
-angular.module('stringCenter').controller('tabCtrl', function($scope){
+angular.module('stringCenterApp').controller('tabCtrl', function($scope){
 
 });

@@ -1,4 +1,4 @@
-angular.module('stringCenter').service('utilService', function($http){
+angular.module('stringCenterApp').service('utilService', function($http){
     var getTabMeasures = function(tab){
         var measures = [];
         for(var i = 0; i < tab.measureCount; i++){
@@ -19,4 +19,4 @@ angular.module('stringCenter').service('utilService', function($http){
     return {
         getTabMeasures : getTabMeasures
     };
-}
+});
