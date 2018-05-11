@@ -52,7 +52,11 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// demo routes
+
+
+/**
+ * Demo Routes
+ */
 // let index = require('./routes/demo/index')(passport);
 // let about = require('./routes/demo/about')(passport);
 // let signIn = require('./routes/demo/signIn')(passport);
@@ -60,12 +64,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 // let register = require('./routes/demo/register')(passport);
 // let editAccount = require('./routes/demo/editAccount')(passport);
 
-// general routes
+// app.use('/', index);
+// app.use('/about', about);
+// app.use('/sign-in', signIn);
+// app.use('/sign-out', signOut);
+// app.use('/register', register);
+// app.use('/edit-account', editAccount);
+
+
+
+/**
+ * General Routes
+ */
 // module documentation
 let docs = require('./routes/general/documentation')(passport);
 let about = require('./routes/general/about')(passport);
 
-// api routes
+app.use('/documentation', docs);
+app.use('/about', about);
+
+
+
+/**
+ * API Routes
+ */
 // user
 let getAllUsers = require('./routes/api/user/getUser').getAllUsers(passport);
 let getUserInfo = require('./routes/api/user/getUser').getUserInfo(passport);
@@ -76,6 +98,15 @@ let updateUser = require('./routes/api/user/updateUser')(passport);
 let searchUser = require('./routes/api/user/searchUser')(passport);
 let setProfilePic = require('./routes/api/user/setProfilePic')(passport);
 
+app.use('/api/get-user/all', getAllUsers);
+app.use('/api/get-user/info', getUserInfo);
+app.use('/api/delete-user', deleteUser);
+app.use('/api/sign-in', apiSignIn);
+app.use('/api/register', apiRegister);
+app.use('/api/update-user', updateUser);
+app.use('/api/search-user', searchUser);
+app.use('/api/set-profile-pic', setProfilePic);
+
 // tab
 let getAllTabs = require('./routes/api/tab/tabRoutes').getAllTabs(passport);
 let findTabsById = require('./routes/api/tab/tabRoutes').findTabsById(passport);
@@ -84,12 +115,25 @@ let createTab = require('./routes/api/tab/tabRoutes').createTab(passport);
 let deleteTab = require('./routes/api/tab/tabRoutes').deleteTab(passport);
 let updateTab = require('./routes/api/tab/tabRoutes').updateTab(passport);
 
+app.use('/api/tab', getAllTabs);
+app.use('/api/tab/findTabsById', findTabsById);
+app.use('/api/tab/findTabsByUser', findTabsByUser);
+app.use('/api/tab/createTab', createTab);
+app.use('/api/tab/deleteTab', deleteTab);
+app.use('/api/tab/updateTab', updateTab);
+
 // post
 let createPost = require('./routes/api/post/createPost')(passport);
 let getPostsForUser = require('./routes/api/post/getPost').getPostsForUser(passport);
 let getPostById = require('./routes/api/post/getPost').getPostById(passport);
 let deletePost = require('./routes/api/post/deletePost')(passport);
 let updatePost = require('./routes/api/post/updatePost')(passport);
+
+app.use('/api/create-post', createPost);
+app.use('/api/get-post/by-user', getPostsForUser);
+app.use('/api/get-post/by-id', getPostById);
+app.use('/api/delete-post', deletePost);
+app.use('/api/update-post', updatePost);
 
 // group
 let joinGroup = require('./routes/api/group/joinGroup')(passport);
@@ -105,61 +149,6 @@ let getUserGroupAdminStatus = require('./routes/api/group/getUserGroupAdminStatu
 let updateGroup = require('./routes/api/group/updateGroup')(passport);
 let promoteUser = require('./routes/api/group/promoteUser')(passport);
 
-// followers/following
-let getFollowing = require('./routes/api/follower/getFollower').getFollowing(passport);
-let getFollowers = require('./routes/api/follower/getFollower').getFollowers(passport);
-let followUser = require('./routes/api/follower/followUser')(passport);
-let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
-
-// general
-let search = require('./routes/api/general/search')(passport);
-let newsfeed = require('./routes/api/general/newsfeed')(passport);
-
-// web
-let webHome = require('./routes/web/home');
-let webAllTabs = require('./routes/web/tab/allTabs');
-let webCreateTab = require('./routes/web/tab/createTab');
-
-// demo routes -- currently not being used
-// app.use('/', index);
-// app.use('/about', about);
-// app.use('/sign-in', signIn);
-// app.use('/sign-out', signOut);
-// app.use('/register', register);
-// app.use('/edit-account', editAccount);
-
-// general routes
-// module documentation
-app.use('/documentation', docs);
-app.use('/about', about);
-
-// api routes
-// user
-app.use('/api/get-user/all', getAllUsers);
-app.use('/api/get-user/info', getUserInfo);
-app.use('/api/delete-user', deleteUser);
-app.use('/api/sign-in', apiSignIn);
-app.use('/api/register', apiRegister);
-app.use('/api/update-user', updateUser);
-app.use('/api/search-user', searchUser);
-app.use('/api/set-profile-pic', setProfilePic);
-
-// tab
-app.use('/api/tab', getAllTabs);
-app.use('/api/tab/findTabsById', findTabsById);
-app.use('/api/tab/findTabsByUser', findTabsByUser);
-app.use('/api/tab/createTab', createTab);
-app.use('/api/tab/deleteTab', deleteTab);
-app.use('/api/tab/updateTab', updateTab);
-
-// post
-app.use('/api/create-post', createPost);
-app.use('/api/get-post/by-user', getPostsForUser);
-app.use('/api/get-post/by-id', getPostById);
-app.use('/api/delete-post', deletePost);
-app.use('/api/update-post', updatePost);
-
-// group
 app.use('/api/join-group', joinGroup);
 app.use('/api/leave-group', leaveGroup);
 app.use('/api/get-group-posts', getGroupPosts);
@@ -173,23 +162,38 @@ app.use('/api/get-admin-status', getUserGroupAdminStatus);
 app.use('/api/update-group', updateGroup);
 app.use('/api/promote-user-in-group', promoteUser);
 
-// following/followers
+// followers/following
+let getFollowing = require('./routes/api/follower/getFollower').getFollowing(passport);
+let getFollowers = require('./routes/api/follower/getFollower').getFollowers(passport);
+let followUser = require('./routes/api/follower/followUser')(passport);
+let unfollowUser = require('./routes/api/follower/unfollowUser')(passport);
+
 app.use('/api/get-follower/following', getFollowing);
 app.use('/api/get-follower/followers', getFollowers);
 app.use('/api/follow-user', followUser);
 app.use('/api/unfollow-user', unfollowUser);
 
 // general
+let search = require('./routes/api/general/search')(passport);
+let newsfeed = require('./routes/api/general/newsfeed')(passport);
+
 app.use('/api/search', search);
 app.use('/api/newsfeed', newsfeed);
 
-// web
+
+
+/**
+ * Web Routes
+ */
+let webHome = require('./routes/web/home');
+let webAllTabs = require('./routes/web/tab/allTabs');
+let webCreateTab = require('./routes/web/tab/createTab');
+
 app.use('/web/home', webHome);
 app.use('/web/all-tabs', webAllTabs);
 app.use('/web/create-tab', webCreateTab);
 
-// const userTests = require('./tests/userTests');
-// userTests.testCompare();
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
