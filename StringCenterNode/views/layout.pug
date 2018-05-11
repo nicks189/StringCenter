@@ -14,7 +14,7 @@ html(lang="en")
     body(data-spy="scroll",data-target=".scrollspy")
         block nav
             nav.navbar.navbar-expand.navbar-dark(style="background-color: #333333;")
-                a.navbar-brand(href='#') StringCenter
+                a.navbar-brand(href='') StringCenter
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar_menu', aria-controls='navbarNavDropdown', aria-expanded='false', aria-label='Toggle navigation')
                     span.navbar-toggler-icon
                 #navbar_menu.navbar-collapse.collapse
@@ -33,7 +33,7 @@ html(lang="en")
                                 a.dropdown-item(href='/web/register') Register
                                 a.dropdown-item(href='/web/edit-account') Preferences
                         li.nav-item
-                            a.nav-link(href="/documentation") Documentation
+                            a.nav-link(href="/about") About
             br
         block content
         block footer

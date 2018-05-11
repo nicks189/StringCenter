@@ -16,15 +16,15 @@ tab for it at their fingertips.
 * The community aspect of StringCenter is a huge focus, hoping to 
 give users a chance to follow topics they are interested in. Right 
 when the user logs in they will see their newsfeed, with the latest 
-posts from both the users and the groups that they follow. 
+posts from both the users and the groups that they follow. In turn, 
+they can also direct posts to a group, spreading their post, and 
+potentially their tab, to everyone in the group.
     
-* In turn, they can also direct posts to a group, spreading their 
-post, and potentially their tab, to everyone in the group. 
-For the implementation of the application we decided to use 
-Dart with it’s Flutter framework on the frontend, providing us 
-with the ability to run the same code on both Android and IOS 
-devices. On the backend, we used Nodejs with it’s Express 
-framework as the server, utilizing JSONWebTokens for the 
-authentication. For the database that is accessed by the server, 
+* StringCenter features a mobile app using Dart and the Flutter 
+framework, providing us with the ability to runthe same code on 
+both Android and IOS devices. On the backend, we used Node.js with 
+it’s Express framework as the server, utilizing JSONWebTokens for 
+the authentication. For the database that is accessed by the server, 
 MongoDB with the Mongoose ORM was used, providing a fairly simple 
-NOSQL way to query the needed data. 
+NOSQL way to query the needed data. A web based client is currently 
+being developed with the AngularJS framework.
