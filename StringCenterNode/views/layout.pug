@@ -3,23 +3,40 @@ extends ../node_modules/pug-bootstrap/_bootstrap
 append head
 append body
     block nav
-        +navbar("StringCenter","dropdown_menu", "inverse")
-            if nav === "home"
-                +nav_item("/web/home", "active") Home
-            else
-                +nav_item("/web/home") Home
-            if nav === "all-tabs"
-                +nav_item("/web/all-tabs", "active") All Tabs
-            else
-                +nav_item("/web/all-tabs") All Tabs
-            if nav === "create-tab"
-                +nav_item("/web/create-tab", "active") Create Tab
-            else
-                +nav_item("/web/create-tab") Create Tab
-            if nav === "docs"
-                +nav_item("/documentation", "active") Documentation
-            else
-                +nav_item("/documentation") Documentation
+        nav.navbar.navbar-inverse(role='navigation')
+            .navbar-header
+                button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#nav_menu', aria-expanded='false', aria-controls='navbar')
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand StringCenter
+            #nav_menu.collapse.navbar-collapse.justify-content-between
+                ul.nav.navbar-nav
+                    li
+                        a(href='/web/home') Home
+                    li
+                        a(href='/web/all-tabs') All Tabs
+                    li
+                        a(href='/web/create-tab') Create Tab
+                    li
+                        a(href='/documentation') Documentation
+                ul.nav.navbar-nav
+                    li.dropdown
+                        a.dropdown-toggle(href='', data-toggle='dropdown', role='button', aria-expanded='false')
+                            | Account
+                            span.caret
+                        ul.dropdown-menu(role='menu')
+                            li
+                                a(href='sign-in') Sign in
+                            li
+                                a(href='sign-out') Sign out
+                            li
+                                a(href='register') Register
+                            li.divider
+                            li.dropdown-header Preferences
+                            li
+                                a(href='edit-account') Edit account
     block content
     block footer
 
