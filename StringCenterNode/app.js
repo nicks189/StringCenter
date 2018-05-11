@@ -60,8 +60,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // let register = require('./routes/demo/register')(passport);
 // let editAccount = require('./routes/demo/editAccount')(passport);
 
+// general routes
 // module documentation
-let docs = require('./routes/demo/documentation')(passport);
+let docs = require('./routes/general/documentation')(passport);
+let about = require('./routes/general/about')(passport);
 
 // api routes
 // user
@@ -126,8 +128,10 @@ let webCreateTab = require('./routes/web/tab/createTab');
 // app.use('/register', register);
 // app.use('/edit-account', editAccount);
 
+// general routes
 // module documentation
 app.use('/documentation', docs);
+app.use('/about', about);
 
 // api routes
 // user

@@ -6,7 +6,7 @@ module.exports = function(passport) {
 
     /* GET users listing. */
     router.get('/', function(req, res, next) {
-        res.render('general/documentation', {title: 'Documentation', nav: 'docs'});
+        res.render('general/about', {title: 'About', nav: 'about'});
     });
 
     return router;
