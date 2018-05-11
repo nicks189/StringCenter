@@ -1,42 +1,42 @@
-extends ../node_modules/pug-bootstrap/_bootstrap
+doctype html
+html(lang="en")
+    head
+        block head
+            meta(charset="UTF-8")
+            meta(http-equiv="X-UA-Compatible", content="IE=edge")
+            meta(name="viewport",content="width=device-width, initial-scale=1")
+            meta(name="description",content="")
+            meta(name="author",content="")
+            link(rel="icon",href="../../favicon.ico")
+            title= title
+            block styles
+                link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
+    body(data-spy="scroll",data-target=".scrollspy")
+        block nav
+            nav.navbar.navbar-expand.navbar-dark(style="background-color: #333333;")
+                a.navbar-brand(href='#') StringCenter
+                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar_menu', aria-controls='navbarNavDropdown', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbar_menu.navbar-collapse.collapse
+                    ul.navbar-nav.mr-auto
+                        li.nav-item
+                            a.nav-link(href='/web/home') Home
+                        li.nav-item
+                            a.nav-link(href='/web/all-tabs') Tabs
+                    ul.navbar-nav
+                        li.nav-item.dropdown
+                            a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                | Account
+                            .dropdown-menu(aria-labelledby='nav_menu')
+                                a.dropdown-item(href='/web/sign-in') Sign In
+                                a.dropdown-item(href='/web/sign-out') Sign Out
+                                a.dropdown-item(href='/web/register') Register
+                        li.nav-item
+                            a.nav-link(href="/documentation") Documentation
+            br
+        block content
+        block footer
 
-append head
-append body
-    block nav
-        nav.navbar.navbar-inverse(role='navigation')
-            .navbar-header
-                button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#nav_menu', aria-expanded='false', aria-controls='navbar')
-                    span.sr-only Toggle navigation
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand StringCenter
-            #nav_menu.collapse.navbar-collapse.justify-content-between
-                ul.nav.navbar-nav
-                    li
-                        a(href='/web/home') Home
-                    li
-                        a(href='/web/all-tabs') All Tabs
-                    li
-                        a(href='/web/create-tab') Create Tab
-                    li
-                        a(href='/documentation') Documentation
-                ul.nav.navbar-nav
-                    li.dropdown
-                        a.dropdown-toggle(href='', data-toggle='dropdown', role='button', aria-expanded='false')
-                            | Account
-                            span.caret
-                        ul.dropdown-menu(role='menu')
-                            li
-                                a(href='sign-in') Sign in
-                            li
-                                a(href='sign-out') Sign out
-                            li
-                                a(href='register') Register
-                            li.divider
-                            li.dropdown-header Preferences
-                            li
-                                a(href='edit-account') Edit account
-    block content
-    block footer
-
+        block scripts
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+            script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
