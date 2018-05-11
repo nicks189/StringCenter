@@ -1,8 +1,8 @@
 extends ../layout
 
 block content
-    h1(align='center') About StringCenter
     .jumbotron.container
+        h1(align='center') About StringCenter
         p StringCenter is a social media application that is centered around music, specifically guitars. StringCenter
             |  also allows users to do all of the expected social media activities, post to their page,
             | create a public page or group, post to a group, follow others, look at other’s posts, get their news
@@ -22,4 +22,11 @@ block content
             | server, MongoDB with the Mongoose ORM was used, providing a fairly simple NOSQL way to query the needed
             | data. A web based client is currently being developed with the AngularJS framework.
 
-        a(href='/documentation') Module Documentation
+        br
+        br
+        h5 Info:
+        ul
+            li
+                a(href='/documentation') Module Documentation
+            li
+                a(href='https://github.com/nicks189/StringCenter') Github
