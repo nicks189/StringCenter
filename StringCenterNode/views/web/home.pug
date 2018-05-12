@@ -1,65 +1,56 @@
 extends ../layout
+
+append head
+    append styles
+        link(rel='stylesheet' href='/stylesheets/home.css', type='text/css')
+
 block content
-    html(ng-app="home")
-        head
-            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
-            
-            //- attempt to use angular style setup, not done need browserify
-                script(src='/javascripts/angular/stringCenterApp.js')            
+    h1(align='center') StringCenter
+    div#sidenav.sidenav
+        a#tabs(href="#") Tabs
+        a#profile(href="#") Profile
+    div#page
+        div(ng-view)
+
+        script(type='text/ng-template' id='/home')
+            h3(align='center') Newsfeed
+            div(ng-repeat='p in formattedPosts')
+                div.post
+                    p.post-author Author: {{p.authorUsername}}
+                    p.post-groupName(ng-repeat='g in p.groupName') Group: {{p.groupName[$index]}}
+                    p.post-date {{p.date}}
+                    p.post-content {{p.content}}
+                    div.post-tab(align='center' id='$index' ng-repeat='tab in p.tab')
+                        a#viewTab.btn-default.btn-xs(align='right' ng-click='viewTab($parent.$index)' href='#!view-tab') View
+                        p.tab-head {{tab.tab_name}}
+                        p.tab-author Author: {{tab.author_username}}
+                        div(ng-repeat='m in tab.formattedMeasures track by $index')
+                            p.measure-info {{m.info}}
+                            div(ng-repeat='s in m.strings')
+                                p.tab-elem {{s}}
+        script(type='text/ng-template' id='/tabs')
+        script(type='text/ng-template' id='/profile')
+        script(type='text/ng-template' id='/view-tab')
+            div#tab.view-tab
+                p#viewTabHead {{tab.tab_name}}
+                p.tab-author Author: {{tab.author_username}}
+                div(ng-repeat='m in tab.formattedMeasures track by $index')
+                    p.measure-info {{m.info}}
+                    div(ng-repeat='s in m.strings')
+                        p.tab-elem {{s}}
+
+append scripts
+    script(src='/javascripts/home.js')
+
+//- attempt to use angular style setup, not done need browserify
+                script(src='/javascripts/angular/stringCenterApp.js')
                 script(src='/javascripts/angular/scripts/services/cookieService.js')
                 script(src='/javascripts/angular/scripts/services/signInService.js')
                 script(src='/javascripts/angular/scripts/services/utilService.js')
                 script(src='/javascripts/angular/scripts/services/newsfeedService.js')
                 script(src='/javascripts/angular/scripts/services/viewTabService.js')
-                
+
                 script(src='/javascripts/angular/scripts/controllers/homeCtrl.js')
                 script(src='/javascripts/angular/scripts/controllers/profileCtrl.js')
                 script(src='/javascripts/angular/scripts/controllers/tabCtrl.js')
                 script(src='/javascripts/angular/scripts/controllers/viewTabCtrl.js')
-                
-            script(src='/javascripts/home.js')
-            
-            
-            
-            
-            link(rel='stylesheet' href='/stylesheets/home.css', type='text/css')
-            
-            
-        body
-            h1(align='center') StringCenter
-            div#sidenav.sidenav
-                a#tabs(href="#") Tabs
-                a#profile(href="#") Profile 
-            div#page
-                div(ng-view)                
-                
-                script(type='text/ng-template' id='/home')
-                    h3(align='center') Newsfeed
-                    div(ng-repeat='p in formattedPosts')
-                        div.post
-                            p.post-author Author: {{p.authorUsername}}
-                            p.post-groupName(ng-repeat='g in p.groupName') Group: {{p.groupName[$index]}}
-                            p.post-date {{p.date}}                            
-                            p.post-content {{p.content}}
-                            div.post-tab(align='center' id='$index' ng-repeat='tab in p.tab')
-                                a#viewTab.btn-default.btn-xs(align='right' ng-click='viewTab($parent.$index)' href='#!view-tab') View 
-                                p.tab-head {{tab.tab_name}}
-                                p.tab-author Author: {{tab.author_username}}
-                                div(ng-repeat='m in tab.formattedMeasures track by $index') 
-                                    p.measure-info {{m.info}}
-                                    div(ng-repeat='s in m.strings') 
-                                        p.tab-elem {{s}}
-                script(type='text/ng-template' id='/tabs')
-                script(type='text/ng-template' id='/profile')
-                script(type='text/ng-template' id='/view-tab')
-                    div#tab.view-tab
-                        p#viewTabHead {{tab.tab_name}}
-                        p.tab-author Author: {{tab.author_username}}
-                        div(ng-repeat='m in tab.formattedMeasures track by $index') 
-                            p.measure-info {{m.info}}
-                            div(ng-repeat='s in m.strings') 
-                                p.tab-elem {{s}}
-                
-                

@@ -1,5 +1,5 @@
 doctype html
-html(lang="en")
+html(lang="en", ng-app="StringCenter")
     head
         block head
             meta(charset="UTF-8")
@@ -11,7 +11,8 @@ html(lang="en")
             title= title
             block styles
                 link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
-    body(data-spy="scroll",data-target=".scrollspy")
+
+    body(data-spy="scroll", data-target=".scrollspy")
         block nav
             nav.navbar.navbar-expand.navbar-dark(style="background-color: #333333;")
                 a.navbar-brand(href='') StringCenter
@@ -23,6 +24,8 @@ html(lang="en")
                             a.nav-link(href='/web/home') Home
                         li.nav-item
                             a.nav-link(href='/web/all-tabs') Tabs
+                        li.nav-item
+                            a.nav-link(href='/web/create-tab') Create Tab
                     ul.navbar-nav
                         li.nav-item.dropdown
                             a.nav-link.dropdown-toggle(href='', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
@@ -37,7 +40,11 @@ html(lang="en")
             br
         block content
         block footer
+            .footer.navbar-fixed-bottom.text-center
+                p @Copyright 2018 StringCenter
 
         block scripts
-            script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
             script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")

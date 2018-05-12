@@ -1,4 +1,4 @@
-var app = angular.module('tab', ["ngRoute"]);
+var app = angular.module('StringCenter', ["ngRoute"]);
 
 app.config(['$httpProvider', function($httpProvider) {
     delete $httpProvider.defaults.headers.common["X-Requested-With"]

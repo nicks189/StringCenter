@@ -1,32 +1,32 @@
 extends ../../layout
+
+append head
+    append styles
+        link(rel='stylesheet', href='/stylesheets/tab/tab.css', type='text/css' )
+
 block content
-    html(ng-app="tab")
-        head
-            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
-            script(src="/javascripts/tab/allTabs.js")
-            link(rel='stylesheet', href='/stylesheets/tab/tab.css', type='text/css' )
-        
-        body(style='margin-bottom:30px float: none; margin: 0 auto;')
-            div(ng-view)
-            script(type='text/ng-template' id='/all-tabs')
-                div#tabs.tabs
-                    h1#title(align='center') Tabs
-                    div.tab(id='$index' ng-repeat='tab in tabs')
-                        a#viewTab.btn-default.btn-xs(align='right' ng-click='view($index)' href='#!view-tab') View 
-                        p.tab-head {{tab.tab_name}}
-                        p.author Author: {{tab.author_username}}
-                        div(ng-repeat='m in tab.formattedMeasures track by $index') 
-                            p.measure-info {{m.info}}
-                            div(ng-repeat='s in m.strings') 
-                                p.tab-elem {{s}}
-            script(type='text/ng-template' id='/view-tab')
-                div#tab.view-tab
+    body(style='margin-bottom:30px float: none; margin: 0 auto;')
+        div(ng-view)
+        script(type='text/ng-template' id='/all-tabs')
+            div#tabs.tabs
+                h1#title(align='center') Tabs
+                div.tab(id='$index' ng-repeat='tab in tabs')
+                    a#viewTab.btn-default.btn-xs(align='right' ng-click='view($index)' href='#!view-tab') View
                     p.tab-head {{tab.tab_name}}
                     p.author Author: {{tab.author_username}}
-                    div(ng-repeat='m in tab.formattedMeasures track by $index') 
+                    div(ng-repeat='m in tab.formattedMeasures track by $index')
                         p.measure-info {{m.info}}
-                        div(ng-repeat='s in m.strings') 
+                        div(ng-repeat='s in m.strings')
                             p.tab-elem {{s}}
-                            
+        script(type='text/ng-template' id='/view-tab')
+            div#tab.view-tab
+                p.tab-head {{tab.tab_name}}
+                p.author Author: {{tab.author_username}}
+                div(ng-repeat='m in tab.formattedMeasures track by $index')
+                    p.measure-info {{m.info}}
+                    div(ng-repeat='s in m.strings')
+                        p.tab-elem {{s}}
+
+append scripts
+    script(src="/javascripts/tab/allTabs.js")
+
