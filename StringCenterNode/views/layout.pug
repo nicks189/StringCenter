@@ -10,7 +10,8 @@ html(lang="en", ng-app="StringCenter")
             link(rel="icon",href="../../favicon.ico")
             title= title
             block styles
-                link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
+                link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css")
+                link(rel='stylesheet', href='/stylesheets/style.css', type='text/css' )
 
     body(data-spy="scroll", data-target=".scrollspy")
         block nav
@@ -40,11 +41,11 @@ html(lang="en", ng-app="StringCenter")
             br
         block content
         block footer
-            .footer.navbar-fixed-bottom.text-center
+            .footer.text-center
                 p @Copyright 2018 StringCenter
 
         block scripts
-            script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+            script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js")
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js")
             script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js")
-            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
