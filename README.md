@@ -21,7 +21,7 @@ they can also direct posts to a group, spreading their post, and
 potentially their tab, to everyone in the group.
     
 * StringCenter features a mobile app using Dart and the Flutter 
-framework, providing us with the ability to runthe same code on 
+framework, providing us with the ability to run the same code on 
 both Android and IOS devices. On the backend, we used Node.js with 
 it’s Express framework as the server, utilizing JSONWebTokens for 
 the authentication. For the database that is accessed by the server, 
