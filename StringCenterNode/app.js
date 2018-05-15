@@ -79,9 +79,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // module documentation
 let docs = require('./routes/general/documentation')(passport);
 let about = require('./routes/general/about')(passport);
+let index = require('./routes/general/index')(passport);
 
 app.use('/documentation', docs);
 app.use('/about', about);
+app.use('/', index);
 
 
 
